@@ -8,7 +8,7 @@
 **Semester:** Fall 2026  
 **Instructor:** Yen-Chieh Liao 廖彥傑
 
-Start with the course syllabus and schedule, then use the table below to view each week's slides (HTML or PDF) or download the editable source files (Source ZIP). For Week 2 practice, download and extract the lab ZIP, then follow the Lab instructions. The lab is ungraded self-study; no submission is required.
+Use the table below to view the slides (HTML or PDF) or download their editable source files (Source ZIP). For lab practice, download and extract the complete lab ZIP, then follow the Lab instructions. Labs are for ungraded self-study; no submission is required.
 
 [Course syllabus (PDF)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/NTLDEV_7191_1151.pdf)
 
