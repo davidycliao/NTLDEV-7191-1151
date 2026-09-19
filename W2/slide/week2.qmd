@@ -3,7 +3,7 @@ title: "Text Preparation in R and Python: Collaborative Workflow"
 subtitle: "QTA principles, cleaning, tokens, and document-feature matrices"
 author: "Yen-Chieh Liao 廖彥傑"
 date: "2026-09-18"
-date-format: "YYYY-MM-DD[<span class='compile-time'>Last compiled: `r format(Sys.time(), '%Y-%m-%d %H:%M:%S', tz='Asia/Taipei')` (Asia/Taipei)</span>]"
+date-format: "YYYY-MM-DD[<span class='compile-time'>Fall 2026 (115-1) · National Taiwan University (GIND)<br>NTLDEV 7191 · Fri. 16:30–18:20 · 國發 204<br>Last compiled: `r format(Sys.time(), '%Y-%m-%d %H:%M:%S', tz='Asia/Taipei')` (Asia/Taipei)</span>]"
 format:
   revealjs:
     output-file: week2.html

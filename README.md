@@ -15,8 +15,8 @@
 
 | Week | Slides | Lab |
 | :---: | :--- | :--- |
-| Week 1 | [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/%EF%BC%B71/slide/week1.html#1) · [Student QMD](Ｗ1/slide/week1.qmd) | No lab |
-| Week 2 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Student QMD](W2/slide/week2.qmd) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab instructions](W2/lab/README.md) · [R](W2/lab/Lab_Session_W2.R) · [Quarto file](W2/lab/Lab_Session_W2.qmd) · [Data](W2/lab/Data/hc_sample_1945_2025.rds) · [Answer key](W2/lab/Lab_Session_W2_Answers.md) |
+| Week 1 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](Ｗ1/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/%EF%BC%B71/slide/week1.html#1) |  |
+| Week 2 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab instructions](W2/lab/README.md) · [R](W2/lab/Lab_Session_W2.R) · [Quarto file](W2/lab/Lab_Session_W2.qmd) · [Data](W2/lab/Data/hc_sample_1945_2025.rds) · [Answer key](W2/lab/Lab_Session_W2_Answers.md) |
 
 ## Course Schedule
 
@@ -26,7 +26,7 @@ Introduces the basic concepts of quantitative text analysis and natural language
 
 ### Week 2: Text Preparation in R and Python: Collaborative Workflow
 
-Covers the use of R and Python for text analysis, sets up development environments (RStudio and Positron), and establishes a GitHub-based coding workflow with written coursework submitted through shared Overleaf projects. Introduces supplied corpora and a basic data-feasibility checklist for students' research projects.
+Covers the use of R and Python for text analysis and sets up development environments (RStudio and Positron). Introduces supplied corpora and a basic data-feasibility checklist for students' research projects.
 
 ### Week 3: Mid-Autumn Festival (No Class)
 
