@@ -8,6 +8,8 @@
 **Semester:** Fall 2026  
 **Instructor:** Yen-Chieh Liao 廖彥傑
 
+**Office hours:** [Instructor](https://calendly.com/ycliao/text-as-data-instructor?month=2026-09) · [TA (Matt Lee)](https://calendly.com/ycliao/text-as-data-ta?month=2026-09)
+
 Use the table below to view the slides (HTML or PDF) or download the editable source files (Source ZIP) to compile the slides yourself. For lab practice, download the lab ZIP file, extract it, and follow the lab instructions.
 
 [Course syllabus (PDF)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/NTLDEV_7191_1151.pdf)
