@@ -1,5 +1,6 @@
-/* Adapted from ../../week02/w1-course-intro.css for this lecture. */
+/* Shared course theme for the Week 1 and Week 2 Reveal.js lectures. */
 :root {
+  --course-slide-gutter: 32px;
   --course-blue: #0271bb;
   --course-red: #e2021a;
   --course-slate: #314f4f;
@@ -13,7 +14,7 @@
 .reveal {
   font-family: "Source Sans Pro", "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
   color: var(--course-ink);
-  font-size: 36px;
+  font-size: 38px;
 }
 
 .reveal h1,
@@ -48,7 +49,7 @@
 .reveal .slides section:not(#title-slide) {
   box-sizing: border-box;
   top: 0 !important;
-  padding: 40px 48px 24px;
+  padding: 28px var(--course-slide-gutter) 24px;
 }
 
 .reveal #title-slide {
@@ -57,7 +58,7 @@
   text-align: left;
   height: 100%;
   min-height: 100%;
-  padding: 0 11.5%;
+  padding: 0 var(--course-slide-gutter);
   overflow: hidden;
   top: 0 !important;
 }
@@ -66,8 +67,8 @@
   content: "";
   position: absolute;
   top: 58.5%;
-  left: 11.5%;
-  right: 11.5%;
+  left: var(--course-slide-gutter);
+  right: var(--course-slide-gutter);
   height: 2px;
   background: #d9e3df;
 }
@@ -75,7 +76,7 @@
 .reveal #title-slide::after {
   content: "";
   position: absolute;
-  right: 11.5%;
+  right: var(--course-slide-gutter);
   top: 61.6%;
   width: 220px;
   height: 102px;
@@ -90,8 +91,9 @@
 .reveal #title-slide h1.title {
   position: absolute;
   top: 24%;
-  left: 11.5%;
-  width: 77%;
+  left: var(--course-slide-gutter);
+  right: var(--course-slide-gutter);
+  width: auto;
   color: var(--course-slate);
   font-size: 1.45em;
   font-weight: 700;
@@ -103,10 +105,11 @@
 .reveal #title-slide .subtitle {
   position: absolute;
   top: 44.5%;
-  left: 11.5%;
-  width: 77%;
+  left: var(--course-slide-gutter);
+  right: var(--course-slide-gutter);
+  width: auto;
   color: var(--course-green);
-  font-size: 0.94em;
+  font-size: 0.92em;
   font-weight: 600;
   line-height: 1.3;
   margin: 0;
@@ -115,7 +118,7 @@
 
 .reveal #title-slide .quarto-title-authors {
   position: absolute;
-  left: 11.5%;
+  left: var(--course-slide-gutter);
   top: 63.5%;
   display: block;
   margin: 0;
@@ -144,7 +147,7 @@
 
 .reveal #title-slide .date {
   position: absolute;
-  left: 11.5%;
+  left: var(--course-slide-gutter);
   top: 70.2%;
 }
 
@@ -178,6 +181,16 @@
 .reveal strong {
   color: var(--course-slate);
 }
+
+/* Shared emphasis styles for course prose, independent of the slide engine. */
+.reveal .accent-slate, .reveal .accent-slate strong { color: var(--course-slate); font-weight: 600; }
+.reveal .accent-green, .reveal .accent-green strong { color: var(--course-green); font-weight: 600; }
+.reveal .accent-blue, .reveal .accent-blue strong { color: var(--course-blue); font-weight: 600; }
+.reveal .accent-purple, .reveal .accent-purple strong { color: #665684; font-weight: 600; }
+.reveal .accent-red, .reveal .accent-red strong { color: var(--course-red); font-weight: 600; }
+.reveal .muted { color: var(--course-muted); }
+.reveal .lead { font-size: 1.08em; }
+.reveal .fine-print { font-size: 0.88em; }
 
 .reveal table {
   width: 100%;
@@ -272,7 +285,7 @@
    Reveal unloads distant slides with display:none; retain that behavior. */
 .reveal .slides section.slide.level2:not(#title-slide) {
   height: 100%;
-  padding-bottom: 78px;
+  padding-bottom: 64px;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr);
 }
@@ -298,16 +311,69 @@
 .reveal .slides section.slide.level2 > .slide-body > :last-child { margin-bottom: 0; }
 .reveal .slides section.slide.level2 > .source {
   position: absolute;
-  left: 48px;
-  right: 48px;
+  left: var(--course-slide-gutter);
+  right: var(--course-slide-gutter);
   bottom: 30px;
   margin: 0;
 }
 
+/* This dense overview reserves a separate row for its author-year citation. */
+.reveal .slides section.slide.level2#beyond-2017-annotation-and-embeddings {
+  padding-bottom: 30px;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+.reveal .slides section.slide.level2#beyond-2017-annotation-and-embeddings > .source {
+  position: static;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  grid-column: 1;
+  grid-row: 3;
+  align-self: end;
+  margin-top: 24px;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.reveal #beyond-2017-annotation-and-embeddings .slide-body > .small:last-child {
+  margin-top: 18px;
+}
+.reveal #beyond-2017-annotation-and-embeddings .slide-body > .small:last-child p {
+  margin: 10px 0 0;
+}
+.reveal #beyond-2017-annotation-and-embeddings table th,
+.reveal #beyond-2017-annotation-and-embeddings table td {
+  padding-top: 0.24em;
+  padding-bottom: 0.24em;
+}
+
 /* Paper title windows keep the supplied screenshots intact. */
-.reveal .paper-applications .paper-entry { font-size: 20px; line-height: 1.2; }
+.reveal .paper-applications .paper-entry { font-size: 21px; line-height: 1.2; }
 .reveal .paper-applications .paper-entry p { margin: 0 0 8px; line-height: 1.2; }
 .reveal .paper-applications .columns { margin-bottom: 20px; }
 .reveal .paper-preview { position: relative; height: 80px; width: 100%; margin-bottom: 8px; }
 .reveal .paper-window { position: absolute; width: 100%; overflow: hidden; }
 .reveal .paper-preview img { position: absolute; max-width: none; max-height: none; margin: 0; display: block; }
+
+/* Four complete poster previews on a single teaching slide. */
+.reveal .poster-examples .poster-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 32px;
+}
+.reveal .poster-examples .poster-card { margin: 0; min-width: 0; }
+.reveal .poster-examples .poster-card img {
+  display: block;
+  width: 100%;
+  height: 214px;
+  max-width: 100%;
+  max-height: none;
+  margin: 0;
+  object-fit: contain;
+}
+.reveal .poster-examples .poster-card figcaption {
+  margin: 7px 0 0;
+  color: var(--course-muted);
+  font-size: 18px;
+  line-height: 1.2;
+  text-align: center;
+}

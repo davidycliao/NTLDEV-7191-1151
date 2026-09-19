@@ -2,6 +2,12 @@
 .DS_Store
 __pycache__/
 
+# RStudio session state and local R workspace files.
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
 # Keep Grimmer 2022 book and chapter PDFs local (copyright).
 [Gg]rimmer*2022*.[Pp][Dd][Ff]
 
@@ -10,11 +16,16 @@ __pycache__/
 !**/slide/*.[Hh][Tt][Mm][Ll]
 !**/slide/*.[Pp][Dd][Ff]
 
-# Reviewed Week 2 student source, render dependencies, and download bundle.
-!W2/slide/week1.qmd
-!W2/slide/text-preparation.css
-!W2/slide/tokenization-comparison.css
-!W2/slide/week1-student-source.zip
+# Reviewed student sources without presenter notes.
+!Ｗ1/slide/week1.qmd
+!W2/slide/week2.qmd
+
+# Retain the Week 1 R Markdown source locally only.
+Ｗ1/slide/week1.Rmd
+
+# Keep the existing local-only lecture build tools private after relocation.
+W2/scripts/
+Ｗ1/scripts/
 
 # Presenter sources and builds stay local.
 **/slide/*-presenter.[Qq][Mm][Dd]

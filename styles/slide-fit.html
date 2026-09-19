@@ -1,0 +1,147 @@
+<script>
+(() => {
+  'use strict';
+  const original = new WeakMap();
+  const warned = new WeakSet();
+  const bodyProperties = ['font-size', 'max-height', 'min-height', 'overflow-y', 'box-sizing', 'align-self'];
+  const mediaProperties = ['width', 'height', 'max-width', 'max-height'];
+  const number = value => parseFloat(value) || 0;
+
+  // Restore only our own properties, retaining authored styles and Reveal state.
+  function reset(element, properties) {
+    if (!original.has(element)) {
+      original.set(element, properties.map(name =>
+        [name, element.style.getPropertyValue(name), element.style.getPropertyPriority(name)]));
+    }
+    original.get(element).forEach(([name, value, priority]) => {
+      if (value) element.style.setProperty(name, value, priority);
+      else element.style.removeProperty(name);
+    });
+  }
+
+  function measureHidden(slide, action) {
+    const saved = [];
+    for (let node = slide; node && !node.classList.contains('reveal'); node = node.parentElement) {
+      if (node === slide || getComputedStyle(node).display === 'none') {
+        saved.push([node, node.getAttribute('style')]);
+        node.style.setProperty('visibility', 'hidden', 'important');
+        node.style.setProperty('display', node.matches('section.slide.level2') ? 'grid' : 'block', 'important');
+      }
+    }
+    try { action(); }
+    finally {
+      saved.reverse().forEach(([node, style]) => {
+        if (style === null) node.removeAttribute('style');
+        else node.setAttribute('style', style);
+      });
+    }
+  }
+
+  function fit(slide) {
+    const body = slide.querySelector(':scope > .slide-body');
+    const heading = slide.querySelector(':scope > h2');
+    if (!body || !heading) return;
+    measureHidden(slide, () => {
+      reset(body, bodyProperties);
+      const media = [...body.querySelectorAll('img, svg')].filter(element =>
+        !element.parentElement.closest('svg') && !['absolute', 'fixed'].includes(getComputedStyle(element).position));
+      media.forEach(element => reset(element, mediaProperties));
+      const css = getComputedStyle(slide);
+      const rows = css.gridTemplateRows.split(/\s+/).map(number);
+      const rowTop = number(css.paddingTop) + rows[0] + number(css.rowGap);
+      let available = rows[1];
+      if (!(available > 0) || !slide.offsetHeight) return;
+      const source = slide.querySelector(':scope > .source');
+      if (source && getComputedStyle(source).position === 'absolute') {
+        const scale = slide.getBoundingClientRect().height / slide.offsetHeight;
+        const footerTop = (source.getBoundingClientRect().top - slide.getBoundingClientRect().top) / scale;
+        available = Math.min(available, footerTop - rowTop - 8);
+        if (available < rows[1]) body.style.alignSelf = 'start';
+      }
+      available = Math.max(1, available);
+      const height = () => Math.max(body.offsetHeight, body.scrollHeight);
+      const overflows = () => height() > available + 1;
+
+      if (overflows()) {
+        const baseline = number(getComputedStyle(body).fontSize);
+        const samples = [...body.querySelectorAll('p, li, td, th, h3')];
+        if (!samples.length) samples.push(body);
+        const sizes = samples.map(element => number(getComputedStyle(element).fontSize));
+        // Probe inheritance so an authored fixed-size child does not set the floor.
+        body.style.fontSize = `${baseline * 0.99}px`;
+        let minimum = baseline * 0.65;
+        samples.forEach((element, index) => {
+          if (number(getComputedStyle(element).fontSize) < sizes[index] - 0.01) {
+            minimum = Math.max(minimum, baseline * Math.min(1, 20 / sizes[index]));
+          }
+        });
+        body.style.fontSize = `${minimum}px`;
+        if (!overflows()) {
+          let low = minimum, high = baseline;
+          for (let step = 0; step < 8; step++) {
+            const middle = (low + high) / 2;
+            body.style.fontSize = `${middle}px`;
+            if (overflows()) high = middle;
+            else low = middle;
+          }
+          body.style.fontSize = `${low}px`;
+        }
+      }
+
+      // Reduce only overflowing, in-flow media, preserving their displayed ratio.
+      for (let pass = 0; pass < 4 && overflows() && media.length; pass++) {
+        const scale = slide.getBoundingClientRect().height / slide.offsetHeight;
+        const boxes = media.map(element => element.getBoundingClientRect());
+        const total = boxes.reduce((sum, box) => sum + box.height / scale, 0);
+        if (!total) break;
+        const ratio = Math.max(0.2, 1 - (height() - available + 1) / total);
+        media.forEach((element, index) => {
+          if (!boxes[index].height) return;
+          element.style.width = `${boxes[index].width / scale * ratio}px`;
+          element.style.height = `${boxes[index].height / scale * ratio}px`;
+          element.style.maxWidth = '100%';
+          element.style.maxHeight = `${available}px`;
+        });
+      }
+
+      const overflowing = overflows();
+      slide.dataset.layoutOverflow = String(overflowing);
+      if (overflowing) {
+        body.style.boxSizing = 'border-box';
+        body.style.minHeight = '0';
+        body.style.maxHeight = `${available}px`;
+        body.style.overflowY = 'auto';
+        if (!warned.has(slide)) {
+          console.warn(`[slide-fit] ${slide.id || 'Unnamed slide'} still exceeds its body area; vertical scrolling enabled.`);
+          warned.add(slide);
+        }
+      } else warned.delete(slide);
+    });
+  }
+
+  let pending = false;
+  function schedule() {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      document.querySelectorAll('.reveal .slides section.slide.level2:not(#title-slide)').forEach(fit);
+    });
+  }
+  function initialize() {
+    if (window.Reveal) {
+      ['ready', 'resize', 'slidechanged'].forEach(event => Reveal.on(event, schedule));
+      if (Reveal.isReady()) schedule();
+    }
+    document.querySelector('.reveal')?.addEventListener('load', event => {
+      if (event.target.tagName === 'IMG') schedule();
+    }, true);
+    window.addEventListener('load', schedule);
+    window.addEventListener('resize', schedule);
+    if (document.fonts) document.fonts.ready.then(schedule);
+    schedule();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialize, { once: true });
+  else initialize();
+})();
+</script>

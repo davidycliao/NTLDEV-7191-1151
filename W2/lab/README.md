@@ -1,6 +1,6 @@
-# Take-home lab
+# Self-study lab
 
-Complete this lab independently at home: work through the examples, then attempt the **11 practice exercises**. Questions can be discussed **before class if time permits, or during TA hours**. In class, we only check the setup and open the first section.
+This lab provides **ungraded self-study practice; no submission is required**. Work through the examples independently at home, then attempt the **11 practice exercises**. Questions can be discussed **before class if time permits, or during TA hours**. In class, we only check the setup and open the first section.
 
 The lab uses a supplied sample of **5,000 House of Commons speech contributions from 1945–2025**. No earlier lab is required; the data and variables needed for this exercise are provided here.
 

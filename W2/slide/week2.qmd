@@ -6,12 +6,12 @@ date: "2026-09-18"
 date-format: "YYYY-MM-DD[<span class='compile-time'>Last compiled: `r format(Sys.time(), '%Y-%m-%d %H:%M:%S', tz='Asia/Taipei')` (Asia/Taipei)</span>]"
 format:
   revealjs:
-    output-file: week1.html
+    output-file: week2.html
     theme: default
-    css: [text-preparation.css, tokenization-comparison.css]
+    css: [../../styles/text-preparation.css, ../../styles/tokenization-comparison.css]
     width: 1050
     height: 700
-    margin: 0.1
+    margin: 0.04
     center: false
     transition: none
     background-transition: none
@@ -182,7 +182,7 @@ Schoonvelde (2026); Welbers et al. (2017)
 :::::: {.slide-body}
 
 ```{=html}
-<div class="source-crop table-crop"><img src="../image/welbers2017-table1-figure1.png" alt="Table 1 from Text Analysis in R: operations, example packages and alternatives, grouped into data preparation, analysis and advanced topics."></div>
+<div class="source-crop table-crop"><img src="../../image/welbers2017-table1-figure1.png" alt="Table 1 from Text Analysis in R: operations, example packages and alternatives, grouped into data preparation, analysis and advanced topics."></div>
 ```
 
 ::: {.small}
@@ -208,9 +208,11 @@ Welbers et al. (2017)
 | **Flair**: R `reticulate` + Python<br>(`flaiR`; Liao et al., 2023) | Contextual string embeddings or Transformer embeddings | Word/document vectors; models for NER, tagging and classification |
 :::
 
+::: {.small}
 **FlairEmbeddings** uses character language models; **TransformerWordEmbeddings** uses models such as BERT.
 
 R can prepare text, call these tools, and analyze the returned annotations or vectors.
+:::
 
 ::::::
 
@@ -310,7 +312,7 @@ In 2022, **RStudio the company became Posit**, reflecting its broader support fo
 :::
 ::: {.column width="50%"}
 
-![](../image/positron-layout.png){fig-alt="Annotated Positron layout showing its editor, console panel and sidebars, with a Python session and plot."}
+![](../../image/positron-layout.png){fig-alt="Annotated Positron layout showing its editor, console panel and sidebars, with a Python session and plot."}
 
 ::: {.small}
 Our classroom examples use R.
@@ -331,7 +333,7 @@ Posit (2022, n.d.); Altman (2025)
 :::::: {.slide-body}
 
 ```{=html}
-<div class="source-crop figure-crop"><img src="../image/welbers2017-table1-figure1.png" alt="Figure 1: files and web pages become an R text corpus, then tokens, then DTM, tokenlist or other representations, and finally results."></div>
+<div class="source-crop figure-crop"><img src="../../image/welbers2017-table1-figure1.png" alt="Figure 1: files and web pages become an R text corpus, then tokens, then DTM, tokenlist or other representations, and finally results."></div>
 ```
 
 **The branch matters:** analysis can use a matrix, token positions, or other representations.
@@ -1223,7 +1225,7 @@ Straka & Straková (2017)
 ::: {.column width="50%"}
 ### Dependency relations
 
-![](../image/thai_dependency_diagram.svg){fig-alt="Actual Thai dependency tree: ROOT points to ชอบ (VERB, like). ชอบ points to ฉัน (PRON, I) with nsubj and to กาแฟ (NOUN, coffee) with obj."}
+![](../../image/thai_dependency_diagram.svg){fig-alt="Actual Thai dependency tree: ROOT points to ชอบ (VERB, like). ชอบ points to ฉัน (PRON, I) with nsubj and to กาแฟ (NOUN, coffee) with obj."}
 
 ::: {.graph-note}
 Arrows run from head to dependent.
@@ -1286,7 +1288,7 @@ Benoit et al. (2018); Wijffels & Straka (2026)
 :::::: {.slide-body}
 
 ::: {.token-dfm-figure}
-![](../image/token_to_dfm_diagram.svg){fig-alt="Two synthetic documents, A: Workers support reform; B: Workers oppose reform, feed three DFM routes. Word counts retain workers, support, reform, oppose. Keeping NOUN tokens retains workers and reform, making both document rows identical. A dictionary maps support or endorse to PRO and oppose or reject to CON, producing A: PRO 1 CON 0 and B: PRO 0 CON 1. Rows are documents, columns are chosen features, and cells are counts. POS tags are hand-labelled illustrations."}
+![](../../image/token_to_dfm_diagram.svg){fig-alt="Two synthetic documents, A: Workers support reform; B: Workers oppose reform, feed three DFM routes. Word counts retain workers, support, reform, oppose. Keeping NOUN tokens retains workers and reform, making both document rows identical. A dictionary maps support or endorse to PRO and oppose or reject to CON, producing A: PRO 1 CON 0 and B: PRO 0 CON 1. Rows are documents, columns are chosen features, and cells are counts. POS tags are hand-labelled illustrations."}
 :::
 
 ::::::
@@ -1506,8 +1508,8 @@ Benoit et al. (2018); Slapin & Proksch (2008); Laver et al. (2003); Blei et al. 
 **STM** [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103)
 
 <div class="paper-preview" data-crop="0,0,1684,755" data-height="250" style="height:250px">
-<div class="paper-window" style="width:459.000px;height:205.787px;left:-0.000px;top:22.107px">
-<img src="../image/roberts_2014_stm_paper.png" alt="Paper screenshot: Roberts et al. (2014)" style="width:100.000000%;left:0.000000%;top:0.000px">
+<div class="paper-window" style="width:475.000px;height:212.960px;left:0.000px;top:18.520px">
+<img src="../../image/roberts_2014_stm_paper.png" alt="Paper screenshot: Roberts et al. (2014)" style="width:100.000000%;left:-0.000000%;top:-0.000px">
 </div>
 </div>
 
@@ -1522,8 +1524,8 @@ Compare themes in survey responses across respondent groups.
 **keyATM** [Eshima et al. (2024)](https://doi.org/10.1111/ajps.12779)
 
 <div class="paper-preview" data-crop="15,20,1385,455" data-height="250" style="height:250px">
-<div class="paper-window" style="width:459.000px;height:150.791px;left:0.000px;top:49.605px">
-<img src="../image/eshima_2024_keyatm_paper.png" alt="Paper screenshot: Eshima et al. (2024)" style="width:102.382671%;left:-1.083032%;top:-6.628px">
+<div class="paper-window" style="width:475.000px;height:156.047px;left:0.000px;top:46.977px">
+<img src="../../image/eshima_2024_keyatm_paper.png" alt="Paper screenshot: Eshima et al. (2024)" style="width:102.382671%;left:-1.083032%;top:-6.859px">
 </div>
 </div>
 
@@ -1552,8 +1554,8 @@ Use selected keywords to guide topics and study policy attention.
 **Wordfish** [Slapin & Proksch (2008)](https://doi.org/10.1111/j.1540-5907.2008.00338.x)
 
 <div class="paper-preview" data-crop="0,0,1430,465" data-height="250" style="height:250px">
-<div class="paper-window" style="width:459.000px;height:149.255px;left:0.000px;top:50.372px">
-<img src="../image/slapin_proksch_2008_wordfish_paper.png" alt="Paper screenshot: Slapin &amp; Proksch (2008)" style="width:100.000000%;left:0.000000%;top:0.000px">
+<div class="paper-window" style="width:475.000px;height:154.458px;left:-0.000px;top:47.771px">
+<img src="../../image/slapin_proksch_2008_wordfish_paper.png" alt="Paper screenshot: Slapin &amp; Proksch (2008)" style="width:100.000000%;left:-0.000000%;top:-0.000px">
 </div>
 </div>
 
@@ -1568,8 +1570,8 @@ Estimate relative party positions from manifesto word counts.
 **Wordscores** [Lowe (2008)](https://doi.org/10.1093/pan/mpn004)
 
 <div class="paper-preview" data-crop="395,38,1000,300" data-height="250" style="height:250px">
-<div class="paper-window" style="width:459.000px;height:137.700px;left:0.000px;top:56.150px">
-<img src="../image/lowe_2008_wordscores_paper.png" alt="Paper screenshot: Lowe (2008)" style="width:142.800000%;left:-39.500000%;top:-17.442px">
+<div class="paper-window" style="width:475.000px;height:142.500px;left:0.000px;top:53.750px">
+<img src="../../image/lowe_2008_wordscores_paper.png" alt="Paper screenshot: Lowe (2008)" style="width:142.800000%;left:-39.500000%;top:-18.050px">
 </div>
 </div>
 
@@ -1594,7 +1596,7 @@ Position new texts using reference texts with known scores.
 
 :::: {.column width="50%"}
 
-![](../image/slapin_proksch_2008_figure1a.png){fig-alt="Original Figure 1A from Slapin and Proksch (2008): estimated positions of PDS, Greens, SPD, CDU/CSU, and FDP at five German elections from 1990 to 2005. Higher values indicate the left in the authors' orientation. No uncertainty intervals are plotted."}
+![](../../image/slapin_proksch_2008_figure1a.png){fig-alt="Original Figure 1A from Slapin and Proksch (2008): estimated positions of PDS, Greens, SPD, CDU/CSU, and FDP at five German elections from 1990 to 2005. Higher values indicate the left in the authors' orientation. No uncertainty intervals are plotted."}
 
 ::::
 
@@ -1626,8 +1628,8 @@ Position new texts using reference texts with known scores.
 :::::: {.slide-body}
 
 <div class="paper-preview" data-crop="0,0,1455,843" data-height="394" style="height:394px">
-<div class="paper-window" style="width:680.036px;height:394px;left:136.982px;top:0px">
-<img src="../image/wordscores_application_figure.png" alt="Original Figure 3 from Laver et al. (2003): standardized Wordscores for Irish confidence-debate speeches by party and ministerial status. Higher scores indicate greater support for the government. Boxes summarize group distributions, not confidence intervals." style="width:100%;left:0;top:0">
+<div class="paper-window" style="width:680.036px;height:394.000px;left:152.982px;top:0.000px">
+<img src="../../image/wordscores_application_figure.png" alt="Original Figure 3 from Laver et al. (2003): standardized Wordscores for Irish confidence-debate speeches by party and ministerial status. Higher scores indicate greater support for the government. Boxes summarize group distributions, not confidence intervals." style="width:100.000000%;left:-0.000000%;top:-0.000px">
 </div>
 </div>
 
@@ -1655,8 +1657,8 @@ Higher scores indicate greater support for the government.
 **Text similarity** [Blumenau (2021)](https://doi.org/10.1017/S0007123419000334)
 
 <div class="paper-preview" data-crop="0,0,2036,704" data-height="180" style="height:180px">
-<div class="paper-window" style="width:459.000px;height:158.711px;left:0.000px;top:10.644px">
-<img src="../image/blumenau_2021_paper_title.png" alt="Cambridge article webpage screenshot: Blumenau (2021), first published online in 2019" style="width:100.000000%;left:0.000000%;top:0.000px">
+<div class="paper-window" style="width:475.000px;height:164.244px;left:0.000px;top:7.878px">
+<img src="../../image/blumenau_2021_paper_title.png" alt="Cambridge article webpage screenshot: Blumenau (2021), first published online in 2019" style="width:100.000000%;left:-0.000000%;top:-0.000px">
 </div>
 </div>
 
@@ -1671,8 +1673,8 @@ Track whose language later speakers use in Commons debates.
 **Stance classification** [Bestvater & Monroe (2023)](https://doi.org/10.1017/pan.2022.10)
 
 <div class="paper-preview" data-crop="0,0,1936,384" data-height="180" style="height:180px">
-<div class="paper-window" style="width:459.000px;height:91.041px;left:0.000px;top:44.479px">
-<img src="../image/bestvater_monroe_2023_paper_title.png" alt="Paper screenshot: Bestvater &amp; Monroe (2023)" style="width:100.000000%;left:0.000000%;top:0.000px">
+<div class="paper-window" style="width:475.000px;height:94.215px;left:0.000px;top:42.893px">
+<img src="../../image/bestvater_monroe_2023_paper_title.png" alt="Paper screenshot: Bestvater &amp; Monroe (2023)" style="width:100.000000%;left:-0.000000%;top:-0.000px">
 </div>
 </div>
 
@@ -1727,7 +1729,7 @@ install.packages(c("dplyr", "stringr", "ggplot2",
 ```
 
 ::: {.small}
-Set the working directory to `W2/lab/`. Keep its `Data/` folder alongside the script. Run the lab section by section at home.
+Set the working directory to `W2/lab/`. Keep its `Data/` folder alongside the script. Use the lab section by section for self-study at home.
 :::
 
 ::: {.key}
@@ -1741,11 +1743,11 @@ R Core Team (n.d.); Python Software Foundation (n.d.); Posit (n.d.)
 :::
 
 
-## Take-home lab
+## Self-study lab
 
 :::::: {.slide-body}
 
-**Complete independently at home.** Use the supplied sample of **5,000 House of Commons speech contributions (1945–2025)**.
+**Self-study practice: ungraded; no submission required.** Use the supplied sample of **5,000 House of Commons speech contributions (1945–2025)**.
 
 1. Inspect strings and clean agenda metadata with `stringr`.
 2. Build, subset, and reshape a `quanteda` corpus.
@@ -1765,12 +1767,11 @@ Schoonvelde (2026)
 :::
 
 
-## Take-home practice and support
+## Self-study practice and support
 
 :::::: {.slide-body}
 
 - Run the worked examples **section by section** and inspect each output.
-- Attempt all **11 exercises** and save your code and questions.
 - Bring the exercise number, relevant code, and output or error message.
 - Discuss questions **before class, if time permits**, or ask during **TA hours**.
 
@@ -1785,17 +1786,23 @@ Be ready to explain what your code changes and how that affects the evidence.
 
 :::::: {.slide-body}
 
-1. Why can deleting a common word damage a measure?
+**Explore one application paper introduced earlier.** Start with its research question and a main figure.
 
-2. Why does document frequency change after aggregation?
+1. What is the research question, and what counts as a document?
 
-3. Does successful preprocessing validate a substantive claim?
+2. How could word removal, document aggregation, or weighting affect the measure?
+
+3. What evidence supports the authors' interpretation beyond successful preprocessing?
+
+::: {.small}
+**Topic models:** [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103); [Eshima et al. (2024)](https://doi.org/10.1111/ajps.12779)
+
+**Text scaling:** [Slapin & Proksch (2008)](https://doi.org/10.1111/j.1540-5907.2008.00338.x); [Laver et al. (2003)](https://doi.org/10.1017/S0003055403000698)
+
+**TF-IDF applications:** [Blumenau (2021)](https://doi.org/10.1017/S0007123419000334); [Bestvater & Monroe (2023)](https://doi.org/10.1017/pan.2022.10)
+:::
 
 ::::::
-
-::: {.source}
-Schoonvelde (2026); Welbers et al. (2017)
-:::
 
 
 ## Readings and software references

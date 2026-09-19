@@ -1,4 +1,4 @@
-<img align="right" src="W2/image/ntu-logo.png" alt="National Taiwan University (NTU) logo" width="200">
+<img align="right" src="image/ntu-logo.png" alt="National Taiwan University (NTU) logo" width="200">
 
 # Text as Data: Computational Methods for Social Science Research
 
@@ -8,15 +8,15 @@
 **Semester:** Fall 2026  
 **Instructor:** Yen-Chieh Liao 廖彥傑
 
-[Course syllabus (PDF)](https://raw.githack.com/davidycliao/NTLDEV-7191/main/NTLDEV_7191_1151.pdf)
+[Course syllabus (PDF)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/NTLDEV_7191_1151.pdf)
 
 
 ## Slides and Lab Sessions
 
 | Week | Slides | Lab |
 | :---: | :--- | :--- |
-| Week 1 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](Ｗ1/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191/main/%EF%BC%B71/slide/week1.html#1) | No lab |
-| Week 2 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191/refs/heads/main/W2/slide/week1.html) · [Student QMD](W2/slide/week1.qmd) · [Source ZIP](W2/slide/week1-student-source.zip) | [Lab instructions](W2/lab/README.md) · [R](W2/lab/Lab_Session_W2.R) · [Quarto file](W2/lab/Lab_Session_W2.qmd) · [Data](W2/lab/Data/hc_sample_1945_2025.rds) · [Answer key](W2/lab/Lab_Session_W2_Answers.md) |
+| Week 1 | [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/%EF%BC%B71/slide/week1.html#1) · [Student QMD](Ｗ1/slide/week1.qmd) | No lab |
+| Week 2 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Student QMD](W2/slide/week2.qmd) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab instructions](W2/lab/README.md) · [R](W2/lab/Lab_Session_W2.R) · [Quarto file](W2/lab/Lab_Session_W2.qmd) · [Data](W2/lab/Data/hc_sample_1945_2025.rds) · [Answer key](W2/lab/Lab_Session_W2_Answers.md) |
 
 ## Course Schedule
 

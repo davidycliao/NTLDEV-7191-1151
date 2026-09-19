@@ -1,13 +1,14 @@
-# Week 2: take-home R companion
+# Week 2: self-study R companion
 # Week 2 Lab: String Operations and Inspecting the House of Commons Corpus
 # Original teaching material: Martijn Schoonvelde (2026).
 # Converted from Lab_Session_W2.qmd; prose is kept as R comments and all
 # worked examples and 11 unsolved exercises remain in their original order.
 # The Quarto/knitr setup is guarded because it is only needed for rendering.
 #
-# Complete this lab independently at home. Work through the examples, then
-# attempt the exercises. Ask questions before class if time permits, or in
-# TA hours. Read README.md in this folder for package installation and setup.
+# This lab is ungraded self-study practice; no submission is required.
+# Work through the examples at home, then attempt the exercises. Ask questions
+# before class if time permits, or in TA hours. Read README.md in this folder
+# for package installation and setup.
 #
 # Before running, set the R working directory to this W2/lab folder.
 # Keep Data/ beside this file. Run getwd() and
