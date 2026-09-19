@@ -5,8 +5,17 @@ __pycache__/
 # Keep Grimmer 2022 book and chapter PDFs local (copyright).
 [Gg]rimmer*2022*.[Pp][Dd][Ff]
 
-# Publish only HTML and PDF outputs from slide folders.
+# Keep slide sources private by default; publish HTML and PDF outputs.
 **/slide/**
 !**/slide/*.[Hh][Tt][Mm][Ll]
 !**/slide/*.[Pp][Dd][Ff]
+
+# Reviewed Week 2 student source, render dependencies, and download bundle.
+!W2/slide/week1.qmd
+!W2/slide/text-preparation.css
+!W2/slide/tokenization-comparison.css
+!W2/slide/week1-student-source.zip
+
+# Presenter sources and builds stay local.
+**/slide/*-presenter.[Qq][Mm][Dd]
 **/slide/*-presenter.[Hh][Tt][Mm][Ll]

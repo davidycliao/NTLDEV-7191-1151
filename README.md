@@ -8,13 +8,15 @@
 **Semester:** Fall 2026  
 **Instructor:** Yen-Chieh Liao 廖彥傑
 
+[Course syllabus (PDF)](https://raw.githack.com/davidycliao/NTLDEV-7191/main/NTLDEV_7191_1151.pdf)
+
 
 ## Slides and Lab Sessions
 
 | Week | Slides | Lab |
 | :---: | :--- | :--- |
 | Week 1 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](Ｗ1/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191/main/%EF%BC%B71/slide/week1.html#1) | No lab |
-| Week 2 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191/refs/heads/main/W2/slide/week1.html) | [Lab instructions](W2/lab/README.md) · [R](W2/lab/Lab_Session_W2.R) · [Quarto file](W2/lab/Lab_Session_W2.qmd) · [Data](W2/lab/Data/hc_sample_1945_2025.rds) · [Answer key](W2/lab/Lab_Session_W2_Answers.md) |
+| Week 2 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191/refs/heads/main/W2/slide/week1.html) · [Student QMD](W2/slide/week1.qmd) · [Source ZIP](W2/slide/week1-student-source.zip) | [Lab instructions](W2/lab/README.md) · [R](W2/lab/Lab_Session_W2.R) · [Quarto file](W2/lab/Lab_Session_W2.qmd) · [Data](W2/lab/Data/hc_sample_1945_2025.rds) · [Answer key](W2/lab/Lab_Session_W2_Answers.md) |
 
 ## Course Schedule
 
@@ -84,4 +86,4 @@ No class on December 25. Students revise their projects independently after the 
 
 ---
 
-*Acknowledgments: I thank Stefan Müller ([@stefan-mueller](https://github.com/stefan-mueller)) for permission to adapt his quantitative text analysis syllabus for this semester-long course. The lab sessions draw primarily on teaching materials by Martijn Schoonvelde ([@hjmschoonvelde](https://github.com/hjmschoonvelde)) for Introduction to QTA at the 2026 Essex Summer School.*
+*Acknowledgments: The design of this course draws primarily on Stefan Müller's quantitative text analysis syllabus ([@stefan-mueller](https://github.com/stefan-mueller)). The lab exercises and teaching materials are adapted from those developed by Martijn Schoonvelde ([@hjmschoonvelde](https://github.com/hjmschoonvelde)) for the 2026 Essex Summer School course “Introduction to QTA.”*
