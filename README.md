@@ -15,8 +15,8 @@
 
 | Week | Slides | Lab |
 | :---: | :--- | :--- |
-| Week 1 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](Ｗ1/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/%EF%BC%B71/slide/week1.html#1) |  |
-| Week 2 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab instructions](W2/lab/README.md) · [R](W2/lab/Lab_Session_W2.R) · [Quarto file](W2/lab/Lab_Session_W2.qmd) · [Data](W2/lab/Data/hc_sample_1945_2025.rds) · [Answer key](W2/lab/Lab_Session_W2_Answers.md) |
+| Week 1 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](Ｗ1/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/%EF%BC%B71/slide/week1.html#1) · [Source ZIP](Ｗ1/downloads/week1-student-source.zip) |  |
+| Week 2 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab instructions](W2/lab/README.md) · [Download lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W2/downloads/week2-lab.zip) |
 
 ## Course Schedule
 

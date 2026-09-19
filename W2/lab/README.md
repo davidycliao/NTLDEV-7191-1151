@@ -4,6 +4,10 @@ This lab provides **ungraded self-study practice; no submission is required**. W
 
 The lab uses a supplied sample of **5,000 House of Commons speech contributions from 1945–2025**. No earlier lab is required; the data and variables needed for this exercise are provided here.
 
+## Download the complete lab
+
+[Download lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W2/downloads/week2-lab.zip), then extract the entire archive. Open `W2/lab/README.md` inside the extracted `week2-lab` folder and follow the setup instructions below. The ZIP includes the R scripts, Quarto handouts, rendered handouts, answer keys, data, and figures. Keep the folder structure intact; individual downloads are not needed.
+
 ## Choose one format
 
 - [Lab_Session_W2.R](Lab_Session_W2.R): open in RStudio or Positron and run the code section by section. The original explanations appear as comments, with space for your exercise answers.
