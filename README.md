@@ -8,6 +8,8 @@
 **Semester:** Fall 2026  
 **Instructor:** Yen-Chieh Liao 廖彥傑
 
+Start with the course syllabus and schedule, then use the table below to view each week's slides (HTML or PDF) or download the editable source files (Source ZIP). For Week 2 practice, download and extract the lab ZIP, then follow the Lab instructions. The lab is ungraded self-study; no submission is required.
+
 [Course syllabus (PDF)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/NTLDEV_7191_1151.pdf)
 
 
@@ -26,7 +28,7 @@ Introduces the basic concepts of quantitative text analysis and natural language
 
 ### Week 2: Text Preparation in R and Python: Collaborative Workflow
 
-Covers the use of R and Python for text analysis and sets up development environments (RStudio and Positron). Introduces supplied corpora and a basic data-feasibility checklist for students' research projects.
+Covers the use of R and Python for text analysis and sets up development environments (RStudio and Positron). Using supplied corpora, students practice text cleaning, tokenization, and building document-feature matrices in preparation for Week 4. They also check data coverage, metadata, and access for their research projects.
 
 ### Week 3: Mid-Autumn Festival (No Class)
 
@@ -66,7 +68,7 @@ No class on November 20.
 
 ### Week 12: Large Language Models and Multi-Agent Systems
 
-Introduces LLMs for annotation, classification, summarization, and multi-agent workflows. Applications foreground reproducibility, validation, bias, and the limits of substituting model outputs or simulations for human evidence.
+Introduces LLMs for annotation, classification, summarization, and multi-agent workflows. Students assess the reproducibility, validity, and bias of model outputs and consider when human evidence is still needed.
 
 ### Week 13: New Forms of Textual Data: Multilingual and Multimodal Sources
 
@@ -74,7 +76,7 @@ Explores research with multilingual texts, political speech recordings, and audi
 
 ### Week 14: Poster Workshop: Format, Visual Presentation, and 5-Minute Talk
 
-This session focuses on poster format, visual presentation, and the 5-minute talk. We will discuss revision directions collectively as preparation for the formal poster presentations in Week 15.
+This session focuses on poster format, visual presentation, and the 5-minute talk. We will review poster drafts together and discuss revisions before the Week 15 presentations.
 
 ### Week 15: Final Poster Presentations
 
