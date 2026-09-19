@@ -15,10 +15,24 @@ Use the table below to view the slides (HTML or PDF) or download the editable so
 
 ## Slides and Lab Sessions
 
-| Week | Slides | Lab |
-| :---: | :--- | :--- |
-| Week 1 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](Ｗ1/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/%EF%BC%B71/slide/week1.html#1) · [Source ZIP](Ｗ1/downloads/week1-student-source.zip) |  |
-| Week 2 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab instructions](W2/lab/README.md) · [Download lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W2/downloads/week2-lab.zip) |
+| Week | Date | Slides | Lab |
+| :---: | :---: | :--- | :--- |
+| Week 1 | Sep 11 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](Ｗ1/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/%EF%BC%B71/slide/week1.html#1) · [Source ZIP](Ｗ1/downloads/week1-student-source.zip) |  |
+| Week 2 | Sep 18 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab instructions](W2/lab/README.md) · [Download lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W2/downloads/week2-lab.zip) |
+| Week 3 | Sep 25 | **Mid-Autumn Festival** |  |
+| Week 4 | Oct 2 |  |  |
+| Week 5 | Oct 9 | **National Day Observed** |  |
+| Week 6 | Oct 16 |  |  |
+| Week 7 | Oct 23 |  |  |
+| Week 8 | Oct 30 |  |  |
+| Week 9 | Nov 6 |  |  |
+| Week 10 | Nov 13 |  |  |
+| Week 11 | Nov 20 | **NTU Sports Day** |  |
+| Week 12 | Nov 27 |  |  |
+| Week 13 | Dec 4 |  |  |
+| Week 14 | Dec 11 |  |  |
+| Week 15 | Dec 18 |  |  |
+| Week 16 | Dec 25 | **Constitution Day Holiday** |  |
 
 ## Course Schedule
 
