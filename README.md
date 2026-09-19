@@ -8,7 +8,7 @@
 **Semester:** Fall 2026  
 **Instructor:** Yen-Chieh Liao 廖彥傑
 
-Use the table below to view the slides (HTML or PDF), or download the editable source files (Source ZIP) to compile the slides yourself. For lab practice, download and extract the complete lab ZIP, then follow the Lab instructions.
+Use the table below to view the slides (HTML or PDF) or download the editable source files (Source ZIP) to compile the slides yourself. For lab practice, download the lab ZIP file, extract it, and follow the lab instructions.
 
 [Course syllabus (PDF)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/NTLDEV_7191_1151.pdf)
 
