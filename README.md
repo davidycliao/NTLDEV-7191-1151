@@ -5,7 +5,7 @@
 <br clear="right">
 
 **National Taiwan University (NTU) / 國立臺灣大學**  
-**Semester:** Fall 2026  
+**Semester:** Fall 2026 (105-1)
 **Instructor:** Yen-Chieh Liao 廖彥傑
 
 **Office hours:** [Instructor](https://calendly.com/ycliao/text-as-data-instructor?month=2026-09) · [TA (Matt Lee)](https://calendly.com/ycliao/text-as-data-ta?month=2026-09)
