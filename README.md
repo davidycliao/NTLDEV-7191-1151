@@ -23,7 +23,7 @@ Use the table below to view the slides (HTML or PDF) or download the editable so
 | Week 2 | Sep 18 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab instructions](W2/lab/README.md) · [Download lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W2/downloads/week2-lab.zip) |
 | Week 3 | Sep 25 | **Mid-Autumn Festival** |  |
 | Week 4 | Oct 2 |  |  |
-| Week 5 | Oct 9 | **Compensation Holiday for Happy Double Tenth Day 🇹🇼** |  |
+| Week 5 | Oct 9 | **Compensation Holiday for Happy Double 10th Day 🇹🇼** |  |
 | Week 6 | Oct 16 |  |  |
 | Week 7 | Oct 23 |  |  |
 | Week 8 | Oct 30 |  |  |
