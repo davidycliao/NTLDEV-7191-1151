@@ -10,6 +10,14 @@
 
 **Office hours:** [Instructor](https://calendly.com/ycliao/text-as-data-instructor?month=2026-09) · [TA (Matt Lee)](https://calendly.com/ycliao/text-as-data-ta?month=2026-09)
 
+## Announcements
+
+1. **Git & GitHub guide for Mac users:** *Git 與 GitHub 新手實戰完全手冊 / Git & GitHub Practical Guide*. 感謝 **貴評（國發3）** 提供！
+
+2. **Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** 📅 **Submission deadline: October 9, 2026.**
+
+3. **Research title + abstract due: October 23, 2026 (Week 7).** You are welcome to book [instructor office hours](https://calendly.com/ycliao/text-as-data-instructor) to discuss your research ideas, title, or abstract before the deadline.
+
 Use **HTML** to view slides in your browser, **PDF** for a downloadable copy, and **Source ZIP** for editable slide files. For in-class R examples, download and extract the **Classroom ZIP**.
 
 For self-study, read the **Lab HTML** and run the accompanying **R script** one section at a time. Download the complete **Lab ZIP** to get the data and all required files. Worked answers are linked from the handout; no Quarto rendering is required.
