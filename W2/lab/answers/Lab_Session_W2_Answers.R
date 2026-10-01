@@ -1,5 +1,5 @@
 #' ---
-#' title: "W2 Take-home Lab: Text Preparation and Corpus Exploration"
+#' title: "W2 Lab: Worked Answers"
 #' subtitle: "Text as Data | National Taiwan University"
 #' format:
 #'   html:
@@ -15,20 +15,7 @@
 #' 
 #' ## Before starting
 #' 
-#' **Ungraded self-study practice; no submission.** Follow one route: **inspect and clean text → build a corpus → inspect tokens and phrases → count and compare features**. Work through the examples, then attempt the 11 exercises. Take a break between sections if needed.
-#' 
-#' We use **5,000 House of Commons speech contributions from 1945–2025**. No earlier lab is required. W2 prepares and explores the text; W4 will use these tools to build and check dictionary measures.
-#' 
-#' Extract the lab ZIP, open **`Lab_Session_W2.R`** in RStudio or Positron, and read this HTML handout alongside it. Keep `Data/` in place. Run the package and data setup below once; the data block finds the file or asks you to select it. You do not need to render the QMD, install Python, or download a language model. Use R 4.1 or newer.
-#' 
-#' Try each exercise before opening [the worked answers](answers/Lab_Session_W2_Answers.html). Bring the relevant code, output and your question to instructor or TA hours.
-#' 
-#' | Section | What you will do |
-#' |---|---|
-#' | 1. Text and metadata | Search for patterns and clean agenda labels. |
-#' | 2. Corpus | Keep texts and metadata together; select documents and inspect sentence units. |
-#' | 3. Tokens and phrases | Split text, combine selected phrases, and read matches in context. |
-#' | 4. Feature counts | Build and trim a DFM, plot frequencies, and compare parties. |
+#' These answers include all worked examples and solutions to the **11 practice exercises**. Try [the student handout](../Lab_Session_W2.html) first. Run setup below once, then continue in order. The supplied data and packages are the same as in the student version.
 #' 
 #' ## Setup: packages and data
 #' 
@@ -586,67 +573,151 @@ ggplot(economy_by_year, aes(x = as.integer(year), y = economy)) +
 #' 1. Create a character vector called `speaker_names` that contains the first 20 speaker names in `hoc`. Use `str_detect()` to identify which contain `Sir`.
 #' 
 ## ----exercise_detect_sir------------------------------------------------------
-# Your answer here
+speaker_names <- hoc$speaker[1:20]
+
+speaker_names
+str_detect(speaker_names, "Sir")
+speaker_names[str_detect(speaker_names, "Sir")]
 
 #' 
 #' 2. Use `str_extract_all()` to extract all four-digit years from the first 20 `speech_url` values.
 #' 
 ## ----exercise_extract_years_from_urls-----------------------------------------
-# Your answer here
+speech_urls_20 <- hoc$speech_url[1:20]
+
+str_extract_all(speech_urls_20, "\\b\\d{4}\\b")
 
 #' 
 #' 3. Create a new variable called `mentions_prime_minister` that detects the phrase `Prime Minister` in the speech text. How many speeches mention this phrase?
 #' 
 ## ----exercise_prime_minister_indicator----------------------------------------
-# Your answer here
+hoc <- hoc |>
+  mutate(
+    mentions_prime_minister = str_detect(
+      str_to_lower(text),
+      "\\bprime minister\\b"
+    )
+  )
+
+sum(hoc$mentions_prime_minister)
 
 #' 
 #' 4. Use `corpus_subset()` to create a corpus of Conservative speeches from 2016 onwards. How many documents does this corpus contain?
 #' 
 ## ----exercise_subset_conservative---------------------------------------------
-# Your answer here
+conservative_since_2016 <- corpus_subset(
+  hoc_corpus,
+  party == "Conservative" & year >= 2016
+)
+
+ndoc(conservative_since_2016)
+summary(conservative_since_2016, n = 5)
 
 #' 
 #' 5. Reshape the Conservative corpus from exercise 4 to sentences. How many sentence-level documents does it contain?
 #' 
 ## ----exercise_reshape_conservative_sentences----------------------------------
-# Your answer here
+conservative_sentences <- corpus_reshape(
+  conservative_since_2016,
+  to = "sentences"
+)
+
+ndoc(conservative_sentences)
+as.character(conservative_sentences)[1:5]
 
 #' 
 #' 6. Tokenize the full House of Commons corpus and preserve the multiword expressions `Prime Minister`, `European Union`, and `House of Commons`. Use `kwic()` to inspect `Prime_Minister`.
 #' 
 ## ----exercise_kwic_prime_minister---------------------------------------------
-# Your answer here
+hoc_tokens_exercise <- tokens(
+  hoc_corpus,
+  remove_punct = TRUE,
+  remove_symbols = TRUE,
+  remove_numbers = FALSE
+)
+
+hoc_tokens_exercise <- tokens_compound(
+  hoc_tokens_exercise,
+  pattern = phrase(c(
+    "Prime Minister",
+    "European Union",
+    "House of Commons"
+  ))
+)
+
+kwic(
+  hoc_tokens_exercise,
+  pattern = phrase("Prime_Minister"),
+  window = 8
+) |>
+  head(10)
 
 #' 
 #' 7. The sample contains both `agenda` and `agenda_clean`. Count the 10 most common values of each. What changed after cleaning?
 #' 
 ## ----exercise_compare_agenda_cleaning-----------------------------------------
-# Your answer here
+hoc |>
+  count(agenda, sort = TRUE) |>
+  head(10)
+
+hoc |>
+  count(agenda_clean, sort = TRUE) |>
+  head(10)
+
+# Cleaning collapses capitalization differences such as "BUSINESS OF THE HOUSE",
+# "Business of the House", and "Business Of The House" into one label. It also
+# collapses agenda labels beginning with "Engagements" into a common
+# "Engagements" category.
 
 #' 
 #' 8. Display the strongest three-feature collocations in `hoc_tokens_dfm`, ranked by `lambda`. Some features already contain compounded words, so these are not necessarily three original words.
 #' 
 ## ----exercise_three_word_collocations-----------------------------------------
-# Your answer here
+textstat_collocations(
+  hoc_tokens_dfm,
+  size = 3,
+  min_count = 5
+) |>
+  arrange(desc(lambda)) |>
+  head(20)
 
 #' 
 #' 9. Create a DFM from `hoc_tokens_dfm` and group it by `party`. Call the result `hoc_dfm_exercise`. How many documents and features does it have?
 #' 
 ## ----exercise_create_grouped_dfm----------------------------------------------
-# Your answer here
+hoc_dfm_exercise <- dfm(hoc_tokens_dfm)
+
+hoc_dfm_exercise <- dfm_group(
+  hoc_dfm_exercise,
+  groups = docvars(hoc_dfm_exercise, "party")
+)
+
+dim(hoc_dfm_exercise)
+topfeatures(hoc_dfm_exercise, 20)
 
 #' 
 #' 10. Trim `hoc_dfm_exercise` so that it only contains features that appear at least 20 times. Inspect the new dimensions.
 #' 
 ## ----exercise_trim_grouped_dfm------------------------------------------------
-# Your answer here
+hoc_dfm_exercise_trimmed <- dfm_trim(
+  hoc_dfm_exercise,
+  min_termfreq = 20
+)
+
+dim(hoc_dfm_exercise)
+dim(hoc_dfm_exercise_trimmed)
 
 #' 
 #' 11. Use `textstat_keyness()` to display the most distinctive features for Labour speeches compared with all other parties.
 #' 
 ## ----exercise_labour_keyness--------------------------------------------------
-# Your answer here
+labour_keyness <- textstat_keyness(
+  hoc_dfm_exercise_trimmed,
+  target = docnames(hoc_dfm_exercise_trimmed) == "Labour"
+)
+
+head(labour_keyness, 10)
+textplot_keyness(labour_keyness, n = 10)
 
 #' 
 #' ## Sources

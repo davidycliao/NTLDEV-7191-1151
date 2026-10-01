@@ -1,43 +1,41 @@
 ---
-title: "Week 2 Lab: String Operations and Inspecting the House of Commons Corpus"
+title: "W2 Take-home Lab: Text Preparation and Corpus Exploration"
+subtitle: "Text as Data | National Taiwan University"
 format:
-  gfm: default
-editor: source
+  html:
+    embed-resources: true
+    toc: true
+    fig-width: 8
+    fig-height: 5
 execute:
   echo: true
-  message: false
   warning: false
+  message: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE,
-  results = TRUE,
-  message = FALSE,
-  warning = FALSE,
-  fig.width = 8,
-  fig.height = 5
-)
-```
+## Before starting
 
-## Learning goals
+**Ungraded self-study practice; no submission.** Follow one route: **inspect and clean text → build a corpus → inspect tokens and phrases → count and compare features**. Work through the examples, then attempt the 11 exercises. Take a break between sections if needed.
 
-In this lab, you will learn how to:
+We use **5,000 House of Commons speech contributions from 1945–2025**. No earlier lab is required. W2 prepares and explores the text; W4 will use these tools to build and check dictionary measures.
 
-- use `stringr` to inspect and clean character data;
-- use regular expressions to search for patterns in text;
-- standardise messy metadata values;
-- create a `quanteda` corpus from the House of Commons sample;
-- inspect corpus metadata, subset documents, reshape documents, tokenize text, and inspect keywords in context;
-- create, trim, visualise, and compare document-feature matrices.
+Extract the lab ZIP, open **`Lab_Session_W2.R`** in RStudio or Positron, and read this HTML handout alongside it. Keep `Data/` in place. Run the package and data setup below once; the data block finds the file or asks you to select it. You do not need to render the QMD, install Python, or download a language model. Use R 4.1 or newer.
 
-The running example uses the supplied House of Commons sample, containing 5,000 speech contributions from 1945 to 2025.
+Try each exercise before opening [the worked answers](answers/Lab_Session_W2_Answers.html). Bring the relevant code, output and your question to instructor or TA hours.
 
-## Load packages
+| Section | What you will do |
+|---|---|
+| 1. Text and metadata | Search for patterns and clean agenda labels. |
+| 2. Corpus | Keep texts and metadata together; select documents and inspect sentence units. |
+| 3. Tokens and phrases | Split text, combine selected phrases, and read matches in context. |
+| 4. Feature counts | Build and trim a DFM, plot frequencies, and compare parties. |
 
-We will use `dplyr` for data manipulation, `stringr` for string operations, `ggplot2` for plotting, and `quanteda` for corpus operations. The `quanteda.textstats` and `quanteda.textplots` packages add useful tools for inspecting features and plotting text objects.
+## Setup: packages and data
 
 ```{r load_packages}
+# First use only: uncomment these lines to install the packages.
+# install.packages(c("dplyr", "stringr", "ggplot2", "quanteda",
+#                    "quanteda.textstats", "quanteda.textplots"))
 library(dplyr)
 library(stringr)
 library(ggplot2)
@@ -46,13 +44,21 @@ library(quanteda.textstats)
 library(quanteda.textplots)
 ```
 
-## Read the House of Commons sample
-
 ```{r read_hoc_sample}
-data_path <- "Data/hc_sample_1945_2025.rds"
-
+# Find the supplied data. If asked, choose the .rds file in W2/lab/Data.
+paths <- c("W2/lab/Data/hc_sample_1945_2025.rds",
+           "lab/Data/hc_sample_1945_2025.rds",
+           "../Data/hc_sample_1945_2025.rds",
+           "Data/hc_sample_1945_2025.rds")
+found <- paths[file.exists(paths)]
+if (length(found) == 0) found <- file.choose()
+data_path <- normalizePath(found[1])
+setwd(dirname(dirname(data_path)))
 hoc <- readRDS(data_path)
+nrow(hoc)
 ```
+
+**Read the result:** `5000` is the number of speech contributions, not the number of MPs. The same MP can contribute more than once. Keep this R session open for the rest of the lab.
 
 Create the `year` variable from the speech date.
 
@@ -61,11 +67,39 @@ hoc <- hoc |>
   mutate(year = as.integer(format(date, "%Y")))
 
 hoc |>
-  select(date, year, speaker, party, agenda, terms, text) |>
+  select(date, year, speaker, party, agenda, terms) |>
   head(5)
 ```
 
-## String operations
+## Reading the R code
+
+Select a complete block and use `Ctrl+Enter` (Windows/Linux) or `Cmd+Enter` (Mac) in RStudio. Run the blocks in order, inspect the output, then try changing one input.
+
+| Syntax | Meaning | Example |
+|---|---|---|
+| `<-` | Save a result under a name | `hoc_corpus <- corpus(hoc, text_field = "text")` |
+| `$` | Select a column | `hoc$party` |
+| `[1:8]` | Select the first eight items | `hoc$agenda[1:8]` |
+| <code>&#124;&gt;</code> | Pass the result to the next function | <code>hoc &#124;&gt; head(5)</code> |
+| `==`, `>=`, `&` | Equal to, at least, and both conditions | `party == "Labour" & year >= 2010` |
+| `head(x, 5)` | Show a few results | `head(agenda_labels, 5)` |
+
+For a pipe, read each line as “then”: `hoc |> select(party) |> head(5)` means take `hoc`, select the party column, then show five rows. The examples use ready-made package functions; you do not need to write functions or loops.
+
+### Functions you will reuse
+
+| Task | Function |
+|---|---|
+| Search, extract or replace text | `str_detect()`, `str_extract()`, `str_replace_all()` |
+| Keep rows or count categories | `filter()`, `count()` |
+| Create and subset a corpus | `corpus()`, `corpus_subset()` |
+| Change the document unit | `corpus_reshape()` |
+| Split text and combine phrases | `tokens()`, `tokens_compound()` |
+| Inspect surrounding words | `kwic()` |
+| Count features and combine documents | `dfm()`, `dfm_group()` |
+| Inspect frequency and group differences | `topfeatures()`, `textstat_keyness()` |
+
+## 1. Inspect and clean text
 
 R stores text as character data. The House of Commons sample contains several character variables, including `speaker`, `party`, `agenda`, `text`, and `speech_url`.
 
@@ -95,6 +129,8 @@ Pattern matching is case-sensitive by default. Compare the following:
 str_extract(agenda_labels, "war")
 str_extract(str_to_lower(agenda_labels), "war")
 ```
+
+**Read the result:** `NA` means the pattern was not found in that label. It does not mean the whole document is missing. Lowercasing makes the search insensitive to the original capitalization.
 
 `str_which()` returns the positions of strings that contain a match.
 
@@ -169,6 +205,8 @@ str_detect(str_to_lower(example_text), "war")
 str_detect(str_to_lower(example_text), "\\bwar\\b")
 ```
 
+**Read the result:** the broad pattern matches all three strings. The word-boundary pattern excludes `towards` but still matches `post-war`. Choose the rule that fits the intended meaning.
+
 Notice that `post-war` still contains `war` after a hyphen. Hyphens are treated as boundaries by this pattern. Whether that is desirable depends on the research question.
 
 ### Replacing patterns
@@ -217,9 +255,11 @@ hoc |>
   head(15)
 ```
 
+**Check:** compare `agenda` with `agenda_clean`. Which differences were standardized, and which details were removed? The original column is kept so that you can review the changes.
+
 This kind of cleaning is not neutral. For example, collapsing all labels that start with `Engagements` into one category may be helpful for descriptive plots, but it also removes detail. Cleaning choices should be documented.
 
-## Inspecting a corpus
+## 2. Build and inspect a corpus
 
 So far we have worked with character vectors and data frames. The `quanteda` package lets us create a corpus object. A corpus stores texts and document-level metadata together.
 
@@ -242,6 +282,8 @@ The number of documents in the corpus is:
 ndoc(hoc_corpus)
 ```
 
+**Read the result:** the corpus still has 5,000 documents. Creating a corpus changes how the data are stored; it does not select or classify speeches.
+
 The document variables, or `docvars`, contain the metadata.
 
 ```{r inspect_docvars}
@@ -256,7 +298,7 @@ We can inspect the text of a document by converting it to a character vector.
 as.character(hoc_corpus)[1]
 ```
 
-## Subsetting a corpus
+### Select documents
 
 We can subset a corpus using `corpus_subset()`. The following code keeps Labour speeches since 2010.
 
@@ -270,6 +312,8 @@ ndoc(labour_since_2010)
 summary(labour_since_2010, n = 5)
 ```
 
+**Read the result:** the new corpus keeps only documents satisfying both conditions. `hoc_corpus` remains the full sample.
+
 We can also subset by string patterns in document variables. For example, let us keep speeches with agenda labels related to Prime Minister's Questions.
 
 ```{r subset_engagements}
@@ -282,7 +326,7 @@ ndoc(engagements_corpus)
 summary(engagements_corpus, n = 5)
 ```
 
-## Reshaping a corpus
+### Change the document unit
 
 Sometimes we want a different unit of analysis. `corpus_reshape()` can reshape documents into sentences or paragraphs. This is useful when speech-level documents are too long for a coding task.
 
@@ -302,9 +346,9 @@ In the reshaped corpus, each sentence is now treated as a document. This is a ma
 as.character(engagements_sentences)[1:5]
 ```
 
-As you can see, the third sentence finishies with the 'right hon.' This is a common abbreviation for 'right honourable', which is often used in parliamentary speech, but it also shows that sentence boundaries are not always perfect. In this case, the abbreviation contains a full stop, which is often used to identify sentence boundaries. So before reshaping, it is important to consider whether the text contains abbreviations or other punctuation that might interfere with sentence detection.
+**Check:** read the sentence boundaries around parliamentary abbreviations such as `right hon.`. A full stop may belong to an abbreviation rather than the end of a sentence. Inspect the actual output before treating every detected sentence as a complete statement.
 
-## Tokenization and multiword expressions
+## 3. Inspect tokens and phrases
 
 Tokenization breaks text into smaller units such as words. We will tokenize the House of Commons corpus and preserve a few multiword expressions.
 
@@ -355,7 +399,9 @@ kwic(
   head(10)
 ```
 
-## From tokens to a document-feature matrix
+**Check:** read the words before and after each match. A mention of `economy` alone does not tell you whether the speaker evaluates it positively or negatively.
+
+## 4. Count and compare features
 
 A document-feature matrix, or DFM, represents documents as rows and features as columns. In most introductory QTA workflows, these features are words or phrases. The cell values usually count how often each feature appears in each document.
 
@@ -422,6 +468,8 @@ hoc_dfm_party <- dfm_group(
 dim(hoc_dfm_party)
 ```
 
+**Read the result:** `dim()` returns rows, then columns. After grouping, rows represent parties rather than individual speeches. Columns represent features; cells add up their occurrences.
+
 The `topfeatures()` function shows the most common features.
 
 ```{r inspect_top_features}
@@ -440,6 +488,8 @@ dim(hoc_dfm_party)
 dim(hoc_dfm_party_trimmed)
 ```
 
+**Check:** compare the two dimensions. Trimming removes features below the threshold; it does not turn the remaining counts into percentages.
+
 Trimming is not neutral. Rare words may be noise, but they may also be substantively important. 
 
 ### Visualise features
@@ -447,6 +497,7 @@ Trimming is not neutral. Rare words may be noise, but they may also be substanti
 Wordclouds are a quick way to inspect frequent features. They are not usually the best final visualisation for research, but they are useful for a first look.
 
 ```{r plot_wordcloud}
+set.seed(719102)  # keep the layout reproducible
 textplot_wordcloud(hoc_dfm_party_trimmed, max_words = 50)
 ```
 
@@ -490,6 +541,8 @@ head(conservative_keyness, 20)
 textplot_keyness(conservative_keyness, n = 20)
 ```
 
+**Read the result:** positive chi-squared keyness values indicate features relatively overrepresented in Conservative speeches; negative values favor the reference group. This is a comparison of usage, not a sentiment score.
+
 ### Track a feature over time
 
 We can also create a DFM grouped by year. Here we focus on Conservative speeches and count how often the feature `economy` appears in each year.
@@ -524,7 +577,11 @@ ggplot(economy_by_year, aes(x = as.integer(year), y = economy)) +
   theme_minimal()
 ```
 
+**Read the plot:** these are raw counts in the supplied sample. A higher point can reflect more sampled speech as well as more use of `economy`. It is not automatically stronger concern or support.
+
 ## Practice exercises
+
+Reuse the worked blocks above. Change one input at a time and explain what the output means. Complete exercise 4 before 5, and 9 before 10–11.
 
 1. Create a character vector called `speaker_names` that contains the first 20 speaker names in `hoc`. Use `str_detect()` to identify which contain `Sir`.
 
@@ -568,7 +625,7 @@ ggplot(economy_by_year, aes(x = as.integer(year), y = economy)) +
 # Your answer here
 ```
 
-8. Display the most common three-word collocations in `hoc_tokens_dfm`.
+8. Display the strongest three-feature collocations in `hoc_tokens_dfm`, ranked by `lambda`. Some features already contain compounded words, so these are not necessarily three original words.
 
 ```{r exercise_three_word_collocations}
 # Your answer here
@@ -591,3 +648,7 @@ ggplot(economy_by_year, aes(x = as.integer(year), y = economy)) +
 ```{r exercise_labour_keyness}
 # Your answer here
 ```
+
+## Sources
+
+Adapted from Martijn Schoonvelde (2026), *QTA Lab 02: String Operations and Inspecting the House of Commons Corpus*, with acknowledgment of earlier materials by Stefan Müller. The original analytical examples and 11 exercises are retained; setup and explanations are adapted for NTU.
