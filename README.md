@@ -14,11 +14,11 @@
 
 1. **Git & GitHub guide for Mac users:** [Git 與 GitHub 新手實戰完全手冊 / Git & GitHub Practical Guide (PDF)](resources/git-github-mac-guide.pdf). 感謝 **貴評（國發3）** 提供！
 
-2. **Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** 📅 **Submission deadline: October 9, 2026.**
+2. **Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** **Submission deadline: October 9, 2026.**
 
 3. **Research title + abstract due: October 23, 2026 (Week 7).** You are welcome to book [instructor office hours](https://calendly.com/ycliao/text-as-data-instructor) to discuss your research ideas, title, or abstract before the deadline.
 
-Use **HTML** to view slides in your browser, **PDF** for a downloadable copy, and **Source ZIP** for editable slide files. For in-class R examples, download and extract the **Classroom ZIP**.
+Use **HTML** to view slides in your browser, **PDF** for a downloadable copy, and **Source ZIP** for editable slide files. The **Week 4 Source ZIP** also includes the classroom R scripts and required data; one download is enough.
 
 For self-study, read the **Lab HTML** and run the accompanying **R script** one section at a time. Download the complete **Lab ZIP** to get the data and all required files. Worked answers are linked from the handout; no Quarto rendering is required.
 
@@ -32,8 +32,8 @@ For self-study, read the **Lab HTML** and run the accompanying **R script** one 
 | Week 1 | Sep 11 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](Ｗ1/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/%EF%BC%B71/slide/week1.html#1) · [Source ZIP](Ｗ1/downloads/week1-student-source.zip) |  |
 | Week 2 | Sep 18 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W2/lab/Lab_Session_W2.html) · [R script](W2/lab/Lab_Session_W2.R) · [Lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W2/downloads/week2-lab.zip) · [Instructions](W2/lab/README.md) |
 | Week 3 | Sep 25 | **Mid-Autumn Festival** |  |
-| Week 4 | Oct 2 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W4/slide/week4.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W4/slide/week4.html) · [Source ZIP](W4/downloads/week4-student-source.zip) · [Classroom ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W4/downloads/week4-classroom.zip) |  |
-| Week 5 | Oct 9 | **Compensation Holiday for Happy Double 10th Day 🇹🇼** |  |
+| Week 4 | Oct 2 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W4/slide/week4.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W4/slide/week4.html) · [Source ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W4/downloads/week4-student-source.zip) |  |
+| Week 5 | Oct 9 | **Compensation Holiday for Happy Double 10th Day** |  |
 | Week 6 | Oct 16 |  |  |
 | Week 7 | Oct 23 |  |  |
 | Week 8 | Oct 30 |  |  |
