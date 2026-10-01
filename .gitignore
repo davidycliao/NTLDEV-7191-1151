@@ -19,6 +19,11 @@ __pycache__/
 # Reviewed student sources without presenter notes.
 !Ｗ1/slide/week1.qmd
 !W2/slide/week2.qmd
+!W10/slide/liao-tang-case.qmd
+
+# Keep full W10 readings and local production scripts private.
+W10/papers/*.pdf
+W10/scripts/
 
 # Retain the Week 1 R Markdown source locally only.
 Ｗ1/slide/week1.Rmd
