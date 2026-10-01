@@ -22,13 +22,13 @@ Use the table below to view the slides (HTML or PDF) or download the editable so
 | Week 1 | Sep 11 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](Ｗ1/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/%EF%BC%B71/slide/week1.html#1) · [Source ZIP](Ｗ1/downloads/week1-student-source.zip) |  |
 | Week 2 | Sep 18 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab instructions](W2/lab/README.md) · [Download lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W2/downloads/week2-lab.zip) |
 | Week 3 | Sep 25 | **Mid-Autumn Festival** |  |
-| Week 4 | Oct 2 |  |  |
+| Week 4 | Oct 2 | [PDF](W4/slide/week4.pdf) · [HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W4/slide/week4.html) · [Source ZIP](W4/downloads/week4-student-source.zip) · [Classroom code](W4/downloads/week4-classroom.zip) |  |
 | Week 5 | Oct 9 | **Compensation Holiday for Happy Double 10th Day 🇹🇼** |  |
 | Week 6 | Oct 16 |  |  |
 | Week 7 | Oct 23 |  |  |
 | Week 8 | Oct 30 |  |  |
 | Week 9 | Nov 6 |  |  |
-| Week 10 | Nov 13 | [PDF](W10/slide/liao-tang-case.pdf) · [HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W10/slide/liao-tang-case.html) · [Source ZIP](W10/downloads/liao-tang-case-source.zip) · [Case overview](W10/README.md) (supplementary) |  |
+| Week 10 | Nov 13 |  |  |
 | Week 11 | Nov 20 | **NTU Sports Day** |  |
 | Week 12 | Nov 27 |  |  |
 | Week 13 | Dec 4 |  |  |
@@ -78,7 +78,6 @@ Combines readability and complexity measures with count-based similarity, word e
 
 Connects POS tagging, named entity recognition, and dependency parsing to contextual representations and transformer-based classification. Fine-tuning and interpretability are introduced through applications and demonstrations, with detailed implementation reserved for supplementary materials.
 
-The [supplementary case module](W10/README.md) follows Liao and Tang (2026) from classifying Taiwan Legislative Yuan texts to validating predictions, constructing a legislator-year measure, and interpreting regression results. It contains 9 slides for a 20–25 minute discussion of the published study; it does not require students to train a model.
 
 ### Week 11: NTU Sports Day (No Class)
 

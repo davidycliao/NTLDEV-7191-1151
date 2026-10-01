@@ -1,0 +1,45 @@
+/* Week-specific constraints; the shared W1/W2 theme remains unchanged. */
+.reveal .slides section.slide.level2 > .slide-body { max-height: 510px; }
+.reveal .slide-body img { display: block; object-fit: contain; margin: 8px auto; max-height: 380px; max-width: 100%; }
+.reveal .paper-title img { max-height: 440px; }
+.reveal .paper-figure img { max-height: 405px; }
+.reveal .tall-figure img { height: 445px; max-height: 445px; width: auto; }
+.reveal .slide-body .caption { font-size: 19px; color: #5f6f7f; }
+.reveal .slide-body .caption p { font-size: inherit; }
+.reveal .slide-body table { font-size: 0.93em; }
+.reveal .slide-body pre { font-size: 0.59em; }
+.reveal .slide-body pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+.reveal .source { font-size: 15px; }
+.reveal .source a { overflow-wrap: anywhere; }
+.reveal .columns { align-items: center; }
+.reveal .columns > .column { width: 50%; }
+.reveal .large-example { padding: 12px 0; }
+.reveal .large-example p { font-size: 36px; line-height: 1.45; }
+.reveal .reference-list p { font-size: 23px; margin: 15px 0; }
+.reveal .slide-body > table td, .reveal .slide-body > table th { line-height: 1.25; }
+
+/* Evidence pages reserve the wider right column for unchanged source excerpts. */
+.reveal .columns.evidence-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 36fr) minmax(0, 64fr);
+  gap: 28px;
+  align-items: center;
+}
+.reveal .evidence-columns > .column { width: auto; padding: 0; min-width: 0; }
+.reveal .evidence-copy ul { margin: 0 0 0 24px; padding: 0; }
+.reveal .evidence-copy li { font-size: 28px; line-height: 1.25; margin: 0 0 20px; }
+.reveal .evidence-copy li:last-child { margin-bottom: 0; }
+.reveal .evidence-image p { margin: 0; }
+.reveal .evidence-image img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  margin: 0;
+  object-fit: contain;
+}
+.reveal .evidence-image p + p { margin-top: 18px; }
+.reveal .evidence-image.tall-figure img { height: 400px; }
+
+
+/* Keep the TextRank output slide without a visible title. */
+.reveal #pos-textrank-output > h2:empty { display: none; }

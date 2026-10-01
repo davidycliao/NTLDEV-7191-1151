@@ -3,6 +3,8 @@
 __pycache__/
 
 # RStudio session state and local R workspace files.
+*.[Rr][Pp][Rr][Oo][Jj]
+*.[Rr][Pp][Rr][Oo][Gg]
 .Rproj.user/
 .Rhistory
 .RData
@@ -19,9 +21,12 @@ __pycache__/
 # Reviewed student sources without presenter notes.
 !Ｗ1/slide/week1.qmd
 !W2/slide/week2.qmd
+!W4/slide/week4.qmd
 !W10/slide/liao-tang-case.qmd
 
-# Keep full W10 readings and local production scripts private.
+# Full reading PDFs and local W4 production scripts are not student downloads.
+W4/papers/*.pdf
+W4/scripts/
 W10/papers/*.pdf
 W10/scripts/
 
@@ -35,3 +40,10 @@ W2/scripts/
 # Presenter sources and builds stay local.
 **/slide/*-presenter.[Qq][Mm][Dd]
 **/slide/*-presenter.[Hh][Tt][Mm][Ll]
+.Rproj.user
+
+# Materials held back from publication.
+W10/
+W4/lab/
+W4/downloads/week4-lab.zip
+W4/classroom/udpipe_models/

@@ -1,0 +1,13 @@
+version,category,pattern
+v1,energy,energy
+v1,energy,power
+v1,energy,electric*
+v1,energy,gas
+v1,energy,bill*
+v2,energy,energy
+v2,energy,electric*
+v2,energy,gas bill*
+v2,energy,renewab*
+v2,energy,solar*
+v2,energy,wind farm*
+v2,energy,fossil fuel*

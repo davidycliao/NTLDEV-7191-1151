@@ -1,8 +1,0 @@
-/* Match the shared course theme while containing cited page excerpts. */
-.reveal .slide-body img { display: block; object-fit: contain; margin: 8px auto; max-width: 100%; }
-.reveal .paper-title img { max-height: 395px; }
-.reveal .paper-figure img { max-height: 385px; }
-.reveal .slide-body table { font-size: 0.93em; }
-.reveal .slide-body table td, .reveal .slide-body table th { line-height: 1.25; }
-.reveal .source { font-size: 15px; }
-.reveal .source a { overflow-wrap: anywhere; }
