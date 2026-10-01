@@ -5,12 +5,14 @@
 <br clear="right">
 
 **National Taiwan University (NTU) / 國立臺灣大學**  
-**Semester:** Fall 2026 (105-1)
+**Semester:** Fall 2026 (115-1)
 **Instructor:** Yen-Chieh Liao 廖彥傑
 
 **Office hours:** [Instructor](https://calendly.com/ycliao/text-as-data-instructor?month=2026-09) · [TA (Matt Lee)](https://calendly.com/ycliao/text-as-data-ta?month=2026-09)
 
-Use the table below to view the slides (HTML or PDF) or download the editable source files (Source ZIP) to compile the slides yourself. For lab practice, download the lab ZIP file, extract it, and follow the lab instructions.
+Use **HTML** to view slides in your browser, **PDF** for a downloadable copy, and **Source ZIP** for editable slide files. For in-class R examples, download and extract the **Classroom ZIP**.
+
+For self-study, read the **Lab HTML** and run the accompanying **R script** one section at a time. Download the complete **Lab ZIP** to get the data and all required files. Worked answers are linked from the handout; no Quarto rendering is required.
 
 [Course syllabus (PDF)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/NTLDEV_7191_1151.pdf)
 
@@ -20,9 +22,9 @@ Use the table below to view the slides (HTML or PDF) or download the editable so
 | Week | Date | Slides | Lab |
 | :---: | :---: | :--- | :--- |
 | Week 1 | Sep 11 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](Ｗ1/slide/week1.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/%EF%BC%B71/slide/week1.html#1) · [Source ZIP](Ｗ1/downloads/week1-student-source.zip) |  |
-| Week 2 | Sep 18 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab instructions](W2/lab/README.md) · [Download lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W2/downloads/week2-lab.zip) |
+| Week 2 | Sep 18 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W2/slide/week2.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/refs/heads/main/W2/slide/week2.html) · [Source ZIP](W2/downloads/week2-student-source.zip) | [Lab HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W2/lab/Lab_Session_W2.html) · [R script](W2/lab/Lab_Session_W2.R) · [Lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W2/downloads/week2-lab.zip) · [Instructions](W2/lab/README.md) |
 | Week 3 | Sep 25 | **Mid-Autumn Festival** |  |
-| Week 4 | Oct 2 | [PDF](W4/slide/week4.pdf) · [HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W4/slide/week4.html) · [Source ZIP](W4/downloads/week4-student-source.zip) · [Classroom code](W4/downloads/week4-classroom.zip) |  |
+| Week 4 | Oct 2 | [PDF](W4/slide/week4.pdf) · [HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W4/slide/week4.html) · [Source ZIP](W4/downloads/week4-student-source.zip) · [Classroom ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W4/downloads/week4-classroom.zip) |  |
 | Week 5 | Oct 9 | **Compensation Holiday for Happy Double 10th Day 🇹🇼** |  |
 | Week 6 | Oct 16 |  |  |
 | Week 7 | Oct 23 |  |  |
@@ -77,7 +79,6 @@ Combines readability and complexity measures with count-based similarity, word e
 ### Week 10: NLP Pipelines and Transformers: Annotation, Classification, and Interpretability
 
 Connects POS tagging, named entity recognition, and dependency parsing to contextual representations and transformer-based classification. Fine-tuning and interpretability are introduced through applications and demonstrations, with detailed implementation reserved for supplementary materials.
-
 
 ### Week 11: NTU Sports Day (No Class)
 
