@@ -12,7 +12,7 @@
 
 ## Announcements
 
-1. **Git & GitHub guide for Mac users:** *Git 與 GitHub 新手實戰完全手冊 / Git & GitHub Practical Guide*. 感謝 **貴評（國發3）** 提供！
+1. **Git & GitHub guide for Mac users:** [Git 與 GitHub 新手實戰完全手冊 / Git & GitHub Practical Guide (PDF)](resources/git-github-mac-guide.pdf). 感謝 **貴評（國發3）** 提供！
 
 2. **Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** 📅 **Submission deadline: October 9, 2026.**
 
