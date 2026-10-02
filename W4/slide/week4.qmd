@@ -76,7 +76,7 @@ execute:
 **Negative language about a problem can accompany support for a policy.**
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## A measurement workflow {#household-measurement-workflow}
@@ -104,7 +104,7 @@ execute:
 **This counts mentions.** To measure negative evaluations, we also need to identify language such as “cannot afford.”
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## One corpus, different units of analysis
@@ -120,7 +120,7 @@ Our lab sample is **5,000 UK House of Commons contributions, 1945–2025**.
 Keep speaker, date and source IDs when splitting or combining texts.
 ::::::
 ::: {.source}
-[Grimmer, Roberts & Stewart (2022)](https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences) · [Grimmer & Stewart (2013)](https://doi.org/10.1093/pan/mps028)
+Reference: [Grimmer, Roberts & Stewart (2022)](https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences) · [Grimmer & Stewart (2013)](https://doi.org/10.1093/pan/mps028)
 :::
 
 ## Set up once for today's examples {#what-week-2-already-gave-us}
@@ -143,7 +143,7 @@ source("workflow.R")
 
 ::::::
 ::: {.source}
-[Classroom ZIP](../downloads/week4-classroom.zip)
+Resource: [Classroom ZIP](../downloads/week4-classroom.zip)
 :::
 
 ## Bag of words: feature counts (1/2) {#bag-of-words-from-text-to-feature-counts}
@@ -165,7 +165,7 @@ ntoken(demo_tokens)
 **Compare:** Why do the selected row totals differ from document length?
 ::::::
 ::: {.source}
-[Grimmer, Roberts & Stewart (2022)](https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences) · [Grimmer & Stewart (2013)](https://doi.org/10.1093/pan/mps028)
+Reference: [Grimmer, Roberts & Stewart (2022)](https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences) · [Grimmer & Stewart (2013)](https://doi.org/10.1093/pan/mps028)
 :::
 
 ## Bag of words: feature counts (2/2) {#reading-the-feature-counts}
@@ -206,7 +206,7 @@ A B
 Same bag of words; different actor and target.
 ::::::
 ::: {.source}
-[Grimmer, Roberts & Stewart (2022)](https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences) · [Grimmer & Stewart (2013)](https://doi.org/10.1093/pan/mps028)
+Reference: [Grimmer, Roberts & Stewart (2022)](https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences) · [Grimmer & Stewart (2013)](https://doi.org/10.1093/pan/mps028)
 :::
 
 ## What is a dictionary?
@@ -226,7 +226,7 @@ dic <- dictionary(list(
 Mentioning household costs does not establish economic hardship.
 ::::::
 ::: {.source}
-[Grimmer, Roberts & Stewart (2022)](https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences) · [quanteda](https://quanteda.io/reference/dictionary.html)
+Reference: [Grimmer, Roberts & Stewart (2022)](https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences) · Resource: [quanteda](https://quanteda.io/reference/dictionary.html)
 :::
 
 ## Applying our dictionary {#dictionary-first-example}
@@ -249,7 +249,7 @@ as.matrix(counts)
 `rent` + `energy bills` give **2 matches**; `job security` gives **1**.
 ::::::
 ::: {.source}
-[R code](../classroom/examples/W4_dictionary_simple.R)
+Resource: [R code](../classroom/examples/W4_dictionary_simple.R)
 :::
 
 ## Existing, adapted, or new?
@@ -266,7 +266,7 @@ Availability is not evidence of suitability.
 **Next:** Whether adapting or building, decide which expressions belong in the dictionary.
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
 :::
 
 ## Building or adapting a word list {#building-an-initial-word-list}
@@ -301,7 +301,7 @@ head(freq, 6)
 **Try:** Change 6 to 12. Which words describe procedure rather than policy?
 ::::::
 ::: {.source}
-[quanteda](https://tutorials.quanteda.io/statistical-analysis/frequency/)
+Resource: [quanteda](https://tutorials.quanteda.io/statistical-analysis/frequency/)
 :::
 
 ## Frequency: occurrences and speeches (2/2) {#reading-the-frequency-output}
@@ -339,7 +339,7 @@ head(context_table[, columns], 2)
 **In pairs:** Classify two matches. Then change the window to 12.
 ::::::
 ::: {.source}
-[quanteda](https://quanteda.io/reference/kwic.html)
+Resource: [quanteda](https://quanteda.io/reference/kwic.html)
 :::
 
 ## KWIC: reading words in context (2/2) {#reading-the-kwic-output}
@@ -376,7 +376,7 @@ head(phrase_context, 2)
 **Try:** Raise `min_count` to 50. Are the leading phrases about household costs?
 ::::::
 ::: {.source}
-[quanteda.textstats](https://quanteda.io/reference/textstat_collocations.html)
+Resource: [quanteda.textstats](https://quanteda.io/reference/textstat_collocations.html)
 :::
 
 ## Collocations: candidate phrases (2/2) {#reading-the-phrase-contexts}
@@ -414,7 +414,7 @@ head(keys_lab, 3)
 **Compare:** Each run uses a different target. Which words stand out for each party?
 ::::::
 ::: {.source}
-[quanteda.textstats](https://quanteda.io/reference/textstat_keyness.html)
+Resource: [quanteda.textstats](https://quanteda.io/reference/textstat_keyness.html)
 :::
 
 ## Keyness: comparing groups (2/2) {#reading-the-keyness-output}
@@ -459,7 +459,7 @@ head(keys_lab, 3)
 - Recheck performance when the language or period changes.
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
 :::
 
 ## A small example we can check by hand
@@ -494,7 +494,7 @@ as.matrix(cost_counts)
 **Change:** Add `"cannot afford heating"`. Which error changes?
 ::::::
 ::: {.source}
-[quanteda](https://quanteda.io/articles/pkgdown/phrase.html)
+Resource: [quanteda](https://quanteda.io/articles/pkgdown/phrase.html)
 :::
 
 ## Exact terms and wildcard rules (1/2) {#exact-terms-and-wildcard-rules}
@@ -515,7 +515,7 @@ head(word_counts, 8)
 **Discuss:** Does an exact match solve the substantive ambiguity?
 ::::::
 ::: {.source}
-[quanteda](https://quanteda.io/reference/tokens_select.html)
+Resource: [quanteda](https://quanteda.io/reference/tokens_select.html)
 :::
 
 ## Exact terms and wildcard rules (2/2) {#exact-wildcard-output}
@@ -538,10 +538,10 @@ wildcard    exact
 
 | Token | Count | Token | Count |
 |---|---:|---|---:|
-| bill | 1,470 | billions | 18 |
-| billion | 157 | billericay | 5 |
-| bills | 69 | bill’s | 3 |
-| bill's | 24 | billâ | 3 |
+| `bill` | 1,470 | `billions` | 18 |
+| `billion` | 157 | `billericay` | 5 |
+| `bills` | 69 | `bill’s` | 3 |
+| `bill's` | 24 | `billâ` | 3 |
 
 Different apostrophes and an apparent encoding artifact remain visible in the output.
 :::
@@ -570,7 +570,7 @@ Different apostrophes and an apparent encoding artifact remain visible in the ou
 ::::
 ::::::
 ::: {.source}
-[Hvitfeldt & Silge (2022)](https://smltar.com/tokenization.html) · [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+Reference: [Hvitfeldt & Silge (2022)](https://smltar.com/tokenization.html)
 :::
 
 ## Document length and the denominator (1/2) {#document-length-and-the-denominator}
@@ -628,7 +628,7 @@ Let **P** = positive matches, **N** = negative matches, **L** = original token c
 **Scoring means turning matches into a number.** With P = 3, N = 1 and L = 100: net tone = **2**, coverage = **4%**. Later, the Proksch et al. case uses a different scoring rule.
 ::::::
 ::: {.source}
-[Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## Zero is not always neutral (1/2) {#zero-is-not-always-neutral}
@@ -655,7 +655,7 @@ check_scores[, c("doc_id", "positive", "negative",
 **Compare:** Why do `unmatched`, `balanced`, and `empty` differ?
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
 :::
 
 ## Zero is not always neutral (2/2) {#reading-check-scores}
@@ -712,7 +712,7 @@ as.list(without_stopwords)
 **Explain:** Both sentences contain `good`. Does our word-count rule use `not` to change its category?
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
 :::
 
 ## Negation and dictionary matches (2/2) {#negation-output-explained}
@@ -758,7 +758,7 @@ $negated
 Rules can improve a baseline without resolving every sentence.
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
 :::
 
 ## Preprocessing must fit the dictionary
@@ -780,7 +780,7 @@ Rules can improve a baseline without resolving every sentence.
 ::::
 ::::::
 ::: {.source}
-[Grimmer, Roberts & Stewart (2022)](https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences) · [Hvitfeldt & Silge (2022)](https://smltar.com/stopwords.html) · [Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44) · [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+Reference: [Grimmer, Roberts & Stewart (2022)](https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences) · [Hvitfeldt & Silge (2022)](https://smltar.com/stopwords.html) · [Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44)
 :::
 
 ## Case: locating parties from their manifestos
@@ -799,7 +799,7 @@ Rules can improve a baseline without resolving every sentence.
 ::::
 ::::::
 ::: {.source}
-[Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44)
+Reference: [Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44)
 :::
 
 ## 12 orderings from the same manifestos
@@ -817,7 +817,7 @@ Rules can improve a baseline without resolving every sentence.
 ::::
 ::::::
 ::: {.source}
-[Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44)
+Reference: [Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44)
 :::
 
 ## What the manifesto case can establish
@@ -831,7 +831,7 @@ Rules can improve a baseline without resolving every sentence.
 For our dictionaries: do substantive comparisons survive reasonable scoring choices?
 ::::::
 ::: {.source}
-[Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44)
+Reference: [Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44)
 :::
 
 ## Your case: does a dictionary revision improve measurement?
@@ -851,7 +851,7 @@ head(energy_context, 3)
 **Discuss:** Scores changed. Do they agree better with human judgments?
 ::::::
 ::: {.source}
-[Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44)
+Reference: [Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44)
 :::
 
 ## Dictionary sensitivity (1/2) {#a-compact-sensitivity-analysis}
@@ -876,7 +876,7 @@ ggplot(dev, aes(x = v1_per1000, y = v2_per1000)) +
 **Discuss:** What can this plot show without human labels?
 ::::::
 ::: {.source}
-[Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44)
+Reference: [Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44)
 :::
 
 ## Dictionary sensitivity (2/2) {#reading-the-sensitivity-plot}
@@ -901,7 +901,7 @@ ggplot(dev, aes(x = v1_per1000, y = v2_per1000)) +
 Human labels are evidence to scrutinize, not unquestionable truth.
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## Which texts should we validate?
@@ -935,7 +935,7 @@ agreement$value
 **Discuss:** What does kappa (.60) tell us beyond raw agreement (80%)?
 ::::::
 ::: {.source}
-[irr](https://cran.r-universe.dev/irr/doc/manual.html)
+Resource: [irr](https://cran.r-universe.dev/irr/doc/manual.html)
 :::
 
 ## A confusion matrix for issue detection
@@ -949,7 +949,7 @@ The unit is a **passage**, not a dictionary word.
 ::::::
 
 
-## Precision and recall answer different questions (1/2) {#precision-and-recall-answer-different-questions}
+## Precision and recall (1/2) {#precision-and-recall-answer-different-questions}
 :::::: {.slide-body}
 **Before running the code:** calculate precision and recall from the preceding table.
 
@@ -970,7 +970,7 @@ c(precision = precision, recall = recall, F1 = F1)
 ::::::
 
 
-## Precision and recall answer different questions (2/2) {#precision-and-recall-results}
+## Precision and recall (2/2) {#precision-and-recall-results}
 :::::: {.slide-body}
 **Code:** `c(precision = precision, recall = recall, F1 = F1)`
 
@@ -997,7 +997,7 @@ precision    recall        F1
 Two scores can rise together but still disagree: scores of 1, 2, 3 and 11, 12, 13 have perfect correlation.
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## Validation depends on the level of the claim
@@ -1012,7 +1012,7 @@ Two scores can rise together but still disagree: scores of 1, 2, 3 and 11, 12, 1
 One successful comparison does not validate every use.
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## Case: energy research and policy relevance
@@ -1030,7 +1030,7 @@ One successful comparison does not validate every use.
 ::::
 ::::::
 ::: {.source}
-[Boyle et al. (2025)](https://doi.org/10.1016/j.erss.2025.103955) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+Reference: [Boyle et al. (2025)](https://doi.org/10.1016/j.erss.2025.103955)
 :::
 
 ## From abstracts to a policy-relevance measure
@@ -1045,7 +1045,7 @@ Reported **average F1:** **0.90 development / 0.86 held out**.
 **Instructor’s research-process note:** We first tried fine-tuning transformers, but the results were not satisfactory.
 ::::::
 ::: {.source}
-[Boyle et al. (2025)](https://doi.org/10.1016/j.erss.2025.103955)
+Reference: [Boyle et al. (2025)](https://doi.org/10.1016/j.erss.2025.103955)
 :::
 
 ## Policy relevance varies across journal groups
@@ -1062,7 +1062,7 @@ Only **8%** explicitly mentioned `policy` or `policies`.
 These are descriptive text patterns, not evidence of policy uptake.
 ::::::
 ::: {.source}
-[Boyle et al. (2025)](https://doi.org/10.1016/j.erss.2025.103955)
+Reference: [Boyle et al. (2025)](https://doi.org/10.1016/j.erss.2025.103955)
 :::
 
 ## Case: measuring evaluations in German politics
@@ -1080,7 +1080,7 @@ These are descriptive text patterns, not evidence of policy uptake.
 ::::
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
 :::
 
 ## From political sentences to a validated score
@@ -1098,7 +1098,7 @@ These are descriptive text patterns, not evidence of policy uptake.
 Compare the original dictionaries and the augmented version with human judgments.
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
 :::
 
 ## Inter-coder reliability: do humans agree?
@@ -1116,7 +1116,7 @@ Compare the original dictionaries and the augmented version with human judgments
 ::::
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
 :::
 
 ## Sentiment scores against human judgments
@@ -1136,7 +1136,7 @@ Compare the original dictionaries and the augmented version with human judgments
 ::::
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
 :::
 
 ## Positive evaluations are easier to recover
@@ -1148,7 +1148,7 @@ Compare the original dictionaries and the augmented version with human judgments
 The study validates a measure. It does not explain why politicians become more positive.
 ::::::
 ::: {.source}
-[Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
+Reference: [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608)
 :::
 
 ## Case: sentiment and legislative agreement
@@ -1166,7 +1166,7 @@ The study validates a measure. It does not explain why politicians become more p
 ::::
 ::::::
 ::: {.source}
-[Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## From speeches to a test of cross-party agreement
@@ -1181,7 +1181,7 @@ The study validates a measure. It does not explain why politicians become more p
 Human-coded European Parliament texts provide a separate measurement check.
 ::::::
 ::: {.source}
-[Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## Human and automated scores by speaker group
@@ -1201,7 +1201,7 @@ Human-coded European Parliament texts provide a separate measurement check.
 ::::
 ::::::
 ::: {.source}
-[Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## Translation is a measurement decision
@@ -1214,7 +1214,7 @@ Human-coded European Parliament texts provide a separate measurement check.
 Shared category names do not guarantee comparable numerical scales.
 ::::::
 ::: {.source}
-[Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## Does opposition tone reflect agreement?
@@ -1232,7 +1232,7 @@ Shared category names do not guarantee comparable numerical scales.
 ::::
 ::::::
 ::: {.source}
-[Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## Sentiment, stance, and conflict
@@ -1246,7 +1246,7 @@ Shared category names do not guarantee comparable numerical scales.
 Negative words can describe a social problem without attacking another party.
 ::::::
 ::: {.source}
-[Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## LIWC: what does it measure?
@@ -1264,7 +1264,7 @@ Negative words can describe a social problem without attacking another party.
 A category percentage measures word use; interpretation needs validation.
 ::::::
 ::: {.source}
-[LIWC](https://liwc.app/help/howitworks)
+Resource: [LIWC](https://liwc.app/help/howitworks)
 :::
 
 ## LIWC and quanteda: separate roles
@@ -1278,7 +1278,7 @@ A category percentage measures word use; interpretation needs validation.
 **Importing a file does not grant a license to use its dictionary.**
 ::::::
 ::: {.source}
-[LIWC](https://liwc.app/help/eula) · [quanteda](https://quanteda.io/reference/dictionary.html)
+Resource: [LIWC](https://liwc.app/help/eula) · [quanteda](https://quanteda.io/reference/dictionary.html)
 :::
 
 ## Our dictionary, applied with quanteda {#liwc-format-and-custom-categories}
@@ -1301,7 +1301,7 @@ word_count <- ntoken(mini)
 **Discuss:** Why divide by all word tokens, not just dictionary matches?
 ::::::
 ::: {.source}
-[quanteda](https://quanteda.io/reference/dictionary.html)
+Resource: [quanteda](https://quanteda.io/reference/dictionary.html)
 :::
 
 ## Campaign statements: vague or concrete? {#eichorst-lin-case}
@@ -1319,7 +1319,7 @@ word_count <- ntoken(mini)
 ::::
 ::::::
 ::: {.source}
-[Eichorst & Lin (2019)](https://doi.org/10.1086/700002)
+Reference: [Eichorst & Lin (2019)](https://doi.org/10.1086/700002)
 :::
 
 ## Reading the word-density figure {#eichorst-lin-density}
@@ -1330,7 +1330,7 @@ Each column is a **party program**; each row is a **dictionary term**.
 Darker cells indicate larger logged counts; white indicates zero.
 ::::::
 ::: {.source}
-[Eichorst & Lin (2019)](https://doi.org/10.1086/700002)
+Reference: [Eichorst & Lin (2019)](https://doi.org/10.1086/700002)
 :::
 
 ## A two-sentence dictionary example (1/3) {#campaign-simple-code}
@@ -1387,7 +1387,7 @@ text1: 100 × (0 − 1) / 5 = **−20**; text2: 100 × (1 − 0) / 5 = **20**.
 **Adapted from Eichorst & Lin (2019):** the paper excludes stopwords from the denominator and rescales the difference to 0–1. Our example does neither.
 ::::::
 ::: {.source}
-[Eichorst & Lin (2019)](https://doi.org/10.1086/700002)
+Reference: [Eichorst & Lin (2019)](https://doi.org/10.1086/700002)
 :::
 
 ## LIWC in sport and exercise
@@ -1405,7 +1405,7 @@ text1: 100 × (0 − 1) / 5 = **−20**; text2: 100 × (1 − 0) / 5 = **20**.
 ::::
 ::::::
 ::: {.source}
-[Lin (2023)](https://doi.org/10.6222/pej.202303_56%281%29.0001)
+Reference: [Lin (2023)](https://doi.org/10.6222/pej.202303_56%281%29.0001)
 :::
 
 ## Chinese LIWC: a validation case
@@ -1423,7 +1423,7 @@ text1: 100 × (0 − 1) / 5 = **−20**; text2: 100 × (1 − 0) / 5 = **20**.
 ::::
 ::::::
 ::: {.source}
-[Lin et al. (2020)](https://www.rchss.sinica.edu.tw/srma/journals/3561)
+Reference: [Lin et al. (2020)](https://www.rchss.sinica.edu.tw/srma/journals/3561)
 :::
 
 ## POS tagging with UDPipe (1/3) {#pos-based-dictionary-discovery-with-udpipe}
@@ -1447,7 +1447,7 @@ ann[, c("token", "lemma", "upos")]
 **Discuss:** Which tokens would you keep as dictionary candidates?
 ::::::
 ::: {.source}
-[UDPipe](https://bnosac.github.io/udpipe/docs/doc1.html)
+Resource: [UDPipe](https://bnosac.github.io/udpipe/docs/doc1.html)
 :::
 
 ## POS tagging with UDPipe (2/3) {#udpipe-code-explained}
@@ -1464,7 +1464,7 @@ ann[, c("token", "lemma", "upos")]
 `ann[, c("token", "lemma", "upos")]` keeps **all rows** and selects **three columns**.
 ::::::
 ::: {.source}
-[UDPipe](https://bnosac.github.io/udpipe/docs/doc1.html)
+Resource: [UDPipe](https://bnosac.github.io/udpipe/docs/doc1.html)
 :::
 
 ## POS tagging with UDPipe (3/3) {#udpipe-output-explained}
@@ -1497,7 +1497,7 @@ ann[, c("token", "lemma", "upos")]
 Our O01 used `parser = "none"`; dependency extraction needs parsing enabled.
 ::::::
 ::: {.source}
-[UDPipe](https://bnosac.github.io/udpipe/docs/doc7.html)
+Resource: [UDPipe](https://bnosac.github.io/udpipe/docs/doc7.html)
 :::
 
 ## TextRank: ranking candidate words (1/2) {#pos-textrank-example}
@@ -1520,7 +1520,7 @@ round(head(scores, 6), 4)
 ```
 ::::::
 ::: {.source}
-[quanteda](https://quanteda.io/reference/data_corpus_inaugural.html) · [UDPipe](https://bnosac.github.io/udpipe/docs/doc7.html) · [R code](../classroom/examples/W4_keywords_real.R)
+Resource: [quanteda](https://quanteda.io/reference/data_corpus_inaugural.html) · [UDPipe](https://bnosac.github.io/udpipe/docs/doc7.html) · [R code](../classroom/examples/W4_keywords_real.R)
 :::
 
 ## TextRank: ranking candidate words (2/2) {#pos-textrank-output}
@@ -1543,7 +1543,7 @@ head(pairs, 3)  # inspect the links used to build the network
 ```
 ::::::
 ::: {.source}
-[R code](../classroom/examples/W4_keywords_real.R)
+Resource: [R code](../classroom/examples/W4_keywords_real.R)
 :::
 
 ## Named entities with Flair (1/2) {#ner-is-separate-from-udpipe-pos-tagging}
@@ -1566,7 +1566,7 @@ for entity in sentence.get_spans("ner"):
 **For R users:** I developed [**flaiR**](https://davidycliao.github.io/flaiR/), an R package that lets you access Flair NLP through R functions.
 ::::::
 ::: {.source}
-[Flair](https://flairnlp.github.io/flair/master/tutorial/tutorial-basics/tagging-entities.html) · [Python code](../classroom/examples/W4_flair_ner.py)
+Resource: [Flair](https://flairnlp.github.io/flair/master/tutorial/tutorial-basics/tagging-entities.html) · [Python code](../classroom/examples/W4_flair_ner.py)
 :::
 
 ## Named entities with Flair (2/2) {#flair-ner-output}
@@ -1590,7 +1590,7 @@ New York LOC
 - An organization mention does not tell us whether the speaker supports it.
 ::::::
 ::: {.source}
-[Flair](https://huggingface.co/flair/ner-english-fast)
+Resource: [Flair](https://huggingface.co/flair/ner-english-fast)
 :::
 
 ## Entity mention is not stance
@@ -1624,7 +1624,7 @@ These tools assist dictionary development; they do not certify validity.
 Validate in the language and political setting of the project.
 ::::::
 ::: {.source}
-[Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## Five sentences, three annotation methods {#five-sentences-three-methods}
@@ -1651,7 +1651,7 @@ Validate in the language and political setting of the project.
 **Which sentences need more than word matching?**
 ::::::
 ::: {.source}
-[R code](../classroom/examples/five_sentence_sentiment.R)
+Resource: [R code](../classroom/examples/five_sentence_sentiment.R)
 :::
 
 ## Comparing time for the same five sentences {#five-sentences-a-speed-simulation}
@@ -1678,7 +1678,7 @@ Validate in the language and political setting of the project.
 **Would faster labels answer our research question? What validation is still needed?**
 ::::::
 ::: {.source}
-[R code](../classroom/examples/five_sentence_sentiment.R) · [Transformers](https://huggingface.co/docs/transformers/en/main_classes/pipelines#pipeline-batching)
+Resource: [R code](../classroom/examples/five_sentence_sentiment.R) · [Transformers](https://huggingface.co/docs/transformers/en/main_classes/pipelines#pipeline-batching)
 :::
 
 ## What a methods section should report
@@ -1715,7 +1715,7 @@ Return to our opening question, or choose your own research question:
 **Discuss in pairs for 2 minutes:** choose a corpus and explain your decision.
 ::::::
 ::: {.source}
-[Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44) · [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
+Reference: [Denny & Spirling (2018)](https://doi.org/10.1017/pan.2017.44) · [Rauh (2018)](https://doi.org/10.1080/19331681.2018.1485608) · [Proksch et al. (2019)](https://doi.org/10.1111/lsq.12218)
 :::
 
 ## Custom policy dictionary: inspect the errors
@@ -1820,5 +1820,5 @@ Lab materials will be released separately.
 :::::
 ::::::
 ::: {.source}
-[References](../references/supplementary.bib)
+Resource: [Bibliography](../references/supplementary.bib)
 :::

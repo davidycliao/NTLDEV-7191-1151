@@ -956,6 +956,10 @@ object-fit: contain;
 .reveal .keyness-comparison th:nth-child(1) { width: 40%; }
 .reveal .keyness-comparison th:nth-child(2) { width: 24%; }
 .reveal .keyness-comparison th:nth-child(3), .reveal .keyness-comparison th:nth-child(4) { width: 18%; }
+
+.reveal #udpipe-code-explained table { table-layout: fixed; }
+.reveal #udpipe-code-explained th { width: 50%; }
+.reveal #udpipe-code-explained td:first-child code { white-space: nowrap; }
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -1467,7 +1471,7 @@ Yen-Chieh Liao 廖彥傑
 </div>
 </div>
 
-  <p class="date">2026-10-02<span class="compile-time">Fall 2026 (115-1) · National Taiwan University (GIND)<br>NTLDEV 7191 · Fri. 16:30–18:20 · 國發 204<br>Last compiled: 2026-10-02 09:48:56 (Asia/Taipei)</span></p>
+  <p class="date">2026-10-02<span class="compile-time">Fall 2026 (115-1) · National Taiwan University (GIND)<br>NTLDEV 7191 · Fri. 16:30–18:20 · 國發 204<br>Last compiled: 2026-10-02 16:17:52 (Asia/Taipei)</span></p>
 </section>
 <section id="learning-objectives" class="slide level2">
 <h2>Learning objectives</h2>
@@ -1535,7 +1539,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Negative language about a problem can accompany support for a policy.</strong></p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="household-measurement-workflow" class="slide level2">
@@ -1587,7 +1591,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>This counts mentions.</strong> To measure negative evaluations, we also need to identify language such as “cannot afford.”</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="one-corpus-different-units-of-analysis" class="slide level2">
@@ -1619,7 +1623,7 @@ Plan a dictionary measure for your research.</li>
 <p>Keep speaker, date and source IDs when splitting or combining texts.</p>
 </div>
 <div class="source">
-<p><a href="https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences">Grimmer, Roberts &amp; Stewart (2022)</a> · <a href="https://doi.org/10.1093/pan/mps028">Grimmer &amp; Stewart (2013)</a></p>
+<p>Reference: <a href="https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences">Grimmer, Roberts &amp; Stewart (2022)</a> · <a href="https://doi.org/10.1093/pan/mps028">Grimmer &amp; Stewart (2013)</a></p>
 </div>
 </section>
 <section id="what-week-2-already-gave-us" class="slide level2">
@@ -1639,7 +1643,7 @@ Plan a dictionary measure for your research.</li>
 <span id="cb1-11"><a href></a><span class="fu">source</span>(<span class="st">&quot;workflow.R&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="source">
-<p><a href="../downloads/week4-classroom.zip">Classroom ZIP</a></p>
+<p>Resource: <a href="../downloads/week4-classroom.zip">Classroom ZIP</a></p>
 </div>
 </section>
 <section id="bag-of-words-from-text-to-feature-counts" class="slide level2">
@@ -1658,7 +1662,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Compare:</strong> Why do the selected row totals differ from document length?</p>
 </div>
 <div class="source">
-<p><a href="https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences">Grimmer, Roberts &amp; Stewart (2022)</a> · <a href="https://doi.org/10.1093/pan/mps028">Grimmer &amp; Stewart (2013)</a></p>
+<p>Reference: <a href="https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences">Grimmer, Roberts &amp; Stewart (2022)</a> · <a href="https://doi.org/10.1093/pan/mps028">Grimmer &amp; Stewart (2013)</a></p>
 </div>
 </section>
 <section id="reading-the-feature-counts" class="slide level2">
@@ -1691,7 +1695,7 @@ Plan a dictionary measure for your research.</li>
 <p>Same bag of words; different actor and target.</p>
 </div>
 <div class="source">
-<p><a href="https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences">Grimmer, Roberts &amp; Stewart (2022)</a> · <a href="https://doi.org/10.1093/pan/mps028">Grimmer &amp; Stewart (2013)</a></p>
+<p>Reference: <a href="https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences">Grimmer, Roberts &amp; Stewart (2022)</a> · <a href="https://doi.org/10.1093/pan/mps028">Grimmer &amp; Stewart (2013)</a></p>
 </div>
 </section>
 <section id="what-is-a-dictionary" class="slide level2">
@@ -1707,7 +1711,7 @@ Plan a dictionary measure for your research.</li>
 <p>Mentioning household costs does not establish economic hardship.</p>
 </div>
 <div class="source">
-<p><a href="https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences">Grimmer, Roberts &amp; Stewart (2022)</a> · <a href="https://quanteda.io/reference/dictionary.html">quanteda</a></p>
+<p>Reference: <a href="https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences">Grimmer, Roberts &amp; Stewart (2022)</a> · Resource: <a href="https://quanteda.io/reference/dictionary.html">quanteda</a></p>
 </div>
 </section>
 <section id="dictionary-first-example" class="slide level2">
@@ -1744,7 +1748,7 @@ Plan a dictionary measure for your research.</li>
 <p><code>rent</code> + <code>energy bills</code> give <strong>2 matches</strong>; <code>job security</code> gives <strong>1</strong>.</p>
 </div>
 <div class="source">
-<p><a href="../classroom/examples/W4_dictionary_simple.R">R code</a></p>
+<p>Resource: <a href="../classroom/examples/W4_dictionary_simple.R">R code</a></p>
 </div>
 </section>
 <section id="existing-adapted-or-new" class="slide level2">
@@ -1784,7 +1788,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Next:</strong> Whether adapting or building, decide which expressions belong in the dictionary.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
 </div>
 </section>
 <section id="building-an-initial-word-list" class="slide level2">
@@ -1815,7 +1819,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Try:</strong> Change 6 to 12. Which words describe procedure rather than policy?</p>
 </div>
 <div class="source">
-<p><a href="https://tutorials.quanteda.io/statistical-analysis/frequency/">quanteda</a></p>
+<p>Resource: <a href="https://tutorials.quanteda.io/statistical-analysis/frequency/">quanteda</a></p>
 </div>
 </section>
 <section id="reading-the-frequency-output" class="slide level2">
@@ -1848,7 +1852,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>In pairs:</strong> Classify two matches. Then change the window to 12.</p>
 </div>
 <div class="source">
-<p><a href="https://quanteda.io/reference/kwic.html">quanteda</a></p>
+<p>Resource: <a href="https://quanteda.io/reference/kwic.html">quanteda</a></p>
 </div>
 </section>
 <section id="reading-the-kwic-output" class="slide level2">
@@ -1880,7 +1884,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Try:</strong> Raise <code>min_count</code> to 50. Are the leading phrases about household costs?</p>
 </div>
 <div class="source">
-<p><a href="https://quanteda.io/reference/textstat_collocations.html">quanteda.textstats</a></p>
+<p>Resource: <a href="https://quanteda.io/reference/textstat_collocations.html">quanteda.textstats</a></p>
 </div>
 </section>
 <section id="reading-the-phrase-contexts" class="slide level2">
@@ -1913,7 +1917,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Compare:</strong> Each run uses a different target. Which words stand out for each party?</p>
 </div>
 <div class="source">
-<p><a href="https://quanteda.io/reference/textstat_keyness.html">quanteda.textstats</a></p>
+<p>Resource: <a href="https://quanteda.io/reference/textstat_keyness.html">quanteda.textstats</a></p>
 </div>
 </section>
 <section id="reading-the-keyness-output" class="slide level2">
@@ -2005,7 +2009,7 @@ Plan a dictionary measure for your research.</li>
 </ul>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
 </div>
 </section>
 <section id="a-small-example-we-can-check-by-hand" class="slide level2">
@@ -2057,7 +2061,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Change:</strong> Add <code>&quot;cannot afford heating&quot;</code>. Which error changes?</p>
 </div>
 <div class="source">
-<p><a href="https://quanteda.io/articles/pkgdown/phrase.html">quanteda</a></p>
+<p>Resource: <a href="https://quanteda.io/articles/pkgdown/phrase.html">quanteda</a></p>
 </div>
 </section>
 <section id="exact-terms-and-wildcard-rules" class="slide level2">
@@ -2075,7 +2079,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Discuss:</strong> Does an exact match solve the substantive ambiguity?</p>
 </div>
 <div class="source">
-<p><a href="https://quanteda.io/reference/tokens_select.html">quanteda</a></p>
+<p>Resource: <a href="https://quanteda.io/reference/tokens_select.html">quanteda</a></p>
 </div>
 </section>
 <section id="exact-wildcard-output" class="slide level2">
@@ -2104,27 +2108,27 @@ Plan a dictionary measure for your research.</li>
 </thead>
 <tbody>
 <tr class="odd">
-<td>bill</td>
+<td><code>bill</code></td>
 <td style="text-align: right;">1,470</td>
-<td>billions</td>
+<td><code>billions</code></td>
 <td style="text-align: right;">18</td>
 </tr>
 <tr class="even">
-<td>billion</td>
+<td><code>billion</code></td>
 <td style="text-align: right;">157</td>
-<td>billericay</td>
+<td><code>billericay</code></td>
 <td style="text-align: right;">5</td>
 </tr>
 <tr class="odd">
-<td>bills</td>
+<td><code>bills</code></td>
 <td style="text-align: right;">69</td>
-<td>bill’s</td>
+<td><code>bill’s</code></td>
 <td style="text-align: right;">3</td>
 </tr>
 <tr class="even">
-<td>bill’s</td>
+<td><code>bill&#39;s</code></td>
 <td style="text-align: right;">24</td>
-<td>billâ</td>
+<td><code>billâ</code></td>
 <td style="text-align: right;">3</td>
 </tr>
 </tbody>
@@ -2153,7 +2157,7 @@ Plan a dictionary measure for your research.</li>
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://smltar.com/tokenization.html">Hvitfeldt &amp; Silge (2022)</a> · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+<p>Reference: <a href="https://smltar.com/tokenization.html">Hvitfeldt &amp; Silge (2022)</a></p>
 </div>
 </section>
 <section id="document-length-and-the-denominator" class="slide level2">
@@ -2271,7 +2275,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Scoring means turning matches into a number.</strong> With P = 3, N = 1 and L = 100: net tone = <strong>2</strong>, coverage = <strong>4%</strong>. Later, the Proksch et al. case uses a different scoring rule.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="zero-is-not-always-neutral" class="slide level2">
@@ -2317,7 +2321,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Compare:</strong> Why do <code>unmatched</code>, <code>balanced</code>, and <code>empty</code> differ?</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
 </div>
 </section>
 <section id="reading-check-scores" class="slide level2">
@@ -2400,7 +2404,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Explain:</strong> Both sentences contain <code>good</code>. Does our word-count rule use <code>not</code> to change its category?</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
 </div>
 </section>
 <section id="negation-output-explained" class="slide level2">
@@ -2437,7 +2441,7 @@ Plan a dictionary measure for your research.</li>
 <p>Rules can improve a baseline without resolving every sentence.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
 </div>
 </section>
 <section id="preprocessing-must-fit-the-dictionary" class="slide level2">
@@ -2459,7 +2463,7 @@ Plan a dictionary measure for your research.</li>
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences">Grimmer, Roberts &amp; Stewart (2022)</a> · <a href="https://smltar.com/stopwords.html">Hvitfeldt &amp; Silge (2022)</a> · <a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a> · <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+<p>Reference: <a href="https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences">Grimmer, Roberts &amp; Stewart (2022)</a> · <a href="https://smltar.com/stopwords.html">Hvitfeldt &amp; Silge (2022)</a> · <a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a></p>
 </div>
 </section>
 <section id="case-locating-parties-from-their-manifestos" class="slide level2">
@@ -2478,7 +2482,7 @@ Plan a dictionary measure for your research.</li>
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a></p>
 </div>
 </section>
 <section id="orderings-from-the-same-manifestos" class="slide level2">
@@ -2497,7 +2501,7 @@ Plan a dictionary measure for your research.</li>
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a></p>
 </div>
 </section>
 <section id="what-the-manifesto-case-can-establish" class="slide level2">
@@ -2532,7 +2536,7 @@ Plan a dictionary measure for your research.</li>
 <p>For our dictionaries: do substantive comparisons survive reasonable scoring choices?</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a></p>
 </div>
 </section>
 <section id="your-case-does-a-dictionary-revision-improve-measurement" class="slide level2">
@@ -2549,7 +2553,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Discuss:</strong> Scores changed. Do they agree better with human judgments?</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a></p>
 </div>
 </section>
 <section id="a-compact-sensitivity-analysis" class="slide level2">
@@ -2570,7 +2574,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Discuss:</strong> What can this plot show without human labels?</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a></p>
 </div>
 </section>
 <section id="reading-the-sensitivity-plot" class="slide level2">
@@ -2595,7 +2599,7 @@ Plan a dictionary measure for your research.</li>
 <p>Human labels are evidence to scrutinize, not unquestionable truth.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="which-texts-should-we-validate" class="slide level2">
@@ -2627,7 +2631,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Discuss:</strong> What does kappa (.60) tell us beyond raw agreement (80%)?</p>
 </div>
 <div class="source">
-<p><a href="https://cran.r-universe.dev/irr/doc/manual.html">irr</a></p>
+<p>Resource: <a href="https://cran.r-universe.dev/irr/doc/manual.html">irr</a></p>
 </div>
 </section>
 <section id="a-confusion-matrix-for-issue-detection" class="slide level2">
@@ -2658,7 +2662,7 @@ Plan a dictionary measure for your research.</li>
 </div>
 </section>
 <section id="precision-and-recall-answer-different-questions" class="slide level2">
-<h2>Precision and recall answer different questions (1/2)</h2>
+<h2>Precision and recall (1/2)</h2>
 <div class="slide-body">
 <p><strong>Before running the code:</strong> calculate precision and recall from the preceding table.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href></a><span class="co"># C14: Checking validation arithmetic (run C01 first)</span></span>
@@ -2675,7 +2679,7 @@ Plan a dictionary measure for your research.</li>
 </div>
 </section>
 <section id="precision-and-recall-results" class="slide level2">
-<h2>Precision and recall answer different questions (2/2)</h2>
+<h2>Precision and recall (2/2)</h2>
 <div class="slide-body">
 <p><strong>Code:</strong> <code>c(precision = precision, recall = recall, F1 = F1)</code></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode numberSource text number-lines code-with-copy"><code class="sourceCode"><span id="cb26-1"><a href></a>precision    recall        F1</span>
@@ -2700,7 +2704,7 @@ Plan a dictionary measure for your research.</li>
 <p>Two scores can rise together but still disagree: scores of 1, 2, 3 and 11, 12, 13 have perfect correlation.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="validation-depends-on-the-level-of-the-claim" class="slide level2">
@@ -2739,7 +2743,7 @@ Plan a dictionary measure for your research.</li>
 <p>One successful comparison does not validate every use.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="case-energy-research-and-policy-relevance" class="slide level2">
@@ -2758,7 +2762,7 @@ Plan a dictionary measure for your research.</li>
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1016/j.erss.2025.103955">Boyle et al. (2025)</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+<p>Reference: <a href="https://doi.org/10.1016/j.erss.2025.103955">Boyle et al. (2025)</a></p>
 </div>
 </section>
 <section id="from-abstracts-to-a-policy-relevance-measure" class="slide level2">
@@ -2774,7 +2778,7 @@ Plan a dictionary measure for your research.</li>
 <p><strong>Instructor’s research-process note:</strong> We first tried fine-tuning transformers, but the results were not satisfactory.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1016/j.erss.2025.103955">Boyle et al. (2025)</a></p>
+<p>Reference: <a href="https://doi.org/10.1016/j.erss.2025.103955">Boyle et al. (2025)</a></p>
 </div>
 </section>
 <section id="policy-relevance-varies-across-journal-groups" class="slide level2">
@@ -2803,7 +2807,7 @@ Plan a dictionary measure for your research.</li>
 <p>These are descriptive text patterns, not evidence of policy uptake.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1016/j.erss.2025.103955">Boyle et al. (2025)</a></p>
+<p>Reference: <a href="https://doi.org/10.1016/j.erss.2025.103955">Boyle et al. (2025)</a></p>
 </div>
 </section>
 <section id="case-measuring-evaluations-in-german-politics" class="slide level2">
@@ -2822,7 +2826,7 @@ Plan a dictionary measure for your research.</li>
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
 </div>
 </section>
 <section id="from-political-sentences-to-a-validated-score" class="slide level2">
@@ -2877,7 +2881,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p>Compare the original dictionaries and the augmented version with human judgments.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
 </div>
 </section>
 <section id="inter-coder-reliability-do-humans-agree" class="slide level2">
@@ -2896,7 +2900,7 @@ Three people code 1,500 sampled Bundestag sentences
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
 </div>
 </section>
 <section id="sentiment-scores-against-human-judgments" class="slide level2">
@@ -2916,7 +2920,7 @@ Three people code 1,500 sampled Bundestag sentences
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
 </div>
 </section>
 <section id="positive-evaluations-are-easier-to-recover" class="slide level2">
@@ -2930,7 +2934,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p>The study validates a measure. It does not explain why politicians become more positive.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
+<p>Reference: <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a></p>
 </div>
 </section>
 <section id="case-sentiment-and-legislative-agreement" class="slide level2">
@@ -2949,7 +2953,7 @@ Three people code 1,500 sampled Bundestag sentences
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="from-speeches-to-a-test-of-cross-party-agreement" class="slide level2">
@@ -2965,7 +2969,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p>Human-coded European Parliament texts provide a separate measurement check.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="human-and-automated-scores-by-speaker-group" class="slide level2">
@@ -2985,7 +2989,7 @@ Three people code 1,500 sampled Bundestag sentences
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="translation-is-a-measurement-decision" class="slide level2">
@@ -3000,7 +3004,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p>Shared category names do not guarantee comparable numerical scales.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="does-opposition-tone-reflect-agreement" class="slide level2">
@@ -3019,7 +3023,7 @@ Three people code 1,500 sampled Bundestag sentences
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="sentiment-stance-and-conflict" class="slide level2">
@@ -3050,7 +3054,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p>Negative words can describe a social problem without attacking another party.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="liwc-what-does-it-measure" class="slide level2">
@@ -3067,7 +3071,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p>A category percentage measures word use; interpretation needs validation.</p>
 </div>
 <div class="source">
-<p><a href="https://liwc.app/help/howitworks">LIWC</a></p>
+<p>Resource: <a href="https://liwc.app/help/howitworks">LIWC</a></p>
 </div>
 </section>
 <section id="liwc-and-quanteda-separate-roles" class="slide level2">
@@ -3107,7 +3111,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p><strong>Importing a file does not grant a license to use its dictionary.</strong></p>
 </div>
 <div class="source">
-<p><a href="https://liwc.app/help/eula">LIWC</a> · <a href="https://quanteda.io/reference/dictionary.html">quanteda</a></p>
+<p>Resource: <a href="https://liwc.app/help/eula">LIWC</a> · <a href="https://quanteda.io/reference/dictionary.html">quanteda</a></p>
 </div>
 </section>
 <section id="liwc-format-and-custom-categories" class="slide level2">
@@ -3127,7 +3131,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p><strong>Discuss:</strong> Why divide by all word tokens, not just dictionary matches?</p>
 </div>
 <div class="source">
-<p><a href="https://quanteda.io/reference/dictionary.html">quanteda</a></p>
+<p>Resource: <a href="https://quanteda.io/reference/dictionary.html">quanteda</a></p>
 </div>
 </section>
 <section id="eichorst-lin-case" class="slide level2">
@@ -3146,7 +3150,7 @@ Three people code 1,500 sampled Bundestag sentences
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1086/700002">Eichorst &amp; Lin (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1086/700002">Eichorst &amp; Lin (2019)</a></p>
 </div>
 </section>
 <section id="eichorst-lin-density" class="slide level2">
@@ -3156,7 +3160,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p>Each column is a <strong>party program</strong>; each row is a <strong>dictionary term</strong>. Darker cells indicate larger logged counts; white indicates zero.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1086/700002">Eichorst &amp; Lin (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1086/700002">Eichorst &amp; Lin (2019)</a></p>
 </div>
 </section>
 <section id="campaign-simple-code" class="slide level2">
@@ -3202,7 +3206,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p><strong>Adapted from Eichorst &amp; Lin (2019):</strong> the paper excludes stopwords from the denominator and rescales the difference to 0–1. Our example does neither.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1086/700002">Eichorst &amp; Lin (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1086/700002">Eichorst &amp; Lin (2019)</a></p>
 </div>
 </section>
 <section id="liwc-in-sport-and-exercise" class="slide level2">
@@ -3221,7 +3225,7 @@ Three people code 1,500 sampled Bundestag sentences
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.6222/pej.202303_56%281%29.0001">Lin (2023)</a></p>
+<p>Reference: <a href="https://doi.org/10.6222/pej.202303_56%281%29.0001">Lin (2023)</a></p>
 </div>
 </section>
 <section id="chinese-liwc-a-validation-case" class="slide level2">
@@ -3240,7 +3244,7 @@ Three people code 1,500 sampled Bundestag sentences
 </div></div>
 </div>
 <div class="source">
-<p><a href="https://www.rchss.sinica.edu.tw/srma/journals/3561">Lin et al. (2020)</a></p>
+<p>Reference: <a href="https://www.rchss.sinica.edu.tw/srma/journals/3561">Lin et al. (2020)</a></p>
 </div>
 </section>
 <section id="pos-based-dictionary-discovery-with-udpipe" class="slide level2">
@@ -3261,7 +3265,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p><strong>Discuss:</strong> Which tokens would you keep as dictionary candidates?</p>
 </div>
 <div class="source">
-<p><a href="https://bnosac.github.io/udpipe/docs/doc1.html">UDPipe</a></p>
+<p>Resource: <a href="https://bnosac.github.io/udpipe/docs/doc1.html">UDPipe</a></p>
 </div>
 </section>
 <section id="udpipe-code-explained" class="slide level2">
@@ -3308,7 +3312,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p><code>ann[, c(&quot;token&quot;, &quot;lemma&quot;, &quot;upos&quot;)]</code> keeps <strong>all rows</strong> and selects <strong>three columns</strong>.</p>
 </div>
 <div class="source">
-<p><a href="https://bnosac.github.io/udpipe/docs/doc1.html">UDPipe</a></p>
+<p>Resource: <a href="https://bnosac.github.io/udpipe/docs/doc1.html">UDPipe</a></p>
 </div>
 </section>
 <section id="udpipe-output-explained" class="slide level2">
@@ -3387,7 +3391,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p>Our O01 used <code>parser = &quot;none&quot;</code>; dependency extraction needs parsing enabled.</p>
 </div>
 <div class="source">
-<p><a href="https://bnosac.github.io/udpipe/docs/doc7.html">UDPipe</a></p>
+<p>Resource: <a href="https://bnosac.github.io/udpipe/docs/doc7.html">UDPipe</a></p>
 </div>
 </section>
 <section id="pos-textrank-example" class="slide level2">
@@ -3408,7 +3412,7 @@ Three people code 1,500 sampled Bundestag sentences
 <span id="cb32-12"><a href></a><span class="fu">round</span>(<span class="fu">head</span>(scores, <span class="dv">6</span>), <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="source">
-<p><a href="https://quanteda.io/reference/data_corpus_inaugural.html">quanteda</a> · <a href="https://bnosac.github.io/udpipe/docs/doc7.html">UDPipe</a> · <a href="../classroom/examples/W4_keywords_real.R">R code</a></p>
+<p>Resource: <a href="https://quanteda.io/reference/data_corpus_inaugural.html">quanteda</a> · <a href="https://bnosac.github.io/udpipe/docs/doc7.html">UDPipe</a> · <a href="../classroom/examples/W4_keywords_real.R">R code</a></p>
 </div>
 </section>
 <section id="pos-textrank-output" class="slide level2">
@@ -3427,7 +3431,7 @@ Three people code 1,500 sampled Bundestag sentences
 <span id="cb34-2"><a href></a><span class="fu">head</span>(pairs, <span class="dv">3</span>)  <span class="co"># inspect the links used to build the network</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="source">
-<p><a href="../classroom/examples/W4_keywords_real.R">R code</a></p>
+<p>Resource: <a href="../classroom/examples/W4_keywords_real.R">R code</a></p>
 </div>
 </section>
 <section id="ner-is-separate-from-udpipe-pos-tagging" class="slide level2">
@@ -3447,7 +3451,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p><strong>For R users:</strong> I developed <a href="https://davidycliao.github.io/flaiR/"><strong>flaiR</strong></a>, an R package that lets you access Flair NLP through R functions.</p>
 </div>
 <div class="source">
-<p><a href="https://flairnlp.github.io/flair/master/tutorial/tutorial-basics/tagging-entities.html">Flair</a> · <a href="../classroom/examples/W4_flair_ner.py">Python code</a></p>
+<p>Resource: <a href="https://flairnlp.github.io/flair/master/tutorial/tutorial-basics/tagging-entities.html">Flair</a> · <a href="../classroom/examples/W4_flair_ner.py">Python code</a></p>
 </div>
 </section>
 <section id="flair-ner-output" class="slide level2">
@@ -3490,7 +3494,7 @@ Three people code 1,500 sampled Bundestag sentences
 </ul>
 </div>
 <div class="source">
-<p><a href="https://huggingface.co/flair/ner-english-fast">Flair</a></p>
+<p>Resource: <a href="https://huggingface.co/flair/ner-english-fast">Flair</a></p>
 </div>
 </section>
 <section id="entity-mention-is-not-stance" class="slide level2">
@@ -3548,7 +3552,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p>Validate in the language and political setting of the project.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="five-sentences-three-methods" class="slide level2">
@@ -3591,7 +3595,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p><strong>Which sentences need more than word matching?</strong></p>
 </div>
 <div class="source">
-<p><a href="../classroom/examples/five_sentence_sentiment.R">R code</a></p>
+<p>Resource: <a href="../classroom/examples/five_sentence_sentiment.R">R code</a></p>
 </div>
 </section>
 <section id="five-sentences-a-speed-simulation" class="slide level2">
@@ -3634,7 +3638,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p><strong>Would faster labels answer our research question? What validation is still needed?</strong></p>
 </div>
 <div class="source">
-<p><a href="../classroom/examples/five_sentence_sentiment.R">R code</a> · <a href="https://huggingface.co/docs/transformers/en/main_classes/pipelines#pipeline-batching">Transformers</a></p>
+<p>Resource: <a href="../classroom/examples/five_sentence_sentiment.R">R code</a> · <a href="https://huggingface.co/docs/transformers/en/main_classes/pipelines#pipeline-batching">Transformers</a></p>
 </div>
 </section>
 <section id="what-a-methods-section-should-report" class="slide level2">
@@ -3675,7 +3679,7 @@ Three people code 1,500 sampled Bundestag sentences
 <p><strong>Discuss in pairs for 2 minutes:</strong> choose a corpus and explain your decision.</p>
 </div>
 <div class="source">
-<p><a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a> · <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
+<p>Reference: <a href="https://doi.org/10.1017/pan.2017.44">Denny &amp; Spirling (2018)</a> · <a href="https://doi.org/10.1080/19331681.2018.1485608">Rauh (2018)</a> · <a href="https://doi.org/10.1111/lsq.12218">Proksch et al. (2019)</a></p>
 </div>
 </section>
 <section id="custom-policy-dictionary-inspect-the-errors" class="slide level2">
@@ -3781,7 +3785,7 @@ Three people code 1,500 sampled Bundestag sentences
 </div></div>
 </div>
 <div class="source">
-<p><a href="../references/supplementary.bib">References</a></p>
+<p>Resource: <a href="../references/supplementary.bib">Bibliography</a></p>
 </div>
 
 </section>

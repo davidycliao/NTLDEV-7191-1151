@@ -67,3 +67,8 @@
 .reveal .keyness-comparison th:nth-child(1) { width: 40%; }
 .reveal .keyness-comparison th:nth-child(2) { width: 24%; }
 .reveal .keyness-comparison th:nth-child(3), .reveal .keyness-comparison th:nth-child(4) { width: 18%; }
+
+/* Keep complete R calls on one line in the UDPipe explanation table. */
+.reveal #udpipe-code-explained table { table-layout: fixed; }
+.reveal #udpipe-code-explained th { width: 50%; }
+.reveal #udpipe-code-explained td:first-child code { white-space: nowrap; }

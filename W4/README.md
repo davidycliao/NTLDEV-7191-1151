@@ -10,6 +10,18 @@ Download and extract the [classroom ZIP](downloads/week4-classroom.zip), then op
 
 The source ZIP includes the student QMD, slides, required styles and images, bibliography, and classroom code. Presenter notes and take-home lab materials are not included. Keep the folder structure intact when extracting it.
 
+## Compile the slides
+
+With Quarto, R and the `knitr` and `rmarkdown` packages installed, run this command from the repository root or the extracted source ZIP's top folder:
+
+```sh
+quarto render W4/slide/week4.qmd
+```
+
+The HTML build needs `W4/slide/week4.qmd`, `W4/assets/`, `styles/text-preparation.css` and `image/ntu-logo.png`, with their relative paths preserved. It does not need `W4/lab/`, `W4/classroom/`, W2 files or presenter notes. R generates the compile timestamp; the displayed example code is not executed during rendering.
+
+To run the examples in R, use `W4/classroom/` with its `workflow.R`, `Data/` and `Dictionaries/` folders. Those files are already in the classroom ZIP; no lab download is needed. Keep the classroom files, bibliography and downloads alongside the slides if you want their local links to work. This command builds the HTML; the supplied PDF is generated separately.
+
 ## References
 
 The required readings and software resources are listed on the closing reference slides. Additional bibliographic entries are in [supplementary.bib](references/supplementary.bib). Source acknowledgments accompany the relevant slides.
