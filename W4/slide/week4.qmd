@@ -3,7 +3,7 @@ title: "Text as Data"
 subtitle: "W4: Dictionaries and Sentiment Analysis"
 author: "Yen-Chieh Liao 廖彥傑"
 date: "2026-10-02"
-date-format: "YYYY-MM-DD[<span class='compile-time'>Fall 2026 (115-1) · National Taiwan University (GIND)<br>NTLDEV 7191 · Fri. 16:30–18:20 · 國發 204</span>]"
+date-format: "YYYY-MM-DD[<span class='compile-time'>Fall 2026 (115-1) · National Taiwan University (GIND)<br>NTLDEV 7191 · Fri. 16:30–18:20 · 國發 204<br>Last compiled: `r format(Sys.time(), '%Y-%m-%d %H:%M:%S', tz='Asia/Taipei')` (Asia/Taipei)</span>]"
 format:
   revealjs:
     output-file: week4.html
@@ -28,6 +28,7 @@ format:
     pdf-max-pages-per-slide: 1
     pdf-separate-fragments: false
     code-overflow: wrap
+engine: knitr
 execute:
   eval: false
   echo: true
@@ -42,9 +43,11 @@ execute:
 - **Dictionary construction**  
   Build and revise a word or phrase list using political texts.
 - **Scoring**  
-  Explain sentiment scores, denominators, and missing matches.
+  Turn dictionary matches into scores; explain the denominator and texts with no matches.
 - **Validation**  
   Use published evidence and human judgments to assess validity.
+- **Own project:**  
+  Plan a dictionary measure for your research.
 
 :::
 ::::::
@@ -56,9 +59,9 @@ Course learning objectives; assigned articles and teaching acknowledgments are l
 :::::: {.slide-body}
 **When do MPs describe household economic conditions negatively?**
 
-- Text: parliamentary speech contributions.
+- *“Families cannot afford rent or energy bills.”*
 - Possible comparison: speakers, periods, or government status.
-- Evidence needed: references to household conditions and the evaluations attached to them.
+- Read both the household issue and the evaluation: `rent` identifies the topic; `cannot afford` describes hardship.
 
 **Mentioning inflation does not tell us how an MP evaluates household conditions.**
 ::::::
@@ -85,9 +88,9 @@ Constructed teaching examples. Measurement distinctions discussed through Rauh (
 1. **Find relevant sentences:** household income, living costs, and affordability.
 2. **Code the evaluation and its target:** how are household conditions described?
 3. **Validate against human judgments:** include dictionary matches and nonmatches.
-4. **Compare speakers or periods:** negative sentences / all relevant sentences.
+4. **Compare speakers or periods:** relevant sentences judged negative / all relevant sentences.
 
-**Today's lab:** KWIC → dictionary rules → scoring → validation.
+**Today we practise two parts separately:** counting issue mentions and scoring positive/negative words. Together, they do not yet identify evaluations of household conditions.
 ::::::
 ::: {.source}
 Proposed classroom research design; sentence-level coding requires its own validation.
@@ -95,19 +98,19 @@ Proposed classroom research design; sentence-level coding requires its own valid
 
 ## Construct, indicator, and claim
 :::::: {.slide-body}
-**Start with issue attention; evaluating household conditions needs another step.**
+**Example:** “Families cannot afford rent or energy bills.”
 
-| Level | Example |
+| Level | Concrete example |
 |---|---|
-| Construct | Attention to household costs |
-| Indicator | Matches to a documented word and phrase list |
-| Score | Matches per 100 original tokens |
-| Claim | Differences in the chosen indicator across speeches |
+| Construct | How much an MP talks about household costs |
+| Indicator | Count matches such as `rent` and `energy bills` (one phrase match) |
+| Score | Speech A: 4 matches / 100 words = **4 per 100**; speech B: 4 / 200 = **2 per 100** |
+| Claim | Speech A has twice as many household-cost matches per 100 words as speech B |
 
-The final claim must not be stronger than the validation evidence.
+**This counts mentions.** To measure negative evaluations, we also need to identify language such as “cannot afford.”
 ::::::
 ::: {.source}
-Course measurement example; Rauh (2018); Proksch et al. (2019).
+Illustrative sentences and counts for teaching; Rauh (2018); Proksch et al. (2019).
 :::
 
 ## One corpus, different units of analysis
@@ -128,7 +131,7 @@ Reading connection: Grimmer, Roberts, and Stewart (2022), Ch. 5.2. Grimmer and S
 
 ## Set up once for today's examples {#what-week-2-already-gave-us}
 :::::: {.slide-body}
-**Run C01 once in R** to load the data and examples. Keep this R session open as we work through the slides.
+**Each document is one parliamentary speech contribution.** Run C01 once in R to load the data and examples; keep this R session open.
 
 ```r
 # C01: Setup
@@ -142,7 +145,6 @@ found <- paths[file.exists(paths)]
 if (length(found) == 0) found <- file.choose()
 setwd(dirname(normalizePath(found[1])))
 source("workflow.R")
-c(all = nrow(speeches), discovery = ndoc(discovery_tokens))
 ```
 
 ::::::
@@ -150,24 +152,7 @@ c(all = nrow(speeches), discovery = ndoc(discovery_tokens))
 [Classroom ZIP](../downloads/week4-classroom.zip) · Open W4_classroom.R; run C01. If asked, select classroom/workflow.R.
 :::
 
-## Reading the setup output {#c01-output}
-:::::: {.slide-body}
-```text
-      all discovery
-     5000      4950
-```
-
-- **all = 5,000:** speech contributions loaded in `speeches`.
-- **discovery = 4,950:** contributions available to inspect and develop dictionary rules.
-- **The remaining 50:** reserved for later testing; keep them out of dictionary development.
-
-**One row = one speech contribution.** The same MP can appear in many rows.
-::::::
-::: {.source}
-C01 output from the supplied W4 corpus and fixed split; real-text gold labels are not supplied.
-:::
-
-## Bag of words: from text to feature counts
+## Bag of words: feature counts (1/2) {#bag-of-words-from-text-to-feature-counts}
 :::::: {.slide-body}
 **Predict:** How many times will `prices` appear in row A?
 
@@ -189,6 +174,37 @@ ntoken(demo_tokens)
 Reading connection: Grimmer, Roberts, and Stewart (2022), Ch. 5.1 and 5.5. Grimmer and Stewart (2013), Section 4. Constructed example.
 :::
 
+## Bag of words: feature counts (2/2) {#reading-the-feature-counts}
+:::::: {.slide-body}
+::::: {.columns}
+:::: {.column}
+- **Rows = documents; columns = selected words.** Each cell counts occurrences.
+- **Read row A:** `prices` appears twice, `rise` once, and `fall` zero times.
+- **Length is different:** A has 5 word tokens, but its displayed counts sum to 3. `worry` and `voters` are not shown.
+::::
+:::: {.column}
+**Code:** `as.matrix(selected)`
+
+```text
+    features
+docs prices rise fall
+   A      2    1    0
+   B      1    0    1
+```
+
+**Code:** `ntoken(demo_tokens)`
+
+```text
+A B
+5 2
+```
+::::
+:::::
+::::::
+::: {.source}
+Actual C02 output from the constructed example. Punctuation is removed; repeated words still count as separate tokens.
+:::
+
 ## What word counts leave out
 :::::: {.slide-body .large-example}
 **The government does not support the opposition.**
@@ -201,7 +217,7 @@ Same bag of words; different actor and target.
 Reading connection: Grimmer, Roberts, and Stewart (2022), Ch. 5.1; Grimmer and Stewart (2013), Section 4. Constructed political sentences.
 :::
 
-## Frequency: occurrences and speeches
+## Frequency: occurrences and speeches (1/2) {#frequency-occurrences-and-speeches}
 :::::: {.slide-body}
 **Predict:** Is a frequent word also used in many different speeches?
 
@@ -223,7 +239,29 @@ head(freq, 6)
 W2 House of Commons sample. [quanteda frequency tutorial](https://tutorials.quanteda.io/statistical-analysis/frequency/).
 :::
 
-## KWIC: reading a word in context
+## Frequency: occurrences and speeches (2/2) {#reading-the-frequency-output}
+:::::: {.slide-body}
+**Code:** `head(freq, 6)`
+
+```text
+     feature frequency rank docfreq group
+1        hon      6514    1    2826   all
+2 government      3190    2    1320   all
+3      right      2762    3    1470   all
+4     member      2395    4    1129   all
+5        can      2391    5    1221   all
+6     people      2273    6     995   all
+```
+
+- **`frequency`:** total occurrences. `hon` appears **6,514 times**.
+- **`docfreq`:** speeches containing the word. `hon` appears in **2,826 speeches**.
+- **`rank`:** order by frequency. **`group = all`:** speeches are pooled together.
+::::::
+::: {.source}
+Actual C03 output from the supplied speech sample. Common words are not automatically useful dictionary entries.
+:::
+
+## KWIC: reading words in context (1/2) {#kwic-reading-a-word-in-context}
 :::::: {.slide-body}
 **KWIC = keyword in context.** Will `security` always refer to defence?
 
@@ -232,7 +270,7 @@ W2 House of Commons sample. [quanteda frequency tutorial](https://tutorials.quan
 live_contexts <- kwic(discovery_tokens, "security", window = 5)
 context_table <- as.data.frame(live_contexts)
 columns <- c("docname", "pre", "keyword", "post")
-head(context_table[, columns], 6)
+head(context_table[, columns], 2)
 ```
 
 **In pairs:** Classify two matches. Then change the window to 12.
@@ -241,7 +279,25 @@ head(context_table[, columns], 6)
 Classroom KWIC exercise; W2 House of Commons sample. [quanteda KWIC](https://quanteda.io/reference/kwic.html).
 :::
 
-## Collocations: discovering candidate phrases
+## KWIC: reading words in context (2/2) {#reading-the-kwic-output}
+:::::: {.slide-body .phrase-context-output}
+**Code:** `head(context_table[, columns], 2)`
+
+```text
+      docname                         pre  keyword                    post
+1 speech_0024 as a basis of international security   , is essential to the
+2 speech_0246   raise the question in the security council . we advanced £
+```
+
+- **Each row is one match.** `docname` identifies the speech.
+- **Read across:** `pre` → `keyword` → `post`; up to five tokens on each side.
+- **Read the phrase:** row 1 shows `international security`; row 2 shows `security council`. Use the surrounding words to interpret the match.
+::::::
+::: {.source}
+Actual C04 output from the supplied speech sample. The first two matches are examples, not a representative sample.
+:::
+
+## Collocations: candidate phrases (1/2) {#collocations-discovering-candidate-phrases}
 :::::: {.slide-body}
 **Collocations:** adjacent words with a strong statistical association.
 
@@ -262,7 +318,25 @@ head(phrase_context, 2)
 W2 House of Commons sample. [quanteda collocations](https://quanteda.io/reference/textstat_collocations.html).
 :::
 
-## Keyness: specifying the comparison
+## Collocations: candidate phrases (2/2) {#reading-the-phrase-contexts}
+:::::: {.slide-body .phrase-context-output}
+**Code:** `head(phrase_context, 2)`
+
+```text
+Keyword-in-context with 2 matches.
+ [speech_1885, 29:30] the british-owned tea estates in | sri lanka | . there has been considerable
+ [speech_1885, 80:81]            to extend its stay in | sri lanka | to investigate the conditions of
+```
+
+- **The matched phrase is `sri lanka`.** It ranks first after we sort the candidate phrases by `lambda`.
+- **Read each line:** speech ID and token positions → words before → matched phrase → words after. Both matches come from the same speech.
+- **A strong collocation is only a candidate.** This place name does not, by itself, measure household costs.
+::::::
+::: {.source}
+Actual C05 output from the supplied speech sample. head(..., 2) shows the first two matches, not the total number in the corpus.
+:::
+
+## Keyness: comparing groups (1/2) {#keyness-specifying-the-comparison}
 :::::: {.slide-body}
 **Keyness:** which words are distinctive of Conservative versus Labour speeches?
 
@@ -272,14 +346,47 @@ party_dfm <- dfm_subset(recap_dfm,
   party %in% c("Conservative", "Labour"))
 party_dfm <- dfm_group(party_dfm, groups = party)
 party_dfm <- dfm_trim(party_dfm, min_termfreq = 1)
-keys <- textstat_keyness(party_dfm, target = "Conservative")
-head(keys, 6)
+keys_con <- textstat_keyness(party_dfm, target = "Conservative")
+keys_lab <- textstat_keyness(party_dfm, target = "Labour")
+head(keys_con, 3)
+head(keys_lab, 3)
 ```
 
-**Try:** Change the target to `"Labour"`. Positive keyness is not positive sentiment.
+**Compare:** Each run uses a different target. Which words stand out for each party?
 ::::::
 ::: {.source}
 W2 House of Commons sample. [quanteda keyness](https://quanteda.io/reference/textstat_keyness.html).
+:::
+
+## Keyness: comparing groups (2/2) {#reading-the-keyness-output}
+:::::: {.slide-body .keyness-comparison}
+::::: {.columns}
+:::: {.column}
+**Target: Conservative**
+
+| Word | chi2 | Con. | Lab. |
+|---|---:|---:|---:|
+| aircraft | 44.37 | 116 | 31 |
+| cyberstalking | 39.62 | 42 | 0 |
+| stalking | 33.96 | 36 | 0 |
+::::
+:::: {.column}
+**Target: Labour**
+
+| Word | chi2 | Con. | Lab. |
+|---|---:|---:|---:|
+| waste | 61.43 | 31 | 124 |
+| tory | 49.50 | 11 | 73 |
+| advertising | 38.72 | 12 | 64 |
+::::
+:::::
+
+- **Two targets:** each list shows the three highest positive scores for the party named above.
+- **Compare relative use:** keyness accounts for each group's token total; the counts alone do not determine it.
+- **Interpretation:** these words are distinctive in this sample, not necessarily the most frequent or positive in sentiment.
+::::::
+::: {.source}
+Actual C06 results: chi2 rounded to two decimals; p omitted. Con. = Conservative; Lab. = Labour. Counts are word occurrences.
 :::
 
 ## What is a dictionary?
@@ -344,10 +451,10 @@ Dictionary-selection discussion; Rauh (2018).
 
 ## Building or adapting a word list {#building-an-initial-word-list}
 :::::: {.slide-body}
-1. Define inclusion and exclusion criteria.
-2. Read a varied set of relevant and irrelevant passages.
-3. List recurring words and multiword expressions.
-4. Record ambiguous uses and missing expressions.
+1. Write down what should count, with one example that should not.
+2. Read passages that do and do not discuss the issue.
+3. List words and phrases that signal the issue.
+4. Check false matches and relevant passages the list misses.
 
 For household costs: distinguish **energy bills** from a **parliamentary bill**.
 
@@ -357,7 +464,7 @@ For household costs: distinguish **energy bills** from a **parliamentary bill**.
 Classroom dictionary-development example.
 :::
 
-## Using POS to find candidate words {#pos-based-dictionary-discovery-with-udpipe}
+## POS tagging with UDPipe (1/3) {#pos-based-dictionary-discovery-with-udpipe}
 :::::: {.slide-body}
 **Optional extension:** POS → candidate terms → human review.
 
@@ -381,7 +488,7 @@ ann[, c("token", "lemma", "upos")]
 [udpipe documentation](https://bnosac.github.io/udpipe/docs/doc1.html). R udpipe 0.8.16; english-ewt-ud-2.5-191206. Constructed sentence.
 :::
 
-## Reading the UDPipe code {#udpipe-code-explained}
+## POS tagging with UDPipe (2/3) {#udpipe-code-explained}
 :::::: {.slide-body}
 | Code | What it does |
 |---|---|
@@ -398,7 +505,7 @@ ann[, c("token", "lemma", "upos")]
 Course O01 example. [UDPipe annotation documentation](https://bnosac.github.io/udpipe/docs/doc1.html).
 :::
 
-## Reading the UDPipe output {#udpipe-output-explained}
+## POS tagging with UDPipe (3/3) {#udpipe-output-explained}
 :::::: {.slide-body}
 | token | lemma | upos |
 |---|---|---|
@@ -433,7 +540,7 @@ Our O01 used `parser = "none"`; dependency extraction needs parsing enabled.
 [UDPipe keyword-extraction examples](https://bnosac.github.io/udpipe/docs/doc7.html), options 1, 3 and 6. Candidate discovery still needs context review.
 :::
 
-## TextRank on a real political speech {#pos-textrank-example}
+## TextRank: ranking candidate words (1/2) {#pos-textrank-example}
 :::::: {.slide-body}
 **Obama's 2013 inaugural address**, included in quanteda. Run O01 first to load `model`.
 
@@ -456,7 +563,7 @@ round(head(scores, 6), 4)
 [Corpus documentation](https://quanteda.io/reference/data_corpus_inaugural.html) · [UDPipe keyword methods](https://bnosac.github.io/udpipe/docs/doc7.html) · [Standalone R file](../classroom/examples/W4_keywords_real.R)
 :::
 
-## {#pos-textrank-output}
+## TextRank: ranking candidate words (2/2) {#pos-textrank-output}
 :::::: {.slide-body}
 **Actual output: Obama 2013, English EWT model**
 
@@ -479,23 +586,51 @@ head(pairs, 3)  # inspect the links used to build the network
 Computed from quanteda 4.3.1, udpipe 0.8.16 and English EWT UD 2.5 (191206). [Complete code](../classroom/examples/W4_keywords_real.R).
 :::
 
-## NER is separate from UDPipe POS tagging
+## Named entities with Flair (1/2) {#ner-is-separate-from-udpipe-pos-tagging}
 :::::: {.slide-body}
-**Extension: identifying actors and reviewing name variants.**
+**Optional Python demo.** POS labels word classes; NER identifies names and their types.
 
-- R `udpipe` does **not** include a trained NER component.
-- `PROPN` means proper noun, not person, organization or place.
-- **NameTag** is a separate tool for entity spans and types.
+```python
+# Install once in a terminal: python -m pip install flair
+from flair.data import Sentence
+from flair.models import SequenceTagger
 
-| Candidate forms | A researcher-reviewed entry |
-|---|---|
-| National Health Service; NHS | NHS |
-| Bank of England; BoE | Bank of England |
+tagger = SequenceTagger.load("ner-fast")
+sentence = Sentence(
+    "Barack Obama spoke at the United Nations in New York.")
+tagger.predict(sentence)
+for entity in sentence.get_spans("ner"):
+    print(entity.text, entity.get_label("ner").value)
+```
 
-Entity detection does not resolve aliases automatically.
+`load()` loads the model; `predict()` finds entities; `get_spans()` retrieves them.
 ::::::
 ::: {.source}
-[UDPipe](https://ufal.mff.cuni.cz/udpipe); [NameTag 3](https://ufal.mff.cuni.cz/nametag/3). Alias mapping is illustrative, not NameTag output.
+[Flair NER tutorial](https://flairnlp.github.io/flair/master/tutorial/tutorial-basics/tagging-entities.html) · [Python example](../classroom/examples/W4_flair_ner.py). First run downloads a model. Use Python, not the R console.
+:::
+
+## Named entities with Flair (2/2) {#flair-ner-output}
+:::::: {.slide-body}
+*“Barack Obama spoke at the United Nations in New York.”*
+
+```text
+Barack Obama PER
+United Nations ORG
+New York LOC
+```
+
+| Detected name | Label | Interpretation |
+|---|---|---|
+| Barack Obama | PER | Person |
+| United Nations | ORG | Organization |
+| New York | LOC | Location |
+
+- NER groups words into a name: **United Nations** is one entity span.
+- Use these spans to find mentions, then inspect their context.
+- An organization mention does not tell us whether the speaker supports it.
+::::::
+::: {.source}
+Executed with Flair 0.13.1 and English ner-fast; constructed teaching sentence. [Model documentation](https://huggingface.co/flair/ner-english-fast).
 :::
 
 ## Entity mention is not stance
@@ -689,7 +824,7 @@ Executed C08 on the supplied discovery corpus with quanteda 4.3.1. Token spellin
 Hvitfeldt and Silge, online edition, [Figure 2.2](https://smltar.com/tokenization.html), CC BY-NC-SA 4.0. Political examples: course illustration.
 :::
 
-## Document length and the denominator
+## Document length and the denominator (1/2) {#document-length-and-the-denominator}
 :::::: {.slide-body}
 **Predict:** Will counts and rates identify the same top speeches?
 
@@ -711,7 +846,7 @@ head(rates[rate_order, cols], 3)
 W2 House of Commons sample; broad bill-prefix matches, not validated household hardship.
 :::
 
-## Reading the two rankings {#count-rate-output}
+## Document length and the denominator (2/2) {#count-rate-output}
 :::::: {.slide-body}
 `head(..., 3)` shows the top three rows; `cols` selects columns.
 
@@ -814,13 +949,13 @@ Let **P** = positive matches, **N** = negative matches, **L** = original token c
 | Net tone | 100 × (P − N) / L | Net matches per 100 tokens |
 | Match coverage | 100 × (P + N) / L | Matched sentiment tokens per 100 tokens |
 
-These lab formulas are not the log-ratio score used by Proksch et al.
+**Scoring means turning matches into a number.** With P = 3, N = 1 and L = 100: net tone = **2**, coverage = **4%**. These differ from Proksch et al.’s log-ratio score.
 ::::::
 ::: {.source}
 Course lab definitions using single-token toy lexicons; contrast with Proksch et al. (2019).
 :::
 
-## Zero is not always neutral
+## Zero is not always neutral (1/2) {#zero-is-not-always-neutral}
 :::::: {.slide-body}
 ::: {.caption}
 `check_texts` contains five teaching examples, created in `workflow.R` and loaded by **C01**.
@@ -847,7 +982,7 @@ check_scores[, c("doc_id", "positive", "negative",
 Rauh (2018), zero-biased scores; constructed teaching sentences and the lab's toy lexicon.
 :::
 
-## Reading the sentiment scores {#reading-check-scores}
+## Zero is not always neutral (2/2) {#reading-check-scores}
 :::::: {.slide-body}
 ::: {.caption}
 P = positive matches; N = negative matches; L = total word tokens.
@@ -885,7 +1020,7 @@ Net = `net_per100`; Coverage = `coverage_per100`; Balance = `balance`.
 Constructed C10 examples from workflow.R. Balance ranges from −1 to 1 when P + N > 0. No real-text gold labels are implied.
 :::
 
-## Negation changes the interpretation
+## Negation and dictionary matches (1/2) {#negation-changes-the-interpretation}
 :::::: {.slide-body}
 **Predict:** Will keeping `not` make the second sentence negative?
 
@@ -900,13 +1035,13 @@ without_stopwords <- tokens_remove(negation_tokens, stopwords("en"))
 as.list(without_stopwords)
 ```
 
-**Explain:** What information does the scoring rule actually use?
+**Explain:** Both sentences contain `good`. Does our word-count rule use `not` to change its category?
 ::::::
 ::: {.source}
 Constructed teaching sentences and course code; context discussion in Rauh (2018).
 :::
 
-## Why both sentences look positive {#negation-output-explained}
+## Negation and dictionary matches (2/2) {#negation-output-explained}
 :::::: {.slide-body}
 :::: {.columns}
 ::: {.column}
@@ -1044,7 +1179,7 @@ head(energy_context, 3)
 **Discuss:** Scores changed. Do they agree better with human judgments?
 ::::::
 ::: {.source}
-W4 energy-policy dictionaries; W2 speech sample. Sensitivity principle: Denny and Spirling (2018).
+Here we switch from sentiment to energy-policy mentions. Sensitivity principle: Denny and Spirling (2018).
 :::
 
 ## Sentiment scores against human judgments
@@ -1239,7 +1374,7 @@ The unit is a **passage**, not a dictionary word.
 Illustrative counts for classroom practice; not empirical results from the lab corpus.
 :::
 
-## Precision and recall answer different questions
+## Precision and recall answer different questions (1/2) {#precision-and-recall-answer-different-questions}
 :::::: {.slide-body}
 **Before running the code:** calculate precision and recall from the preceding table.
 
@@ -1259,7 +1394,26 @@ c(precision = precision, recall = recall, F1 = F1)
 **Discuss:** Could we estimate recall by reading only dictionary matches?
 ::::::
 ::: {.source}
-Illustrative confusion matrix on the preceding slide; classroom calculation.
+C14 uses 20 illustrative passages. The take-home lab uses a different set of 12 test sentences, so its results differ.
+:::
+
+## Precision and recall answer different questions (2/2) {#precision-and-recall-results}
+:::::: {.slide-body}
+**Code:** `c(precision = precision, recall = recall, F1 = F1)`
+
+```text
+precision    recall        F1
+0.7500000 0.6000000 0.6666667
+```
+
+- **Precision = 0.75:** Of 8 passages the dictionary flags, **6 are relevant** (6 / 8).
+- **Recall = 0.60:** Of 10 relevant passages, the dictionary **finds 6** (6 / 10).
+- **F1 ≈ 0.667:** Combines precision and recall: 2 × 6 / (2 × 6 + 2 + 4).
+
+**Missed cases matter:** reading only matched passages cannot tell us recall.
+::::::
+::: {.source}
+C14 output from 20 illustrative passages: TP = 6, FP = 2, FN = 4, TN = 8. F1 is not accuracy.
 :::
 
 ## Evaluating continuous sentiment scores
@@ -1269,18 +1423,20 @@ Illustrative confusion matrix on the preceding slide; classroom calculation.
 - Check unmatched texts, compressed ranges, and extreme values.
 - Compare performance across groups and genres.
 
-Correlation alone does not establish calibration or agreement.
+Two scores can rise together but still disagree: scores of 1, 2, 3 and 11, 12, 13 have perfect correlation.
 ::::::
 ::: {.source}
 Rauh (2018), Figures 1–3; Proksch et al. (2019), Figure 1.
 :::
 
-## A compact sensitivity analysis
+## Dictionary sensitivity (1/2) {#a-compact-sensitivity-analysis}
 :::::: {.slide-body}
-**Predict:** Where will unchanged speech scores lie?
+**What is `dev`?** The table created in **C12** for inspecting dictionary rules: **one row = one speech**, with 4,950 speeches.
+
+`v1_per1000` and `v2_per1000` are its columns: matches per 1,000 words under each dictionary version.
 
 ```r
-# C15: Visualizing dictionary sensitivity
+# C15: Visualizing dictionary sensitivity (run C12 first)
 # install.packages("ggplot2")  # run once
 library(ggplot2)
 ggplot(dev, aes(x = v1_per1000, y = v2_per1000)) +
@@ -1296,6 +1452,20 @@ ggplot(dev, aes(x = v1_per1000, y = v2_per1000)) +
 ::::::
 ::: {.source}
 Denny and Spirling (2018), sensitivity principle; W4 dictionaries and W2 speech sample. This is a classroom analysis, not the paper's figure.
+:::
+
+## Dictionary sensitivity (2/2) {#reading-the-sensitivity-plot}
+:::::: {.slide-body .sensitivity-figure}
+![](../assets/dictionary-sensitivity.png){fig-alt="Scatter plot of dictionary v1 versus v2 matches per 1,000 tokens for discovery speeches. The red dashed line marks equal scores."}
+
+::: {.caption}
+**One point = one speech.** On the dashed line: unchanged; below: fewer matches in v2; above: more matches in v2. Overlapping points can hide many speeches.
+
+**Changed scores show sensitivity, not which dictionary is more valid.**
+:::
+::::::
+::: {.source}
+Actual C15 output using dev from C12; supplied House of Commons sample. Human labels are needed to assess validity.
 :::
 
 ## What a methods section should report
@@ -1350,9 +1520,6 @@ Choose one possible corpus and complete these sentences:
 - A plausible false negative is **...**.
 - I would validate the measure using **...**.
 ::::::
-::: {.source}
-Research-design discussion; no additional graded task.
-:::
 
 ## LIWC: what does it measure?
 :::::: {.slide-body}
@@ -1415,7 +1582,7 @@ Darker cells indicate larger logged counts; white indicates zero.
 Eichorst & Lin (2019), Figure 1. [Article](https://doi.org/10.1086/700002). User-supplied figure excerpt; counts, not normalized rates.
 :::
 
-## A two-sentence dictionary example {#campaign-simple-code}
+## A two-sentence dictionary example (1/3) {#campaign-simple-code}
 :::::: {.slide-body}
 **Copy the whole block into R.** Requires `quanteda`.
 
@@ -1434,7 +1601,7 @@ as.matrix(hits)
 Constructed sentences and a two-word teaching dictionary. Run in local R; this is not the paper's code or full LIWC dictionary.
 :::
 
-## Reading the dictionary output {#campaign-simple-output}
+## A two-sentence dictionary example (2/3) {#campaign-simple-output}
 :::::: {.slide-body}
 ```text
        features
@@ -1453,7 +1620,7 @@ docs    vague concrete
 Actual output of the preceding constructed example. No political finding is estimated here.
 :::
 
-## Counts, scores and research use {#campaign-simple-score}
+## A two-sentence dictionary example (3/3) {#campaign-simple-score}
 :::::: {.slide-body}
 **Teaching score = 100 × (C − V) / L**
 
@@ -1517,7 +1684,7 @@ Lin et al. (2020), Study 3, Table 3, p. 105; n = 100 posts. [Paper and full text
 Import our **ten-word teaching dictionary**, not an official LIWC dictionary.
 
 ```r
-# C16: Custom dictionary (working directory: W4/lab)
+# C16: Custom dictionary (run C01; stay in W4/classroom)
 library(quanteda)
 own <- dictionary(file = "Dictionaries/teaching_affect.dic", format = "LIWC")
 mini <- tokens(c("Good policy.", "A bad crisis."), remove_punct = TRUE)
@@ -1558,10 +1725,10 @@ W4 core tasks 2-3; W2 tokens, KWIC and metadata.
 
 ## Validation: freeze, test and interpret
 :::::: {.slide-body}
-- Develop rules on 12 synthetic teaching examples.
-- Freeze the version before inspecting 12 test examples.
-- Compare predictions with labels, including nonmatches.
-- Test v2: precision **0.80**, recall **0.667**, F1 **0.727**.
+- **Develop:** use 12 teaching sentences to see what v1 and v2 get wrong.
+- **Freeze:** keep the supplied v2 unchanged for the next 12 sentences.
+- **Test:** compare its predictions with the supplied labels, including nonmatches.
+- **Result:** precision **0.80**, recall **0.667**, F1 **0.727**.
 
 Illustrative arithmetic, not estimated performance on Parliament.
 ::::::
@@ -1658,9 +1825,10 @@ Course syllabus, W5-W6; W4 development-text warm-up.
 :::::: {.slide-body}
 **45-60 minutes of core practice.**
 
-1. Import the course's custom affect dictionary into R.
-2. Build and audit an energy-policy dictionary with KWIC.
-3. Freeze rules and check precision, recall and F1.
+1. Read the teaching dictionary and calculate sentiment scores.
+2. Change an energy-policy rule and inspect its matches.
+3. Find false matches and missed cases in development examples.
+4. Keep v2 fixed and calculate precision, recall and F1 on test examples.
 
 Lab materials will be released separately.
 ::::::
@@ -1677,5 +1845,42 @@ Course lab: custom dictionaries, context checks and validation using the W2 corp
 **Proksch, S.-O., W. Lowe, J. Wäckerle, and S. Soroka (2019).** “Multilingual Sentiment Analysis: A New Approach to Measuring Conflict in Legislative Speeches.” *Legislative Studies Quarterly* 44(1): 97–131. [DOI](https://doi.org/10.1111/lsq.12218)
 ::::::
 ::: {.source}
-Technical resources: quanteda, udpipe and NameTag documentation. Selected activities and the W2 corpus draw on ESS materials by Schoonvelde (2026), acknowledging Stefan Müller; this deck also includes course-designed examples and code.
+Technical resources: quanteda, udpipe and Flair documentation. Selected activities and the W2 corpus draw on ESS materials by Schoonvelde (2026), acknowledging Stefan Müller; this deck also includes course-designed examples and code.
+:::
+
+## Readings and software references
+:::::: {.slide-body .reference-list}
+::::: {.columns}
+:::: {.column}
+**Further readings**
+
+**Grimmer, Roberts & Stewart (2022).** [*Text as Data*](https://bstewart.scholar.princeton.edu/publications/text-data-new-framework-machine-learning-and-social-sciences). Chapters 5 and 16.
+
+**Hvitfeldt & Silge.** [*Supervised Machine Learning for Text Analysis in R*](https://smltar.com/). Online chapters on tokenization and stopwords.
+
+**Eichorst & Lin (2019).** [“Resist to Commit.”](https://doi.org/10.1086/700002) *The Journal of Politics* 81(1): 15–32.
+
+**Boyle et al. (2025).** [“Catalysts for progress? Mapping policy insights from energy research.”](https://doi.org/10.1016/j.erss.2025.103955) *Energy Research & Social Science* 121: 103955.
+::::
+:::: {.column}
+**Software documentation**
+
+**quanteda:** [dictionaries](https://quanteda.io/reference/dictionary.html), [KWIC](https://quanteda.io/reference/kwic.html) and text matching.
+
+**[quanteda.textstats](https://cran.r-project.org/package=quanteda.textstats):** frequency, collocations and keyness.
+
+**[UDPipe](https://bnosac.github.io/udpipe/docs/doc1.html) / [TextRank](https://cran.r-project.org/package=textrank):** annotation and [keyword extraction](https://bnosac.github.io/udpipe/docs/doc7.html).
+
+**[ggplot2](https://ggplot2.tidyverse.org/reference/):** plotting dictionary scores.
+
+**[Flair](https://flairnlp.github.io/flair/master/tutorial/tutorial-basics/tagging-entities.html):** named entity recognition (Python).
+
+**[irr](https://cran.r-universe.dev/irr/doc/manual.html):** agreement between coders.
+
+**[LIWC](https://liwc.app/help/howitworks):** categories and word-use measures.
+::::
+:::::
+::::::
+::: {.source}
+The three assigned articles are on the previous slide. Additional citations: [supplementary.bib](../references/supplementary.bib). Classroom examples include original teaching materials.
 :::

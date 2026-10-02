@@ -41,5 +41,29 @@
 .reveal .evidence-image.tall-figure img { height: 400px; }
 
 
-/* Keep the TextRank output slide without a visible title. */
-.reveal #pos-textrank-output > h2:empty { display: none; }
+
+/* Keep the actual KWIC console output beside its reading guide. */
+.reveal .kwic-output-columns { display: grid; grid-template-columns: 62fr 38fr; align-items: start; gap: 20px; }
+.reveal .kwic-output-columns > .column { width: auto; min-width: 0; }
+.reveal .kwic-output-columns pre { font-size: 16px; line-height: 1.45; }
+.reveal .kwic-output-columns > .column:first-child > p { font-size: 21px; }
+.reveal .kwic-output-columns > .column:last-child { font-size: 25px; }
+
+.reveal .phrase-context-output pre { font-size: 16px; line-height: 1.6; }
+
+.reveal .sensitivity-figure img { max-height: 350px; }
+
+
+/* Reserve room for the restored TextRank result title. */
+.reveal #pos-textrank-output .slide-body p,
+.reveal #pos-textrank-output .slide-body li { font-size: 26px; line-height: 1.25; }
+.reveal #pos-textrank-output .slide-body li { margin-bottom: 8px; }
+.reveal #pos-textrank-output .slide-body p { margin: 8px 0; }
+.reveal #pos-textrank-output .slide-body pre { font-size: 18px; line-height: 1.25; margin: 8px 0; }
+.reveal #pos-textrank-output .slide-body pre code { padding: 10px 12px; }
+
+.reveal .keyness-comparison table { font-size: 22px; table-layout: fixed; }
+.reveal .keyness-comparison th, .reveal .keyness-comparison td { font-size: 1em; padding: 8px 6px; }
+.reveal .keyness-comparison th:nth-child(1) { width: 40%; }
+.reveal .keyness-comparison th:nth-child(2) { width: 24%; }
+.reveal .keyness-comparison th:nth-child(3), .reveal .keyness-comparison th:nth-child(4) { width: 18%; }

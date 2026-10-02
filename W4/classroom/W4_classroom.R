@@ -18,7 +18,7 @@
 # These are course exercises, not replications of the assigned paper results.
 # Source: slide/week4-presenter.qmd; regenerate with scripts/publish_classroom.py.
 
-# What is one row? Why reserve 50 texts?
+# Run setup once, then continue to C02 (Bag of words).
 # C01: Setup
 # First use: uncomment the next line to install.
 # install.packages(c("quanteda", "quanteda.textstats"))
@@ -30,7 +30,10 @@ found <- paths[file.exists(paths)]
 if (length(found) == 0) found <- file.choose()
 setwd(dirname(normalizePath(found[1])))
 source("workflow.R")
-c(all = nrow(speeches), discovery = ndoc(discovery_tokens))
+
+# Optional check: uncomment to see the number of speech contributions.
+# Not required for today's examples; 50 are reserved for optional human validation.
+# c(all = nrow(speeches), discovery = ndoc(discovery_tokens))
 
 # Predict the prices count; compare selected features with full lengths.
 # C02: Counts and document length
@@ -57,7 +60,7 @@ head(freq, 6)
 live_contexts <- kwic(discovery_tokens, "security", window = 5)
 context_table <- as.data.frame(live_contexts)
 columns <- c("docname", "pre", "keyword", "post")
-head(context_table[, columns], 6)
+head(context_table[, columns], 2)
 
 # Raise min_count to 50; use KWIC before choosing a dictionary phrase.
 # C05: Phrases in real speeches (run C01 first)
@@ -69,14 +72,16 @@ first_phrase <- phrase(coll$collocation[1])
 phrase_context <- kwic(discovery_tokens, first_phrase, window = 5)
 head(phrase_context, 2)
 
-# Change the target to Labour; explain why positive keyness is not sentiment.
+# Compare each party's top three words; positive keyness is not sentiment.
 # C06: Relative word use (run C01 and C03 first)
 party_dfm <- dfm_subset(recap_dfm,
   party %in% c("Conservative", "Labour"))
 party_dfm <- dfm_group(party_dfm, groups = party)
 party_dfm <- dfm_trim(party_dfm, min_termfreq = 1)
-keys <- textstat_keyness(party_dfm, target = "Conservative")
-head(keys, 6)
+keys_con <- textstat_keyness(party_dfm, target = "Conservative")
+keys_lab <- textstat_keyness(party_dfm, target = "Labour")
+head(keys_con, 3)
+head(keys_lab, 3)
 
 # Add "cannot afford heating" to the dictionary and rerun lookup.
 # C07: A complete phrase-lookup example
@@ -161,7 +166,7 @@ F1 <- 2 * TP / (2 * TP + FP + FN)
 c(precision = precision, recall = recall, F1 = F1)
 
 # Locate unchanged scores; explain what the scatterplot cannot validate.
-# C15: Visualizing dictionary sensitivity
+# C15: Visualizing dictionary sensitivity (run C12 first)
 # install.packages("ggplot2")  # run once
 library(ggplot2)
 ggplot(dev, aes(x = v1_per1000, y = v2_per1000)) +
@@ -173,7 +178,7 @@ ggplot(dev, aes(x = v1_per1000, y = v2_per1000)) +
   theme_minimal()
 
 # Import our original list; compare category counts with all word tokens.
-# C16: Custom dictionary (working directory: W4/lab)
+# C16: Custom dictionary (run C01; stay in W4/classroom)
 library(quanteda)
 own <- dictionary(file = "Dictionaries/teaching_affect.dic", format = "LIWC")
 mini <- tokens(c("Good policy.", "A bad crisis."), remove_punct = TRUE)

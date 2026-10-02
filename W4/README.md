@@ -12,6 +12,6 @@ The source ZIP includes the student QMD, slides, required styles and images, bib
 
 ## References
 
-The required readings are listed on the final slide. Additional bibliographic entries are in [supplementary.bib](references/supplementary.bib). Source acknowledgments accompany the relevant slides.
+The required readings and software resources are listed on the closing reference slides. Additional bibliographic entries are in [supplementary.bib](references/supplementary.bib). Source acknowledgments accompany the relevant slides.
 
 The take-home lab will be released separately.
