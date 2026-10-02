@@ -2,6 +2,7 @@
 # Scheduled student route: C01, C04, C07, C10, C11, C14.
 # Finish with examples/W4_campaign_simple.R; C16 is an alternative or self-study.
 # Other blocks are instructor demonstrations or self-study; do not source all.
+# Blocks follow the slides; IDs stay fixed, so C15 follows C12.
 # C06 requires C03 (recap_dfm); C15 requires C12 (dev).
 # Use R >= 4.1; install these packages once before class:
 # install.packages(c("quanteda", "quanteda.textstats"))
@@ -141,6 +142,18 @@ c(v1 = sum(dev$v1 > 0), v2 = sum(dev$v2 > 0))
 energy_context <- kwic(discovery_tokens, "energy", window = 5)
 head(energy_context, 3)
 
+# Locate unchanged scores; explain what the scatterplot cannot validate.
+# C15: Visualizing dictionary sensitivity (run C12 first)
+# install.packages("ggplot2")  # run once
+library(ggplot2)
+ggplot(dev, aes(x = v1_per1000, y = v2_per1000)) +
+  geom_point(size = 1, alpha = 0.4, colour = "#314f4f") +
+  geom_abline(intercept = 0, slope = 1,
+              colour = "firebrick", linetype = "dashed") +
+  labs(x = "v1 matches per 1,000 tokens",
+       y = "v2 matches per 1,000 tokens") +
+  theme_minimal()
+
 # Count matching human labels; explain why agreement and kappa differ.
 # C13: Human agreement, not model accuracy
 # install.packages("irr")  # run once
@@ -164,18 +177,6 @@ precision <- TP / (TP + FP)
 recall <- TP / (TP + FN)
 F1 <- 2 * TP / (2 * TP + FP + FN)
 c(precision = precision, recall = recall, F1 = F1)
-
-# Locate unchanged scores; explain what the scatterplot cannot validate.
-# C15: Visualizing dictionary sensitivity (run C12 first)
-# install.packages("ggplot2")  # run once
-library(ggplot2)
-ggplot(dev, aes(x = v1_per1000, y = v2_per1000)) +
-  geom_point(size = 1, alpha = 0.4, colour = "#314f4f") +
-  geom_abline(intercept = 0, slope = 1,
-              colour = "firebrick", linetype = "dashed") +
-  labs(x = "v1 matches per 1,000 tokens",
-       y = "v2 matches per 1,000 tokens") +
-  theme_minimal()
 
 # Import our original list; compare category counts with all word tokens.
 # C16: Custom dictionary (run C01; stay in W4/classroom)

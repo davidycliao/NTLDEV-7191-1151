@@ -2,6 +2,7 @@
 # Scheduled student route: C01, C04, C07, C10, C11, C14.
 # Finish with examples/W4_campaign_simple.R; C16 is an alternative or self-study.
 # Other blocks are instructor demonstrations or self-study; do not source all.
+# Blocks follow the slides; IDs stay fixed, so C15 follows C12.
 # C06 requires C03 (recap_dfm); C15 requires C12 (dev).
 # Use R >= 4.1; install these packages once before class:
 # install.packages(c("quanteda", "quanteda.textstats"))
