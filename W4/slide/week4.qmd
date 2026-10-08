@@ -1506,7 +1506,7 @@ Resource: [UDPipe](https://bnosac.github.io/udpipe/docs/doc7.html)
 
 ```r
 library(quanteda)
-# install.packages("textrank")  # run once
+# install.packages(c("textrank", "igraph"))  # run once
 library(textrank)
 speech <- corpus_subset(data_corpus_inaugural, Year == 2013)
 text <- as.character(speech)
@@ -1533,14 +1533,28 @@ Resource: [quanteda](https://quanteda.io/reference/data_corpus_inaugural.html) Â
 ```
 
 - **Nodes:** candidate lemmas. **Edges:** adjacent noun/adjective pairs.
-- `new` links to `job` twice; to `response`, `challenge`, `idea` and `industries` once each.
-- PageRank uses weighted connections and neighbours' scores; raw frequency alone does not determine rank.
-- **Review the result:** `new` is broad; some forms of `endure` were tagged as nouns. Neither is automatically a useful dictionary entry.
+- PageRank uses pair counts and neighbours' scores.
+- **Review:** `new` is broad; some `endure` forms were tagged as nouns.
 
+::::: {.columns}
+:::: {.column}
 ```r
-pairs <- cooccurrence(ann$lemma, relevant = keep)
-head(pairs, 3)  # inspect the links used to build the network
+pairs <- cooccurrence(ann$lemma,
+  relevant = keep)
+print(head(pairs, 3))
 ```
+::::
+:::: {.column}
+```text
+       term1   term2 cooc
+1 individual freedom    2
+2        new     job    2
+3      other  nation    2
+```
+::::
+:::::
+
+**cooc = 2:** the pair occurs twice in this speech.
 ::::::
 ::: {.source}
 Resource: [R code](../classroom/examples/W4_keywords_real.R)
