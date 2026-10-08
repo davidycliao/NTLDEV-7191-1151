@@ -1772,7 +1772,7 @@ About 10 minutes of preparation; no model training or upload.
 3. Find false matches and missed cases in development examples.
 4. Keep v2 fixed and calculate precision, recall and F1 on test examples.
 
-Lab materials will be released separately.
+[Lab handout](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W4/lab/Lab_Session_W4.html) · [Lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W4/downloads/week4-lab.zip)
 ::::::
 
 

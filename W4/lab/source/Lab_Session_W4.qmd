@@ -1,0 +1,360 @@
+---
+title: "W4 Take-home Lab: LIWC-Format Dictionaries and Validation"
+subtitle: "Text as Data | National Taiwan University"
+format:
+  html:
+    embed-resources: true
+    toc: true
+execute:
+  warning: false
+  message: false
+---
+
+## Before starting
+
+**Ungraded take-home practice; no submission.** Allow **45–60 minutes** for sections 1–4, with extra time for beginners. Follow one route: **read a dictionary → change a rule and rerun → inspect errors → check test results**. Party comparisons are optional. The five-text W6 preview takes about 10 additional minutes.
+
+We reuse the 5,000 parliamentary speech contributions from W2. **You do not need to run W2 first:** the setup below loads the data. Short, course-designed sentences help us see how dictionary rules work before interpreting real texts.
+
+Extract the lab ZIP, then open **`Lab_Session_W4.R`** in RStudio and read this handout alongside it. Keep `workflow.R`, `Dictionaries/` and `Data/` together. Run the whole setup block below once; it finds the lab folder or asks you to choose its `workflow.R`. Keep the same R session open. Install `quanteda` once; no LIWC purchase, model download or API is needed. You do not need to render the QMD.
+
+```{r}
+#| label: setup
+# install.packages("quanteda")  # run once before class
+library(quanteda)
+# Find the lab folder; if asked, select workflow.R inside W4/lab.
+paths <- c("W4/lab/workflow.R", "lab/workflow.R",
+           "../lab/workflow.R", "../workflow.R", "workflow.R")
+found <- paths[file.exists(paths)]
+if (length(found) == 0) found <- file.choose()
+setwd(dirname(normalizePath(found[1])))
+source("workflow.R")  # load the data and prepared examples
+```
+
+Try the exercises before opening [the worked answers](answers/Lab_Session_W4_Answers.html). Bring questions to [instructor](https://calendly.com/ycliao/text-as-data-instructor) or [TA](https://calendly.com/ycliao/text-as-data-ta) office hours.
+
+## Reading the R code
+
+**The examples use quanteda functions and simple R arithmetic.** Run the lines in order, then read the result before moving on.
+
+Run each section from top to bottom in the same R session. Each line saves or displays one result. Use `Ctrl+Enter` (Windows) or `Cmd+Enter` (Mac) in RStudio to run a selected line.
+
+| Syntax | Meaning | Example |
+|---|---|---|
+| `<-` | Save a result under a name | `counts <- dfm(toks)` |
+| `$` | Select one column | `test$human` |
+| `[rows, columns]` | Select rows or columns | `counts[, "positive"]` |
+| `==`, `!=` | Equal to, different from | `test$v2 != test$human` |
+| `sum(x)` | Add values; TRUE counts as 1 | `sum(predicted == 1)` |
+| `subset(x, condition)` | Keep matching rows | `subset(synthetic, split == "development")` |
+| `%in%` | Check membership in a list | `doc_id %in% discovery_ids` |
+| `&` | Both conditions must hold | `predicted == 1 & human == 1` |
+| `head(x, 6)` | Display six rows | `head(contexts, 6)` |
+
+`workflow.R` prepares the shared corpus, dictionary versions and fixed data split. Its reusable functions and file checks are supplied support code. You do not need to write functions, loops, or regular expressions for the core lab. The examples below show tokenization, matching and arithmetic directly.
+
+### Functions you will reuse
+
+| Task | Ready-made function |
+|---|---|
+| Build a corpus from a data table | `corpus()` |
+| Split text into tokens | `tokens()` |
+| Define or import a dictionary | `dictionary()` |
+| Match phrases / match word counts | `tokens_lookup()` / `dfm_lookup()` |
+| Inspect context | `kwic()` |
+| Count words | `dfm()` and `ntoken()` |
+| Optional: combine speeches by party | `dfm_group()` |
+| Change counts to presence / absence | `dfm_weight(..., scheme = "boolean")` |
+| Display a DFM as a regular table | `convert(..., to = "data.frame")` |
+
+The five-sentence score table is prepared by setup. You will calculate a simple score and the validation measures below.
+
+## LIWC and our teaching dictionary
+
+**LIWC means Linguistic Inquiry and Word Count.** It counts words in categories such as emotion. In this lab, quanteda reads a small, original teaching dictionary saved in LIWC's legacy `.dic` format. It is not the official LIWC dictionary, and our score is not LIWC's Tone measure.
+
+You only need quanteda. See [LIWC's explanation](https://liwc.app/help/liwc) and [quanteda's dictionary importer](https://quanteda.io/reference/dictionary.html) for background.
+
+## 1. Read a dictionary and inspect its matches
+
+**10 minutes.** Open the supplied ten-word list and see which words it matches. Between the two `%` lines are the category names; below the second `%`, each word has a category number.
+
+```{r}
+readLines("Dictionaries/teaching_affect.dic")
+toy_sentiment <- dictionary(file = "Dictionaries/teaching_affect.dic",
+                            format = "LIWC")
+toy_sentiment
+```
+
+Start with two short texts. Run the dictionary-import block above first, then copy this block:
+
+```{r}
+texts <- c("The policy is good.", "The policy is not good.")
+example_tokens <- tokens(texts, remove_punct = TRUE)
+example_dfm <- dfm(example_tokens)
+example_hits <- dfm_lookup(example_dfm, toy_sentiment)
+counts <- convert(example_hits, to = "data.frame")
+counts
+```
+
+Both rows have one positive match. `tokens()` splits text into tokens; `dfm()` counts words; `dfm_lookup()` combines word counts into dictionary categories. The rule does not interpret `not`.
+
+```{r}
+word_count <- ntoken(example_tokens)
+positive <- counts$positive
+negative <- counts$negative
+net_score <- 100 * (positive - negative) / word_count
+net_score
+```
+
+**Scoring means turning dictionary matches into a number for each text.** Here we subtract negative from positive matches, divide by all word tokens, then multiply by 100. The scores are 25 and 20: one positive match divided by four and five words. The lower second score comes from its extra word, not an understanding of negation.
+
+Now inspect the supplied examples that also include an unmatched text, balanced counts and an empty text. The table uses three summaries, where P = positive matches, N = negative matches and L = all word tokens:
+
+| Column | Calculation | What to read |
+|---|---|---|
+| `net_per100` | 100 × (P − N) / L | Positive minus negative matches per 100 words |
+| `coverage_per100` | 100 × (P + N) / L | Percentage of words matched by this small dictionary |
+| `balance` | (P − N) / (P + N) | Among matched words, −1 = all negative; +1 = all positive |
+
+A zero denominator gives `NA`: the score is undefined. The categories in this teaching dictionary do not overlap, and every entry is one word.
+
+```{r}
+# The setup above created these five named examples.
+check_texts
+check_tokens <- tokens(check_texts, remove_punct = TRUE)
+check_dfm <- dfm(check_tokens)
+check_hits <- dfm_lookup(check_dfm, toy_sentiment)
+convert(check_hits, to = "data.frame")
+
+# Prepared by workflow.R using the three formulas in the table above.
+check_scores
+```
+
+**Check:** compare `good`, `negated`, `unmatched`, `balanced` and `empty`. Which examples have the same net score for different reasons? This table uses the supplied dictionary; it will not update automatically if you change the dictionary later.
+
+**Discuss:** Why does `good` still produce a positive match in "not good"? Why are an unmatched text, balanced counts, and an empty text different? `net_per100` is `100 * (positive - negative) / tokens`; it is **not LIWC's Tone summary measure**. Retaining `not` does not make a counting rule negation-aware.
+
+## 2. Build an energy-policy dictionary
+
+**15–20 minutes.** We now change the question from sentiment to **whether a speech discusses energy policy**. A relevant speech can be positive, negative or neither. The setup has already loaded the parliamentary texts. A dictionary prediction is 1 when at least one energy expression matches. Human readers use the rules below to check whether that prediction makes sense.
+
+
+### How to label a speech {#energy-label-rules}
+
+Read the whole speech contribution. Judge what it discusses, not whether a dictionary word appears.
+
+- **1 — Relevant:** it discusses energy production, supply, prices, affordability or transition, such as electricity bills, heating costs, renewable energy or coal-mine closures. A substantive passage is enough; the speaker does not have to support the policy.
+- **0 — Not relevant:** it does not discuss those issues. Political `power`, an unrelated legislative `bill`, personal `energy` and tear `gas` do not count. General climate discussion counts only when connected to energy.
+- **Uncertain:** leave the label blank, write down why, and discuss it before scoring. Do not treat uncertainty as 0.
+
+For each decision, record a short reason or supporting passage. Apply the same rules to texts with and without dictionary matches.
+
+### Try the dictionary
+
+```{r}
+policy_entries <- read.csv("Dictionaries/energy_policy.csv")
+head(policy_entries)
+# Read the v1 patterns, then put them in a dictionary category.
+v1_entries <- subset(policy_entries, version == "v1")
+energy_v1 <- dictionary(list(energy = v1_entries$pattern))
+v2_entries <- subset(policy_entries, version == "v2")
+energy_v2 <- dictionary(list(energy = v2_entries$pattern))
+energy_v1
+energy_v2
+contexts <- kwic(discovery_tokens, pattern = c("power", "gas", "bill*"),
+                 valuetype = "glob", window = 8)
+head(contexts, 10)
+```
+
+`Dictionaries/energy_policy.csv` stores version, category and pattern. V1 includes broad `power`, `gas` and `bill*`; illustrative v2 replaces several broad patterns with terms/phrases. `*` is a glob wildcard, not a regular expression. This CSV is a quanteda input, not a LIWC import file.
+
+`discovery_tokens` excludes reserved real-text test IDs. It preserves punctuation and stopwords so phrases do not join across punctuation. A separate punctuation-free stream supplies word-token denominators. A phrase match counts as one expression, not all its constituent words. Read the original speech when KWIC is ambiguous.
+
+To read the first KWIC result in full:
+
+```{r}
+first_id <- contexts$docname[1]
+original <- subset(speeches, doc_id == first_id)
+original$text
+```
+
+### Change one rule, then rerun
+
+V1 includes `power`, which can mean political authority. Replace it with `wind farm*`, then compare the old and revised dictionaries on two teaching sentences:
+
+```{r}
+energy_revised <- dictionary(list(
+  energy = c("energy", "wind farm*", "electric*", "gas", "bill*")
+))
+revision_texts <- c(
+  wind = "The government should approve new wind farms.",
+  authority = "Parliament must retain the power to question ministers."
+)
+revision_tokens <- tokens(revision_texts, remove_punct = FALSE)
+
+before_tokens <- tokens_lookup(revision_tokens, energy_v1, capkeys = FALSE)
+before_counts <- convert(dfm(before_tokens), to = "data.frame")
+after_tokens <- tokens_lookup(revision_tokens, energy_revised, capkeys = FALSE)
+after_counts <- convert(dfm(after_tokens), to = "data.frame")
+
+data.frame(sentence = before_counts$doc_id,
+           before = before_counts$energy,
+           after = after_counts$energy)
+```
+
+**Read the result:** `wind` changes from 0 to 1; `authority` changes from 1 to 0. We added a useful match and removed an irrelevant one. This does not show that the revised dictionary works well on all speeches.
+
+**Try:** in your own `energy_revised`, add or remove one entry, or replace a broad word with a phrase. Rerun the matching code after each change. Use `kwic(discovery_tokens, phrase("wind farm*"))` as a template to inspect your term in real context; read the original speech before deciding. Write down the term you changed, a supporting passage and one possible mistake. This exercise changes the word list; it does not implement context-dependent exclusion rules.
+
+For the remaining worked examples, use the supplied **`energy_v2`**. Your experimental dictionary is saved separately as `energy_revised`, so everyone can reproduce the same validation results.
+
+To count multiword expressions, match the dictionary on the tokens first:
+
+```{r}
+matched_tokens <- tokens_lookup(discovery_tokens, energy_v2, capkeys = FALSE)
+match_dfm <- dfm(matched_tokens)
+head(match_dfm, 6)
+```
+
+Each value counts matched expressions in one speech. The original tokens remain available for context checks. Next, compare dictionary predictions with the labels on our teaching sentences.
+
+## 3. Diagnose development errors
+
+**10 minutes.** We now practise finding errors before calculating performance. `Data/synthetic_validation.csv` has 24 authored teaching sentences and supplied labels, stored in the column `human`. These are separate from the 5,000 real speeches. Use the 12 **development** sentences to inspect rules; save the 12 **test** sentences for checking the fixed v2 in section 4. The results describe these examples, not performance on real speeches.
+
+```{r}
+# Read the labelled teaching examples and generate predictions explicitly.
+synthetic <- read.csv("Data/synthetic_validation.csv")
+example_corpus <- corpus(synthetic, text_field = "text", docid_field = "doc_id")
+example_tokens <- tokens(example_corpus, remove_punct = FALSE)
+
+# Apply v1, then v2. Each matched phrase counts once.
+v1_matches <- tokens_lookup(example_tokens, energy_v1, capkeys = FALSE)
+v1_dfm <- dfm(v1_matches)
+v1_binary <- dfm_weight(v1_dfm, scheme = "boolean")
+v1_predictions <- convert(v1_binary, to = "data.frame")
+synthetic$v1 <- v1_predictions$energy
+
+v2_matches <- tokens_lookup(example_tokens, energy_v2, capkeys = FALSE)
+v2_dfm <- dfm(v2_matches)
+v2_binary <- dfm_weight(v2_dfm, scheme = "boolean")
+v2_predictions <- convert(v2_binary, to = "data.frame")
+synthetic$v2 <- v2_predictions$energy
+```
+
+`dfm_weight(..., scheme = "boolean")` turns a nonzero count into 1 and keeps zero as 0. `convert(..., to = "data.frame")` gives a regular table that is easy to inspect. These predictions come from our dictionary, while `human` contains the supplied teaching labels. Read development cases first; leave test cases for section 4.
+
+```{r}
+dev <- subset(synthetic, split == "development")
+dev[, c("doc_id", "text", "human", "v1", "v2")]
+```
+
+**Try:** identify one false positive and one false negative under v1. Which development examples motivate v2? Which problem remains? Compare two rule sets for the **same energy-attention construct**; an affect lexicon cannot be validated against an unrelated policy label.
+
+```{r}
+# Your error analysis here.
+```
+
+**Freeze means stop changing the rules before checking test results.** Keep the dictionary, labeling instructions, tokenization and prediction rule fixed (here, at least one match means 1). In research, save this version so that you can identify exactly what was tested. Here we practise with supplied examples and labels; this is not an independent validation study.
+
+## 4. Check a frozen rule on test examples
+
+**10–15 minutes.** Finish the development discussion first. Use the supplied v2 as a fixed worked example. Predict which errors will lower precision or recall, then run the code.
+
+```{r}
+test <- subset(synthetic, split == "test")
+# 0 = not relevant; 1 = relevant. Keep both categories in the table.
+predicted <- factor(test$v2, levels = c(0, 1))
+human <- factor(test$human, levels = c(0, 1))
+table(predicted, human)
+```
+
+- **Precision = TP / (TP + FP):** how many predicted positives are correct?
+- **Recall = TP / (TP + FN):** how many actual positives were found?
+- **F1 = 2TP / (2TP + FP + FN):** how well are precision and recall balanced?
+
+```{r}
+# Compare each dictionary prediction with its teaching label.
+TP <- sum(test$v2 == 1 & test$human == 1)
+FP <- sum(test$v2 == 1 & test$human == 0)
+FN <- sum(test$v2 == 0 & test$human == 1)
+TN <- sum(test$v2 == 0 & test$human == 0)
+precision <- TP / (TP + FP)
+recall <- TP / (TP + FN)
+F1 <- 2 * TP / (2 * TP + FP + FN)
+c(TP = TP, FP = FP, FN = FN, TN = TN)
+c(precision = precision, recall = recall, F1 = F1)
+```
+
+**Read the result:** the dictionary flags 5 sentences, of which 4 are relevant (precision = 4/5). There are 6 relevant sentences, and it finds 4 (recall = 4/6). F1 combines those two measures; it is not accuracy. The denominators are nonzero here; when a denominator is zero, report an undefined measure as `NA`.
+
+**Discuss:** Why must evaluation include nonmatches? Why can accuracy mislead for rare categories? Why would revising v2 after inspecting test errors require a new test set? These metrics evaluate binary detection, not a continuous score or a causal claim. W6 develops performance assessment and train/test separation more fully.
+
+## Before W6: five texts and one difficult decision
+
+**10 minutes; no upload.** W5 is a holiday, not an additional lab session. Use five real-text development cases as a W6 warm-up:
+
+```{r}
+development_texts <- subset(coding_template, split == "development")
+preview <- head(development_texts, 5)
+preview[, c("doc_id", "text")]
+```
+
+Read without dictionary predictions. Apply the [three labeling rules above](#energy-label-rules), record a short reason for each 0/1 label, and flag uncertainty instead of guessing. Bring one difficult decision, or a hypothetical boundary case if all five are clear. A random batch need not contain any positives.
+
+| W4 preparation | W6 develops |
+|---|---|
+| Define a category and defend a label | Annotation quality and inter-coder reliability |
+| Notice false positives and negatives | Performance evaluation and error analysis |
+| Separate development from evaluation | Training/test splits and cross-validation |
+| Keep a transparent dictionary baseline | Naive Bayes and SVM document classifiers |
+
+No model training is required now. Five cases support discussion, **not an adequate training set or reliable benchmark**. Dictionary predictions are not independent human ground truth. Labels used to choose a model belong in development/training, not final testing.
+
+## Real-text validation in W6
+
+W6 will develop the full human-coding and validation procedure. For W4, complete the synthetic example and the five-text preview above; no additional coding file is needed. The 50 real speeches reserved by setup are not the 12 teaching test sentences and are not used in the W4 exercises. The real speeches have no supplied human labels, so the synthetic F1 is not evidence of performance on Parliament.
+
+## Optional: compare parties
+
+This extension is not needed for the four core tasks.
+
+<details>
+<summary>Show the party comparison</summary>
+
+After sections 1–4, you can summarize dictionary matches by party for the full sample. `policy_tokens` preserves punctuation for phrase matching; `toks` contains the original word tokens for the denominator:
+
+```{r}
+# quanteda adds counts within each party.
+party_matches <- tokens_lookup(policy_tokens, energy_v2, capkeys = FALSE)
+party_dfm <- dfm(party_matches)
+party_dfm <- dfm_group(party_dfm, groups = party)
+
+# Group original word counts separately to preserve the denominator.
+party_words <- dfm(toks)
+party_words <- dfm_group(party_words, groups = party)
+
+party_summary <- convert(party_dfm, to = "data.frame")
+party_summary$tokens <- ntoken(party_words)
+party_summary$per1000 <- 1000 * party_summary$energy / party_summary$tokens
+head(party_summary, 6)
+```
+
+`dfm_group()` performs the grouping; `convert()` turns the result into a table. We keep the final division explicit to show its denominator. Do not apply `dfm_weight(..., "prop")` to a matched-only DFM here: it would divide by matched counts instead of all original words.
+
+The rate is **1,000 * total matches / total original word tokens** within each party, not the unweighted mean of speech rates. These pooled sample rates are descriptive; dates, topics and speaking opportunities differ. Do not infer policy support or a causal effect. Fewer matches do not automatically imply better measurement.
+
+</details>
+
+POS and TextRank examples are in the separate classroom materials. They are not part of this take-home lab.
+
+## Reading connections
+
+Three required papers are unchanged: Denny and Spirling (2018), [DOI](https://doi.org/10.1017/pan.2017.44), on preprocessing sensitivity; Rauh (2018), [DOI](https://doi.org/10.1080/19331681.2018.1485608), on domain-specific sentiment validation; Proksch et al. (2019), [DOI](https://doi.org/10.1111/lsq.12218), on political-language measurement across settings.
+
+Boyle et al. (2025), [DOI](https://doi.org/10.1016/j.erss.2025.103955), is a supplementary lecture case for dictionary development and held-out validation, not a fourth required article. Its research-abstract corpus and policy-relevance construct differ from our energy-attention exercise. Our toy results reproduce none of these studies.
+
+Free reading: [Computational Analysis of Communication](https://cssbook.net/), Chapters 10-11. Technical references: [LIWC Workbench](https://liwc.app/help/workbench), [dictionary import](https://quanteda.io/reference/dictionary.html), [token lookup](https://quanteda.io/reference/tokens_lookup.html).
+
+Selected activities draw on ESS materials by Martijn Schoonvelde (2026), acknowledging Stefan Muller. The parliamentary sample is reused from W2; the short sentences and small dictionaries are course-designed teaching examples.
