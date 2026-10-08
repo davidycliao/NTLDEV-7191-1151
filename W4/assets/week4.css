@@ -72,3 +72,12 @@
 .reveal #udpipe-code-explained table { table-layout: fixed; }
 .reveal #udpipe-code-explained th { width: 50%; }
 .reveal #udpipe-code-explained td:first-child code { white-space: nowrap; }
+
+/* Keep the TextRank output and runnable code beside the network. */
+.reveal #pos-textrank-network .columns { align-items: start; gap: 20px; }
+.reveal #pos-textrank-network .column { min-width: 0; }
+.reveal #pos-textrank-network .slide-body p { font-size: 23px; line-height: 1.2; margin: 6px 0; }
+.reveal #pos-textrank-network .slide-body pre { font-size: 16px; line-height: 1.25; margin: 6px 0; }
+.reveal #pos-textrank-network .slide-body pre code { padding: 7px 9px; }
+.reveal #pos-textrank-network img { height: 360px; max-height: 360px; margin: 4px auto; }
+.reveal #pos-textrank-network .caption p { font-size: 18px; }

@@ -2243,7 +2243,7 @@ vertical-align: -.125em;
 </header>
 
 
-<p>These answers use the supplied files. The <code>.dic</code> is original teaching material, not an official LIWC lexicon. Synthetic labels support arithmetic practice, <strong>not empirical accuracy claims</strong>. There are no supplied gold labels for real parliamentary texts. <a href="../Lab_Session_W4.html">Return to the student handout</a>.</p>
+<p>Let’s work through the results from our lab. For the validation exercise, we’ll use the 24 example sentences and their supplied labels. Compare these outputs with your own, and read the sentences behind any differences. <a href="../Lab_Session_W4.html">Return to the student handout</a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;quanteda&quot;)  # run once before class</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
@@ -2331,8 +2331,8 @@ vertical-align: -.125em;
 </div>
 </div>
 <p>Category 1 is <code>positive</code>; category 2 is <code>negative</code>. The dictionary matches words without interpreting who or what is being evaluated. The prepared <code>check_scores</code> table uses the original dictionary; changing a dictionary requires rerunning the scoring code.</p>
-<p><code>Good</code> scores 25 net matches per 100 tokens; <code>not good</code> scores 20. The positive match remains because the rule does not interpret negation. The denominator changes, not the category. Unmatched text has zero coverage; balanced text has nonzero coverage but zero net tone; empty text has a zero denominator and missing rates. The corpus unmatched fraction is not the neutral-speech fraction.</p>
-<p>We do not reproduce official LIWC dictionaries or the LIWC-22 Tone summary measure. A legacy-format import does not make quanteda scoring identical to LIWC. See <a href="https://liwc.app/help/liwc">LIWC Analysis</a> and <a href="https://quanteda.io/reference/dictionary.html">quanteda import documentation</a>.</p>
+<p>We get 25 net matches per 100 tokens for <code>good</code> and 20 for <code>not good</code>. Our rule counts <code>good</code> as positive in both sentences; adding <code>not</code> increases the denominator. An unmatched text has zero coverage. A text with balanced positive and negative counts has zero net tone but nonzero coverage. An empty text has a zero denominator, so its rates are missing. When we apply the dictionary to the speeches, a text with no matches may still express an opinion in words our list does not include.</p>
+<p>Our ten-word teaching dictionary uses LIWC’s <code>.dic</code> file format. We apply it with quanteda and calculate our own score, so the result differs from LIWC’s Tone measure. See <a href="https://liwc.app/help/liwc">LIWC Analysis</a> and <a href="https://quanteda.io/reference/dictionary.html">quanteda import documentation</a>.</p>
 </section>
 <section id="build-an-energy-policy-dictionary" class="level2">
 <h2 class="anchored" data-anchor-id="build-an-energy-policy-dictionary">2. Build an energy-policy dictionary</h2>
@@ -2374,7 +2374,7 @@ vertical-align: -.125em;
 <pre><code>[1] &quot;I will try again, but I repudiate the idea that I had any irritation at all: that is a matter of opinion. On the question whether any additional power is given by the Bill to local authorities in blighted areas—not war-damaged areas—I say the answer is, \&quot;Yes.\&quot; To start with, it affords greater expedition in acquisition. It absolves them from personal notifications and allows them to give block notifications of an intention to acquire. All the local authorities, so far as I know, have come to the conclusion that this more expeditious procedure will save them some three months—I am not pinning myself down to an exact period—in the compulsory acquisition of areas for redevelopment in their blighted territory. That is the first point. The second point is that for the period of two years—I assume that two years is the time when the re-examination of the subsidies will take place—there is already provision in the Housing Acts whereby authorities who have exceptional costs for redevelopment may get those exceptional costs made up to the extent of about £15 per house. Thirdly, I intimated that the Chancellor had announced that when the block grant came up for revision account would be taken of all the necessities of the case. The third object of the Bill is to regulate the compensation payable in respect of land or property acquired for public purposes. In effect the Bill provides that where land is compulsorily acquired for public purposes under any enactment within a period of five years from November, 1944, the compensation will be assessed by reference to prices current at 31st March, 1939. The general conception is that the land is projected back into a March, 1939, setting, and the effect will be that any changes in the land or buildings since 1939 will be taken into account in fixing the March, 1939, price. For example, if there had been improvements to a property since March, 1939, 258 they would be taken into account. Owner-occupiers of buildings and agricultural land will be able to qualify for supplementary payments up to a maximum of 30 per cent. over the 1939 value of the buildings or land which are compulsorily acquired from them. The need for this 30 per cent. increase in the case of the owner-occupier is due to the cost of replacement. The owner-occupier must find himself another house in which to live, and the Government, as a result of the compromise last year, fixed upon 30 per cent. as an addition to March, 1939, prices. Again, where improvements have been carried out since March, 1939, to buildings or agricultural land at prices greater than March, 1939, prices the owner is entitled in certain circumstances to a reasonable addition for the cost of these improvements, and should there be any disagreement about the supplementary compensation the dispute goes to arbitration.&quot;</code></pre>
 </div>
 </div>
-<p><code>Power</code> may denote authority; <code>bill*</code> can retrieve legislation or other prefixes; <code>gas</code> can concern crowd control. Narrower rules can still miss implicit energy references and match figurative energy. Read the passage before deciding. A proposed v3 needs a development-set justification, not an assumption that more entries improve measurement.</p>
+<p>In these contexts, <code>power</code> may refer to political authority, <code>bill*</code> may match legislation, and <code>gas</code> may refer to tear gas. We need to read the passage to decide whether each match concerns energy. If we propose another version, we should be able to point to development examples that explain each change.</p>
 <section id="change-one-rule-then-rerun" class="level3">
 <h3 class="anchored" data-anchor-id="change-one-rule-then-rerun">Change one rule, then rerun</h3>
 <p>V1 includes <code>power</code>, which can mean political authority. Replace it with <code>wind farm*</code>, then compare the old and revised dictionaries on two teaching sentences:</p>
@@ -2402,9 +2402,9 @@ vertical-align: -.125em;
 2 authority      1     0</code></pre>
 </div>
 </div>
-<p><strong>Read the result:</strong> <code>wind</code> changes from 0 to 1; <code>authority</code> changes from 1 to 0. We added a useful match and removed an irrelevant one. This does not show that the revised dictionary works well on all speeches.</p>
-<p><strong>Try:</strong> in your own <code>energy_revised</code>, add or remove one entry, or replace a broad word with a phrase. Rerun the matching code after each change. Use <code>kwic(discovery_tokens, phrase(&quot;wind farm*&quot;))</code> as a template to inspect your term in real context; read the original speech before deciding. Write down the term you changed, a supporting passage and one possible mistake. This exercise changes the word list; it does not implement context-dependent exclusion rules.</p>
-<p>For the remaining worked examples, use the supplied <strong><code>energy_v2</code></strong>. Your experimental dictionary is saved separately as <code>energy_revised</code>, so everyone can reproduce the same validation results.</p>
+<p><strong>Read the result:</strong> <code>wind</code> changes from 0 to 1; <code>authority</code> changes from 1 to 0. Our change fixes both examples. Next, we’ll check other sentences to see which mistakes remain.</p>
+<p>Your own revision may differ from this example. To explain it, show the entry you changed, a passage that supports the change, and a case it might still get wrong. We can use <code>kwic(discovery_tokens, phrase(&quot;wind farm*&quot;))</code> as a starting point for checking a phrase in the speeches.</p>
+<p>For sections 3–4, we’ll use the supplied <strong><code>energy_v2</code></strong> so we can compare our results. Your own changes remain in <code>energy_revised</code>; the scores below refer to <code>energy_v2</code>.</p>
 </section>
 </section>
 <section id="development-errors" class="level2">
@@ -2442,7 +2442,7 @@ vertical-align: -.125em;
 10  dev10              The minister brought energy to the debate.     0  1  1</code></pre>
 </div>
 </div>
-<p>Development examples motivate removing standalone <code>power</code>, <code>gas</code> and <code>bill*</code>, and adding renewable/solar/wind/fossil-fuel expressions. V2 still mistakes personal energy for energy-policy attention. A context rule might help but needs development and separate evaluation. These sentences were authored to expose the distinctions; this is not an independent empirical study.</p>
+<p>The development examples show why we might remove standalone <code>power</code>, <code>gas</code> and <code>bill*</code>, and add expressions about renewable energy, solar panels, wind farms and fossil fuels. V2 fixes several mistakes, but it still matches <code>energy</code> when the sentence describes a person’s enthusiasm. To address that case, we would need a rule that uses the surrounding words, then more examples to check whether it works.</p>
 </section>
 <section id="synthetic-test-results" class="level2">
 <h2 class="anchored" data-anchor-id="synthetic-test-results">4. Synthetic test results</h2>
@@ -2490,20 +2490,20 @@ predicted 0 1
 </div>
 </div>
 <p>These denominators are nonzero. In other data, report an undefined rate as <code>NA</code> when its denominator is zero.</p>
-<p>For v2: <strong>TP = 4, FP = 1, FN = 2, TN = 5</strong>. Precision = <strong>0.80</strong>, recall = <strong>0.667</strong>, F1 = <strong>0.727</strong>. V1 has the same four true positives but four false positives. V2 still matches figurative energy and misses coal-mine closure and heating tariffs. These are teaching results, not estimates for Parliament.</p>
-<p>Inspecting matches alone cannot reveal false negatives or estimate recall. Accuracy can reward always-negative predictions for a rare category. F1 omits true negatives; report counts, sampling, uncertainty and error costs too. Precision is undefined without predicted positives; recall is undefined without reference positives.</p>
-<p>Do not add <code>coal</code> or <code>heating</code> after viewing test errors and call the updated score untouched-test performance. A new version needs a new test. Coder agreement is not proof of construct validity either.</p>
+<p>For v2, we get <strong>TP = 4, FP = 1, FN = 2, TN = 5</strong>. Precision = <strong>0.80</strong>, recall = <strong>0.667</strong>, F1 = <strong>0.727</strong>. V1 finds the same four relevant sentences but also flags four irrelevant ones. V2 reduces those false positives to one: figurative <code>energy</code>. It still misses the sentences about coal-mine closures and heating tariffs.</p>
+<p>These results describe the <strong>12 test sentences</strong>. To evaluate our dictionary on parliamentary speeches, we would need human labels for those speeches.</p>
+<p>If we read only the matches, we would never find the two missed sentences and could not calculate recall. When relevant texts are rare, predicting 0 for every text can give high accuracy while finding none of them. F1 helps us focus on precision and recall, but we should also report the four counts and explain how we chose the texts. Without predicted positives, precision is undefined; without relevant texts in our labeled sample, recall is undefined.</p>
+<p>We could now add <code>coal</code> or <code>heating</code>, but that would use information from the test sentences to change our dictionary. We would need a fresh test set to evaluate that new version.</p>
 </section>
 <section id="w6-preview-labels-before-models" class="level2">
 <h2 class="anchored" data-anchor-id="w6-preview-labels-before-models">W6 preview: labels before models</h2>
 <p>W5 (October 9) is a holiday. W6 (October 16), <strong>Human Coding and Document Classification</strong>, covers annotation quality, inter-coder reliability, training/test sets and performance; its lab introduces Naive Bayes, SVM and cross-validation.</p>
-<p>The five-text warm-up asks for defensible decisions, not answer-key labels. Identify a passage, apply the inclusion/exclusion rules, and explain uncertainty. Discuss difficult cases and refine the development codebook in W6. No model training or extra submission is required now.</p>
-<p>Five cases are not enough for training or reliable evaluation. Do not convert dictionary predictions into supposed human ground truth. Labels discussed while choosing a model become development material; final testing requires separate cases. Fitting a model does not establish the validity of its categories.</p>
+<p>For the five-speech warm-up, explain how you reached each label. Point to a passage, apply our inclusion/exclusion rules, and note anything you are unsure about. We’ll compare difficult cases and refine the labeling rules in W6. No model training or extra submission is required now.</p>
+<p>We’ll use these five speeches for discussion. We’ll need more labeled texts for training and evaluation, with a separate test set that we leave aside while developing the model. Make your own reading-based judgments before looking at dictionary predictions.</p>
 </section>
 <section id="real-text-validation-in-w6" class="level2">
 <h2 class="anchored" data-anchor-id="real-text-validation-in-w6">Real-text validation in W6</h2>
-<p>Use the <a href="../Lab_Session_W4.html#energy-label-rules">three labeling rules in the handout</a> for the five-text preview. The full export, independent coding and evaluation procedure is deferred to W6. No separate coding-guide file is needed for W4.</p>
-<p>The real speeches have no supplied human labels. The synthetic scores above do not estimate performance on Parliament, and an energy-attention F1 does not validate emotion scores.</p>
+<p>Use the <a href="../Lab_Session_W4.html#energy-label-rules">three labeling rules in the handout</a> for the five-speech preview. We’ll work through independent coding and evaluation in W6. The parliamentary speeches have no supplied human labels; we’ll need to collect those judgments before we can check the dictionary’s performance on them.</p>
 </section>
 <section id="optional-compare-parties" class="level2">
 <h2 class="anchored" data-anchor-id="optional-compare-parties">Optional: compare parties</h2>
@@ -2531,7 +2531,7 @@ predicted 0 1
 6                        Independent      1   1394 0.71736011</code></pre>
 </div>
 </div>
-<p><code>dfm_group()</code> adds document counts within each party. <code>ntoken()</code> supplies the grouped original word totals; <code>convert()</code> produces the displayed table. Within each party, divide total matches by total original word counts. Raw counts depend on speaking volume. Normalized pooled sample rates still do not establish policy support, stable party differences or a causal effect; dates and topics differ.</p>
+<p>We use <code>dfm_group()</code> to add counts within each party, <code>ntoken()</code> to count the original words, and <code>convert()</code> to display the result as a table. For each party, we divide total matches by total original word counts and multiply by 1,000. This lets us compare speeches of different total lengths. To interpret party differences, we still need to check the dates, topics and dictionary matches; the rate alone does not tell us whether a party supports a policy.</p>
 </section>
 <section id="r-session-information" class="level2">
 <h2 class="anchored" data-anchor-id="r-session-information">R session information</h2>
@@ -2540,7 +2540,7 @@ predicted 0 1
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.4.1 (2024-06-14)
 Platform: aarch64-apple-darwin20
-Running under: macOS 26.7
+Running under: macOS 26.7.1
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/lib/libRblas.0.dylib 

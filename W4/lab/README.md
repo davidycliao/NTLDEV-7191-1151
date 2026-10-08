@@ -1,6 +1,6 @@
 # W4 Take-home Lab
 
-**Read a dictionary → change a rule and rerun → inspect errors → check test results.** Allow 45–60 minutes for the four core tasks, with extra time for beginners. Ungraded practice; no submission.
+In this lab, we'll read a dictionary, change one of its rules, and check which sentences it gets right or wrong. Allow **45–60 minutes** for the four core tasks, with extra time if you are new to R. Ungraded practice; no submission.
 
 ## Start here
 
@@ -21,9 +21,9 @@ Keep `workflow.R`, `Data/` and `Dictionaries/` in their supplied locations. Setu
 | 3. Inspect development errors | Find irrelevant matches and missed relevant sentences. |
 | 4. Check the fixed v2 | Calculate precision, recall and F1 on the teaching test examples. |
 
-Your experimental dictionary is `energy_revised`. The supplied `energy_v2` stays unchanged so that the worked validation results remain reproducible. The handout includes the three human-labeling rules; no separate coding guide is needed.
+Save your own changes in `energy_revised`. For tasks 3–4, we'll use the supplied `energy_v2` so we can compare our results with the worked answers. The labeling rules are in section 2 of the handout.
 
-The parliamentary sample contains 5,000 real speech contributions with no supplied human labels. The 24 validation sentences and their labels are course-designed examples. Their scores do not estimate performance on Parliament. The ten-word `.dic` is original teaching material, not the official LIWC lexicon.
+We'll use 5,000 parliamentary speeches to inspect words in context and 24 example sentences with supplied labels to practise validation. The parliamentary speeches have no supplied labels, so the scores we calculate describe only the example sentences. Our ten-word `.dic` uses LIWC's file format; it is a teaching list, not the official LIWC dictionary.
 
 ## What can wait
 
@@ -45,9 +45,7 @@ Start with the HTML handout and R script at the top of this folder:
 | `workflow.R` | Supplied preparation; run automatically by setup |
 | `Data/`, `Dictionaries/` | Required inputs; keep these in place |
 
-Classroom demonstrations and their model files live in `W4/classroom/`. Unused legacy materials are preserved outside the lab, in the local instructor archive. Students do not need to open them.
-
-The examples use short steps and ready-made quanteda functions. Simple arithmetic explains score denominators and validation measures; students do not need to write functions or loops.
+The slide demonstrations are in `W4/classroom/`. For this lab, we'll use the files listed above, with quanteda functions for matching and simple R arithmetic for the scores.
 
 Selected activities draw on ESS materials by Martijn Schoonvelde (2026), acknowledging Stefan Muller. The corpus is reused from W2; small dictionaries and teaching sentences are course-designed. See the handout for readings and technical references.
 

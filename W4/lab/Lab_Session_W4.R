@@ -12,9 +12,9 @@
 #' 
 #' ## Before starting
 #' 
-#' **Ungraded take-home practice; no submission.** Allow **45–60 minutes** for sections 1–4, with extra time for beginners. Follow one route: **read a dictionary → change a rule and rerun → inspect errors → check test results**. Party comparisons are optional. The five-text W6 preview takes about 10 additional minutes.
+#' **Ungraded take-home practice; no submission.** In this lab, we'll read a dictionary, change one of its rules, and check which sentences it gets right or wrong. Allow **45–60 minutes** for sections 1–4, with extra time if you are new to R. The party comparison is optional; the W6 preview takes about 10 additional minutes.
 #' 
-#' We reuse the 5,000 parliamentary speech contributions from W2. **You do not need to run W2 first:** the setup below loads the data. Short, course-designed sentences help us see how dictionary rules work before interpreting real texts.
+#' We'll use the 5,000 parliamentary speech contributions from W2 to look at words in context. We'll also use short example sentences to check our dictionary matches by hand. **You do not need to run W2 first:** the setup below loads the data.
 #' 
 #' Extract the lab ZIP, then open **`Lab_Session_W4.R`** in RStudio and read this handout alongside it. Keep `workflow.R`, `Dictionaries/` and `Data/` together. Run the whole setup block below once; it finds the lab folder or asks you to choose its `workflow.R`. Keep the same R session open. Install `quanteda` once; no LIWC purchase, model download or API is needed. You do not need to render the QMD.
 #' 
@@ -35,9 +35,7 @@ source("workflow.R")  # load the data and prepared examples
 #' 
 #' ## Reading the R code
 #' 
-#' **The examples use quanteda functions and simple R arithmetic.** Run the lines in order, then read the result before moving on.
-#' 
-#' Run each section from top to bottom in the same R session. Each line saves or displays one result. Use `Ctrl+Enter` (Windows) or `Cmd+Enter` (Mac) in RStudio to run a selected line.
+#' We'll use **quanteda functions and simple R arithmetic**. Work through each section from top to bottom in the same R session, checking the output as you go. In RStudio, use `Ctrl+Enter` (Windows) or `Cmd+Enter` (Mac) to run a selected line.
 #' 
 #' | Syntax | Meaning | Example |
 #' |---|---|---|
@@ -51,7 +49,7 @@ source("workflow.R")  # load the data and prepared examples
 #' | `&` | Both conditions must hold | `predicted == 1 & human == 1` |
 #' | `head(x, 6)` | Display six rows | `head(contexts, 6)` |
 #' 
-#' `workflow.R` prepares the shared corpus, dictionary versions and fixed data split. Its reusable functions and file checks are supplied support code. You do not need to write functions, loops, or regular expressions for the core lab. The examples below show tokenization, matching and arithmetic directly.
+#' `workflow.R` loads our texts, dictionaries and prepared examples. Run it through the setup block above; you can leave its functions as they are. We'll work with the resulting objects in the steps below.
 #' 
 #' ### Functions you will reuse
 #' 
@@ -86,7 +84,7 @@ toy_sentiment <- dictionary(file = "Dictionaries/teaching_affect.dic",
 toy_sentiment
 
 #' 
-#' Start with two short texts. Run the dictionary-import block above first, then copy this block:
+#' Let's start with two short texts. After importing the dictionary above, run this block:
 #' 
 ## -----------------------------------------------------------------------------
 texts <- c("The policy is good.", "The policy is not good.")
@@ -107,7 +105,7 @@ net_score <- 100 * (positive - negative) / word_count
 net_score
 
 #' 
-#' **Scoring means turning dictionary matches into a number for each text.** Here we subtract negative from positive matches, divide by all word tokens, then multiply by 100. The scores are 25 and 20: one positive match divided by four and five words. The lower second score comes from its extra word, not an understanding of negation.
+#' **Scoring means turning dictionary matches into a number for each text.** We subtract negative from positive matches, divide by all word tokens, then multiply by 100. We get 25 and 20: one positive match divided by four and five words. The second score is lower because `not` adds a word to the denominator. Our rule still counts `good` as positive.
 #' 
 #' Now inspect the supplied examples that also include an unmatched text, balanced counts and an empty text. The table uses three summaries, where P = positive matches, N = negative matches and L = all word tokens:
 #' 
@@ -133,11 +131,11 @@ check_scores
 #' 
 #' **Check:** compare `good`, `negated`, `unmatched`, `balanced` and `empty`. Which examples have the same net score for different reasons? This table uses the supplied dictionary; it will not update automatically if you change the dictionary later.
 #' 
-#' **Discuss:** Why does `good` still produce a positive match in "not good"? Why are an unmatched text, balanced counts, and an empty text different? `net_per100` is `100 * (positive - negative) / tokens`; it is **not LIWC's Tone summary measure**. Retaining `not` does not make a counting rule negation-aware.
+#' **Discuss:** What would our rule need to do differently to distinguish "good" from "not good"? Keeping `not` in the tokens is only a first step; we still need a rule that uses it.
 #' 
 #' ## 2. Build an energy-policy dictionary
 #' 
-#' **15–20 minutes.** We now change the question from sentiment to **whether a speech discusses energy policy**. A relevant speech can be positive, negative or neither. The setup has already loaded the parliamentary texts. A dictionary prediction is 1 when at least one energy expression matches. Human readers use the rules below to check whether that prediction makes sense.
+#' **15–20 minutes.** Now we'll ask a different question: **does a speech discuss energy policy?** A relevant speech can be positive, negative or neither. We'll assign a dictionary prediction of 1 when at least one energy expression matches. To check these predictions, we'll read the texts ourselves using the rules below.
 #' 
 #' 
 #' ### How to label a speech {#energy-label-rules}
@@ -203,11 +201,11 @@ data.frame(sentence = before_counts$doc_id,
            after = after_counts$energy)
 
 #' 
-#' **Read the result:** `wind` changes from 0 to 1; `authority` changes from 1 to 0. We added a useful match and removed an irrelevant one. This does not show that the revised dictionary works well on all speeches.
+#' **Read the result:** `wind` changes from 0 to 1; `authority` changes from 1 to 0. Our change fixes both examples. Next, we'll check other sentences to see which mistakes remain.
 #' 
-#' **Try:** in your own `energy_revised`, add or remove one entry, or replace a broad word with a phrase. Rerun the matching code after each change. Use `kwic(discovery_tokens, phrase("wind farm*"))` as a template to inspect your term in real context; read the original speech before deciding. Write down the term you changed, a supporting passage and one possible mistake. This exercise changes the word list; it does not implement context-dependent exclusion rules.
+#' **Try:** in your own `energy_revised`, add or remove one entry, or replace a broad word with a phrase. Rerun the matching code after each change. Use `kwic(discovery_tokens, phrase("wind farm*"))` as a template to inspect your term in real context; read the original speech before deciding. Write down the term you changed, a supporting passage and one possible mistake.
 #' 
-#' For the remaining worked examples, use the supplied **`energy_v2`**. Your experimental dictionary is saved separately as `energy_revised`, so everyone can reproduce the same validation results.
+#' For sections 3–4, we'll use the supplied **`energy_v2`** so we can compare our results with the worked answers. Your own changes remain in `energy_revised`; the scores we calculate next will refer to `energy_v2`.
 #' 
 #' To count multiword expressions, match the dictionary on the tokens first:
 #' 
@@ -221,7 +219,7 @@ head(match_dfm, 6)
 #' 
 #' ## 3. Diagnose development errors
 #' 
-#' **10 minutes.** We now practise finding errors before calculating performance. `Data/synthetic_validation.csv` has 24 authored teaching sentences and supplied labels, stored in the column `human`. These are separate from the 5,000 real speeches. Use the 12 **development** sentences to inspect rules; save the 12 **test** sentences for checking the fixed v2 in section 4. The results describe these examples, not performance on real speeches.
+#' **10 minutes.** Let's look for mistakes before calculating a score. `Data/synthetic_validation.csv` contains 24 sentences written for this exercise, with labels in the column `human`. These are separate from the 5,000 parliamentary speeches. We'll inspect the 12 **development** sentences now and save the 12 **test** sentences for section 4.
 #' 
 ## -----------------------------------------------------------------------------
 # Read the labelled teaching examples and generate predictions explicitly.
@@ -250,13 +248,13 @@ dev <- subset(synthetic, split == "development")
 dev[, c("doc_id", "text", "human", "v1", "v2")]
 
 #' 
-#' **Try:** identify one false positive and one false negative under v1. Which development examples motivate v2? Which problem remains? Compare two rule sets for the **same energy-attention construct**; an affect lexicon cannot be validated against an unrelated policy label.
+#' **Try:** find one false positive and one false negative under v1. Which word caused the false match? Which expression did the dictionary miss? Check whether v2 fixes these cases, then find a mistake that remains.
 #' 
 ## -----------------------------------------------------------------------------
 # Your error analysis here.
 
 #' 
-#' **Freeze means stop changing the rules before checking test results.** Keep the dictionary, labeling instructions, tokenization and prediction rule fixed (here, at least one match means 1). In research, save this version so that you can identify exactly what was tested. Here we practise with supplied examples and labels; this is not an independent validation study.
+#' **Freeze means stop changing the rules before checking test results.** We'll keep the dictionary, labeling instructions, tokenization and prediction rule fixed (here, at least one match means 1). For your own project, save this version so you have a record of exactly what you tested.
 #' 
 #' ## 4. Check a frozen rule on test examples
 #' 
@@ -287,13 +285,15 @@ c(TP = TP, FP = FP, FN = FN, TN = TN)
 c(precision = precision, recall = recall, F1 = F1)
 
 #' 
-#' **Read the result:** the dictionary flags 5 sentences, of which 4 are relevant (precision = 4/5). There are 6 relevant sentences, and it finds 4 (recall = 4/6). F1 combines those two measures; it is not accuracy. The denominators are nonzero here; when a denominator is zero, report an undefined measure as `NA`.
+#' **Read the result:** our dictionary flags 5 sentences, and 4 are relevant (precision = 4/5). Of the 6 relevant sentences, we find 4 (recall = 4/6). F1 combines precision and recall; it is not accuracy. If a denominator is zero in your own data, report that measure as `NA`.
 #' 
-#' **Discuss:** Why must evaluation include nonmatches? Why can accuracy mislead for rare categories? Why would revising v2 after inspecting test errors require a new test set? These metrics evaluate binary detection, not a continuous score or a causal claim. W6 develops performance assessment and train/test separation more fully.
+#' These results describe the **12 test sentences**. To evaluate our dictionary on parliamentary speeches, we would need human labels for those speeches.
+#' 
+#' **Discuss:** How would we find missed cases if we inspected only dictionary matches? Why might accuracy look high when very few texts discuss energy? If we change v2 after reading the test errors, what would we need for a fresh evaluation? We'll return to these questions in W6.
 #' 
 #' ## Before W6: five texts and one difficult decision
 #' 
-#' **10 minutes; no upload.** W5 is a holiday, not an additional lab session. Use five real-text development cases as a W6 warm-up:
+#' **10 minutes; no upload.** W5 is a holiday. Before we meet in W6, read these five parliamentary speeches from our development sample:
 #' 
 ## -----------------------------------------------------------------------------
 development_texts <- subset(coding_template, split == "development")
@@ -310,11 +310,11 @@ preview[, c("doc_id", "text")]
 #' | Separate development from evaluation | Training/test splits and cross-validation |
 #' | Keep a transparent dictionary baseline | Naive Bayes and SVM document classifiers |
 #' 
-#' No model training is required now. Five cases support discussion, **not an adequate training set or reliable benchmark**. Dictionary predictions are not independent human ground truth. Labels used to choose a model belong in development/training, not final testing.
+#' We'll use these five speeches to discuss how we decide on a label. Read them without looking at dictionary predictions, and keep them in the development set if we use them to revise our rules. We'll need more labeled texts before training or evaluating a classifier.
 #' 
 #' ## Real-text validation in W6
 #' 
-#' W6 will develop the full human-coding and validation procedure. For W4, complete the synthetic example and the five-text preview above; no additional coding file is needed. The 50 real speeches reserved by setup are not the 12 teaching test sentences and are not used in the W4 exercises. The real speeches have no supplied human labels, so the synthetic F1 is not evidence of performance on Parliament.
+#' In W6, we'll work through human coding and validation with real texts. For now, complete the short-sentence exercise and the five-speech preview above. Setup also reserves **50 parliamentary speeches** for later testing. We leave those untouched in W4; they are a separate set from the 12 test sentences we just used.
 #' 
 #' ## Optional: compare parties
 #' 
@@ -343,7 +343,7 @@ head(party_summary, 6)
 #' 
 #' `dfm_group()` performs the grouping; `convert()` turns the result into a table. We keep the final division explicit to show its denominator. Do not apply `dfm_weight(..., "prop")` to a matched-only DFM here: it would divide by matched counts instead of all original words.
 #' 
-#' The rate is **1,000 * total matches / total original word tokens** within each party, not the unweighted mean of speech rates. These pooled sample rates are descriptive; dates, topics and speaking opportunities differ. Do not infer policy support or a causal effect. Fewer matches do not automatically imply better measurement.
+#' For each party, we calculate **1,000 * total matches / total original word tokens**. We add the counts before dividing, rather than averaging the rates of individual speeches. These rates tell us how often our dictionary matches words in each party's sampled speeches. To interpret a difference, we also need to consider when the speeches were made, their topics, and how well the dictionary works. A match alone does not tell us whether the speaker supports an energy policy.
 #' 
 #' </details>
 #' 
@@ -351,9 +351,9 @@ head(party_summary, 6)
 #' 
 #' ## Reading connections
 #' 
-#' Three required papers are unchanged: Denny and Spirling (2018), [DOI](https://doi.org/10.1017/pan.2017.44), on preprocessing sensitivity; Rauh (2018), [DOI](https://doi.org/10.1080/19331681.2018.1485608), on domain-specific sentiment validation; Proksch et al. (2019), [DOI](https://doi.org/10.1111/lsq.12218), on political-language measurement across settings.
+#' Our three required readings are Denny and Spirling (2018), [DOI](https://doi.org/10.1017/pan.2017.44), on preprocessing sensitivity; Rauh (2018), [DOI](https://doi.org/10.1080/19331681.2018.1485608), on sentiment validation in political texts; and Proksch et al. (2019), [DOI](https://doi.org/10.1111/lsq.12218), on political-language measurement across settings.
 #' 
-#' Boyle et al. (2025), [DOI](https://doi.org/10.1016/j.erss.2025.103955), is a supplementary lecture case for dictionary development and held-out validation, not a fourth required article. Its research-abstract corpus and policy-relevance construct differ from our energy-attention exercise. Our toy results reproduce none of these studies.
+#' For another example of dictionary development and testing, see the supplementary lecture case by Boyle et al. (2025), [DOI](https://doi.org/10.1016/j.erss.2025.103955). That study measures policy relevance in research abstracts; our exercise asks whether a sentence discusses energy.
 #' 
 #' Free reading: [Computational Analysis of Communication](https://cssbook.net/), Chapters 10-11. Technical references: [LIWC Workbench](https://liwc.app/help/workbench), [dictionary import](https://quanteda.io/reference/dictionary.html), [token lookup](https://quanteda.io/reference/tokens_lookup.html).
 #' 

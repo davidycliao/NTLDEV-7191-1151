@@ -10,7 +10,7 @@
 #'   message: false
 #' ---
 #' 
-#' These answers use the supplied files. The `.dic` is original teaching material, not an official LIWC lexicon. Synthetic labels support arithmetic practice, **not empirical accuracy claims**. There are no supplied gold labels for real parliamentary texts. [Return to the student handout](../Lab_Session_W4.html).
+#' Let's work through the results from our lab. For the validation exercise, we'll use the 24 example sentences and their supplied labels. Compare these outputs with your own, and read the sentences behind any differences. [Return to the student handout](../Lab_Session_W4.html).
 #' 
 ## -----------------------------------------------------------------------------
 # install.packages("quanteda")  # run once before class
@@ -56,9 +56,9 @@ mean(sentiment$no_match)
 #' 
 #' Category 1 is `positive`; category 2 is `negative`. The dictionary matches words without interpreting who or what is being evaluated. The prepared `check_scores` table uses the original dictionary; changing a dictionary requires rerunning the scoring code.
 #' 
-#' `Good` scores 25 net matches per 100 tokens; `not good` scores 20. The positive match remains because the rule does not interpret negation. The denominator changes, not the category. Unmatched text has zero coverage; balanced text has nonzero coverage but zero net tone; empty text has a zero denominator and missing rates. The corpus unmatched fraction is not the neutral-speech fraction.
+#' We get 25 net matches per 100 tokens for `good` and 20 for `not good`. Our rule counts `good` as positive in both sentences; adding `not` increases the denominator. An unmatched text has zero coverage. A text with balanced positive and negative counts has zero net tone but nonzero coverage. An empty text has a zero denominator, so its rates are missing. When we apply the dictionary to the speeches, a text with no matches may still express an opinion in words our list does not include.
 #' 
-#' We do not reproduce official LIWC dictionaries or the LIWC-22 Tone summary measure. A legacy-format import does not make quanteda scoring identical to LIWC. See [LIWC Analysis](https://liwc.app/help/liwc) and [quanteda import documentation](https://quanteda.io/reference/dictionary.html).
+#' Our ten-word teaching dictionary uses LIWC's `.dic` file format. We apply it with quanteda and calculate our own score, so the result differs from LIWC's Tone measure. See [LIWC Analysis](https://liwc.app/help/liwc) and [quanteda import documentation](https://quanteda.io/reference/dictionary.html).
 #' 
 #' ## 2. Build an energy-policy dictionary
 #' 
@@ -79,7 +79,7 @@ original$text
 
 
 #' 
-#' `Power` may denote authority; `bill*` can retrieve legislation or other prefixes; `gas` can concern crowd control. Narrower rules can still miss implicit energy references and match figurative energy. Read the passage before deciding. A proposed v3 needs a development-set justification, not an assumption that more entries improve measurement.
+#' In these contexts, `power` may refer to political authority, `bill*` may match legislation, and `gas` may refer to tear gas. We need to read the passage to decide whether each match concerns energy. If we propose another version, we should be able to point to development examples that explain each change.
 #' 
 #' ### Change one rule, then rerun
 #' 
@@ -105,11 +105,11 @@ data.frame(sentence = before_counts$doc_id,
            after = after_counts$energy)
 
 #' 
-#' **Read the result:** `wind` changes from 0 to 1; `authority` changes from 1 to 0. We added a useful match and removed an irrelevant one. This does not show that the revised dictionary works well on all speeches.
+#' **Read the result:** `wind` changes from 0 to 1; `authority` changes from 1 to 0. Our change fixes both examples. Next, we'll check other sentences to see which mistakes remain.
 #' 
-#' **Try:** in your own `energy_revised`, add or remove one entry, or replace a broad word with a phrase. Rerun the matching code after each change. Use `kwic(discovery_tokens, phrase("wind farm*"))` as a template to inspect your term in real context; read the original speech before deciding. Write down the term you changed, a supporting passage and one possible mistake. This exercise changes the word list; it does not implement context-dependent exclusion rules.
+#' Your own revision may differ from this example. To explain it, show the entry you changed, a passage that supports the change, and a case it might still get wrong. We can use `kwic(discovery_tokens, phrase("wind farm*"))` as a starting point for checking a phrase in the speeches.
 #' 
-#' For the remaining worked examples, use the supplied **`energy_v2`**. Your experimental dictionary is saved separately as `energy_revised`, so everyone can reproduce the same validation results.
+#' For sections 3–4, we'll use the supplied **`energy_v2`** so we can compare our results. Your own changes remain in `energy_revised`; the scores below refer to `energy_v2`.
 #' 
 #' ## 3. Development errors
 #' 
@@ -137,7 +137,7 @@ errors <- subset(dev, v1 != human)
 errors[, c("doc_id", "text", "human", "v1", "v2")]
 
 #' 
-#' Development examples motivate removing standalone `power`, `gas` and `bill*`, and adding renewable/solar/wind/fossil-fuel expressions. V2 still mistakes personal energy for energy-policy attention. A context rule might help but needs development and separate evaluation. These sentences were authored to expose the distinctions; this is not an independent empirical study.
+#' The development examples show why we might remove standalone `power`, `gas` and `bill*`, and add expressions about renewable energy, solar panels, wind farms and fossil fuels. V2 fixes several mistakes, but it still matches `energy` when the sentence describes a person's enthusiasm. To address that case, we would need a rule that uses the surrounding words, then more examples to check whether it works.
 #' 
 #' ## 4. Synthetic test results
 #' 
@@ -169,25 +169,25 @@ c(precision = precision, recall = recall, F1 = F1)
 #' 
 #' These denominators are nonzero. In other data, report an undefined rate as `NA` when its denominator is zero.
 #' 
-#' For v2: **TP = 4, FP = 1, FN = 2, TN = 5**. Precision = **0.80**, recall = **0.667**, F1 = **0.727**. V1 has the same four true positives but four false positives. V2 still matches figurative energy and misses coal-mine closure and heating tariffs. These are teaching results, not estimates for Parliament.
+#' For v2, we get **TP = 4, FP = 1, FN = 2, TN = 5**. Precision = **0.80**, recall = **0.667**, F1 = **0.727**. V1 finds the same four relevant sentences but also flags four irrelevant ones. V2 reduces those false positives to one: figurative `energy`. It still misses the sentences about coal-mine closures and heating tariffs.
 #' 
-#' Inspecting matches alone cannot reveal false negatives or estimate recall. Accuracy can reward always-negative predictions for a rare category. F1 omits true negatives; report counts, sampling, uncertainty and error costs too. Precision is undefined without predicted positives; recall is undefined without reference positives.
+#' These results describe the **12 test sentences**. To evaluate our dictionary on parliamentary speeches, we would need human labels for those speeches.
 #' 
-#' Do not add `coal` or `heating` after viewing test errors and call the updated score untouched-test performance. A new version needs a new test. Coder agreement is not proof of construct validity either.
+#' If we read only the matches, we would never find the two missed sentences and could not calculate recall. When relevant texts are rare, predicting 0 for every text can give high accuracy while finding none of them. F1 helps us focus on precision and recall, but we should also report the four counts and explain how we chose the texts. Without predicted positives, precision is undefined; without relevant texts in our labeled sample, recall is undefined.
+#' 
+#' We could now add `coal` or `heating`, but that would use information from the test sentences to change our dictionary. We would need a fresh test set to evaluate that new version.
 #' 
 #' ## W6 preview: labels before models
 #' 
 #' W5 (October 9) is a holiday. W6 (October 16), **Human Coding and Document Classification**, covers annotation quality, inter-coder reliability, training/test sets and performance; its lab introduces Naive Bayes, SVM and cross-validation.
 #' 
-#' The five-text warm-up asks for defensible decisions, not answer-key labels. Identify a passage, apply the inclusion/exclusion rules, and explain uncertainty. Discuss difficult cases and refine the development codebook in W6. No model training or extra submission is required now.
+#' For the five-speech warm-up, explain how you reached each label. Point to a passage, apply our inclusion/exclusion rules, and note anything you are unsure about. We'll compare difficult cases and refine the labeling rules in W6. No model training or extra submission is required now.
 #' 
-#' Five cases are not enough for training or reliable evaluation. Do not convert dictionary predictions into supposed human ground truth. Labels discussed while choosing a model become development material; final testing requires separate cases. Fitting a model does not establish the validity of its categories.
+#' We'll use these five speeches for discussion. We'll need more labeled texts for training and evaluation, with a separate test set that we leave aside while developing the model. Make your own reading-based judgments before looking at dictionary predictions.
 #' 
 #' ## Real-text validation in W6
 #' 
-#' Use the [three labeling rules in the handout](../Lab_Session_W4.html#energy-label-rules) for the five-text preview. The full export, independent coding and evaluation procedure is deferred to W6. No separate coding-guide file is needed for W4.
-#' 
-#' The real speeches have no supplied human labels. The synthetic scores above do not estimate performance on Parliament, and an energy-attention F1 does not validate emotion scores.
+#' Use the [three labeling rules in the handout](../Lab_Session_W4.html#energy-label-rules) for the five-speech preview. We'll work through independent coding and evaluation in W6. The parliamentary speeches have no supplied human labels; we'll need to collect those judgments before we can check the dictionary's performance on them.
 #' 
 #' ## Optional: compare parties
 #' 
@@ -208,7 +208,7 @@ head(party_summary, 6)
 
 
 #' 
-#' `dfm_group()` adds document counts within each party. `ntoken()` supplies the grouped original word totals; `convert()` produces the displayed table. Within each party, divide total matches by total original word counts. Raw counts depend on speaking volume. Normalized pooled sample rates still do not establish policy support, stable party differences or a causal effect; dates and topics differ.
+#' We use `dfm_group()` to add counts within each party, `ntoken()` to count the original words, and `convert()` to display the result as a table. For each party, we divide total matches by total original word counts and multiply by 1,000. This lets us compare speeches of different total lengths. To interpret party differences, we still need to check the dates, topics and dictionary matches; the rate alone does not tell us whether a party supports a policy.
 #' 
 #' ## R session information
 #' 

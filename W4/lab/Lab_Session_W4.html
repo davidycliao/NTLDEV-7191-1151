@@ -2253,8 +2253,8 @@ vertical-align: -.125em;
 
 <section id="before-starting" class="level2">
 <h2 class="anchored" data-anchor-id="before-starting">Before starting</h2>
-<p><strong>Ungraded take-home practice; no submission.</strong> Allow <strong>45–60 minutes</strong> for sections 1–4, with extra time for beginners. Follow one route: <strong>read a dictionary → change a rule and rerun → inspect errors → check test results</strong>. Party comparisons are optional. The five-text W6 preview takes about 10 additional minutes.</p>
-<p>We reuse the 5,000 parliamentary speech contributions from W2. <strong>You do not need to run W2 first:</strong> the setup below loads the data. Short, course-designed sentences help us see how dictionary rules work before interpreting real texts.</p>
+<p><strong>Ungraded take-home practice; no submission.</strong> In this lab, we’ll read a dictionary, change one of its rules, and check which sentences it gets right or wrong. Allow <strong>45–60 minutes</strong> for sections 1–4, with extra time if you are new to R. The party comparison is optional; the W6 preview takes about 10 additional minutes.</p>
+<p>We’ll use the 5,000 parliamentary speech contributions from W2 to look at words in context. We’ll also use short example sentences to check our dictionary matches by hand. <strong>You do not need to run W2 first:</strong> the setup below loads the data.</p>
 <p>Extract the lab ZIP, then open <strong><code>Lab_Session_W4.R</code></strong> in RStudio and read this handout alongside it. Keep <code>workflow.R</code>, <code>Dictionaries/</code> and <code>Data/</code> together. Run the whole setup block below once; it finds the lab folder or asks you to choose its <code>workflow.R</code>. Keep the same R session open. Install <code>quanteda</code> once; no LIWC purchase, model download or API is needed. You do not need to render the QMD.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;quanteda&quot;)  # run once before class</span></span>
@@ -2271,8 +2271,7 @@ vertical-align: -.125em;
 </section>
 <section id="reading-the-r-code" class="level2">
 <h2 class="anchored" data-anchor-id="reading-the-r-code">Reading the R code</h2>
-<p><strong>The examples use quanteda functions and simple R arithmetic.</strong> Run the lines in order, then read the result before moving on.</p>
-<p>Run each section from top to bottom in the same R session. Each line saves or displays one result. Use <code>Ctrl+Enter</code> (Windows) or <code>Cmd+Enter</code> (Mac) in RStudio to run a selected line.</p>
+<p>We’ll use <strong>quanteda functions and simple R arithmetic</strong>. Work through each section from top to bottom in the same R session, checking the output as you go. In RStudio, use <code>Ctrl+Enter</code> (Windows) or <code>Cmd+Enter</code> (Mac) to run a selected line.</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -2334,7 +2333,7 @@ vertical-align: -.125em;
 </tr>
 </tbody>
 </table>
-<p><code>workflow.R</code> prepares the shared corpus, dictionary versions and fixed data split. Its reusable functions and file checks are supplied support code. You do not need to write functions, loops, or regular expressions for the core lab. The examples below show tokenization, matching and arithmetic directly.</p>
+<p><code>workflow.R</code> loads our texts, dictionaries and prepared examples. Run it through the setup block above; you can leave its functions as they are. We’ll work with the resulting objects in the steps below.</p>
 <section id="functions-you-will-reuse" class="level3">
 <h3 class="anchored" data-anchor-id="functions-you-will-reuse">Functions you will reuse</h3>
 <table class="caption-top table">
@@ -2416,7 +2415,7 @@ vertical-align: -.125em;
   - bad, crisis, failure, harm, harmful</code></pre>
 </div>
 </div>
-<p>Start with two short texts. Run the dictionary-import block above first, then copy this block:</p>
+<p>Let’s start with two short texts. After importing the dictionary above, run this block:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;The policy is good.&quot;</span>, <span class="st">&quot;The policy is not good.&quot;</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>example_tokens <span class="ot">&lt;-</span> <span class="fu">tokens</span>(texts, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>)</span>
@@ -2442,7 +2441,7 @@ vertical-align: -.125em;
    25    20 </code></pre>
 </div>
 </div>
-<p><strong>Scoring means turning dictionary matches into a number for each text.</strong> Here we subtract negative from positive matches, divide by all word tokens, then multiply by 100. The scores are 25 and 20: one positive match divided by four and five words. The lower second score comes from its extra word, not an understanding of negation.</p>
+<p><strong>Scoring means turning dictionary matches into a number for each text.</strong> We subtract negative from positive matches, divide by all word tokens, then multiply by 100. We get 25 and 20: one positive match divided by four and five words. The second score is lower because <code>not</code> adds a word to the denominator. Our rule still counts <code>good</code> as positive.</p>
 <p>Now inspect the supplied examples that also include an unmatched text, balanced counts and an empty text. The table uses three summaries, where P = positive matches, N = negative matches and L = all word tokens:</p>
 <table class="caption-top table">
 <colgroup>
@@ -2517,11 +2516,11 @@ vertical-align: -.125em;
 </div>
 </div>
 <p><strong>Check:</strong> compare <code>good</code>, <code>negated</code>, <code>unmatched</code>, <code>balanced</code> and <code>empty</code>. Which examples have the same net score for different reasons? This table uses the supplied dictionary; it will not update automatically if you change the dictionary later.</p>
-<p><strong>Discuss:</strong> Why does <code>good</code> still produce a positive match in “not good”? Why are an unmatched text, balanced counts, and an empty text different? <code>net_per100</code> is <code>100 * (positive - negative) / tokens</code>; it is <strong>not LIWC’s Tone summary measure</strong>. Retaining <code>not</code> does not make a counting rule negation-aware.</p>
+<p><strong>Discuss:</strong> What would our rule need to do differently to distinguish “good” from “not good”? Keeping <code>not</code> in the tokens is only a first step; we still need a rule that uses it.</p>
 </section>
 <section id="build-an-energy-policy-dictionary" class="level2">
 <h2 class="anchored" data-anchor-id="build-an-energy-policy-dictionary">2. Build an energy-policy dictionary</h2>
-<p><strong>15–20 minutes.</strong> We now change the question from sentiment to <strong>whether a speech discusses energy policy</strong>. A relevant speech can be positive, negative or neither. The setup has already loaded the parliamentary texts. A dictionary prediction is 1 when at least one energy expression matches. Human readers use the rules below to check whether that prediction makes sense.</p>
+<p><strong>15–20 minutes.</strong> Now we’ll ask a different question: <strong>does a speech discuss energy policy?</strong> A relevant speech can be positive, negative or neither. We’ll assign a dictionary prediction of 1 when at least one energy expression matches. To check these predictions, we’ll read the texts ourselves using the rules below.</p>
 <section id="energy-label-rules" class="level3">
 <h3 class="anchored" data-anchor-id="energy-label-rules">How to label a speech</h3>
 <p>Read the whole speech contribution. Judge what it discusses, not whether a dictionary word appears.</p>
@@ -2630,9 +2629,9 @@ vertical-align: -.125em;
 2 authority      1     0</code></pre>
 </div>
 </div>
-<p><strong>Read the result:</strong> <code>wind</code> changes from 0 to 1; <code>authority</code> changes from 1 to 0. We added a useful match and removed an irrelevant one. This does not show that the revised dictionary works well on all speeches.</p>
-<p><strong>Try:</strong> in your own <code>energy_revised</code>, add or remove one entry, or replace a broad word with a phrase. Rerun the matching code after each change. Use <code>kwic(discovery_tokens, phrase(&quot;wind farm*&quot;))</code> as a template to inspect your term in real context; read the original speech before deciding. Write down the term you changed, a supporting passage and one possible mistake. This exercise changes the word list; it does not implement context-dependent exclusion rules.</p>
-<p>For the remaining worked examples, use the supplied <strong><code>energy_v2</code></strong>. Your experimental dictionary is saved separately as <code>energy_revised</code>, so everyone can reproduce the same validation results.</p>
+<p><strong>Read the result:</strong> <code>wind</code> changes from 0 to 1; <code>authority</code> changes from 1 to 0. Our change fixes both examples. Next, we’ll check other sentences to see which mistakes remain.</p>
+<p><strong>Try:</strong> in your own <code>energy_revised</code>, add or remove one entry, or replace a broad word with a phrase. Rerun the matching code after each change. Use <code>kwic(discovery_tokens, phrase(&quot;wind farm*&quot;))</code> as a template to inspect your term in real context; read the original speech before deciding. Write down the term you changed, a supporting passage and one possible mistake.</p>
+<p>For sections 3–4, we’ll use the supplied <strong><code>energy_v2</code></strong> so we can compare our results with the worked answers. Your own changes remain in <code>energy_revised</code>; the scores we calculate next will refer to <code>energy_v2</code>.</p>
 <p>To count multiword expressions, match the dictionary on the tokens first:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>matched_tokens <span class="ot">&lt;-</span> <span class="fu">tokens_lookup</span>(discovery_tokens, energy_v2, <span class="at">capkeys =</span> <span class="cn">FALSE</span>)</span>
@@ -2655,7 +2654,7 @@ docs          energy
 </section>
 <section id="diagnose-development-errors" class="level2">
 <h2 class="anchored" data-anchor-id="diagnose-development-errors">3. Diagnose development errors</h2>
-<p><strong>10 minutes.</strong> We now practise finding errors before calculating performance. <code>Data/synthetic_validation.csv</code> has 24 authored teaching sentences and supplied labels, stored in the column <code>human</code>. These are separate from the 5,000 real speeches. Use the 12 <strong>development</strong> sentences to inspect rules; save the 12 <strong>test</strong> sentences for checking the fixed v2 in section 4. The results describe these examples, not performance on real speeches.</p>
+<p><strong>10 minutes.</strong> Let’s look for mistakes before calculating a score. <code>Data/synthetic_validation.csv</code> contains 24 sentences written for this exercise, with labels in the column <code>human</code>. These are separate from the 5,000 parliamentary speeches. We’ll inspect the 12 <strong>development</strong> sentences now and save the 12 <strong>test</strong> sentences for section 4.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the labelled teaching examples and generate predictions explicitly.</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>synthetic <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Data/synthetic_validation.csv&quot;</span>)</span>
@@ -2695,11 +2694,11 @@ docs          energy
 12  dev12               The committee discussed train timetables.     0  0  0</code></pre>
 </div>
 </div>
-<p><strong>Try:</strong> identify one false positive and one false negative under v1. Which development examples motivate v2? Which problem remains? Compare two rule sets for the <strong>same energy-attention construct</strong>; an affect lexicon cannot be validated against an unrelated policy label.</p>
+<p><strong>Try:</strong> find one false positive and one false negative under v1. Which word caused the false match? Which expression did the dictionary miss? Check whether v2 fixes these cases, then find a mistake that remains.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your error analysis here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><strong>Freeze means stop changing the rules before checking test results.</strong> Keep the dictionary, labeling instructions, tokenization and prediction rule fixed (here, at least one match means 1). In research, save this version so that you can identify exactly what was tested. Here we practise with supplied examples and labels; this is not an independent validation study.</p>
+<p><strong>Freeze means stop changing the rules before checking test results.</strong> We’ll keep the dictionary, labeling instructions, tokenization and prediction rule fixed (here, at least one match means 1). For your own project, save this version so you have a record of exactly what you tested.</p>
 </section>
 <section id="check-a-frozen-rule-on-test-examples" class="level2">
 <h2 class="anchored" data-anchor-id="check-a-frozen-rule-on-test-examples">4. Check a frozen rule on test examples</h2>
@@ -2742,12 +2741,13 @@ predicted 0 1
 0.8000000 0.6666667 0.7272727 </code></pre>
 </div>
 </div>
-<p><strong>Read the result:</strong> the dictionary flags 5 sentences, of which 4 are relevant (precision = 4/5). There are 6 relevant sentences, and it finds 4 (recall = 4/6). F1 combines those two measures; it is not accuracy. The denominators are nonzero here; when a denominator is zero, report an undefined measure as <code>NA</code>.</p>
-<p><strong>Discuss:</strong> Why must evaluation include nonmatches? Why can accuracy mislead for rare categories? Why would revising v2 after inspecting test errors require a new test set? These metrics evaluate binary detection, not a continuous score or a causal claim. W6 develops performance assessment and train/test separation more fully.</p>
+<p><strong>Read the result:</strong> our dictionary flags 5 sentences, and 4 are relevant (precision = 4/5). Of the 6 relevant sentences, we find 4 (recall = 4/6). F1 combines precision and recall; it is not accuracy. If a denominator is zero in your own data, report that measure as <code>NA</code>.</p>
+<p>These results describe the <strong>12 test sentences</strong>. To evaluate our dictionary on parliamentary speeches, we would need human labels for those speeches.</p>
+<p><strong>Discuss:</strong> How would we find missed cases if we inspected only dictionary matches? Why might accuracy look high when very few texts discuss energy? If we change v2 after reading the test errors, what would we need for a fresh evaluation? We’ll return to these questions in W6.</p>
 </section>
 <section id="before-w6-five-texts-and-one-difficult-decision" class="level2">
 <h2 class="anchored" data-anchor-id="before-w6-five-texts-and-one-difficult-decision">Before W6: five texts and one difficult decision</h2>
-<p><strong>10 minutes; no upload.</strong> W5 is a holiday, not an additional lab session. Use five real-text development cases as a W6 warm-up:</p>
+<p><strong>10 minutes; no upload.</strong> W5 is a holiday. Before we meet in W6, read these five parliamentary speeches from our development sample:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>development_texts <span class="ot">&lt;-</span> <span class="fu">subset</span>(coding_template, split <span class="sc">==</span> <span class="st">&quot;development&quot;</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>preview <span class="ot">&lt;-</span> <span class="fu">head</span>(development_texts, <span class="dv">5</span>)</span>
@@ -2798,11 +2798,11 @@ predicted 0 1
 </tr>
 </tbody>
 </table>
-<p>No model training is required now. Five cases support discussion, <strong>not an adequate training set or reliable benchmark</strong>. Dictionary predictions are not independent human ground truth. Labels used to choose a model belong in development/training, not final testing.</p>
+<p>We’ll use these five speeches to discuss how we decide on a label. Read them without looking at dictionary predictions, and keep them in the development set if we use them to revise our rules. We’ll need more labeled texts before training or evaluating a classifier.</p>
 </section>
 <section id="real-text-validation-in-w6" class="level2">
 <h2 class="anchored" data-anchor-id="real-text-validation-in-w6">Real-text validation in W6</h2>
-<p>W6 will develop the full human-coding and validation procedure. For W4, complete the synthetic example and the five-text preview above; no additional coding file is needed. The 50 real speeches reserved by setup are not the 12 teaching test sentences and are not used in the W4 exercises. The real speeches have no supplied human labels, so the synthetic F1 is not evidence of performance on Parliament.</p>
+<p>In W6, we’ll work through human coding and validation with real texts. For now, complete the short-sentence exercise and the five-speech preview above. Setup also reserves <strong>50 parliamentary speeches</strong> for later testing. We leave those untouched in W4; they are a separate set from the 12 test sentences we just used.</p>
 </section>
 <section id="optional-compare-parties" class="level2">
 <h2 class="anchored" data-anchor-id="optional-compare-parties">Optional: compare parties</h2>
@@ -2837,14 +2837,14 @@ Show the party comparison
 </div>
 </div>
 <p><code>dfm_group()</code> performs the grouping; <code>convert()</code> turns the result into a table. We keep the final division explicit to show its denominator. Do not apply <code>dfm_weight(..., &quot;prop&quot;)</code> to a matched-only DFM here: it would divide by matched counts instead of all original words.</p>
-<p>The rate is <strong>1,000 * total matches / total original word tokens</strong> within each party, not the unweighted mean of speech rates. These pooled sample rates are descriptive; dates, topics and speaking opportunities differ. Do not infer policy support or a causal effect. Fewer matches do not automatically imply better measurement.</p>
+<p>For each party, we calculate <strong>1,000 * total matches / total original word tokens</strong>. We add the counts before dividing, rather than averaging the rates of individual speeches. These rates tell us how often our dictionary matches words in each party’s sampled speeches. To interpret a difference, we also need to consider when the speeches were made, their topics, and how well the dictionary works. A match alone does not tell us whether the speaker supports an energy policy.</p>
 </details>
 <p>POS and TextRank examples are in the separate classroom materials. They are not part of this take-home lab.</p>
 </section>
 <section id="reading-connections" class="level2">
 <h2 class="anchored" data-anchor-id="reading-connections">Reading connections</h2>
-<p>Three required papers are unchanged: Denny and Spirling (2018), <a href="https://doi.org/10.1017/pan.2017.44">DOI</a>, on preprocessing sensitivity; Rauh (2018), <a href="https://doi.org/10.1080/19331681.2018.1485608">DOI</a>, on domain-specific sentiment validation; Proksch et al. (2019), <a href="https://doi.org/10.1111/lsq.12218">DOI</a>, on political-language measurement across settings.</p>
-<p>Boyle et al. (2025), <a href="https://doi.org/10.1016/j.erss.2025.103955">DOI</a>, is a supplementary lecture case for dictionary development and held-out validation, not a fourth required article. Its research-abstract corpus and policy-relevance construct differ from our energy-attention exercise. Our toy results reproduce none of these studies.</p>
+<p>Our three required readings are Denny and Spirling (2018), <a href="https://doi.org/10.1017/pan.2017.44">DOI</a>, on preprocessing sensitivity; Rauh (2018), <a href="https://doi.org/10.1080/19331681.2018.1485608">DOI</a>, on sentiment validation in political texts; and Proksch et al. (2019), <a href="https://doi.org/10.1111/lsq.12218">DOI</a>, on political-language measurement across settings.</p>
+<p>For another example of dictionary development and testing, see the supplementary lecture case by Boyle et al. (2025), <a href="https://doi.org/10.1016/j.erss.2025.103955">DOI</a>. That study measures policy relevance in research abstracts; our exercise asks whether a sentence discusses energy.</p>
 <p>Free reading: <a href="https://cssbook.net/">Computational Analysis of Communication</a>, Chapters 10-11. Technical references: <a href="https://liwc.app/help/workbench">LIWC Workbench</a>, <a href="https://quanteda.io/reference/dictionary.html">dictionary import</a>, <a href="https://quanteda.io/reference/tokens_lookup.html">token lookup</a>.</p>
 <p>Selected activities draw on ESS materials by Martijn Schoonvelde (2026), acknowledging Stefan Muller. The parliamentary sample is reused from W2; the short sentences and small dictionaries are course-designed teaching examples.</p>
 </section>

@@ -1500,7 +1500,7 @@ Our O01 used `parser = "none"`; dependency extraction needs parsing enabled.
 Resource: [UDPipe](https://bnosac.github.io/udpipe/docs/doc7.html)
 :::
 
-## TextRank: ranking candidate words (1/2) {#pos-textrank-example}
+## TextRank: ranking candidate words (1/3) {#pos-textrank-example}
 :::::: {.slide-body}
 **Obama's 2013 inaugural address**, included in quanteda. Run O01 first to load `model`.
 
@@ -1523,7 +1523,7 @@ round(head(scores, 6), 4)
 Resource: [quanteda](https://quanteda.io/reference/data_corpus_inaugural.html) · [UDPipe](https://bnosac.github.io/udpipe/docs/doc7.html) · [R code](../classroom/examples/W4_keywords_real.R)
 :::
 
-## TextRank: ranking candidate words (2/2) {#pos-textrank-output}
+## TextRank: ranking candidate words (2/3) {#pos-textrank-output}
 :::::: {.slide-body}
 **Actual output: Obama 2013, English EWT model**
 
@@ -1544,6 +1544,52 @@ head(pairs, 3)  # inspect the links used to build the network
 ::::::
 ::: {.source}
 Resource: [R code](../classroom/examples/W4_keywords_real.R)
+:::
+
+## TextRank: ranking candidate words (3/3) {#pos-textrank-network}
+:::::: {.slide-body .textrank-network}
+::::: {.columns}
+:::: {.column}
+**Print the top five**
+
+```r
+print(round(head(scores, 5), 4))
+```
+
+```text
+   new   same endure nation common
+0.0161 0.0096 0.0095 0.0094 0.0092
+```
+
+```r
+library(igraph)
+top5 <- names(head(scores, 5))
+links <- subset(pairs,
+  term1 %in% top5 | term2 %in% top5)
+g <- graph_from_data_frame(links, directed=FALSE)
+set.seed(4)
+plot(g, layout = layout_with_fr(g),
+     vertex.size = 6, vertex.color = "#7cae96",
+     vertex.label.color = "#314f4f",
+     vertex.label.cex = 1.5,
+     edge.width = E(g)$cooc)
+```
+::::
+:::: {.column}
+**Top five and their neighbours**
+
+![](../assets/textrank-top5-network.png){fig-alt="Adjacent noun and adjective pairs connected to the five highest TextRank words in Obama's 2013 inaugural address."}
+
+**Try:** change 5 to 10 and rerun.
+::::
+:::::
+
+::: {.caption}
+Thicker lines = more occurrences of a pair. Scores on the left come from the full network.
+:::
+::::::
+::: {.source}
+Resource: [UDPipe](https://bnosac.github.io/udpipe/docs/doc7.html) · [R code](../classroom/examples/W4_keywords_real.R)
 :::
 
 ## Named entities with Flair (1/2) {#ner-is-separate-from-udpipe-pos-tagging}
