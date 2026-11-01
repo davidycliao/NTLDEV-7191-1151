@@ -26,7 +26,7 @@
 
 7. **Call for Papers: [22nd TASPAA Annual Conference (2027)](https://www.taspaa.org/news_info.aspx?ID=258).** **Abstract and panel proposal deadline: December 1, 2026.** Conference: May 14–15, 2027, at National Taipei University, Sanxia Campus.
 
-Use **HTML** to view slides in your browser, **PDF** for a downloadable copy, and **Source ZIP** for editable slide files. The **Week 4, Week 6, and Week 7 Source ZIPs** also include the classroom R scripts and required data; one download per week is enough.
+Use **HTML** to view slides in your browser, **PDF** for a downloadable copy, and **Source ZIP** for editable slide files.
 
 If the HTML link shows an external-content notice, select **Open the page** to view the slides.
 
