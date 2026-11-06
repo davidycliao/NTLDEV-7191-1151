@@ -64,7 +64,7 @@ Reference: [W7 scaling](../../W7/slide/week7.html); [Grimmer, Roberts & Stewart 
 
 **Guiding question:** How do political scientists turn large text collections into evidence about political behavior and communication?
 
-We first read seven political studies. Then we unpack how the models work and apply them to political speeches in R.
+We first read six political studies. Then we unpack how the models work and apply them to political speeches in R.
 
 ::::::
 
