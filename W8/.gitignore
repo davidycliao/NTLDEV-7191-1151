@@ -34,9 +34,6 @@
 !/assets/cases/applications-motolinia-title.png
 !/assets/cases/applications-mueller-web.png
 !/assets/cases/applications-wratil-web.png
-!/assets/cases/barnes-figure3-content.png
-!/assets/cases/barnes-figure4-experiment.png
-!/assets/cases/barnes-title.png
 !/assets/cases/btm-package-topic-example.png
 !/assets/cases/btm-paper-title.png
 !/assets/cases/catalinac-figure1-screenshot.png
@@ -74,3 +71,6 @@
 !/slide/week8.html
 !/slide/week8.pdf
 !/slide/week8.qmd
+
+/.quarto/
+**/*.quarto_ipynb

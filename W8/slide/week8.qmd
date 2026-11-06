@@ -85,18 +85,17 @@ Reference: [Grimmer, Roberts & Stewart (2022)](https://ingramacademic.com/produc
 | Case | Texts | How the model is used |
 |---|---|---|
 | **1 · Catalinac (2016)** | Japanese manifestos | Measure campaign promises |
-| **2 · Barnes & Hicks (2018)** | British newspapers | Find frames; design an experiment |
-| **3 · Gilardi et al. (2021)** | U.S. news paragraphs | Study policy diffusion and framing |
-| **4 · Barberá et al. (2019)** | Tweets | Measure daily issue attention |
-| **5 · Jiang et al. (2024)** | Hong Kong news | Develop and test a hypothesis |
-| **6 · Roberts et al. (2014)** | Survey answers | Compare priorities with human coding |
-| **7 · Mueller & Rauh (2018)** | Newspaper articles | Predict next-year conflict |
+| **2 · Gilardi et al. (2021)** | U.S. news paragraphs | Study policy diffusion and framing |
+| **3 · Barberá et al. (2019)** | Tweets | Measure daily issue attention |
+| **4 · Jiang et al. (2024)** | Hong Kong news | Develop and test a hypothesis |
+| **5 · Roberts et al. (2014)** | Survey answers | Compare priorities with human coding |
+| **6 · Mueller & Rauh (2018)** | Newspaper articles | Predict next-year conflict |
 
 ::::::
 
 ::: {.source}
 
-Reference: [Catalinac (2016)](https://doi.org/10.1086/683073); [Barnes & Hicks (2018)](https://doi.org/10.1111/ajps.12346); [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521); [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352); [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-y); [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103); [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
+Reference: [Catalinac (2016)](https://doi.org/10.1086/683073); [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521); [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352); [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-y); [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103); [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
 
 :::
 
@@ -119,7 +118,7 @@ Use the same four questions when you design your own text research.
 
 ::: {.source}
 
-Teaching guide for the seven cases introduced on the previous page.
+Teaching guide for the six cases introduced on the previous page.
 
 :::
 
@@ -389,172 +388,11 @@ Reference: [Catalinac (2016)](https://doi.org/10.1086/683073)
 
 
 
-## Newspaper framing of fiscal policy
-
-:::::: {.slide-body }
-
-<p class="w8-study-label"><strong>Case 2 · Media framing and fiscal attitudes</strong></p>
-
-::::: {.columns .paper-intro-columns .w8-paper}
-
-:::: {.column}
-
-![](../assets/cases/barnes-title.png){fig-alt="Original AJPS article heading: Making Austerity Popular: The Media and Mass Attitudes toward Fiscal Policy, Lucy Barnes and Timothy Hicks."}
-
-::: {.caption}
-
-**Lucy Barnes and Timothy Hicks**
-
-American Journal of Political Science, 2018
-
-:::
-
-::::
-
-:::: {.column}
-
-- **Context:** after 2010, Britain argued over how quickly to reduce the deficit.
-- **Puzzle:** cuts have visible costs, yet many voters saw austerity as necessary.
-- **Question:** do news frames change which consequences people consider?
-- **Design:** an STM identifies recurring media frames in the corpus. A randomized survey tests their effect.
-
-::::
-
-:::::
-
-::::::
-
-::: {.source}
-
-Reference: [Barnes & Hicks (2018)](https://doi.org/10.1111/ajps.12346)
-
-:::
-
-
-
-## Newspaper articles become media frames
-
-:::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage}
-
-<p class="w8-study-label"><strong>Case 2 · How STM is used · 1/3</strong></p>
-
-<div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>What Barnes and Hicks do</th></tr></thead><tbody><tr class="w8-workflow-active"><td>Observe attitudes</td><td>Compare deficit preferences across newspaper readers in the British Election Study</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Build the corpus</td><td>Use 4,140 <em>Guardian</em> and 6,053 <em>Telegraph</em> articles; one article is one document</td></tr><tr><td>Fit the STM</td><td>Estimate six topics; model prevalence by paper and date, and content by paper</td></tr><tr><td>Compare frames</td><td>Within the same topic, identify words that each newspaper favors</td></tr><tr><td>Test effects</td><td>Turn the contrasts into messages for a randomized survey with 1,687 respondents</td></tr></tbody></table></div>
-
-<p class="w8-figure-stage-cue w8-workflow-stage-cue">First compare readers, then collect articles from those newspapers.</p>
-
-::::::
-
-::: {.source}
-
-Reference: [Barnes & Hicks (2018)](https://doi.org/10.1111/ajps.12346)
-
-:::
-
-
-
-## Newspaper articles become media frames
-
-:::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage}
-
-<p class="w8-study-label"><strong>Case 2 · How STM is used · 2/3</strong></p>
-
-<div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>What Barnes and Hicks do</th></tr></thead><tbody><tr><td>Observe attitudes</td><td>Compare deficit preferences across newspaper readers in the British Election Study</td></tr><tr><td>Build the corpus</td><td>Use 4,140 <em>Guardian</em> and 6,053 <em>Telegraph</em> articles; one article is one document</td></tr><tr class="w8-workflow-active"><td>Fit the STM</td><td>Estimate six topics; model prevalence by paper and date, and content by paper</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Compare frames</td><td>Within the same topic, identify words that each newspaper favors</td></tr><tr><td>Test effects</td><td>Turn the contrasts into messages for a randomized survey with 1,687 respondents</td></tr></tbody></table></div>
-
-<p class="w8-figure-stage-cue w8-workflow-stage-cue">STM finds shared topics, then compares how each newspaper describes them.</p>
-
-::::::
-
-::: {.source}
-
-Reference: [Barnes & Hicks (2018)](https://doi.org/10.1111/ajps.12346)
-
-:::
-
-
-
-## Newspaper articles become media frames
-
-:::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage}
-
-<p class="w8-study-label"><strong>Case 2 · How STM is used · 3/3</strong></p>
-
-<div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>What Barnes and Hicks do</th></tr></thead><tbody><tr><td>Observe attitudes</td><td>Compare deficit preferences across newspaper readers in the British Election Study</td></tr><tr><td>Build the corpus</td><td>Use 4,140 <em>Guardian</em> and 6,053 <em>Telegraph</em> articles; one article is one document</td></tr><tr><td>Fit the STM</td><td>Estimate six topics; model prevalence by paper and date, and content by paper</td></tr><tr class="w8-workflow-active"><td>Compare frames</td><td>Within the same topic, identify words that each newspaper favors</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Test effects</td><td>Turn the contrasts into messages for a randomized survey with 1,687 respondents</td></tr></tbody></table></div>
-
-<p class="w8-figure-stage-cue w8-workflow-stage-cue">The authors use the observed frame differences to write survey messages. Random assignment tests their effects.</p>
-
-::::::
-
-::: {.source}
-
-Reference: [Barnes & Hicks (2018)](https://doi.org/10.1111/ajps.12346)
-
-:::
-
-
-
-## The same austerity topic uses different words
-
-:::::: {.slide-body .w8-figure-stage}
-
-<p class="w8-study-label"><strong>Case 2 · Evidence from newspaper content</strong></p>
-
-<div class="w8-figure-stage-frame w8-figure-stage-wide" style="--w8-stage-ratio: 1.6095238095">
-<img src="../assets/cases/barnes-figure3-content.png" alt="Original Figure 3 panel b, Austerity Trade-Offs: relative word use within the same STM topic in Guardian and Telegraph articles.">
-<svg class="w8-figure-stage-overlay" viewBox="0 0 1352 840" role="img" aria-label="Red course annotation marks the part of the original figure discussed on this page.">
-<rect class="w8-figure-stage-focus" x="155" y="25" width="445" height="580" rx="16"></rect>
-<rect class="w8-figure-stage-focus" x="645" y="25" width="680" height="580" rx="16"></rect>
-<path class="w8-figure-stage-pointer" d="M 520 180 L 315 120"></path>
-<polygon class="w8-figure-stage-pointer-head" points="315,120 335,116 329,136"></polygon>
-<path class="w8-figure-stage-pointer" d="M 830 250 L 1110 480"></path>
-<polygon class="w8-figure-stage-pointer-head" points="1110,480 1089,473 1103,458"></polygon>
-</svg>
-</div>
-
-<p class="w8-figure-stage-cue"><strong>Guardian:</strong> schools, services and cuts. <strong>Telegraph:</strong> economy, growth, banks and rates.</p>
-
-::::::
-
-::: {.source}
-
-Reference: [Barnes & Hicks (2018)](https://doi.org/10.1111/ajps.12346)
-
-:::
-
-
-
-## Framing changes deficit attitudes
-
-:::::: {.slide-body .w8-figure-stage}
-
-<p class="w8-study-label"><strong>Case 2 · Randomized evidence and limits</strong></p>
-
-<div class="w8-figure-stage-frame w8-figure-stage-landscape" style="--w8-stage-ratio: 1.8918918919">
-<img src="../assets/cases/barnes-figure4-experiment.png" alt="Original Figure 4 coefficient plot from Experiment 1: Guardian and Telegraph treatment effects on priority given to deficit reduction, with 95 percent confidence intervals.">
-<svg class="w8-figure-stage-overlay" viewBox="0 0 1120 592" role="img" aria-label="Red course annotation marks the part of the original figure discussed on this page.">
-<rect class="w8-figure-stage-focus" x="300" y="215" width="490" height="145" rx="18"></rect>
-<path class="w8-figure-stage-pointer" d="M 175 300 L 320 300"></path>
-<polygon class="w8-figure-stage-pointer-head" points="320,300 299,289 299,311"></polygon>
-<ellipse class="w8-figure-stage-focus" cx="724" cy="422" rx="240" ry="62"></ellipse>
-</svg>
-</div>
-
-<p class="w8-figure-stage-cue">The <strong>Guardian-style message</strong> lowers deficit aversion. The Telegraph-style message does not differ from control.</p>
-
-::::::
-
-::: {.source}
-
-Reference: [Barnes & Hicks (2018)](https://doi.org/10.1111/ajps.12346)
-
-:::
-
-
-
 ## Policy diffusion before adoption
 
 :::::: {.slide-body }
 
-<p class="w8-study-label"><strong>Case 3 · Issue definition</strong></p>
+<p class="w8-study-label"><strong>Case 2 · Issue definition</strong></p>
 
 ::::: {.columns .paper-intro-columns .w8-paper}
 
@@ -596,7 +434,7 @@ Reference: [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521)
 
 :::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage .w8-gilardi-workflow-stage}
 
-<p class="w8-study-label"><strong>Case 3 · How STM is used · 1/3</strong></p>
+<p class="w8-study-label"><strong>Case 2 · How STM is used · 1/3</strong></p>
 
 <div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>What the researchers do</th></tr></thead><tbody><tr class="w8-workflow-active"><td>Collect reporting</td><td>Search 49 state newspapers, 1996–2013</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Keep relevant paragraphs</td><td>Use crowd labels to train an SVM relevance filter</td></tr><tr><td>Discover frames</td><td>Fit a 12-topic STM to 52,675 paragraphs</td></tr><tr><td>Measure issue definition</td><td>Estimate how common each frame is</td></tr><tr><td>Study diffusion</td><td>Relate frame prevalence to earlier adoptions in other states</td></tr></tbody></table></div>
 
@@ -616,7 +454,7 @@ Reference: [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521)
 
 :::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage .w8-gilardi-workflow-stage}
 
-<p class="w8-study-label"><strong>Case 3 · How STM is used · 2/3</strong></p>
+<p class="w8-study-label"><strong>Case 2 · How STM is used · 2/3</strong></p>
 
 <div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>What the researchers do</th></tr></thead><tbody><tr><td>Collect reporting</td><td>Search 49 state newspapers, 1996–2013</td></tr><tr><td>Keep relevant paragraphs</td><td>Use crowd labels to train an SVM relevance filter</td></tr><tr class="w8-workflow-active"><td>Discover frames</td><td>Fit a 12-topic STM to 52,675 paragraphs</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Measure issue definition</td><td>Estimate how common each frame is</td></tr><tr><td>Study diffusion</td><td>Relate frame prevalence to earlier adoptions in other states</td></tr></tbody></table></div>
 
@@ -636,7 +474,7 @@ Reference: [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521)
 
 :::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage .w8-gilardi-workflow-stage}
 
-<p class="w8-study-label"><strong>Case 3 · How STM is used · 3/3</strong></p>
+<p class="w8-study-label"><strong>Case 2 · How STM is used · 3/3</strong></p>
 
 <div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>What the researchers do</th></tr></thead><tbody><tr><td>Collect reporting</td><td>Search 49 state newspapers, 1996–2013</td></tr><tr><td>Keep relevant paragraphs</td><td>Use crowd labels to train an SVM relevance filter</td></tr><tr><td>Discover frames</td><td>Fit a 12-topic STM to 52,675 paragraphs</td></tr><tr class="w8-workflow-active"><td>Measure issue definition</td><td>Estimate how common each frame is</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Study diffusion</td><td>Relate frame prevalence to earlier adoptions in other states</td></tr></tbody></table></div>
 
@@ -656,7 +494,7 @@ Reference: [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521)
 
 :::::: {.slide-body .w8-figure-stage}
 
-<p class="w8-study-label"><strong>Case 3 · Learning from other states</strong></p>
+<p class="w8-study-label"><strong>Case 2 · Learning from other states</strong></p>
 
 <div class="w8-figure-stage-frame w8-figure-stage-panorama" style="--w8-stage-ratio: 2.8571428571">
 <img src="../assets/cases/gilardi2021-figure2-regulations.png" alt="Original Figure 2 title and upper panels: Rules, Enforcement, and Bars and restaurants versus prior policy adoptions.">
@@ -686,7 +524,7 @@ Reference: [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521)
 
 :::::: {.slide-body .w8-figure-stage}
 
-<p class="w8-study-label"><strong>Case 3 · Stable frame: Health</strong></p>
+<p class="w8-study-label"><strong>Case 2 · Stable frame: Health</strong></p>
 
 <div class="w8-figure-stage-frame w8-figure-stage-panorama" style="--w8-stage-ratio: 2.2992700730">
 <img src="../assets/cases/gilardi2021-figure2-values.png" alt="Original Figure 2 panels: Health and Freedom versus prior policy adoptions.">
@@ -712,7 +550,7 @@ Reference: [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521)
 
 :::::: {.slide-body .w8-figure-stage}
 
-<p class="w8-study-label"><strong>Case 3 · Stable frame: Freedom</strong></p>
+<p class="w8-study-label"><strong>Case 2 · Stable frame: Freedom</strong></p>
 
 <div class="w8-figure-stage-frame w8-figure-stage-panorama" style="--w8-stage-ratio: 2.2992700730">
 <img src="../assets/cases/gilardi2021-figure2-values.png" alt="Original Figure 2 panels: Health and Freedom versus prior policy adoptions.">
@@ -738,7 +576,7 @@ Reference: [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521)
 
 :::::: {.slide-body .w8-figure-stage}
 
-<p class="w8-study-label"><strong>Case 3 · Optional detail · lower adoption</strong></p>
+<p class="w8-study-label"><strong>Case 2 · Optional detail · lower adoption</strong></p>
 
 <div class="w8-figure-stage-frame w8-figure-stage-landscape" style="--w8-stage-ratio: 1.3297872340">
 <img src="../assets/cases/gilardi2021-figure3-low.png" alt="Original Figure 3 center panel: topic correlations in the lower prior-adoption group.">
@@ -764,7 +602,7 @@ Reference: [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521)
 
 :::::: {.slide-body .w8-figure-stage}
 
-<p class="w8-study-label"><strong>Case 3 · Optional detail · higher adoption</strong></p>
+<p class="w8-study-label"><strong>Case 2 · Optional detail · higher adoption</strong></p>
 
 <div class="w8-figure-stage-frame w8-figure-stage-landscape" style="--w8-stage-ratio: 1.3157894737">
 <img src="../assets/cases/gilardi2021-figure3-high.png" alt="Original Figure 3 bottom panel: topic correlations in the higher prior-adoption group.">
@@ -790,7 +628,7 @@ Reference: [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521)
 
 :::::: {.slide-body }
 
-<p class="w8-study-label"><strong>Case 4 · Social media and issue attention</strong></p>
+<p class="w8-study-label"><strong>Case 3 · Social media and issue attention</strong></p>
 
 ::::: {.columns .paper-intro-columns .w8-paper}
 
@@ -832,7 +670,7 @@ Reference: [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352)
 
 :::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage}
 
-<p class="w8-study-label"><strong>Case 4 · How the topic model is used · 1/3</strong></p>
+<p class="w8-study-label"><strong>Case 3 · How the topic model is used · 1/3</strong></p>
 
 <div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>What the researchers do</th></tr></thead><tbody><tr class="w8-workflow-active"><td>Define documents</td><td>Combine congressional tweets by day, party and chamber</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Discover shared themes</td><td>Fit a 100-topic LDA to the grouped congressional texts</td></tr><tr><td>Interpret issues</td><td>Read topic words and merge related political themes</td></tr><tr><td>Construct measures</td><td>Estimate daily issue attention for politicians, public samples and media</td></tr><tr><td>Analyse timing</td><td>Compare whose earlier attention predicts another group&#x27;s later attention</td></tr></tbody></table></div>
 
@@ -852,7 +690,7 @@ Reference: [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352)
 
 :::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage}
 
-<p class="w8-study-label"><strong>Case 4 · How the topic model is used · 2/3</strong></p>
+<p class="w8-study-label"><strong>Case 3 · How the topic model is used · 2/3</strong></p>
 
 <div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>What the researchers do</th></tr></thead><tbody><tr><td>Define documents</td><td>Combine congressional tweets by day, party and chamber</td></tr><tr><td>Discover shared themes</td><td>Fit a 100-topic LDA to the grouped congressional texts</td></tr><tr class="w8-workflow-active"><td>Interpret issues</td><td>Read topic words and merge related political themes</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Construct measures</td><td>Estimate daily issue attention for politicians, public samples and media</td></tr><tr><td>Analyse timing</td><td>Compare whose earlier attention predicts another group&#x27;s later attention</td></tr></tbody></table></div>
 
@@ -872,7 +710,7 @@ Reference: [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352)
 
 :::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage}
 
-<p class="w8-study-label"><strong>Case 4 · How the topic model is used · 3/3</strong></p>
+<p class="w8-study-label"><strong>Case 3 · How the topic model is used · 3/3</strong></p>
 
 <div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>What the researchers do</th></tr></thead><tbody><tr><td>Define documents</td><td>Combine congressional tweets by day, party and chamber</td></tr><tr><td>Discover shared themes</td><td>Fit a 100-topic LDA to the grouped congressional texts</td></tr><tr><td>Interpret issues</td><td>Read topic words and merge related political themes</td></tr><tr class="w8-workflow-active"><td>Construct measures</td><td>Estimate daily issue attention for politicians, public samples and media</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Analyse timing</td><td>Compare whose earlier attention predicts another group&#x27;s later attention</td></tr></tbody></table></div>
 
@@ -892,7 +730,7 @@ Reference: [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352)
 
 :::::: {.slide-body .w8-figure-stage}
 
-<p class="w8-study-label"><strong>Case 4 · Direction one</strong></p>
+<p class="w8-study-label"><strong>Case 3 · Direction one</strong></p>
 
 <div class="w8-figure-stage-frame w8-figure-stage-panorama" style="--w8-stage-ratio: 2.3940886700">
 <img src="../assets/cases/pablo2019-figure3.png" alt="Complete original Figure 3, including four public-group panels, axes, legend and 95% confidence intervals.">
@@ -919,7 +757,7 @@ Reference: [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352)
 
 :::::: {.slide-body .w8-figure-stage}
 
-<p class="w8-study-label"><strong>Case 4 · Reverse direction and caveat</strong></p>
+<p class="w8-study-label"><strong>Case 3 · Reverse direction and caveat</strong></p>
 
 <div class="w8-figure-stage-frame w8-figure-stage-panorama" style="--w8-stage-ratio: 2.3940886700">
 <img src="../assets/cases/pablo2019-figure3.png" alt="Complete original Figure 3, including four public-group panels, axes, legend and 95% confidence intervals.">
@@ -946,7 +784,7 @@ Reference: [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352)
 
 :::::: {.slide-body }
 
-<p class="w8-study-label"><strong>Case 5 · Topic models for theory building</strong></p>
+<p class="w8-study-label"><strong>Case 4 · Topic models for theory building</strong></p>
 
 ::::: {.columns .paper-intro-columns .w8-paper}
 
@@ -988,7 +826,7 @@ Reference: [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-
 
 :::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage .w8-jiang-workflow-stage}
 
-<p class="w8-study-label"><strong>Case 5 · How STM supports theory building · 1/3</strong></p>
+<p class="w8-study-label"><strong>Case 4 · How STM supports theory building · 1/3</strong></p>
 
 <div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>Use in this article</th></tr></thead><tbody><tr class="w8-workflow-active"><td>Discover concerns</td><td>STM identifies five topics in 4,453 news articles</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Read and label</td><td>Inspect characteristic words and representative news</td></tr><tr><td>Compare over time</td><td>Estimate changes in topic prevalence, 2003–2020</td></tr><tr><td>Build a hypothesis</td><td>Rising political attention motivates a shared-values argument</td></tr><tr><td>Test separately</td><td>Randomize messages in a preregistered experiment</td></tr></tbody></table></div>
 
@@ -1008,7 +846,7 @@ Reference: [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-
 
 :::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage .w8-jiang-workflow-stage}
 
-<p class="w8-study-label"><strong>Case 5 · How STM supports theory building · 2/3</strong></p>
+<p class="w8-study-label"><strong>Case 4 · How STM supports theory building · 2/3</strong></p>
 
 <div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>Use in this article</th></tr></thead><tbody><tr><td>Discover concerns</td><td>STM identifies five topics in 4,453 news articles</td></tr><tr><td>Read and label</td><td>Inspect characteristic words and representative news</td></tr><tr class="w8-workflow-active"><td>Compare over time</td><td>Estimate changes in topic prevalence, 2003–2020</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Build a hypothesis</td><td>Rising political attention motivates a shared-values argument</td></tr><tr><td>Test separately</td><td>Randomize messages in a preregistered experiment</td></tr></tbody></table></div>
 
@@ -1028,7 +866,7 @@ Reference: [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-
 
 :::::: {.slide-body .compact-table .w8-case-flow .w8-workflow-stage .w8-jiang-workflow-stage}
 
-<p class="w8-study-label"><strong>Case 5 · How STM supports theory building · 3/3</strong></p>
+<p class="w8-study-label"><strong>Case 4 · How STM supports theory building · 3/3</strong></p>
 
 <div class="w8-workflow-stage-frame w8-workflow-safe"><table class="w8-workflow-table"><thead><tr><th>Research step</th><th>Use in this article</th></tr></thead><tbody><tr><td>Discover concerns</td><td>STM identifies five topics in 4,453 news articles</td></tr><tr><td>Read and label</td><td>Inspect characteristic words and representative news</td></tr><tr><td>Compare over time</td><td>Estimate changes in topic prevalence, 2003–2020</td></tr><tr class="w8-workflow-active"><td>Build a hypothesis</td><td>Rising political attention motivates a shared-values argument</td></tr><tr class="w8-workflow-active"><td><svg class="w8-workflow-gutter-arrow" viewBox="0 0 18 36" aria-hidden="true"><path d="M 9 2 V 30 M 3 24 L 9 30 L 15 24"/></svg>Test separately</td><td>Randomize messages in a preregistered experiment</td></tr></tbody></table></div>
 
@@ -1048,7 +886,7 @@ Reference: [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-
 
 :::::: {.slide-body .w8-figure-stage}
 
-<p class="w8-study-label"><strong>Case 5 · Theory-building evidence</strong></p>
+<p class="w8-study-label"><strong>Case 4 · Theory-building evidence</strong></p>
 
 <div class="w8-figure-stage-frame w8-figure-stage-panorama" style="--w8-stage-ratio: 4.7827586207">
 <img src="../assets/cases/jiang-figure4-selected-panels.png" alt="Selected complete upper panels from original Figure 4: Social Welfare and HK–Mainland Tensions, with all axes and confidence bands.">
@@ -1075,7 +913,7 @@ Reference: [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-
 
 :::::: {.slide-body .w8-figure-stage}
 
-<p class="w8-study-label"><strong>Case 5 · Hypothesis development</strong></p>
+<p class="w8-study-label"><strong>Case 4 · Hypothesis development</strong></p>
 
 <div class="w8-figure-stage-frame w8-figure-stage-panorama" style="--w8-stage-ratio: 4.7827586207">
 <img src="../assets/cases/jiang-figure4-selected-panels.png" alt="Selected complete upper panels from original Figure 4: Social Welfare and HK–Mainland Tensions, with all axes and confidence bands.">
@@ -1102,7 +940,7 @@ Reference: [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-
 
 :::::: {.slide-body }
 
-<p class="w8-study-label"><strong>Case 6 · Public issue priorities</strong></p>
+<p class="w8-study-label"><strong>Case 5 · Public issue priorities</strong></p>
 
 ::::: {.columns .paper-intro-columns .w8-paper}
 
@@ -1144,7 +982,7 @@ Reference: [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103)
 
 :::::: {.slide-body .compact-table .w8-case-flow}
 
-<p class="w8-study-label"><strong>Case 6 · How the model is used</strong></p>
+<p class="w8-study-label"><strong>Case 5 · How the model is used</strong></p>
 
 | Step | Role in the research design |
 |---|---|
@@ -1170,7 +1008,7 @@ Reference: [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103)
 
 :::::: {.slide-body .w8-figure-stage}
 
-<p class="w8-study-label"><strong>Case 6 · Human-coded benchmark</strong></p>
+<p class="w8-study-label"><strong>Case 5 · Human-coded benchmark</strong></p>
 
 <div class="w8-figure-stage-frame w8-figure-stage-wide" style="--w8-stage-ratio: 1.9063829787">
 <img src="../assets/cases/roberts-figure18-anes.png" alt="Original Figure 18 comparing human-coded and STM War-topic relationships with party and education.">
@@ -1198,7 +1036,7 @@ Reference: [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103)
 
 :::::: {.slide-body .w8-figure-stage}
 
-<p class="w8-study-label"><strong>Case 6 · STM comparison</strong></p>
+<p class="w8-study-label"><strong>Case 5 · STM comparison</strong></p>
 
 <div class="w8-figure-stage-frame w8-figure-stage-wide" style="--w8-stage-ratio: 1.9063829787">
 <img src="../assets/cases/roberts-figure18-anes.png" alt="Original Figure 18 comparing human-coded and STM War-topic relationships with party and education.">
@@ -1226,7 +1064,7 @@ Reference: [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103)
 
 :::::: {.slide-body .compact-table .w8-case-flow .w8-mueller-focus}
 
-<p class="w8-study-label"><strong>Case 7 · Hannes Mueller and Christopher Rauh · APSR 2018</strong></p>
+<p class="w8-study-label"><strong>Case 6 · Hannes Mueller and Christopher Rauh · APSR 2018</strong></p>
 
 <p><strong>Puzzle:</strong> Slow-moving country indicators often show <em>where</em> conflict is common, but miss <em>when</em> risk rises. Can news language improve one-year-ahead forecasts?</p>
 <table class="w8-focus-table"><thead><tr><th>Step</th><th>What they do</th></tr></thead><tbody><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="0"></span>Corpus</td><td>More than 700,000 Economist, New York Times and Washington Post articles</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="1"></span>Measure</td><td>Article-level LDA, K = 15, aggregated to country-year topic shares</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="2"></span>Forecast</td><td>Re-estimate with text through year T; predict conflict onset at T + 1</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="3"></span>Evaluate</td><td>Repeat for 1996–2014; read ROC together with precision–recall</td></tr></tbody></table>
@@ -1249,7 +1087,6 @@ Reference: [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
 | Study | Model contribution | Next research step |
 |---|---|---|
 | Catalinac | Topic shares | Define pork/policy; compare candidates |
-| Barnes & Hicks | Topic wording | Write messages; randomize exposure |
 | Gilardi et al. | Frame proportions | Relate frames to prior policy adoption |
 | Barberá et al. | Daily attention | Compare who moves first |
 | Jiang et al. | Topic trends | Develop a hypothesis; test separately |
@@ -1262,7 +1099,7 @@ Reference: [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
 
 ::: {.source}
 
-Reference: [Catalinac (2016)](https://doi.org/10.1086/683073); [Barnes & Hicks (2018)](https://doi.org/10.1111/ajps.12346); [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521); [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352); [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-y); [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103); [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
+Reference: [Catalinac (2016)](https://doi.org/10.1086/683073); [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521); [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352); [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-y); [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103); [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
 
 :::
 
@@ -3588,8 +3425,6 @@ Reference: [Grimmer, Roberts & Stewart (2022)](https://ingramacademic.com/produc
 :::::: {.slide-body .w8-ref}
 
 Catalinac, A. 2016. “From Pork to Policy: The Rise of Programmatic Campaigning in Japanese Elections.” *JOP* 78(1): 1–18. [DOI](https://doi.org/10.1086/683073).
-
-Barnes, L., and T. Hicks. 2018. “Making Austerity Popular: The Media and Mass Attitudes toward Fiscal Policy.” *AJPS* 62(2): 340–354. [DOI](https://doi.org/10.1111/ajps.12346).
 
 Blei, D. M., A. Y. Ng, and M. I. Jordan. 2003. “Latent Dirichlet Allocation.” *JMLR* 3: 993–1022. [Article](https://www.jmlr.org/papers/v3/blei03a.html).
 
