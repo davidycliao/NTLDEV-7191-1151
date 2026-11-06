@@ -1,0 +1,659 @@
+/* W8 retains W7's shared course theme, dimensions and literature layouts. */
+@import url("course-literature.css");
+
+.reveal .w8-paper img { width: 100%; max-height: 350px; }
+.reveal .w8-paper .caption p { font-size: 17px; }
+.reveal .paper-intro-columns.w8-paper { grid-template-columns: minmax(0, 64fr) minmax(0, 36fr); }
+
+/* Study 6 focuses the supplied screenshot on its article heading and authors. */
+.reveal .paper-intro-columns.w8-validation-intro { grid-template-columns: minmax(0, 72fr) minmax(0, 28fr); gap: 24px; }
+.reveal .w8-validation-header { position: relative; width: 100%; aspect-ratio: 1632 / 345; overflow: hidden; }
+.reveal .w8-validation-header > p { margin: 0; }
+.reveal .w8-validation-header img { position: absolute; left: -24.2647%; top: -7.8261%; width: 124.2647%; height: auto; max-width: none; max-height: none; margin: 0; }
+.reveal .w8-validation-intro .caption p:first-child { font-size: 23px; color: var(--course-slate); margin-bottom: 4px; }
+.reveal .w8-validation-intro .caption p + p { margin-top: 0; }
+.reveal .w8-validation-intro li { font-size: 25px; line-height: 1.3; }
+/* Studies 1–5 retain the Study 6 article-introduction layout. */
+.reveal .paper-intro-columns.w8-article-intro { grid-template-columns: minmax(0, 72fr) minmax(0, 28fr); gap: 24px; }
+.reveal .w8-article-header { position: relative; width: 100%; overflow: hidden; }
+.reveal .w8-article-header > p { margin: 0; }
+.reveal .w8-article-header img { position: absolute; height: auto; max-width: none; max-height: none; margin: 0; }
+.reveal .w8-article-intro .caption p:first-child { font-size: 23px; color: var(--course-slate); margin-bottom: 4px; }
+.reveal .w8-article-intro .caption p + p { margin-top: 0; }
+.reveal .w8-article-intro li { font-size: 25px; line-height: 1.3; }
+.reveal .w8-header-wordscores { aspect-ratio: 1470 / 260; }
+.reveal .w8-header-wordscores img { left: 0.000000%; top: 0.000000%; width: 100.000000%; }
+.reveal .w8-header-wordfish { aspect-ratio: 1400 / 330; }
+.reveal .w8-header-wordfish img { left: 0.000000%; top: -16.666667%; width: 106.071429%; }
+.reveal .w8-header-wordshoal { aspect-ratio: 1095 / 418; }
+.reveal .w8-header-wordshoal img { left: -9.589041%; top: -33.492823%; width: 117.808219%; }
+.reveal .w8-header-gti { aspect-ratio: 1380 / 415; }
+.reveal .w8-header-gti img { left: -4.347826%; top: -27.710843%; width: 108.695652%; }
+.reveal .w8-header-hjorth { aspect-ratio: 930 / 374; }
+.reveal .w8-header-hjorth img { left: 0.000000%; top: -27.540107%; width: 158.709677%; }
+
+.reveal .paper-figure-columns.w8-figure { grid-template-columns: minmax(0, 72fr) minmax(0, 28fr); }
+.reveal .w8-figure img { width: 100%; max-height: 430px; }
+.reveal #pork-and-policy-across-japanese-elections .w8-figure img { width: auto; max-height: 450px; }
+.reveal #opposition-candidates-emphasize-policy .w8-figure img { width: auto; max-height: 450px; }
+.reveal .w8-figure .caption p { font-size: 17px; }
+.reveal .w8-figure li { font-size: 24px; line-height: 1.3; }
+.reveal .w8-square-figure img { max-height: 435px; width: auto; }
+.reveal .w8-equation { color: var(--course-slate); text-align: center; font-size: 35px; margin: 18px 0 24px; line-height: 1.4; }
+.reveal .w8-equation sub, .reveal .w8-equation sup { font-size: 0.62em; }
+.reveal .w8-equation + table { font-size: 25px; }
+.reveal .w8-quote blockquote { width: auto; margin: 0 0 20px; padding: 14px 20px; box-shadow: none; border-left: 4px solid var(--course-green); background: #f4f8f6; }
+.reveal .w8-quote blockquote p { font-size: 30px; line-height: 1.35; margin: 0; }
+.reveal .w8-quote .quote-attribution { font-size: 22px; color: var(--course-muted); margin-top: -8px; margin-bottom: 25px; }
+.reveal .w8-quote > p { font-size: 27px; }
+.reveal .w8-reading blockquote p { font-size: 29px; }
+.reveal .w8-reading > p { font-size: 25px; }
+.reveal .w8-overview table { font-size: 23px; }
+.reveal .w8-overview td, .reveal .w8-overview th { padding: 8px 10px; }
+.reveal .w8-study-index table { width: 100%; table-layout: fixed; }
+.reveal .w8-study-index col:nth-child(1) { width: 11% !important; }
+.reveal .w8-study-index col:nth-child(2) { width: 31% !important; }
+.reveal .w8-study-index col:nth-child(3) { width: 25% !important; }
+.reveal .w8-study-index col:nth-child(4) { width: 33% !important; }
+.reveal .w8-study-index td:first-child { white-space: nowrap; color: var(--course-green); }
+.reveal .w8-study-label { color: var(--course-green); }
+.reveal .slide-body > .w8-study-label { margin: 0 0 8px; }
+.reveal .w8-study-followup .w8-figure img { max-height: 410px; }
+.reveal .w8-mini-matrix table { font-size: 28px; width: 88%; margin: 20px auto; }
+.reveal .w8-mini-matrix > p { font-size: 27px; }
+.reveal .w8-references p { font-size: 22px; line-height: 1.32; margin: 16px 0; }
+.reveal .w8-references li { font-size: 24px; }
+.reveal .w8-formula-note { font-size: 25px; }
+
+/* Stepwise concept examples follow the course's existing table typography. */
+.reveal .w8-theory > p, .reveal .w8-theory li { font-size: 27px; line-height: 1.32; }
+.reveal .w8-theory table, .reveal .w8-theory .w8-equation + table { font-size: 25px; }
+.reveal .w8-theory td, .reveal .w8-theory th { padding: 7px 10px; }
+.reveal .w8-theory .w8-equation { font-size: 31px; margin: 14px 0 18px; }
+
+/* Short classroom steps retain W7's code, output and discussion rhythm. */
+.reveal .w8-code pre { font-size: 21px; line-height: 1.25; margin: 12px 0; }
+.reveal .w8-code > p { font-size: 27px; line-height: 1.3; }
+.reveal .w8-step-code pre { font-size: 21px; line-height: 1.25; margin: 12px 0; }
+.reveal .w8-step-output > p { font-size: 27px; line-height: 1.3; }
+.reveal .w8-step-plot img { width: 100%; height: 420px; max-height: 430px; object-fit: contain; margin: 0 auto; }
+/* Side-by-side readings keep the existing W7 type and green accents. */
+.reveal .w8-plot-reading-columns { gap: 28px; align-items: center; }
+.reveal .w8-plot-reading-columns > .column { min-width: 0; }
+.reveal .w8-plot-reading-columns img { width: 100%; height: 410px; object-fit: contain; }
+.reveal .w8-plot-reading-columns li { font-size: 25px; line-height: 1.3; margin-bottom: 18px; }
+.reveal .w8-r04a-columns { gap: 24px; align-items: start; }
+.reveal .w8-r04a-columns > .column { min-width: 0; }
+.reveal .w8-r04a-columns pre { font-size: 19px; line-height: 1.22; margin-top: 4px; }
+.reveal .w8-r04a-columns p { font-size: 22px; line-height: 1.25; margin: 12px 0; }
+.reveal .w8-r04a-columns table { font-size: 21px; line-height: 1.22; }
+.reveal .w8-r04a-columns table td, .reveal .w8-r04a-columns table th { font-size: 21px; }
+.reveal .w8-r04a-columns table col:first-child { width: 26% !important; }
+.reveal .w8-r04a-columns table col:nth-child(2) { width: 74% !important; }
+.reveal .w8-stm-interval-columns { gap: 22px; align-items: start; }
+.reveal .w8-stm-interval-columns .column { min-width: 0; }
+.reveal .w8-stm-interval-columns pre { font-size: 18px; line-height: 1.2; }
+.reveal .w8-stm-interval-columns img { width: 100%; height: 355px; object-fit: contain; }
+.reveal .w8-stm-interval-columns p { font-size: 23px; line-height: 1.25; }
+.reveal .w8-keyatm-method { gap: 30px; align-items: start; }
+.reveal .w8-keyatm-method img { width: 100%; height: 220px; object-fit: contain; margin: 6px 0; }
+.reveal .w8-keyatm-method p { font-size: 24px; line-height: 1.25; margin: 8px 0 14px; }
+.reveal .slide-body.w8-btm-package .w8-btm-method-columns { display: grid; grid-template-columns: minmax(0, 40fr) minmax(0, 60fr); gap: 22px; align-items: start; }
+.reveal .w8-btm-method-columns .column { min-width: 0; width: 100%; max-width: none; }
+.reveal .w8-btm-method-columns p { font-size: 24px; line-height: 1.2; margin: 6px 0 10px; }
+.reveal .w8-btm-original-paper img { width: 100%; height: auto; max-height: none; object-fit: contain; margin: 6px 0 14px; }
+.reveal .w8-btm-r-example img { width: 100%; height: 310px; max-height: 310px; object-fit: contain; margin: 4px 0 6px; }
+.reveal .w8-btm-package li { font-size: 25px; line-height: 1.25; margin: 9px 0; }
+.reveal .w8-btm-r-example .w8-btm-example-caption { font-size: 20px; line-height: 1.2; margin: 4px 0 0; }
+.reveal .w8-btm-package > p:last-child { font-size: 25px; line-height: 1.25; margin: 14px 0 0; }
+.reveal .w8-perplexity .math.display { font-size: 23px; margin: 8px 0; }
+.reveal .w8-perplexity table { font-size: 23px; }
+.reveal .w8-perplexity > p { font-size: 26px; line-height: 1.25; margin: 14px 0; }
+.reveal .w8-perplexity-formula-frame { position: relative; height: 142px; margin: 0 0 8px; }
+.reveal .w8-perplexity-formula-frame > p { position: absolute; inset: 0 0 auto; height: 102px; display: flex; align-items: center; justify-content: center; margin: 0 !important; }
+.reveal .w8-perplexity-formula-frame .math.display { font-size: 23px; margin: 0; }
+.reveal .w8-perplexity-overlay { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.reveal .w8-perplexity-annotation ellipse { fill: none; stroke: #d92332; stroke-width: 3; }
+.reveal .w8-perplexity-annotation path { fill: none; stroke: #d92332; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.reveal .w8-perplexity-annotation polygon { fill: #d92332; }
+.reveal .w8-perplexity-annotation text { fill: #b51d2a; text-anchor: middle; font-size: 21px; font-family: "Source Sans Pro", "Noto Sans TC", sans-serif; font-weight: 600; }
+.reveal #held-out-prediction-and-topic-meaning table { font-size: 24px; }
+.reveal #held-out-prediction-and-topic-meaning > .slide-body > p { font-size: 26px; line-height: 1.25; margin: 16px 0; }
+.reveal #held-out-prediction-and-topic-meaning col:first-child { width: 29% !important; }
+.reveal #held-out-prediction-and-topic-meaning col:nth-child(2) { width: 71% !important; }
+.reveal #topic-models-in-political-research table { font-size: 24px; }
+.reveal #topic-models-in-political-research td, .reveal #topic-models-in-political-research th { padding: 2px 10px; font-size: 24px; line-height: 1.22; }
+.reveal #topic-models-in-political-research > .source a,
+.reveal #from-topics-to-political-evidence > .source a { white-space: nowrap; }
+.reveal .w8-focus-table { width: 100%; table-layout: fixed; }
+.reveal .w8-focus-table th:first-child { width: 29%; }
+.reveal .w8-focus-table td, .reveal .w8-focus-table th { padding: 9px 12px; font-size: 24px; line-height: 1.25; }
+.reveal .w8-focus-table tr:has(.w8-row-focus.current-fragment) { outline: 3px solid #d92332; outline-offset: -3px; }
+.reveal .w8-label-focus > p { font-size: 26px; line-height: 1.25; margin: 16px 0; }
+.reveal .w8-validation-focus > p { font-size: 26px; line-height: 1.25; }
+.reveal .slide-body.w8-mueller-focus .w8-focus-table th:first-child,
+.reveal .slide-body.w8-mueller-focus .w8-focus-table td:first-child { width: 18%; }
+.reveal .w8-mueller-focus > p:not(.w8-study-label) { font-size: 26px; line-height: 1.25; margin: 14px 0; }
+/* Preserve complete Lab code while keeping wrapped lines inside the gutter. */
+.reveal .w8-step-code pre.numberSource code,
+.reveal .w8-step-output pre.numberSource code { padding-left: 3em; white-space: normal; }
+.reveal .w8-step-code pre.numberSource code > span,
+.reveal .w8-step-output pre.numberSource code > span {
+  display: block; position: relative; left: 0; padding-left: 0;
+  text-indent: 0; white-space: pre-wrap; min-height: 1.25em;
+}
+.reveal .w8-step-code pre.numberSource code > span > a:first-child::before,
+.reveal .w8-step-output pre.numberSource code > span > a:first-child::before {
+  position: absolute; left: -2.5em; width: 2em;
+}
+.reveal .w8-console pre { font-size: 22px; line-height: 1.2; margin: 10px 0 14px; }
+.reveal .w8-console pre code { padding: 12px 16px; line-height: 1.2; }
+.reveal .w8-console > p { font-size: 27px; line-height: 1.3; }
+.reveal .w8-console-table pre { font-size: 20px; }
+.reveal .w8-practice-figure img { width: 100%; max-height: 385px; object-fit: contain; margin: 0 auto; }
+.reveal .w8-practice-figure > p { font-size: 27px; line-height: 1.3; }
+
+/* Reveal's own print pagination supplies one page per slide. */
+@media print {
+  .reveal .w8-mueller-focus .w8-focus-table tbody tr:last-child { outline: 3px solid #d92332; outline-offset: -3px; }
+  .reveal .w8-perplexity-annotation { display: none !important; }
+  .reveal .w8-perplexity-annotation[data-fragment-index="3"] { display: inline !important; opacity: 1 !important; visibility: visible !important; }
+  .reveal .slides section.slide.level2 { display: grid !important; }
+  .reveal .slides section.slide.level2:not(#title-slide) {
+    box-sizing: border-box !important;
+    padding: 28px var(--course-slide-gutter) 64px !important;
+  }
+  .reveal .slides section.slide.level2 > .source { bottom: 30px; }
+}
+
+/* W8 data, probabilities and reading excerpts follow W7 typography. */
+.reveal .w8-data table { font-size: 24px; }
+.reveal .w8-data th, .reveal .w8-data td { padding: 7px 9px; }
+.reveal .w8-figure-wide img { width: 100%; max-height: 420px; margin: 0 auto; }
+.reveal .w8-figure-wide > p { font-size: 25px; }
+.reveal .w8-excerpt blockquote { width: auto; margin: 12px 0 18px; padding: 10px 18px; background: #f4f8f6; box-shadow: none; border-left: 4px solid var(--course-green); }
+.reveal .w8-excerpt blockquote p { font-size: 27px; line-height: 1.32; margin: 0; }
+.reveal .w8-excerpt > p { font-size: 25px; }
+.reveal .w8-paper .caption p:first-child { font-size: 23px; color: var(--course-slate); }
+.reveal .w8-paper-title-text p { font-size: 34px; line-height: 1.22; color: var(--course-slate); margin: 10px 0 22px; }
+.reveal .w8-paper img { max-height: 300px; }
+/* The supplied Catalinac issue screenshot is taller than the other headers. */
+.reveal #electoral-rules-and-campaign-promises .w8-paper img { width: auto; max-height: 380px; }
+.reveal .w8-paper li { font-size: 25px; line-height: 1.3; }
+.reveal .w8-paper-header img { width: 100%; max-height: 260px; }
+.reveal .w8-topic-table table { font-size: 23px; }
+.reveal .w8-topic-table td, .reveal .w8-topic-table th { padding: 6px 8px; }
+.reveal .w8-topic-table td, .reveal .w8-topic-table th { font-size: 1em; }
+.reveal .w8-bertopic-table td, .reveal .w8-bertopic-table th { padding: 3px 8px; line-height: 1.1; }
+.reveal .w8-ref p { font-size: 21px; line-height: 1.3; margin: 15px 0; }
+
+.reveal .w8-reading-columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+.reveal .w8-reading-columns > .column { width: auto; min-width: 0; padding: 0; }
+.reveal .w8-reading-columns p { font-size: 23px; line-height: 1.3; }
+.reveal .w8-reading-columns blockquote { padding: 10px 14px; margin: 12px 0 14px; }
+.reveal .w8-reading-columns blockquote p { font-size: 25px; line-height: 1.32; }
+.reveal .w8-reading-columns + p { font-size: 26px; }
+
+/* Research-use tables reserve space for the actual operations. */
+.reveal .w8-case-flow table { table-layout: fixed; }
+.reveal .w8-case-flow col:first-child { width: 26% !important; }
+.reveal .w8-case-flow col:last-child { width: 74% !important; }
+.reveal .w8-case-flow th:first-child,
+.reveal .w8-case-flow td:first-child { width: 26%; }
+.reveal .w8-case-flow th:last-child,
+.reveal .w8-case-flow td:last-child { width: 74%; }
+
+/* Barnes workflow repeats one table while the notes advance through three
+   steps. The overlay marks only the rows being discussed on each page. */
+.reveal .w8-workflow-stage-frame {
+  position: relative;
+  width: 100%;
+  margin: 0 auto 2px;
+}
+.reveal .w8-workflow-stage table {
+  width: 100%;
+  margin: 0;
+  font-size: 23px;
+}
+.reveal .w8-workflow-stage td,
+.reveal .w8-workflow-stage th {
+  padding: 5px 10px;
+  line-height: 1.18;
+}
+.reveal .w8-workflow-stage .w8-figure-stage-focus {
+  fill: rgba(184, 58, 58, 0.045);
+  stroke-width: 4.5;
+}
+.reveal .w8-workflow-stage .w8-figure-stage-pointer { stroke-width: 5; }
+.reveal .w8-workflow-stage .w8-workflow-stage-cue { margin: 2px auto 0; }
+.reveal .w8-workflow-stage-frame.w8-workflow-safe { width: calc(100% - 26px); margin-left: 26px; margin-right: 0; }
+.reveal .w8-workflow-safe td, .reveal .w8-workflow-safe th { padding: 7px 10px; }
+.reveal .w8-workflow-safe td:first-child { position: relative; }
+.reveal .w8-workflow-safe tr.w8-workflow-active { outline: 3px solid #d92332; outline-offset: -3px; }
+.reveal .w8-workflow-gutter-arrow { position: absolute; left: -23px; top: -18px; width: 18px; height: 36px; overflow: visible; }
+.reveal .w8-workflow-gutter-arrow path { fill: none; stroke: #d92332; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.reveal #a-broader-frame-emerges-at-higher-adoption .w8-figure-stage-overlay { overflow: visible; }
+.reveal #framing-changes-deficit-attitudes .w8-figure-stage-focus { stroke-width: 4; }
+.reveal .w8-lab-route col:first-child { width: 28% !important; }
+.reveal .w8-lab-route col:nth-child(2) { width: 21% !important; }
+.reveal .w8-lab-route col:last-child { width: 51% !important; }
+.reveal .w8-lab-route > p { font-size: 25px; line-height: 1.25; margin: 14px 0; }
+.reveal .w8-lab-route td, .reveal .w8-lab-route th { font-size: 24px; line-height: 1.2; padding: 7px 10px; }
+
+/* The original Barnes panel keeps its proportions and readable word labels. */
+.reveal .w8-barnes-content img { width: auto; max-width: 100%; max-height: 450px; }
+
+/* The case preface gives half the table to the substantive use of the output. */
+.reveal .w8-case-map table { table-layout: fixed; }
+.reveal .w8-case-map col:nth-child(1) { width: 21% !important; }
+.reveal .w8-case-map col:nth-child(2) { width: 27% !important; }
+.reveal .w8-case-map col:nth-child(3) { width: 52% !important; }
+
+/* Four official article-page captures: APSR on the left, AJPS on the right. */
+.reveal .w8-applications-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 12px 16px;
+  height: 480px;
+}
+.reveal .w8-application-shot {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+}
+.reveal .w8-application-shot > p { margin: 0; }
+.reveal .w8-application-shot > p:first-child {
+  height: 195px;
+  overflow: hidden;
+  border: 1px solid #d8e2df;
+  background: #fff;
+}
+.reveal .w8-application-shot > p:first-child a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.reveal .w8-application-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
+  object-position: center top;
+}
+.reveal .w8-motolinia img,
+.reveal .w8-kraft img { object-fit: contain; }
+.reveal .w8-application-shot > p:last-child {
+  margin-top: 4px;
+  font-size: 19px;
+  line-height: 1.15;
+  text-align: left;
+}
+
+/* Short R bridge between the political applications and LDA concepts. */
+.reveal .w8-r-bridge-columns { gap: 24px; align-items: start; }
+.reveal .w8-r-bridge pre { margin: 0; font-size: 17px; line-height: 1.12; }
+.reveal .w8-r-bridge pre code { padding: 12px 14px; line-height: 1.12; }
+.reveal .w8-r-bridge .column:last-child p { font-size: 22px; line-height: 1.22; margin: 8px 0 14px; }
+.reveal .w8-r-bridge .column:last-child > p:first-of-type { margin-top: 2px; }
+.reveal .w8-ess-step .w8-study-label { margin: 0 0 10px; }
+.reveal .w8-ess-step-columns { gap: 28px; align-items: start; }
+.reveal .w8-ess-step pre { margin: 0; font-size: 17px; line-height: 1.17; }
+.reveal .w8-ess-step pre code { padding: 13px 15px; line-height: 1.17; }
+/* Keep wrapped, numbered concept code inside the same gutter as Lab code. */
+.reveal .w8-ess-step pre.numberSource code { padding-left: 3em; white-space: normal; }
+.reveal .w8-ess-step pre.numberSource code > span {
+  display: block; position: relative; left: 0; padding-left: 0;
+  text-indent: 0; white-space: pre-wrap; min-height: 1.17em;
+}
+.reveal .w8-ess-step pre.numberSource code > span > a:first-child::before {
+  position: absolute; left: -2.5em; width: 2em;
+}
+/* Allocate space to the longer questions and seed lists without shrinking type. */
+.reveal #assumptions-and-document-boundaries col:first-child { width: 30% !important; }
+.reveal #assumptions-and-document-boundaries col:nth-child(2) { width: 70% !important; }
+.reveal [id^="r06a-output-seed-dictionary"] col:first-child { width: 24% !important; }
+.reveal [id^="r06a-output-seed-dictionary"] col:nth-child(2) { width: 76% !important; }
+.reveal .w8-ess-step .column > p { font-size: 21px; line-height: 1.24; margin: 7px 0 12px; }
+.reveal .w8-ess-step table { font-size: 19px; line-height: 1.18; margin: 7px 0 13px; }
+.reveal .w8-ess-step table th,
+.reveal .w8-ess-step table td { padding: 5px 9px; }
+.reveal .w8-ess-pipeline {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) 30px
+    minmax(0, 1fr) 30px
+    minmax(0, 1fr) 30px
+    minmax(0, 1fr) 30px
+    minmax(0, 1fr);
+  gap: 7px;
+  align-items: stretch;
+  margin: 2px 0 17px;
+}
+.reveal .w8-ess-pipeline-node {
+  display: flex;
+  min-width: 0;
+  min-height: 74px;
+  padding: 8px 7px;
+  border: 2px solid #31575a;
+  border-radius: 8px;
+  background: #eef6f5;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.reveal .w8-ess-pipeline-node strong {
+  color: #244a4d;
+  font-size: 21px;
+  line-height: 1.08;
+}
+.reveal .w8-ess-pipeline-node span {
+  margin-top: 5px;
+  color: var(--course-muted);
+  font-size: 15px;
+  line-height: 1.12;
+}
+.reveal .w8-ess-pipeline-arrow {
+  align-self: center;
+  color: #c83f35;
+  font-size: 29px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+.reveal .w8-ess-pipeline-result {
+  border-color: #c83f35;
+  background: #fff7f5;
+}
+.reveal .w8-ess-pipeline-output pre { font-size: 18px; }
+.reveal .w8-ess-pipeline-output .column > p { margin: 5px 0 10px; }
+.reveal .w8-token-path {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 0 16px;
+}
+.reveal .w8-token-path span {
+  min-width: 180px;
+  padding: 7px 14px;
+  border: 2px solid #31575a;
+  border-radius: 999px;
+  color: #244a4d;
+  background: #eef6f5;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+.reveal .w8-token-path b { color: #c83f35; font-size: 30px; line-height: 1; }
+.reveal .w8-token-before {
+  padding: 10px 12px;
+  border-left: 5px solid #9aa8a9;
+  background: #f5f7f7;
+  font-size: 20px !important;
+}
+.reveal .w8-token-output code {
+  display: block;
+  padding: 10px 12px;
+  white-space: normal;
+  color: #173f42;
+  background: #e8f3f1;
+  font-size: 18px;
+  line-height: 1.35;
+}
+.reveal .w8-token-takeaway {
+  padding: 9px 12px;
+  border: 2px solid #c83f35;
+  border-radius: 7px;
+  background: #fff7f5;
+  font-size: 20px !important;
+}
+.reveal .w8-r-cue { font-size: 23px; line-height: 1.24; margin: 0 0 12px; color: #31575a; }
+.reveal .w8-r-principle table { margin-top: 8px; margin-bottom: 10px; }
+.reveal .w8-application-focus {
+  position: absolute;
+  inset: -6px;
+  z-index: 3;
+  display: block;
+  border: 5px solid #c83f35;
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.92);
+  pointer-events: none;
+}
+html.print-pdf .reveal .w8-application-focus {
+  display: none !important;
+}
+
+/* W7-style staged reading of Wang and Chen's unchanged Table 3 screenshot. */
+.reveal .w8-llm-stage .w8-llm-frame {
+  position: relative;
+  width: 96%;
+  margin: 8px auto 20px;
+}
+.reveal .w8-llm-stage .w8-llm-frame > img {
+  display: block;
+  width: 100%;
+  max-height: 330px;
+  object-fit: contain;
+  margin: 0;
+}
+.reveal .w8-llm-overlay {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.reveal .w8-llm-focus {
+  fill: none;
+  stroke: var(--course-red);
+  stroke-width: 2.2;
+}
+.reveal .w8-llm-pointer {
+  fill: none;
+  stroke: var(--course-red);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.reveal .w8-llm-pointer-head { fill: var(--course-red); }
+.reveal .w8-llm-stage .w8-llm-reading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 30px;
+  align-items: start;
+}
+.reveal .w8-llm-stage .w8-llm-reading p {
+  font-size: 27px;
+  line-height: 1.28;
+  margin: 0;
+}
+
+/* Staged readings keep the published screenshot unchanged and add only
+   editable course overlays. Each page highlights exactly what its notes name. */
+.reveal .w8-figure-stage-frame {
+  position: relative;
+  margin: 4px auto 10px;
+}
+.reveal .w8-figure-stage-frame > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  margin: 0;
+}
+.reveal .w8-figure-stage-portrait { width: 38%; }
+.reveal .w8-figure-stage-landscape { width: 61%; }
+.reveal .w8-figure-stage-wide { width: 68%; }
+.reveal .w8-figure-stage-panorama { width: 96%; }
+.reveal .slides .slide-body .w8-figure-stage-frame {
+  width: min(96%, calc(400px * var(--w8-stage-ratio)));
+}
+.reveal .slide-body .w8-figure-stage-frame > p { margin: 0; }
+.reveal .slides .slide-body .w8-figure-stage-frame img {
+  display: block; width: 100%; height: auto; max-height: none; margin: 0;
+}
+.reveal .slide-body.w8-step-plot img { height: 420px; max-height: 420px; }
+.reveal .slide-body .w8-plot-reading-columns img,
+.reveal .slide-body .w8-stm-interval-columns img { max-height: none; }
+.reveal .w8-k-check-columns { gap: 24px; align-items: center; }
+.reveal .slide-body.w8-k-check .column:first-child img {
+  width: 100%; height: 340px; max-height: 340px; object-fit: contain; margin: 0;
+}
+.reveal .w8-k-check-columns li { font-size: 24px; line-height: 1.25; margin: 10px 0; }
+.reveal .w8-k-check > p { font-size: 25px; line-height: 1.25; margin: 12px 0; }
+.reveal section[id^="some-frames-remain-stable"] .w8-figure-stage-panorama {
+  width: 94%;
+}
+.reveal .w8-figure-stage-overlay {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.reveal .w8-figure-stage-focus {
+  fill: rgba(184, 58, 58, 0.035);
+  stroke: var(--course-red);
+  stroke-width: 7;
+}
+.reveal .w8-figure-stage-pointer {
+  fill: none;
+  stroke: var(--course-red);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.reveal .w8-figure-stage-pointer-head { fill: var(--course-red); }
+.reveal .w8-figure-stage-cue {
+  margin: 4px auto 0;
+  max-width: 94%;
+  color: var(--course-slate);
+  font-size: 23px;
+  line-height: 1.18;
+  text-align: center;
+}
+
+/* Keep the two longest repeated stage titles inside the 16:9 canvas. */
+.reveal section[id^="who-responds-to-whose-attention"] h2,
+.reveal section[id^="appendix-validation-of-topic-labels"] h2 {
+  font-size: 46px;
+}
+
+.reveal section[id^="immigration-and-shared-democratic-values"] h2 {
+  font-size: 46px;
+}
+
+.reveal section[id^="appendix-campaign-promises-with-keyword-assistance"] h2 {
+  font-size: 44px;
+}
+
+/* Editable flow chart: fixed held-out words, predictions, mean and inverse. */
+.reveal .w8-ppl-example .w8-ppl-example-label { font-size: 25px; line-height: 1.25; margin: 0 0 18px; }
+.reveal .w8-ppl-flow { display: grid; grid-template-columns: 130px 40px minmax(0, 1fr); width: 100%; align-items: center; }
+.reveal .w8-ppl-node { box-sizing: border-box; border: 2px solid #aab9b7; padding: 9px 10px; text-align: center; background: #fff; }
+.reveal .w8-ppl-input { border-color: var(--course-slate); padding: 14px 8px; }
+.reveal .w8-ppl-node-label { font-size: 24px; line-height: 1.15; }
+.reveal .w8-ppl-input-tokens { display: flex; flex-direction: column; gap: 3px; margin-top: 10px; font-size: 27px; line-height: 1.15; font-weight: 600; }
+.reveal .w8-ppl-branch { width: 40px; height: 310px; }
+.reveal .w8-ppl-branch path { fill: none; stroke: var(--course-slate); stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.reveal .w8-ppl-lanes { display: grid; gap: 12px; }
+.reveal .w8-ppl-lane { display: grid; grid-template-columns: 255px minmax(0, 1fr); gap: 4px; min-width: 0; }
+.reveal .w8-ppl-predictions-node { height: 150px; padding: 8px 7px; }
+.reveal .w8-ppl-predictions-node .w8-ppl-node-label { font-size: 24px; white-space: nowrap; letter-spacing: -0.3px; }
+.reveal .w8-ppl-word-predictions { display: flex; justify-content: space-evenly; gap: 9px; margin-top: 6px; }
+.reveal .w8-ppl-word { display: flex; flex-direction: column; min-width: 49px; align-items: center; }
+.reveal .w8-ppl-probability { font-size: 24px; line-height: 1.05; }
+.reveal .w8-ppl-bar-space { display: flex; height: 40px; align-items: end; width: 35px; margin: 3px 0; }
+.reveal .w8-ppl-bar { display: block; width: 35px; background: var(--course-green); }
+.reveal .w8-ppl-token { font-size: 24px; line-height: 1.05; }
+.reveal .w8-ppl-calculation { display: grid; grid-template-columns: 26px minmax(0, 1fr) 26px minmax(0, 1fr); gap: 4px; align-items: center; min-width: 0; }
+.reveal .w8-ppl-flow-arrow { font-size: 32px; line-height: 1; color: var(--course-slate); text-align: center; }
+.reveal .w8-ppl-mean-node, .reveal .w8-ppl-score-node { height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 6px 5px; }
+.reveal .w8-ppl-formula { font-size: 22px; line-height: 1.15; white-space: nowrap; }
+.reveal .w8-ppl-value { font-size: 39px; line-height: 1.1; font-weight: 600; color: var(--course-green); }
+.reveal .w8-ppl-quantity { font-size: 24px; line-height: 1.1; }
+.reveal .w8-ppl-blue .w8-ppl-bar { background: var(--course-blue); }
+.reveal .w8-ppl-blue .w8-ppl-value { color: var(--course-blue); }
+.reveal .w8-ppl-example .w8-ppl-takeaway { font-size: 25px; line-height: 1.25; margin: 17px 0 0; padding: 5px 9px; box-sizing: border-box; }
+.reveal .w8-ppl-node:has(.w8-ppl-focus.current-fragment),
+.reveal .w8-ppl-takeaway:has(.w8-ppl-focus.current-fragment) { outline: 3px solid #d92332; outline-offset: -3px; }
+@media print {
+  .reveal .w8-ppl-node { outline: none !important; }
+  .reveal .w8-ppl-example .w8-ppl-takeaway { outline: 3px solid #d92332 !important; outline-offset: -3px !important; }
+}
+
+/* Native Code / Output tabs follow one Reveal fragment on the same slide. */
+.reveal .w8-tab-step > p { font-size: 25px; line-height: 1.2; margin: 0 0 14px; }
+.reveal .w8-code-output-tabs { position: relative; width: 100%; }
+.reveal .w8-code-output-tablist { display: flex; gap: 8px; border-bottom: 1px solid #cad5d3; margin: 0 0 10px; }
+.reveal .w8-code-output-tab { font-family: inherit; font-size: 24px; line-height: 1.15; border: 0; border-bottom: 3px solid transparent; background: transparent; color: var(--course-slate); padding: 7px 16px; cursor: pointer; }
+.reveal .w8-code-output-tab:focus-visible { outline: 2px solid var(--course-blue); outline-offset: 2px; }
+.reveal .w8-code-output-tabs [data-w8-tab="code"] { color: var(--course-green); border-bottom-color: var(--course-green); font-weight: 600; }
+.reveal .w8-code-output-tabs:has(> .w8-code-output-trigger.visible) [data-w8-tab="code"] { color: var(--course-slate); border-bottom-color: transparent; font-weight: 400; }
+.reveal .w8-code-output-tabs:has(> .w8-code-output-trigger.visible) [data-w8-tab="output"] { color: var(--course-green); border-bottom-color: var(--course-green); font-weight: 600; }
+.reveal .w8-code-output-trigger { position: absolute; width: 0; height: 0; pointer-events: none; }
+.reveal .w8-code-output-tabs .w8-tab-panel { height: 370px; box-sizing: border-box; overflow: visible; }
+.reveal .w8-code-output-tabs .w8-tab-code > p { font-size: 25px; line-height: 1.2; margin: 5px 0 10px; }
+.reveal .w8-code-output-tabs pre { font-size: 21px; line-height: 1.22; margin: 8px 0; }
+.reveal .w8-code-output-tabs pre code { font-size: inherit; line-height: inherit; white-space: pre-wrap; }
+.reveal .w8-code-output-tabs .w8-tab-output { display: none; }
+.reveal .w8-code-output-tabs:has(> .w8-code-output-trigger.visible) .w8-tab-code { display: none; }
+.reveal .w8-code-output-tabs:has(> .w8-code-output-trigger.visible) .w8-tab-output { display: block; }
+.reveal .w8-code-output-tabs .w8-tab-output > p { font-size: 25px; line-height: 1.25; margin: 10px 0; }
+.reveal .w8-code-output-tabs .w8-tab-output td,
+.reveal .w8-code-output-tabs .w8-tab-output th { font-size: 24px; line-height: 1.2; padding: 7px 8px; }
+@media print {
+  .reveal .w8-code-output-tablist, .reveal .w8-code-output-trigger { display: none !important; }
+  .reveal .w8-code-output-tabs .w8-tab-panel { display: block !important; height: auto !important; margin: 0 0 12px; }
+  .reveal .w8-code-output-tabs pre,
+  .reveal .w8-code-output-tabs pre code { font-size: 18px; line-height: 1.12; margin: 5px 0; }
+  .reveal .w8-code-output-tabs .w8-tab-panel > p { font-size: 21px; line-height: 1.15; margin: 5px 0; }
+  .reveal .w8-code-output-tabs .w8-tab-output td,
+  .reveal .w8-code-output-tabs .w8-tab-output th { font-size: 20px; line-height: 1.15; padding: 4px 6px; }
+}
+
+/* Actual-fit tab layouts */
+/* Room for the complete end-to-end fitting calls in each HTML Code tab. */
+.reveal .w8-code-output-tabs .w8-tab-panel { height: 400px; }
+.reveal .w8-code-output-tabs .w8-tab-output > p { font-size: 24px; line-height: 1.2; margin: 7px 0; }
+.reveal .w8-code-output-tabs .w8-tab-output td,
+.reveal .w8-code-output-tabs .w8-tab-output th { font-size: 24px; line-height: 1.15; padding: 4px 8px; }
+.reveal .w8-code-output-tabs .w8-tab-output img { display: block; height: 310px; max-height: 310px; width: auto; max-width: 100%; object-fit: contain; margin: 0 auto; }
+.reveal .w8-code-output-tabs .w8-tab-output li { font-size: 24px; line-height: 1.2; margin: 6px 0; }
+.reveal .w8-code-output-tabs .w8-tab-output blockquote { font-size: 25px; line-height: 1.18; margin: 8px 0; }
+.reveal .w8-code-output-tabs .w8-tab-output blockquote p { font-size: inherit; line-height: inherit; margin: 0; }
+@media screen {
+  .reveal #r01c-build-the-dfm .w8-tab-code pre,
+  .reveal #r01c-build-the-dfm .w8-tab-code pre code { font-size: 20px; line-height: 1.15; }
+  .reveal #r01c-build-the-dfm .w8-tab-code pre.numberSource code > span { min-height: 1.15em; }
+}
+@media print {
+  /* One printed step, with both panels side by side at readable sizes. */
+  .reveal .w8-code-output-tabs { display: grid; grid-template-columns: minmax(0, 47fr) minmax(0, 53fr); column-gap: 18px; align-items: start; }
+  .reveal :is(#r00a-r-packages, #r01b-split-and-clean-words, #r01c-build-the-dfm, #r05a-fit-stm, #r05b-raw-stm-party-means, #r05c-estimate-party-differences, #r04b-training-perplexity) .w8-code-output-tabs { grid-template-columns: minmax(0, 55fr) minmax(0, 45fr); }
+  .reveal .w8-tab-step > p { margin-bottom: 4px; }
+  .reveal .w8-code-output-tablist, .reveal .w8-code-output-trigger { display: none !important; }
+  .reveal .w8-code-output-tabs .w8-tab-panel { display: block !important; height: auto !important; min-width: 0; max-width: 100%; margin: 0; grid-row: 1; }
+  .reveal .w8-code-output-tabs .w8-tab-code { grid-column: 1; }
+  .reveal .w8-code-output-tabs .w8-tab-output { grid-column: 2; }
+  .reveal .w8-code-output-tabs .w8-tab-panel::before { display: block; color: var(--course-green); font-size: 21px; line-height: 1.15; font-weight: 600; margin: 0 0 7px; }
+  .reveal .w8-code-output-tabs .w8-tab-code::before { content: "Code"; }
+  .reveal .w8-code-output-tabs .w8-tab-output::before { content: "Output"; }
+  .reveal .w8-code-output-tabs pre,
+  .reveal .w8-code-output-tabs pre code { font-size: 18px; line-height: 1.1; margin: 4px 0; }
+  .reveal .w8-code-output-tabs pre.numberSource { margin-left: 0 !important; padding: 8px !important; border-left: 0 !important; line-height: 1.1 !important; min-height: 1.1em !important; }
+  .reveal .w8-code-output-tabs pre.numberSource code { padding-left: 0 !important; line-height: 1.1 !important; min-height: 1.1em !important; }
+  .reveal .w8-code-output-tabs pre.numberSource code > span { left: 0 !important; line-height: 1.1 !important; min-height: 1.1em !important; }
+  .reveal .w8-code-output-tabs pre.numberSource code > span > a:first-child::before { display: none !important; }
+  .reveal .w8-code-output-tabs .w8-tab-output td,
+  .reveal .w8-code-output-tabs .w8-tab-output th { font-size: 19px; line-height: 1.1; padding: 3px 6px; }
+  .reveal .w8-code-output-tabs .w8-tab-panel > p,
+  .reveal .w8-code-output-tabs .w8-tab-output li { font-size: 20px; line-height: 1.15; margin: 5px 0; }
+  .reveal .w8-code-output-tabs .w8-tab-output img { height: 310px; max-height: 310px; }
+  .reveal .w8-code-output-tabs .w8-tab-output blockquote { font-size: 21px; line-height: 1.15; }
+}

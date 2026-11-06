@@ -1,0 +1,160 @@
+/* W6 keeps the shared W4 course layout and typography. */
+.reveal .slides section.slide.level2 > .slide-body { max-height: 510px; }
+.reveal .slide-body table { font-size: 0.93em; }
+.reveal .slide-body pre { font-size: 0.59em; }
+.reveal .slide-body pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+.reveal .console-output-label { color: var(--course-slate); }
+.reveal .console-output-label p { font-size: 20px; font-weight: 600; line-height: 1.2; margin: 0 0 6px; }
+.reveal .console-output-label + div.sourceCode,
+.reveal .console-output-label + pre { margin-top: 0; }
+.reveal .source { font-size: 15px; }
+.reveal .source a { overflow-wrap: anywhere; }
+.reveal .reference-list p { font-size: 23px; margin: 15px 0; }
+.reveal .slide-body > table td,
+.reveal .slide-body > table th { line-height: 1.25; }
+.reveal .large-example p { font-size: 34px; line-height: 1.4; }
+.reveal .compact-table table { font-size: 25px; }
+.reveal .compact-table td,
+.reveal .compact-table th { font-size: 1em; }
+.reveal .case-columns { display: grid; grid-template-columns: minmax(0, 46fr) minmax(0, 54fr); gap: 28px; align-items: center; }
+.reveal .case-columns > .column { width: auto; min-width: 0; padding: 0; }
+.reveal .slide-body img { display: block; max-width: 100%; max-height: 285px; object-fit: contain; margin: 8px auto; }
+.reveal .slide-body img.book-cover { width: auto; height: 340px; max-height: 340px; }
+.reveal .slide-body .caption { font-size: 18px; color: #5f6f7f; }
+.reveal .slide-body .caption p { font-size: inherit; margin: 8px 0 14px; }
+.reveal .gillion-columns { grid-template-columns: minmax(0, 36fr) minmax(0, 64fr); gap: 36px; align-items: start; }
+.reveal .gillion-cover > p { margin: 0; }
+.reveal .gillion-cover img.book-cover { margin: 0 auto; }
+.reveal .gillion-cover .caption { max-width: 300px; margin: 0 auto; text-align: center; }
+.reveal .gillion-columns > .column > ul { margin: 0 0 0 0.85em; }
+.reveal .gillion-columns > .column > ul > li:first-child { margin-top: 0; }
+/* Four tabs stay on each slide and follow keyboard navigation. */
+.reveal .gillion-tablist,
+.reveal .workflow-tablist { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 18px; }
+.reveal .gillion-tablist button,
+.reveal .workflow-tablist button { font: inherit; font-size: 21px; line-height: 1.2; color: var(--course-slate); background: #fff; border: 1px solid var(--course-line); padding: 10px 8px; cursor: pointer; }
+.reveal .gillion-tablist button[aria-selected="true"],
+.reveal .workflow-tablist button[aria-selected="true"] { background: #eef6f0; border: 2px solid var(--course-green); font-weight: 600; }
+.reveal .gillion-tablist button:focus-visible,
+.reveal .workflow-tablist button:focus-visible { outline: 3px solid var(--course-blue); outline-offset: 2px; }
+/* Gillion's points accumulate downward and stay visible at Agreement. */
+.reveal .gillion-sequence { display: block; }
+.reveal .gillion-sequence > .gillion-step { width: 100%; margin: 0 0 12px; transition: none; }
+.reveal .gillion-step > p { font-size: 28px; line-height: 1.28; margin: 0; }
+.reveal .gillion-step > p + p { margin-top: 6px; }
+.reveal .gillion-interpretation li { font-size: 30px; line-height: 1.35; margin: 0.6em 0; }
+.reveal .title-banner img { max-height: 180px; }
+.reveal .crowd-title img { max-height: 210px; }
+.reveal .manual-title img { max-height: 155px; }
+.reveal .coding-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.reveal .coding-steps > .column { width: auto; padding: 0; }
+.reveal .coding-steps ul { margin: 0 0 0 0.8em; }
+.reveal .coding-steps li { font-size: 28px; }
+.reveal .paper-intro-columns,
+.reveal .paper-figure-columns { display: grid; gap: 28px; align-items: center; }
+.reveal .paper-intro-columns { grid-template-columns: minmax(0, 44fr) minmax(0, 56fr); }
+.reveal .paper-figure-columns { grid-template-columns: minmax(0, 62fr) minmax(0, 38fr); }
+.reveal .paper-intro-columns > .column,
+.reveal .paper-figure-columns > .column { width: auto; min-width: 0; padding: 0; }
+.reveal .paper-intro-columns img { max-height: 440px; }
+.reveal .paper-figure-columns img { width: 100%; max-height: 430px; }
+.reveal .paper-intro-columns ul,
+.reveal .paper-figure-columns ul { margin-left: 0.8em; }
+.reveal .paper-figure-columns li { font-size: 28px; }
+
+/* Larger first-page screenshot for the Benoit APSR introduction. */
+.reveal .benoit-intro-columns { grid-template-columns: minmax(0, 68fr) minmax(0, 32fr); }
+.reveal .benoit-intro-columns img { width: 100%; max-height: 440px; }
+.reveal .benoit-intro-columns li { font-size: 26px; }
+
+/* Article introductions: enlarged page headers with three concise points. */
+.reveal .paper-intro-columns { grid-template-columns: minmax(0, 68fr) minmax(0, 32fr); }
+.reveal .paper-intro-columns li { font-size: 26px; }
+.reveal .screenshot-viewport { height: 400px; overflow: hidden; }
+.reveal .screenshot-viewport figure,
+.reveal .screenshot-viewport p { margin: 0; }
+.reveal .screenshot-viewport img { width: 100%; height: auto; max-height: none; margin: 0; }
+
+/* Literature figures: maximize complete charts and keep annotations concise. */
+.reveal .paper-figure-columns { grid-template-columns: minmax(0, 75fr) minmax(0, 25fr); gap: 24px; }
+.reveal .paper-figure-columns img { width: 100%; max-height: 450px; }
+.reveal .paper-figure-columns li { font-size: 24px; }
+.reveal .paper-figure-columns .caption p { margin: 5px 0 8px; }
+
+/* Boydstun cover: grid controls column widths; center image and caption. */
+.reveal .boydstun-cover > p { margin: 0; }
+.reveal .boydstun-cover img.book-cover { margin: 0 auto; }
+.reveal .boydstun-cover .caption { max-width: 360px; margin: 0 auto; text-align: center; }
+
+/* Four workflow tabs use the deck's normal forward/back controls. */
+.reveal .workflow-sequence { min-height: 390px; }
+.reveal .workflow-sequence > .workflow-panel { align-self: start; justify-self: stretch; width: 100%; margin: 0; transition: none; }
+.reveal .workflow-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin: 0 0 20px; }
+.reveal .workflow-node { position: relative; box-sizing: border-box; min-height: 94px; padding: 14px 10px; display: flex; align-items: center; justify-content: center; text-align: center; border: 1px solid #d6e4ee; font-size: 24px; line-height: 1.2; }
+.reveal .workflow-strip .workflow-node:not(:last-child)::after { content: "→"; position: absolute; left: calc(100% + 3px); top: calc(50% - 16px); width: 21px; color: #314f4f; font-size: 28px; }
+.reveal .workflow-node.is-current { border: 2px solid #7cae96; background: #eef6f0; font-weight: 600; }
+.reveal .workflow-panel > ul { margin: 0 0 0 0.8em; }
+.reveal .workflow-panel > ul > li { font-size: 25px; line-height: 1.3; margin: 0.4em 0; }
+.reveal .workflow-split { box-sizing: border-box; width: 100%; max-width: 100%; padding: 4px 10px; overflow: visible; }
+.reveal .workflow-origin { position: relative; box-sizing: border-box; width: 42%; margin: 0 auto 30px; padding: 9px; border: 2px solid #7cae96; background: #eef6f0; text-align: center; font-size: 24px; }
+.reveal .workflow-origin::after { content: ""; position: absolute; left: 50%; top: 100%; height: 20px; border-left: 2px solid #7cae96; transform: translateX(-1px); }
+.reveal .workflow-branches { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 18px; }
+.reveal .workflow-branches::before { content: ""; position: absolute; top: -15px; left: 16.66%; right: 16.66%; border-top: 2px solid #7cae96; }
+.reveal .workflow-branches .workflow-node { display: block; min-width: 0; min-height: 86px; border-width: 2px; font-size: 22px; }
+.reveal .workflow-branches .workflow-node::before { content: ""; position: absolute; left: 50%; top: -16px; height: 18px; border-left: 2px solid #7cae96; transform: translateX(-1px); }
+.reveal .workflow-branches::before { left: calc((100% - 48px) / 6); right: calc((100% - 48px) / 6); }
+
+/* Same-excerpt model explanations retain the course table style. */
+.reveal .same-text-source p { font-size: 27px; line-height: 1.32; margin: 12px 0; }
+.reveal .worked-classifier p { font-size: 28px; line-height: 1.3; margin: 12px 0; }
+.reveal .worked-classifier table { font-size: 25px; margin: 10px 0; }
+.reveal .worked-classifier code { font-size: 0.94em; }
+
+/* NB practice uses a training/test split. */
+.reveal .workflow-branches.two-branches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.reveal .workflow-branches.two-branches::before { left: calc((100% - 24px) / 4); right: calc((100% - 24px) / 4); }
+
+/* Compare the source data directly, without screenshots. */
+.reveal .dataset-columns { align-items: start; }
+.reveal .dataset-columns h3 { font-size: 27px; margin: 0 0 12px; }
+.reveal .dataset-columns li { font-size: 23px; line-height: 1.25; margin: 0.3em 0; }
+.reveal .dataset-columns > .column > p { font-size: 21px; margin: 14px 0 8px; }
+.reveal .dataset-columns table { font-size: 20px; margin: 8px 0 0; width: 100%; }
+.reveal .dataset-columns td, .reveal .dataset-columns th { padding: 5px 6px; line-height: 1.25; }
+.reveal .dataset-columns + p { font-size: 20px; margin-top: 18px; }
+
+/* Nielsen book cover follows the existing portrait-cover layout. */
+.reveal .nielsen-cover > p { margin: 0; }
+.reveal .nielsen-cover img.book-cover { margin: 0 auto; }
+.reveal .nielsen-cover .caption { margin: 0 auto; text-align: center; }
+
+/* Give the Nielsen measurement explanation more space than the page screenshot. */
+.reveal .nielsen-measurement-columns { grid-template-columns: minmax(0, 35fr) minmax(0, 65fr); }
+.reveal .nielsen-measurement-columns li { font-size: 28px; line-height: 1.28; }
+.reveal .screenshot-viewport.nielsen-methods-shot { height: 220px; }
+
+/* Keep the article identifiable while giving its argument and checks room. */
+.reveal .nielsen-validation-columns { grid-template-columns: minmax(0, 40fr) minmax(0, 60fr); }
+.reveal .nielsen-validation-columns li { font-size: 26px; line-height: 1.28; }
+.reveal .screenshot-viewport.nielsen-validation-shot { height: 270px; }
+
+/* Align Park's overview with the top of the article screenshot. */
+.reveal .park-intro-aligned { align-items: start; }
+.reveal .park-intro-aligned > .column:last-child { padding-top: 4px; }
+.reveal .park-intro-aligned > .column > ul { margin-top: 0; }
+.reveal .park-intro-aligned > .column > ul > li:first-child { margin-top: 0; }
+.reveal .park-intro-aligned .park-article-caption { padding-left: 1.9713%; }
+
+/* Keep the two self-promotion sentences prominent within the full statement. */
+.reveal .grandstanding-emphasis,
+.reveal .grandstanding-emphasis strong { color: var(--course-blue); }
+
+/* The error-reading result keeps the full statement beside its printed labels. */
+.reveal .error-reading-output blockquote { margin: 12px 0; }
+.reveal .error-reading-output blockquote p { font-size: 26px; line-height: 1.28; }
+.reveal .error-reading-output > p { font-size: 25px; }
+
+/* Short code steps pair package calls with a readable explanation. */
+.reveal .function-step table { font-size: 23px; margin: 12px 0 0; }
+.reveal .function-step td,
+.reveal .function-step th { padding: 5px 8px; line-height: 1.25; }

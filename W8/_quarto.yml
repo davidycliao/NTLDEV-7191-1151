@@ -1,0 +1,9 @@
+project:
+  type: default
+  render:
+    - slide/week8.qmd
+  resources:
+    - lab/Lab_Session_W8.html
+    - lab/lab.css
+    - classroom/W8.R
+    - W8_lab.Rproj

@@ -1,0 +1,19 @@
+body { color: #1f2a37; font-size: 18px; line-height: 1.6; }
+h1, h2, h3 { color: #314f4f; }
+h2 { border-bottom: 1px solid #d9e3df; padding-bottom: .3rem; margin-top: 2.1rem; }
+a { color: #0271bb; }
+pre { font-size: .86rem; line-height: 1.4; }
+pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+pre.sourceCode, pre.sourceCode > code.sourceCode,
+pre.sourceCode > code.sourceCode > span { white-space: pre-wrap !important; overflow-wrap: anywhere !important; }
+div.sourceCode { overflow-x: visible; }
+blockquote { border-left: 4px solid #7cae96; background: #f4f8f6; padding: .8rem 1rem; color: #314f4f; }
+details { border: 1px solid #d6e4ee; padding: .7rem 1rem; margin: 1rem 0; }
+summary { cursor: pointer; font-weight: 600; color: #314f4f; }
+.original-speech { font-size: .96rem; line-height: 1.6; margin-top: 1rem; }
+img { max-width: 100%; }
+.answer-space { border-left: 3px solid #7cae96; background: #f4f8f6; min-height: 5rem; padding: .8rem 1rem; margin: .7rem 0 1.5rem; color: #5b6870; }
+.w8-before-continue { border-left: 4px solid #7cae96; background: #f4f8f6; padding: .8rem 1rem; margin: 1rem 0 1.4rem; }
+.w8-before-continue p { margin-top: 0; }
+.w8-before-continue ul { margin-bottom: 0; }
+table { font-size: .94rem; }
