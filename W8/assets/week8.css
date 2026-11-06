@@ -552,39 +552,20 @@ html.print-pdf .reveal .w8-application-focus {
   font-size: 44px;
 }
 
-/* Editable flow chart: fixed held-out words, predictions, mean and inverse. */
-.reveal .w8-ppl-example .w8-ppl-example-label { font-size: 25px; line-height: 1.25; margin: 0 0 18px; }
-.reveal .w8-ppl-flow { display: grid; grid-template-columns: 130px 40px minmax(0, 1fr); width: 100%; align-items: center; }
-.reveal .w8-ppl-node { box-sizing: border-box; border: 2px solid #aab9b7; padding: 9px 10px; text-align: center; background: #fff; }
-.reveal .w8-ppl-input { border-color: var(--course-slate); padding: 14px 8px; }
-.reveal .w8-ppl-node-label { font-size: 24px; line-height: 1.15; }
-.reveal .w8-ppl-input-tokens { display: flex; flex-direction: column; gap: 3px; margin-top: 10px; font-size: 27px; line-height: 1.15; font-weight: 600; }
-.reveal .w8-ppl-branch { width: 40px; height: 310px; }
-.reveal .w8-ppl-branch path { fill: none; stroke: var(--course-slate); stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
-.reveal .w8-ppl-lanes { display: grid; gap: 12px; }
-.reveal .w8-ppl-lane { display: grid; grid-template-columns: 255px minmax(0, 1fr); gap: 4px; min-width: 0; }
-.reveal .w8-ppl-predictions-node { height: 150px; padding: 8px 7px; }
-.reveal .w8-ppl-predictions-node .w8-ppl-node-label { font-size: 24px; white-space: nowrap; letter-spacing: -0.3px; }
-.reveal .w8-ppl-word-predictions { display: flex; justify-content: space-evenly; gap: 9px; margin-top: 6px; }
-.reveal .w8-ppl-word { display: flex; flex-direction: column; min-width: 49px; align-items: center; }
-.reveal .w8-ppl-probability { font-size: 24px; line-height: 1.05; }
-.reveal .w8-ppl-bar-space { display: flex; height: 40px; align-items: end; width: 35px; margin: 3px 0; }
-.reveal .w8-ppl-bar { display: block; width: 35px; background: var(--course-green); }
-.reveal .w8-ppl-token { font-size: 24px; line-height: 1.05; }
-.reveal .w8-ppl-calculation { display: grid; grid-template-columns: 26px minmax(0, 1fr) 26px minmax(0, 1fr); gap: 4px; align-items: center; min-width: 0; }
-.reveal .w8-ppl-flow-arrow { font-size: 32px; line-height: 1; color: var(--course-slate); text-align: center; }
-.reveal .w8-ppl-mean-node, .reveal .w8-ppl-score-node { height: 150px; display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 6px 5px; }
-.reveal .w8-ppl-formula { font-size: 22px; line-height: 1.15; white-space: nowrap; }
-.reveal .w8-ppl-value { font-size: 39px; line-height: 1.1; font-weight: 600; color: var(--course-green); }
-.reveal .w8-ppl-quantity { font-size: 24px; line-height: 1.1; }
-.reveal .w8-ppl-blue .w8-ppl-bar { background: var(--course-blue); }
-.reveal .w8-ppl-blue .w8-ppl-value { color: var(--course-blue); }
-.reveal .w8-ppl-example .w8-ppl-takeaway { font-size: 25px; line-height: 1.25; margin: 17px 0 0; padding: 5px 9px; box-sizing: border-box; }
-.reveal .w8-ppl-node:has(.w8-ppl-focus.current-fragment),
-.reveal .w8-ppl-takeaway:has(.w8-ppl-focus.current-fragment) { outline: 3px solid #d92332; outline-offset: -3px; }
+/* Compare two saved LDA fits with one red frame per step. */
+.reveal .w8-k-example > p { font-size: 25px; line-height: 1.25; }
+.reveal .w8-k-example .w8-k-example-intro { margin: 0 0 18px; }
+.reveal .w8-k-example-table th:first-child { width: 14%; }
+.reveal .w8-k-example-table th:nth-child(2) { width: 60%; }
+.reveal .w8-k-example-table th:nth-child(3) { width: 26%; }
+.reveal .w8-k-example-table td, .reveal .w8-k-example-table th { padding: 14px 12px; vertical-align: middle; }
+.reveal .w8-k-example-table td:first-child { white-space: nowrap; }
+.reveal .w8-k-example-wordlist + .w8-k-example-wordlist { margin-top: 9px; }
+.reveal .w8-k-example-table .w8-k-example-score { font-size: 30px; font-weight: 600; color: var(--course-green); }
+.reveal .w8-k-example .w8-k-example-takeaway { margin: 18px 0 0; padding: 8px 10px; }
+.reveal .w8-k-example-takeaway:has(.w8-k-example-focus.current-fragment) { outline: 3px solid #d92332; outline-offset: -3px; }
 @media print {
-  .reveal .w8-ppl-node { outline: none !important; }
-  .reveal .w8-ppl-example .w8-ppl-takeaway { outline: 3px solid #d92332 !important; outline-offset: -3px !important; }
+  .reveal .w8-k-example .w8-k-example-takeaway { outline: 3px solid #d92332; outline-offset: -3px; }
 }
 
 /* Native Code / Output tabs follow one Reveal fragment on the same slide. */

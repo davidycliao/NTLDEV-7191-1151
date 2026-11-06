@@ -1789,81 +1789,23 @@ Reference: [Blei, Ng & Jordan (2003)](https://www.jmlr.org/papers/v3/blei03a.htm
 
 <!-- W8:PERPLEXITY_EXAMPLE:START -->
 
-## Perplexity in a three-word example
+## Same texts, different K
 
-:::::: {.slide-body .w8-ppl-example}
+:::::: {.slide-body .w8-k-example}
 
-<p class="w8-ppl-example-label"><strong>Illustration:</strong> compare probabilities for the same hidden words.</p>
-<div class="w8-ppl-flow" role="group" aria-label="Flow chart: the same held-out text goes to two models; word probabilities are combined by a geometric mean and inverted to obtain perplexity.">
-<div class="w8-ppl-input w8-ppl-node">
-<div class="w8-ppl-node-label"><span class="fragment current-visible w8-ppl-focus" data-fragment-index="0" aria-hidden="true"></span>Held-out text</div>
-<div class="w8-ppl-input-tokens"><span>tax</span><span>tax</span><span>jobs</span></div>
-</div>
-<svg class="w8-ppl-branch" viewBox="0 0 40 310" aria-hidden="true">
-<path d="M 0 155 H 16 V 74 H 36 M 16 155 V 236 H 36"/>
-<path d="M 29 68 L 36 74 L 29 80 M 29 230 L 36 236 L 29 242"/>
-</svg>
-<div class="w8-ppl-lanes">
-<div class="w8-ppl-lane w8-ppl-green">
-<div class="w8-ppl-node w8-ppl-predictions-node">
-<div class="w8-ppl-node-label"><span class="fragment current-visible w8-ppl-focus" data-fragment-index="1" aria-hidden="true"></span><strong>Model A</strong> predictions</div>
-<div class="w8-ppl-word-predictions"><div class="w8-ppl-word"><span class="w8-ppl-probability">0.50</span><span class="w8-ppl-bar-space"><span class="w8-ppl-bar" style="height: 40px"></span></span><span class="w8-ppl-token">tax</span></div><div class="w8-ppl-word"><span class="w8-ppl-probability">0.50</span><span class="w8-ppl-bar-space"><span class="w8-ppl-bar" style="height: 40px"></span></span><span class="w8-ppl-token">tax</span></div><div class="w8-ppl-word"><span class="w8-ppl-probability">0.25</span><span class="w8-ppl-bar-space"><span class="w8-ppl-bar" style="height: 20px"></span></span><span class="w8-ppl-token">jobs</span></div></div>
-</div>
-<div class="w8-ppl-calculation">
-<div class="w8-ppl-flow-arrow" aria-label="then">→</div>
-<div class="w8-ppl-node w8-ppl-mean-node">
-<div class="w8-ppl-node-label"><span class="fragment current-visible w8-ppl-focus" data-fragment-index="2" aria-hidden="true"></span>Combine 3 predictions</div>
-<div class="w8-ppl-formula">∛0.0625 ≈</div>
-<div class="w8-ppl-value">0.39685</div>
-<div class="w8-ppl-quantity">Geometric mean</div>
-</div>
-<div class="w8-ppl-flow-arrow" aria-label="then">→</div>
-<div class="w8-ppl-node w8-ppl-score-node">
-<div class="w8-ppl-node-label"><span class="fragment current-visible w8-ppl-focus" data-fragment-index="3" aria-hidden="true"></span>Take the inverse</div>
-<div class="w8-ppl-formula">1 ÷ 0.39685 ≈</div>
-<div class="w8-ppl-value">2.52</div>
-<div class="w8-ppl-quantity">Perplexity</div>
-</div>
-</div>
-</div>
-<div class="w8-ppl-lane w8-ppl-blue">
-<div class="w8-ppl-node w8-ppl-predictions-node">
-<div class="w8-ppl-node-label"><span class="fragment current-visible w8-ppl-focus" data-fragment-index="4" aria-hidden="true"></span><strong>Model B</strong> predictions</div>
-<div class="w8-ppl-word-predictions"><div class="w8-ppl-word"><span class="w8-ppl-probability">0.25</span><span class="w8-ppl-bar-space"><span class="w8-ppl-bar" style="height: 20px"></span></span><span class="w8-ppl-token">tax</span></div><div class="w8-ppl-word"><span class="w8-ppl-probability">0.25</span><span class="w8-ppl-bar-space"><span class="w8-ppl-bar" style="height: 20px"></span></span><span class="w8-ppl-token">tax</span></div><div class="w8-ppl-word"><span class="w8-ppl-probability">0.125</span><span class="w8-ppl-bar-space"><span class="w8-ppl-bar" style="height: 10px"></span></span><span class="w8-ppl-token">jobs</span></div></div>
-</div>
-<div class="w8-ppl-calculation">
-<div class="w8-ppl-flow-arrow" aria-label="then">→</div>
-<div class="w8-ppl-node w8-ppl-mean-node">
-<div class="w8-ppl-node-label"><span class="fragment current-visible w8-ppl-focus" data-fragment-index="5" aria-hidden="true"></span>Combine 3 predictions</div>
-<div class="w8-ppl-formula">∛0.0078125 ≈</div>
-<div class="w8-ppl-value">0.19843</div>
-<div class="w8-ppl-quantity">Geometric mean</div>
-</div>
-<div class="w8-ppl-flow-arrow" aria-label="then">→</div>
-<div class="w8-ppl-node w8-ppl-score-node">
-<div class="w8-ppl-node-label"><span class="fragment current-visible w8-ppl-focus" data-fragment-index="6" aria-hidden="true"></span>Take the inverse</div>
-<div class="w8-ppl-formula">1 ÷ 0.19843 ≈</div>
-<div class="w8-ppl-value">5.04</div>
-<div class="w8-ppl-quantity">Perplexity</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p class="w8-ppl-takeaway"><span class="fragment current-visible w8-ppl-focus" data-fragment-index="7" aria-hidden="true"></span><strong>Higher word probabilities give lower perplexity.</strong><br>Here, 2× the probability gives ½ the perplexity. Topic labels still need checking.</p>
+<p class="w8-k-example-intro"><strong>Same speeches and words · selected topics</strong></p>
+<table class="w8-focus-table w8-k-example-table"><thead><tr><th>Topics</th><th>Possible topic labels</th><th>Training<br>perplexity</th></tr></thead><tbody><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="0" aria-hidden="true"></span><strong>K = 3</strong></td><td>Europe-related discussion</td><td class="w8-k-example-score">1,195.7</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="1" aria-hidden="true"></span><strong>K = 9</strong></td><td>EU agreements<br>Council meetings</td><td class="w8-k-example-score">989.2</td></tr></tbody></table>
+<p class="w8-k-example-takeaway"><span class="fragment current-visible w8-k-example-focus" data-fragment-index="2" aria-hidden="true"></span><strong>Choose useful detail.</strong><br>A lower score alone does not choose K.</p>
 
 ::::::
 
 ::: {.source}
 
-Reference: [Blei, Ng & Jordan (2003)](https://www.jmlr.org/papers/v3/blei03a.html); [Wallach et al. (2009)](https://doi.org/10.1145/1553374.1553515)
+Source: W8 Lab [R04a](../lab/Lab_Session_W8.html#r04a-read-alternative-topic-resolutions) (selected word lists) and [R04b](../lab/Lab_Session_W8.html#r04b-calculate-training-perplexity) (actual training scores).
 
 :::
 
 
-<!-- W8:PERPLEXITY_EXAMPLE:END -->
-
-<!-- W8:K_DIAGNOSTIC:START -->
 
 ## Checking the number of topics
 
