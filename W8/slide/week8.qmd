@@ -64,7 +64,7 @@ Reference: [W7 scaling](../../W7/slide/week7.html); [Grimmer, Roberts & Stewart 
 
 **Guiding question:** How do political scientists turn large text collections into evidence about political behavior and communication?
 
-We first read six political studies. Then we unpack how the models work and apply them to political speeches in R.
+We first read five political studies. Then we unpack how the models work and apply them to political speeches in R.
 
 ::::::
 
@@ -89,13 +89,12 @@ Reference: [Grimmer, Roberts & Stewart (2022)](https://ingramacademic.com/produc
 | **3 · Barberá et al. (2019)** | Tweets | Measure daily issue attention |
 | **4 · Jiang et al. (2024)** | Hong Kong news | Develop and test a hypothesis |
 | **5 · Roberts et al. (2014)** | Survey answers | Compare priorities with human coding |
-| **6 · Mueller & Rauh (2018)** | Newspaper articles | Predict next-year conflict |
 
 ::::::
 
 ::: {.source}
 
-Reference: [Catalinac (2016)](https://doi.org/10.1086/683073); [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521); [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352); [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-y); [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103); [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
+Reference: [Catalinac (2016)](https://doi.org/10.1086/683073); [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521); [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352); [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-y); [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103)
 
 :::
 
@@ -118,7 +117,7 @@ Use the same four questions when you design your own text research.
 
 ::: {.source}
 
-Teaching guide for the six cases introduced on the previous page.
+Teaching guide for the five cases introduced on the previous page.
 
 :::
 
@@ -1060,26 +1059,6 @@ Reference: [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103)
 
 
 
-## Predicting conflict from newspaper topics
-
-:::::: {.slide-body .compact-table .w8-case-flow .w8-mueller-focus}
-
-<p class="w8-study-label"><strong>Case 6 · Hannes Mueller and Christopher Rauh · APSR 2018</strong></p>
-
-<p><strong>Puzzle:</strong> Slow-moving country indicators often show <em>where</em> conflict is common, but miss <em>when</em> risk rises. Can news language improve one-year-ahead forecasts?</p>
-<table class="w8-focus-table"><thead><tr><th>Step</th><th>What they do</th></tr></thead><tbody><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="0"></span>Corpus</td><td>More than 700,000 Economist, New York Times and Washington Post articles</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="1"></span>Measure</td><td>Article-level LDA, K = 15, aggregated to country-year topic shares</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="2"></span>Forecast</td><td>Re-estimate with text through year T; predict conflict onset at T + 1</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="3"></span>Evaluate</td><td>Repeat for 1996–2014; read ROC together with precision–recall</td></tr></tbody></table>
-**What this supports:** predictive usefulness. Labels and causal claims need separate evidence.
-
-::::::
-
-::: {.source}
-
-Reference: [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
-
-:::
-
-
-
 ## From topics to political evidence
 
 :::::: {.slide-body .compact-table .w8-case-flow}
@@ -1091,7 +1070,6 @@ Reference: [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
 | Barberá et al. | Daily attention | Compare who moves first |
 | Jiang et al. | Topic trends | Develop a hypothesis; test separately |
 | Roberts et al. | Survey topic shares | Compare patterns with human coding |
-| Mueller & Rauh | Country-year topic shares | Test next-year conflict forecasts |
 
 **The research design determines what the evidence supports.**
 
@@ -1099,7 +1077,7 @@ Reference: [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
 
 ::: {.source}
 
-Reference: [Catalinac (2016)](https://doi.org/10.1086/683073); [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521); [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352); [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-y); [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103); [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
+Reference: [Catalinac (2016)](https://doi.org/10.1086/683073); [Gilardi, Shipan & Wüest (2021)](https://doi.org/10.1111/ajps.12521); [Barberá et al. (2019)](https://doi.org/10.1017/S0003055419000352); [Jiang, Xia & Zhang (2024)](https://doi.org/10.1007/s11109-023-09900-y); [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103)
 
 :::
 
@@ -1110,7 +1088,7 @@ Reference: [Catalinac (2016)](https://doi.org/10.1086/683073); [Gilardi, Shipan 
 
 :::::: {.slide-body .w8-ess-step}
 
-<p class="w8-study-label"><strong>In-class demonstration · students repeat it in the Lab</strong></p>
+<p class="w8-study-label"><strong>In-class demonstration</strong></p>
 
 **Political question:** Which issues do party leaders emphasize in their speeches?
 
@@ -1711,13 +1689,11 @@ Reference: [Blei, Ng & Jordan (2003)](https://www.jmlr.org/papers/v3/blei03a.htm
 
 <table class="w8-focus-table"><thead><tr><th>Check</th><th>Question</th></tr></thead><tbody><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="0"></span>Held-out word fit</td><td>Can the model account for unseen words?</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="1"></span>Words and documents</td><td>Does the label describe the content?</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="2"></span>Coherence and exclusivity</td><td>Are prominent words related and distinctive?</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="3"></span>Sensitivity</td><td>Does the interpretation survive reasonable choices?</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="4"></span>External prediction</td><td>Do topic shares predict an outcome outside estimation?</td></tr></tbody></table>
 
-**Mueller & Rauh (2018):** predict next-year conflict from newspaper topics.
-
 ::::::
 
 ::: {.source}
 
-Reference: [ESS course](https://essexsummerschool.com/course/ess-2026-course-list/1k/); [Grimmer, Roberts & Stewart (2022)](https://ingramacademic.com/products/text-as-data-9780691207551); [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570)
+Reference: [ESS course](https://essexsummerschool.com/course/ess-2026-course-list/1k/); [Grimmer, Roberts & Stewart (2022)](https://ingramacademic.com/products/text-as-data-9780691207551)
 
 :::
 
@@ -1806,6 +1782,9 @@ Source: W8 Lab [R04a](../lab/Lab_Session_W8.html#r04a-read-alternative-topic-res
 :::
 
 
+<!-- W8:PERPLEXITY_EXAMPLE:END -->
+
+<!-- W8:K_DIAGNOSTIC:START -->
 
 ## Checking the number of topics
 
@@ -3303,7 +3282,6 @@ Reference: [Grimmer, Roberts & Stewart (2022)](https://ingramacademic.com/produc
 | Further reading | Research use |
 |---|---|
 | [Wratil et al. (2023)](https://doi.org/10.1017/S0003055422001198) | Government rhetoric and public opinion |
-| [Mueller & Rauh (2018)](https://doi.org/10.1017/S0003055417000570) | Next-year conflict prediction |
 | [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103) | Survey answers and human coding |
 | [Eshima et al. (2024)](https://doi.org/10.1111/ajps.12779) | Keyword-assisted measurement |
 | [Gilardi et al. (2022)](https://doi.org/10.1080/10584609.2021.1910390) | Supervised issue classification |
@@ -3346,11 +3324,11 @@ Original-study figures retain the source versions and page locators printed on t
 
 
 
+
+
 ## References: Readings and reproducibility
 
 :::::: {.slide-body .w8-ref}
-
-Mueller, H., and C. Rauh. 2018. “Reading Between the Lines: Prediction of Political Violence Using Newspaper Text.” *APSR* 112(2): 358–375. [DOI](https://doi.org/10.1017/S0003055417000570).
 
 Ying, L., J. M. Montgomery, and B. M. Stewart. 2022. “Topics, Concepts, and Measurement.” *Political Analysis* 30(4): 570–589. [DOI](https://doi.org/10.1017/pan.2021.33).
 
@@ -3367,6 +3345,8 @@ W8 classroom practical: LDA and STM from texts to findings. [Full Lab](../lab/La
 W8 sources, model recipes and input metadata accompany the classroom materials. Presenter notes remain outside the student package.
 
 :::
+
+
 
 
 
@@ -3391,6 +3371,8 @@ Roberts, M. E., B. M. Stewart, and D. Tingley. 2019. “stm: An R Package for St
 Original methods and maintained software documentation. Method choices and output definitions are separate from political identification.
 
 :::
+
+
 
 
 

@@ -131,9 +131,6 @@
 .reveal .w8-focus-table tr:has(.w8-row-focus.current-fragment) { outline: 3px solid #d92332; outline-offset: -3px; }
 .reveal .w8-label-focus > p { font-size: 26px; line-height: 1.25; margin: 16px 0; }
 .reveal .w8-validation-focus > p { font-size: 26px; line-height: 1.25; }
-.reveal .slide-body.w8-mueller-focus .w8-focus-table th:first-child,
-.reveal .slide-body.w8-mueller-focus .w8-focus-table td:first-child { width: 18%; }
-.reveal .w8-mueller-focus > p:not(.w8-study-label) { font-size: 26px; line-height: 1.25; margin: 14px 0; }
 /* Preserve complete Lab code while keeping wrapped lines inside the gutter. */
 .reveal .w8-step-code pre.numberSource code,
 .reveal .w8-step-output pre.numberSource code { padding-left: 3em; white-space: normal; }
@@ -155,7 +152,6 @@
 
 /* Reveal's own print pagination supplies one page per slide. */
 @media print {
-  .reveal .w8-mueller-focus .w8-focus-table tbody tr:last-child { outline: 3px solid #d92332; outline-offset: -3px; }
   .reveal .w8-perplexity-annotation { display: none !important; }
   .reveal .w8-perplexity-annotation[data-fragment-index="3"] { display: inline !important; opacity: 1 !important; visibility: visible !important; }
   .reveal .slides section.slide.level2 { display: grid !important; }
@@ -249,7 +245,7 @@
 .reveal .w8-case-map col:nth-child(2) { width: 27% !important; }
 .reveal .w8-case-map col:nth-child(3) { width: 52% !important; }
 
-/* Four official article-page captures: APSR on the left, AJPS on the right. */
+/* Four supplementary application captures in the original 2-by-2 layout. */
 .reveal .w8-applications-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -287,7 +283,7 @@
 .reveal .w8-kraft img { object-fit: contain; }
 .reveal .w8-application-shot > p:last-child {
   margin-top: 4px;
-  font-size: 19px;
+  font-size: 22px;
   line-height: 1.15;
   text-align: left;
 }
