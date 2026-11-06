@@ -1750,49 +1750,11 @@ Reference: [Ying, Montgomery & Stewart (2022)](https://doi.org/10.1017/pan.2021.
 
 :::::: {.slide-body .compact-table .w8-perplexity}
 
-**Question:** how well does the model reconstruct the observed words?
+**K:** number of topics. **Perplexity:** a model fit score.
 
-::::: {.w8-perplexity-formula-frame}
+<table class="w8-focus-table"><thead><tr><th>Step</th><th>What to do</th></tr></thead><tbody><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="0"></span>1 · Fit candidate models</td><td>Same texts and vocabulary; e.g. LDA K = 3, 6, 9</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="1"></span>2 · Compare scores</td><td>Lower perplexity = better fit to the words being scored</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="2"></span>3 · Read the topics</td><td>Check topic words and original texts: are the labels useful?</td></tr><tr><td><span class="fragment current-visible w8-row-focus" data-fragment-index="3"></span>4 · Choose a useful K</td><td>Use the score and interpretation together</td></tr></tbody></table>
 
-$$\mathrm{perplexity}=\exp\!\left(-\frac{\sum_{d,v}x_{dv}\log p_{dv}}{\sum_{d,v}x_{dv}}\right),\qquad p_{dv}=\sum_k\theta_{dk}\beta_{kv}$$
-
-<svg class="w8-perplexity-overlay" viewBox="0 0 986 142" role="img" aria-label="Four sequential annotation steps follow the formula explanation: word probability, count-weighted log probability, total tokens, then the negative average and exponential.">
-  <g class="fragment current-visible w8-perplexity-annotation" data-fragment-index="0">
-    <ellipse cx="714" cy="51" rx="98" ry="38"/>
-    <path d="M 842 109 L 815 92 L 802 78"/>
-    <polygon points="802,78 807,91 815,83"/>
-    <text x="493" y="134">1 · Probability of a word in a document</text>
-  </g>
-  <g class="fragment current-visible w8-perplexity-annotation" data-fragment-index="1">
-    <ellipse cx="465" cy="27" rx="95" ry="22"/>
-    <path d="M 582 5 L 556 20"/>
-    <polygon points="556,20 570,18 564,8"/>
-    <text x="493" y="134">2 · Weight each log probability by its word count</text>
-  </g>
-  <g class="fragment current-visible w8-perplexity-annotation" data-fragment-index="2">
-    <ellipse cx="465" cy="73" rx="55" ry="19"/>
-    <path d="M 552 111 L 529 96 L 514 84"/>
-    <polygon points="514,84 520,97 529,88"/>
-    <text x="493" y="134">3 · Divide by all retained tokens</text>
-  </g>
-  <g class="fragment current-visible w8-perplexity-annotation" data-fragment-index="3">
-    <ellipse cx="335" cy="51" rx="25" ry="19"/>
-    <ellipse cx="380" cy="51" rx="13" ry="13"/>
-    <path d="M 276 110 L 310 85 L 326 69"/>
-    <polygon points="326,69 312,75 321,84"/>
-    <text x="493" y="134">4 · Negate the average, then exponentiate</text>
-  </g>
-</svg>
-
-:::::
-
-| Read the statistic | Classroom interpretation |
-|---|---|
-| **Lower perplexity is better** | Same data, vocabulary and calculation. |
-| LDA and STM | Same documents, vocabulary and token-weighted formula |
-| Lab R04b–R04c | Estimation words are reused: **training / in-sample fit** |
-
-**Training fit does not measure prediction of unseen words.**
+**Lab R04 uses training words. A lower score alone does not establish the best K.**
 
 ::::::
 

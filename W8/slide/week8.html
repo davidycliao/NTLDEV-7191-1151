@@ -2169,7 +2169,7 @@ Yen-Chieh Liao
 </div>
 </div>
 
-  <p class="date">2026-10-30<span class="compile-time">Fall 2026 (115-1) · National Taiwan University (GIND)<br>NTLDEV 7191 · Fri. 16:30–18:20 · GIND 204<br>Last compiled: 2026-11-06 11:26:40 (Asia/Taipei)</span></p>
+  <p class="date">2026-10-30<span class="compile-time">Fall 2026 (115-1) · National Taiwan University (GIND)<br>NTLDEV 7191 · Fri. 16:30–18:20 · GIND 204<br>Last compiled: 2026-11-06 14:05:08 (Asia/Taipei)</span></p>
 </section>
 <section id="political-positions-and-issue-attention" class="slide level2">
 <h2>Political positions and issue attention</h2>
@@ -4520,40 +4520,54 @@ Read high-share texts and possible counterexamples
 <section id="reading-perplexity" class="slide level2">
 <h2>Reading perplexity</h2>
 <div class="slide-body compact-table w8-perplexity">
-<p><strong>Question:</strong> how well does the model reconstruct the observed words?</p>
-<div class="w8-perplexity-formula-frame">
-<p><span class="math display">\[\mathrm{perplexity}=\exp\!\left(-\frac{\sum_{d,v}x_{dv}\log p_{dv}}{\sum_{d,v}x_{dv}}\right),\qquad p_{dv}=\sum_k\theta_{dk}\beta_{kv}\]</span></p>
-<svg class="w8-perplexity-overlay" viewbox="0 0 986 142" role="img" aria-label="Four sequential annotation steps follow the formula explanation: word probability, count-weighted log probability, total tokens, then the negative average and exponential.">
-<g class="fragment current-visible w8-perplexity-annotation" data-fragment-index="0"> <ellipse cx="714" cy="51" rx="98" ry="38"></ellipse> <path d="M 842 109 L 815 92 L 802 78" /> <polygon points="802,78 807,91 815,83"></polygon> <text x="493" y="134">1 · Probability of a word in a document</text> </g> <g class="fragment current-visible w8-perplexity-annotation" data-fragment-index="1"> <ellipse cx="465" cy="27" rx="95" ry="22"></ellipse> <path d="M 582 5 L 556 20" /> <polygon points="556,20 570,18 564,8"></polygon> <text x="493" y="134">2 · Weight each log probability by its word count</text> </g> <g class="fragment current-visible w8-perplexity-annotation" data-fragment-index="2"> <ellipse cx="465" cy="73" rx="55" ry="19"></ellipse> <path d="M 552 111 L 529 96 L 514 84" /> <polygon points="514,84 520,97 529,88"></polygon> <text x="493" y="134">3 · Divide by all retained tokens</text> </g> <g class="fragment current-visible w8-perplexity-annotation" data-fragment-index="3"> <ellipse cx="335" cy="51" rx="25" ry="19"></ellipse> <ellipse cx="380" cy="51" rx="13" ry="13"></ellipse> <path d="M 276 110 L 310 85 L 326 69" /> <polygon points="326,69 312,75 321,84"></polygon> <text x="493" y="134">4 · Negate the average, then exponentiate</text> </g>
-</svg>
-</div>
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
+<p><strong>K:</strong> number of topics. <strong>Perplexity:</strong> a model fit score.</p>
+<table class="w8-focus-table">
 <thead>
-<tr class="header">
-<th>Read the statistic</th>
-<th>Classroom interpretation</th>
+<tr>
+<th>
+Step
+</th>
+<th>
+What to do
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td><strong>Lower perplexity is better</strong></td>
-<td>Same data, vocabulary and calculation.</td>
+<tr>
+<td>
+<span class="fragment current-visible w8-row-focus" data-fragment-index="0"></span>1 · Fit candidate models
+</td>
+<td>
+Same texts and vocabulary; e.g. LDA K = 3, 6, 9
+</td>
 </tr>
-<tr class="even">
-<td>LDA and STM</td>
-<td>Same documents, vocabulary and token-weighted formula</td>
+<tr>
+<td>
+<span class="fragment current-visible w8-row-focus" data-fragment-index="1"></span>2 · Compare scores
+</td>
+<td>
+Lower perplexity = better fit to the words being scored
+</td>
 </tr>
-<tr class="odd">
-<td>Lab R04b–R04c</td>
-<td>Estimation words are reused: <strong>training / in-sample fit</strong></td>
+<tr>
+<td>
+<span class="fragment current-visible w8-row-focus" data-fragment-index="2"></span>3 · Read the topics
+</td>
+<td>
+Check topic words and original texts: are the labels useful?
+</td>
+</tr>
+<tr>
+<td>
+<span class="fragment current-visible w8-row-focus" data-fragment-index="3"></span>4 · Choose a useful K
+</td>
+<td>
+Use the score and interpretation together
+</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Training fit does not measure prediction of unseen words.</strong></p>
+<p><strong>Lab R04 uses training words. A lower score alone does not establish the best K.</strong></p>
 </div>
 <div class="source">
 <p>Reference: <a href="https://www.jmlr.org/papers/v3/blei03a.html">Blei, Ng &amp; Jordan (2003)</a>; <a href="https://doi.org/10.1145/1553374.1553515">Wallach et al. (2009)</a>; <a href="https://doi.org/10.18637/jss.v091.i02">Roberts, Stewart &amp; Tingley (2019)</a></p>
