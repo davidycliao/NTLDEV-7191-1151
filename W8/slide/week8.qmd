@@ -1110,7 +1110,7 @@ Reference: [Catalinac (2016)](https://doi.org/10.1086/683073); [Gilardi, Shipan 
 
 :::::: {.slide-body .w8-ess-step}
 
-<p class="w8-study-label"><strong>Teacher demonstration · students repeat it in the Lab</strong></p>
+<p class="w8-study-label"><strong>In-class demonstration · students repeat it in the Lab</strong></p>
 
 **Political question:** Which issues do party leaders emphasize in their speeches?
 
@@ -1449,7 +1449,7 @@ Reference: [Roberts et al. (2014)](https://doi.org/10.1111/ajps.12103)
 
 :::::: {.slide-body .w8-ess-step .w8-stm-step .compact-table}
 
-<p class="w8-study-label"><strong>STM application · 1/5 · Teacher demonstration</strong></p>
+<p class="w8-study-label"><strong>STM application · 1/5 · In-class demonstration</strong></p>
 
 ::::: {.columns .w8-ess-step-columns}
 
@@ -1485,7 +1485,7 @@ metadata[i, c("party_family", "period")]
 
 ::: {.source}
 
-W8 teacher demonstration. Same 719 speeches and STM specification as [Lab R05](../lab/Lab_Session_W8.html#r05-stm-with-party-and-categorical-election-period).
+W8 in-class demonstration. Same 719 speeches and STM specification as [Lab R05](../lab/Lab_Session_W8.html#r05-stm-with-party-and-categorical-election-period).
 
 :::
 
@@ -1495,7 +1495,7 @@ W8 teacher demonstration. Same 719 speeches and STM specification as [Lab R05](.
 
 :::::: {.slide-body .w8-ess-step .w8-stm-step .compact-table}
 
-<p class="w8-study-label"><strong>STM application · 2/5 · Teacher demonstration</strong></p>
+<p class="w8-study-label"><strong>STM application · 2/5 · In-class demonstration</strong></p>
 
 ::::: {.columns .w8-ess-step-columns}
 
@@ -1536,7 +1536,7 @@ Party and period help model topic shares. Word choice within topics is shared in
 
 ::: {.source}
 
-W8 teacher demonstration. Same 719 speeches and STM specification as [Lab R05](../lab/Lab_Session_W8.html#r05-stm-with-party-and-categorical-election-period). [stm reference](https://search.r-project.org/CRAN/refmans/stm/help/stm.html).
+W8 in-class demonstration. Same 719 speeches and STM specification as [Lab R05](../lab/Lab_Session_W8.html#r05-stm-with-party-and-categorical-election-period). [stm reference](https://search.r-project.org/CRAN/refmans/stm/help/stm.html).
 
 :::
 
@@ -1546,7 +1546,7 @@ W8 teacher demonstration. Same 719 speeches and STM specification as [Lab R05](.
 
 :::::: {.slide-body .w8-ess-step .w8-stm-step .compact-table}
 
-<p class="w8-study-label"><strong>STM application · 3/5 · Teacher demonstration</strong></p>
+<p class="w8-study-label"><strong>STM application · 3/5 · In-class demonstration</strong></p>
 
 ::::: {.columns .w8-ess-step-columns}
 
@@ -1580,7 +1580,7 @@ The same Thatcher speech has **97.9%** in this STM topic.
 
 ::: {.source}
 
-W8 teacher demonstration. Same 719 speeches and STM specification as [Lab R05](../lab/Lab_Session_W8.html#r05-stm-with-party-and-categorical-election-period). Selected probability/FREX words from R05a; original speech ess_hoc_00004.
+W8 in-class demonstration. Same 719 speeches and STM specification as [Lab R05](../lab/Lab_Session_W8.html#r05-stm-with-party-and-categorical-election-period). Selected probability/FREX words from R05a; original speech ess_hoc_00004.
 
 :::
 
@@ -1590,7 +1590,7 @@ W8 teacher demonstration. Same 719 speeches and STM specification as [Lab R05](.
 
 :::::: {.slide-body .w8-ess-step .w8-stm-step .compact-table}
 
-<p class="w8-study-label"><strong>STM application · 4/5 · Teacher demonstration</strong></p>
+<p class="w8-study-label"><strong>STM application · 4/5 · In-class demonstration</strong></p>
 
 ::::: {.columns .w8-ess-step-columns}
 
@@ -1625,7 +1625,7 @@ Each sampled speech has equal weight.
 
 ::: {.source}
 
-W8 teacher demonstration. Same 719 speeches and STM specification as [Lab R05](../lab/Lab_Session_W8.html#r05-stm-with-party-and-categorical-election-period). Same unadjusted means as R05b.
+W8 in-class demonstration. Same 719 speeches and STM specification as [Lab R05](../lab/Lab_Session_W8.html#r05-stm-with-party-and-categorical-election-period). Same unadjusted means as R05b.
 
 :::
 
@@ -1635,7 +1635,7 @@ W8 teacher demonstration. Same 719 speeches and STM specification as [Lab R05](.
 
 :::::: {.slide-body .w8-ess-step .w8-stm-step .compact-table}
 
-<p class="w8-study-label"><strong>STM application · 5/5 · Teacher demonstration</strong></p>
+<p class="w8-study-label"><strong>STM application · 5/5 · In-class demonstration</strong></p>
 
 ::::: {.columns .w8-ess-step-columns}
 
@@ -1673,7 +1673,7 @@ round(100 * c(z$means[[4]], z$cis[[4]]), 2)
 
 ::: {.source}
 
-W8 teacher demonstration. Same 719 speeches and STM specification as [Lab R05](../lab/Lab_Session_W8.html#r05-stm-with-party-and-categorical-election-period). Exact R05c–R05d conditional difference; plot selects Topic 4 only.
+W8 in-class demonstration. Same 719 speeches and STM specification as [Lab R05](../lab/Lab_Session_W8.html#r05-stm-with-party-and-categorical-election-period). Exact R05c–R05d conditional difference; plot selects Topic 4 only.
 
 :::
 
@@ -1811,7 +1811,7 @@ Source: W8 Lab [R04a](../lab/Lab_Session_W8.html#r04a-read-alternative-topic-res
 
 :::::: {.slide-body .compact-table .w8-k-check}
 
-<p class="w8-study-label"><strong>Teacher demonstration · Choosing a topic resolution</strong></p>
+<p class="w8-study-label"><strong>In-class demonstration · Choosing a topic resolution</strong></p>
 
 ::::: {.columns .w8-k-check-columns}
 
