@@ -8,7 +8,7 @@
 # E02 and E05 are the in-class focus; finish the other exercises after class.
 # Research question: which issues do leaders discuss, and how does attention vary by party?
 # Build one DFM, fit LDA, check texts, then fit STM and estimate party comparisons.
-# Primary steps fit the models in R; no Python or API is required.
+# Primary steps fit the models in R.
 # First-time packages: see R00 in the HTML handout.
 
 
