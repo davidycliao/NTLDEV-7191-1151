@@ -12,25 +12,19 @@
 
 ## Announcements
 
-1. **Git & GitHub guide for Mac users:** [Git 與 GitHub 新手實戰完全手冊 / Git & GitHub Practical Guide (PDF)](Ｗ1/resource/git-github-mac-guide.pdf). 感謝 **貴評（國發3）** 提供！
+1. ~~**Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** **Submission deadline: October 9, 2026.**~~
 
-2. ~~**Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** **Submission deadline: October 9, 2026.**~~
+2. ~~**Research title + abstract due: October 23, 2026 (Week 7).** You are welcome to book [instructor office hours](https://calendly.com/ycliao/text-as-data-instructor) to discuss your research ideas, title, or abstract before the deadline.~~
 
-3. ~~**Research title + abstract due: October 23, 2026 (Week 7).** You are welcome to book [instructor office hours](https://calendly.com/ycliao/text-as-data-instructor) to discuss your research ideas, title, or abstract before the deadline.~~
+3. ~~**Call for Proposals: [84th Annual MPSA Conference (2027)](https://www.mpsanet.org/conference/).** **Paper proposal deadline: October 27, 2026.**~~
 
-4. ~~**Call for Proposals: [84th Annual MPSA Conference (2027)](https://www.mpsanet.org/conference/).** **Paper proposal deadline: October 27, 2026.**~~
+4. **Call for Abstracts: IPSA World Congress of Political Science 2027 (Rome), panel “[Special Interest Influence and the Quality of Democratic Representation](https://wc2027.ipsa.org/wc/panel/special-interest-influence-and-quality-democratic-representation).”** **The abstract deadline has been extended to November 11, 2026.** The panel welcomes theoretical, empirical, and comparative research from different approaches and areas. [IPSA submission instructions](https://wc2027.ipsa.org/wc/submit-paper).
 
-5. **Call for Abstracts: IPSA World Congress of Political Science 2027 (Rome), panel “[Special Interest Influence and the Quality of Democratic Representation](https://wc2027.ipsa.org/wc/panel/special-interest-influence-and-quality-democratic-representation).”** **The abstract deadline has been extended to November 11, 2026.** The panel welcomes theoretical, empirical, and comparative research from different approaches and areas. [IPSA submission instructions](https://wc2027.ipsa.org/wc/submit-paper).
+5. **Call for Papers: [EPSS 2027 Conference (Copenhagen)](https://epssnet.org/2027-copenhagen/call-for-papers-2/).** **Submission deadline: November 13, 2026, 23:59 CET** (November 14, 2026, 06:59 Taipei time).
 
-6. **Call for Papers: [EPSS 2027 Conference (Copenhagen)](https://epssnet.org/2027-copenhagen/call-for-papers-2/).** **Submission deadline: November 13, 2026, 23:59 CET** (November 14, 2026, 06:59 Taipei time).
+6. **Call for Papers: [22nd TASPAA Annual Conference (2027)](https://www.taspaa.org/news_info.aspx?ID=258).** **Abstract and panel proposal deadline: December 1, 2026.** Conference: May 14–15, 2027, at National Taipei University, Sanxia Campus.
 
-7. **Call for Papers: [22nd TASPAA Annual Conference (2027)](https://www.taspaa.org/news_info.aspx?ID=258).** **Abstract and panel proposal deadline: December 1, 2026.** Conference: May 14–15, 2027, at National Taipei University, Sanxia Campus.
-
-8. **Call for Papers for the 6th European PolMeth Meeting.** The meeting will take place May 24–25, 2027, at the Hertie School in Berlin, Germany. **Abstracts are due December 15, 2026.** Submit an abstract of up to 300 words. [Submission form](https://forms.cloud.microsoft/e/7WmRcpi3ky) · [Conference website](https://polmeth.eu/).
-
-   PolMeth Europe welcomes methodological contributions and applications of innovative empirical methods across all subfields. The meeting brings together scholars at all career stages, and the organizers especially encourage submissions from underrepresented groups. Limited travel and accommodation subsidies of EUR 150 per person are available to PhD students, with support for one author per accepted paper or poster.
-
-   Participation decisions will be communicated by early January 2027. The local organizers are Asya Magazinnik and Simon Munzert. [Contact the organizers](mailto:munzert@hertie-school.org).
+7. **Call for Papers: [6th European PolMeth Meeting (Berlin)](https://polmeth.eu/).** **Abstract submission deadline: December 15, 2026.** The meeting takes place May 24–25, 2027, at the Hertie School. [Submission form (300 words max.)](https://forms.cloud.microsoft/e/7WmRcpi3ky).
 
 Use **HTML** to view slides in your browser, **PDF** for a downloadable copy, and **Source ZIP** for editable slide files.
 
@@ -39,6 +33,7 @@ If the HTML link shows an external-content notice, select **Open the page** to v
 ## Resources
 
 - [Course syllabus (PDF)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/NTLDEV_7191_1151.pdf)
+- **Git & GitHub guide for Mac users:** [Git 與 GitHub 新手實戰完全手冊 / Git & GitHub Practical Guide (PDF)](Ｗ1/resource/git-github-mac-guide.pdf). 感謝 **貴評（國發3）** 提供！
 - [同學自製互動自學講義 / Student-created interactive study notes](https://fdexpert.github.io/NTLDEV-7191/) · [English](https://fdexpert.github.io/NTLDEV-7191/index.en.html) · [GitHub](https://github.com/fdexpert/NTLDEV-7191/tree/gh-pages). 感謝 **台大商學博士生 鄭志偉 Jerry** 分享！
 - [Assignment template / 作業模板 (LaTeX)](Ｗ1/resource/assignment-template) · [Preview PDF](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/%EF%BC%B71/resource/assignment-template/assignment-template-preview.pdf) · [Download ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/%EF%BC%B71/resource/assignment-template/assignment-template.zip). Upload the ZIP to Overleaf to create a project. It contains `main-template.tex`, `reference.bib`, and the `images` folder.
 
