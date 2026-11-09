@@ -12,13 +12,15 @@
 
 ## Announcements
 
+*Last updated November 9, 2026 at 03:32 PST.*
+
 1. ~~**Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** **Submission deadline: October 9, 2026.**~~
 
 2. ~~**Research title + abstract due: October 23, 2026 (Week 7).** You are welcome to book [instructor office hours](https://calendly.com/ycliao/text-as-data-instructor) to discuss your research ideas, title, or abstract before the deadline.~~
 
 3. ~~**Call for Proposals: [84th Annual MPSA Conference (2027)](https://www.mpsanet.org/conference/).** **Paper proposal deadline: October 27, 2026.**~~
 
-4. **Call for Abstracts: IPSA World Congress of Political Science 2027 (Rome), panel “[Special Interest Influence and the Quality of Democratic Representation](https://wc2027.ipsa.org/wc/panel/special-interest-influence-and-quality-democratic-representation).”** **The abstract deadline has been extended to November 11, 2026.** The panel welcomes theoretical, empirical, and comparative research from different approaches and areas. [IPSA submission instructions](https://wc2027.ipsa.org/wc/submit-paper).
+4. ~~**Call for Abstracts: IPSA World Congress of Political Science 2027 (Rome), panel “[Special Interest Influence and the Quality of Democratic Representation](https://wc2027.ipsa.org/wc/panel/special-interest-influence-and-quality-democratic-representation).”** **The abstract deadline has been extended to November 11, 2026.** The panel welcomes theoretical, empirical, and comparative research from different approaches and areas. [IPSA submission instructions](https://wc2027.ipsa.org/wc/submit-paper).~~
 
 5. **Call for Papers: [EPSS 2027 Conference (Copenhagen)](https://epssnet.org/2027-copenhagen/call-for-papers-2/).** **Submission deadline: November 13, 2026, 23:59 CET** (November 14, 2026, 06:59 Taipei time).
 
