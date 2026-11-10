@@ -12,7 +12,7 @@
 
 ## Announcements
 
-*Last updated November 9, 2026 at 03:32 PST.*
+*Last updated November 9, 2026 at 21:20 PST.*
 
 1. ~~**Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** **Submission deadline: October 9, 2026.**~~
 
@@ -27,6 +27,8 @@
 6. **Call for Papers: [22nd TASPAA Annual Conference (2027)](https://www.taspaa.org/news_info.aspx?ID=258).** **Abstract and panel proposal deadline: December 1, 2026.** Conference: May 14–15, 2027, at National Taipei University, Sanxia Campus.
 
 7. **Call for Papers: [6th European PolMeth Meeting (Berlin)](https://polmeth.eu/).** **Abstract submission deadline: December 15, 2026.** The meeting takes place May 24–25, 2027, at the Hertie School. [Submission form (300 words max.)](https://forms.cloud.microsoft/e/7WmRcpi3ky).
+
+8. **Call for Papers: [9th International COMPTEXT Conference (Prague)](https://www.comptextconference.org/9th-annual-conference-2027/).** **Submission deadline: December 15, 2026.** The conference takes place May 27–29, 2027, at the Faculty of Social Sciences, Charles University. Acceptance notifications will be sent by January 20, 2027.
 
 Use **HTML** to view slides in your browser, **PDF** for a downloadable copy, and **Source ZIP** for editable slide files.
 
