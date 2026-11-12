@@ -1,0 +1,21 @@
+{
+  "verified_date": "2026-11-11",
+  "platform": "macOS",
+  "python": "3.10.11",
+  "flair": "0.15.1",
+  "torch": "2.2.2",
+  "numpy": "1.26.2",
+  "gensim": "4.3.2",
+  "R": "4.4.1",
+  "reticulate": "1.45.0",
+  "flaiR": "0.1.8",
+  "environment": "Temporary virtual environment inherited installed dependencies; cached GloVe; CPU.",
+  "r_python_max_vector_difference_tolerance": 1e-06,
+  "word_matrix": [
+    11,
+    100
+  ],
+  "pca_pc1_pc2_percent": 38.24,
+  "security_max_coordinate_difference": 0,
+  "security_pairwise_cosine": 1
+}

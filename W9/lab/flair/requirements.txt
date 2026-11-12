@@ -1,0 +1,7 @@
+# New isolated environment, Python 3.10 or 3.11.
+# Flair's word-embeddings extra supplies gensim for the GloVe loader.
+# Existing 2024 teaching environments can run --check before considering an upgrade.
+flair[word-embeddings]==0.15.1
+numpy>=1.26,<2
+# PCA image export imports pyplot only when --output-dir is supplied.
+matplotlib>=3.8,<4

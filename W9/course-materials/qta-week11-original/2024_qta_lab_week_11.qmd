@@ -1,0 +1,192 @@
+---
+title: "Quantitative Text Analysis"
+subtitle: "Lab Session: Week 11"
+author: "Instructor: Yen-Chieh Liao and Stefan Müller "
+date: "15 April 2024"
+format: 
+    html:
+        self-contained: true
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Installation
+
+<div style="text-align: justify;">
+
+Practice installing this R wrapper by following the instructions provided, or by consulting the flaiR documentation at `https://davidycliao.github.io/flaiR/`.
+
+</div>
+
+### Environment Setup: Python, R, and RStudio
+
+<div style="text-align: justify;">
+
+**Following Instructions Below:**
+
+Step 1: The installation consists of two parts:
+
+- First, install Python 3.8 or higher (avoid developmental versions and the very latest release for compatibility reasons). 
+
+- Secondly, install R 4.2.0 or higher. For official python reference: https://flairnlp.github.io/flair/v0.13.1/. In R, our research group has a R wrapper --- [flaiR](https://davidycliao.github.io/flaiR/).
+
+**System Requirement:**
+
+- Python (\>= 3.10.x)
+
+- R (\>= 4.2.0)
+
+- RStudio *(The GUI interface allows users to adjust and manage the
+  Python environment in R)*
+
+- Anaconda or miniconda *(Highly recommended for managing the Python environment, the Conda environment in RStudio can be easily changed by `Tools ➟ Global Options ➟ Python`..)*
+
+Step 2: Now, install __flaiR__ in Rstudio:
+
+```
+install.packages("remotes")
+remotes::install_github("davidycliao/flaiR", force = TRUE)
+
+library(flaiR)
+#> flaiR: An R Wrapper for Accessing Flair NLP 0.13.0
+```
+**Notice:**
+
+- When first installed, __flaiR__ automatically detects whether you have
+Python 3.8 or higher. If not, __flaiR__ will skip the automatic installation of
+Python and flair NLP. In this case, you will need to manually install it
+yourself and reload {`flaiR`} again. If you have correct Python
+installed, the {`flaiR`} will automatically install flair Python NLP in
+your global environment. If you are using {reticulate},  __flaiR__ will
+typically assume the **r-reticulate** environment by default. At the
+same time, you can use `py_config()` to check the location of your
+environment. Please note that flaiR will directly install flair NLP in
+the Python environment that your R is using. This environment can be
+adjusted through *RStudio* by navigating to
+**`Tools -> Global Options -> Python`**. If there are any issues with
+the installation, feel free to ask question in the
+<u>[Slack]() </u>.
+
+- _I suggest not directly installing Python and RStudio, along with R, from the University's AnyApp platform._
+
+</div>
+
+## Word Embeddings 
+
+`Sentence:` a class is used to tokenize the input text.
+
+`WordEmbeddings:` a class is used to embed tokenized text.
+
+```{r}
+library(flaiR)
+Sentence <- flair_data()$Sentence
+WordEmbeddings <- flair_embeddings()$WordEmbeddings
+```
+
+### Classic Word Embeddings
+
+- GloVe embeddings are Pytorch vectors of dimensionality 100. 
+
+- For English, Flair provides a few more options. Here, you can use 'en-glove' and 'en-extvec' with the WordEmbeddings class.
+
+| ID                            | Language | Embedding                                  |
+|-------------------------------|----------|--------------------------------------------|
+| 'en-glove' (or 'glove')       | English  | GloVe embeddings                           |
+| 'en-extvec' (or 'extvec')     | English  | Komninos embeddings                        |
+| 'en-crawl' (or 'crawl')       | English  | FastText embeddings over Web crawls        |
+| 'en-twitter' (or 'twitter')   | English  | Twitter embeddings                         |
+| 'en-turian' (or 'turian')     | English  | Turian embeddings (small)                  |
+| 'en' (or 'en-news' or 'news') | English  | FastText embeddings over  wikipedia data   |
+
+-  Flair NLP supports a variety of embeddings. For detailed information, please see: [Classic Word Embeddings in Flair](https://github.com/flairNLP/flair/blob/master/resources/docs/embeddings/CLASSIC_WORD_EMBEDDINGS.md). 
+
+```{r}
+embedding <- WordEmbeddings("glove") 
+```
+
+- Print the class
+```{r}
+print(embedding)
+```
+
+### Tokenize & Embed
+```{r}
+# Tokenize the text
+sentence <- Sentence("King Queen man woman Paris London apple orange Taiwan Dublin Bamberg") 
+
+# Embed the sentence text using the loaded model.
+embedding$embed(sentence)
+```
+
+-  The `sentence` is being embedded with the corresponding vector from the model, store to the list.
+```{r}
+sen_list <- list()
+for (i in seq_along(sentence$tokens)) {
+  # store the tensor vectors to numeric vectors
+  sen_list[[i]] <- as.vector(sentence$tokens[[i]]$embedding$numpy())
+}
+```
+
+- Extract the name list to R vector
+```{r}
+token_texts <- sapply(sentence$tokens, function(token) token$text)
+```
+
+- Form the dataframe. 
+```{r}
+sen_df <- do.call(rbind, lapply(sen_list, function(x) t(data.frame(x))))
+sen_df <- as.data.frame(sen_df)
+rownames(sen_df) <- token_texts
+print(sen_df[,1:20])
+```
+
+## Dimension Reduction (PCA)
+```{r}
+# Set the seed for reproducibility
+set.seed(123)
+
+# Execute PCA
+pca_result <- prcomp(sen_df, center = TRUE, scale. = TRUE)
+word_embeddings_matrix <- as.data.frame(pca_result$x[,1:3] )
+rownames(word_embeddings_matrix) <- token_texts
+word_embeddings_matrix
+```
+
+### 2D Plot
+```{r}
+library(ggplot2)
+plot2D <- ggplot(word_embeddings_matrix, aes(x = PC1, y = PC2, color = PC3, 
+                                             label = rownames(word_embeddings_matrix))) +
+  geom_point(size = 3) + 
+  geom_text(vjust = 1.5, hjust = 0.5) +  
+  scale_color_gradient(low = "blue", high = "red") + 
+  theme_minimal() +  
+  labs(title = "", x = "PC1", y = "PC2", color = "PC3") 
+  # guides(color = "none")  
+plot2D
+```
+
+### Bonus: 3D Plot
+
+[plotly](https://plotly.com/r/) in R API: https://plotly.com/r/
+
+```{r, message = FALSE, warning = FALSE}
+library(plotly)
+plot3D <- plot_ly(data = word_embeddings_matrix, 
+                  x = ~PC1, y = ~PC2, z = ~PC3, 
+                  type = "scatter3d", mode = "markers",
+                  marker = list(size = 5), 
+                  text = rownames(word_embeddings_matrix), hoverinfo = 'text')
+
+plot3D
+```
+
+
+## Tasks
+
+- Use the script provided above with a different word embedding model and perform the PCA again to observe any differences that emerge?
+
+- Create a sentence object, extract the vectors, and perform PCA again. Then, compare the results from different models.
+
+

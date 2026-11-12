@@ -1,0 +1,10 @@
+body {font-size: 17px;} main {max-width: 1000px;} pre {white-space: pre-wrap; overflow-wrap: anywhere;} pre code {white-space: pre-wrap;} pre > code.sourceCode {white-space: pre-wrap !important;} pre > code.sourceCode > span {white-space: pre-wrap; overflow-wrap: anywhere;} .cell-output pre {font-size: .84em;} table {font-size: .92em;}
+/* Keep long formulas and exported tables usable on narrow screens. */
+body {overflow-wrap: anywhere;}
+span.math.display {display: block; max-width: 100%; overflow-x: auto;}
+p:has(> math[display="block"]) {max-width: 100%; overflow-x: auto;}
+@media (max-width: 760px) {
+  table {display: block; max-width: 100%; overflow-x: auto;}
+  .cell-output-display {max-width: 100%; overflow-x: auto;}
+  th, td {overflow-wrap: anywhere;}
+}

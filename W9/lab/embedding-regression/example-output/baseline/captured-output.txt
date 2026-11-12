@@ -1,0 +1,27 @@
+W9 embedding regression — baseline 
+Corpus: 400 documents
+Exact immigration: 924 contexts; immigr*: 1337 contexts
+Embedding vocabulary: 500 x 300 ; DEM: 924 x 300 ; transform: 300 x 300 
+ party gender n_contexts
+     D      F        185
+     R      F        119
+     D      M        301
+     R      M        319
+Adjusted difference-vector lengths (not percentages)
+     term l2_length squared_length dimension
+  party_R  3.184327      10.139940       300
+ gender_M  2.628452       6.908761       300
+Model-predicted neighbours, female gender held fixed
+ group party held_gender rank       feature  cosine
+    DF     D           F    1 comprehensive 0.64005
+    DF     D           F    2    immigrants 0.63343
+    DF     D           F    3   enforcement 0.62419
+    DF     D           F    4        broken 0.62208
+    DF     D           F    5        reform 0.61100
+    RF     R           F    1       illegal 0.69498
+    RF     R           F    2   enforcement 0.67233
+    RF     R           F    3       enforce 0.66353
+    RF     R           F    4          laws 0.66272
+    RF     R           F    5    immigrants 0.64174
+No CI, jackknife or permutation inference. Do not claim significance.
+Checks: TRUE 

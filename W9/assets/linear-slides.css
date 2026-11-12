@@ -1,0 +1,116 @@
+/* One physical slide and one speaker script per teaching view. */
+.reveal .w9-linear-stage-label {
+  color: var(--course-green);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 12px;
+}
+.reveal .w9-linear-slide .w9-reading-focus {
+  opacity: 1;
+  visibility: visible;
+  margin: 0 0 14px;
+  padding: 3px 0 3px 10px;
+  border-left: 3px solid transparent;
+}
+.reveal .w9-linear-slide .w9-reading-focus.current-fragment,
+.reveal .w9-linear-slide .w9-reading-focus.w9-linear-current {
+  border-left-color: var(--course-red);
+  background: rgba(184, 58, 58, .045);
+}
+.reveal .w9-linear-slide .w9-linear-panel { width: 100%; }
+.reveal .w9-linear-slide .w9-tab-panel {
+  display: block;
+  height: auto;
+  min-width: 0;
+  max-width: 100%;
+}
+.reveal .w9-linear-slide .w9-tab-panel > p {
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 8px 0;
+}
+.reveal .w9-linear-slide .w9-linear-panel pre,
+.reveal .w9-linear-slide .w9-linear-panel pre code {
+  font-size: 20px;
+  line-height: 1.18;
+  white-space: pre-wrap;
+}
+.reveal .w9-linear-slide .w9-linear-panel pre code { padding: 10px 12px; }
+.reveal .w9-linear-slide .w9-tab-output td,
+.reveal .w9-linear-slide .w9-tab-output th {
+  font-size: 24px;
+  line-height: 1.2;
+  padding: 7px 8px;
+}
+.reveal .w9-linear-slide .w9-tab-output .case-quote-grid p {
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 8px 0;
+}
+.reveal .w9-linear-slide [data-w9-linear-hidden="true"] {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+html.print-pdf .reveal .w9-linear-slide .w9-row-focus.current-fragment,
+html.print-pdf .reveal .w9-linear-slide .w9-row-focus.w9-linear-current {
+  display: inline !important;
+}
+html.print-pdf .reveal .w9-linear-slide .case-workflow tr:has(.w9-row-focus.current-fragment),
+html.print-pdf .reveal .w9-linear-slide .case-workflow tr:has(.w9-row-focus.w9-linear-current),
+html.print-pdf .reveal .w9-linear-slide .w9-lab-focus-target:has(.w9-row-focus.current-fragment),
+html.print-pdf .reveal .w9-linear-slide .w9-lab-focus-target:has(.w9-row-focus.w9-linear-current) {
+  outline: 3px solid var(--course-red) !important;
+  outline-offset: -3px;
+}
+html.print-pdf .reveal .w9-linear-slide .w9-reading-focus.current-fragment,
+html.print-pdf .reveal .w9-linear-slide .w9-reading-focus.w9-linear-current {
+  border-left-color: var(--course-red) !important;
+  background: rgba(184, 58, 58, .045) !important;
+}
+@media print {
+  .reveal .w9-linear-slide .w9-tab-panel { display: block !important; }
+  .reveal .w9-linear-slide .w9-linear-panel { display: block !important; }
+}
+html.print-pdf .reveal .w9-linear-slide .w9-er-paper-focus {
+  display: block !important;
+}
+html.print-pdf .reveal .w9-linear-slide .w9-concept-reading .w9-reading-focus.current-fragment {
+  outline: 2px solid var(--course-red) !important;
+  outline-offset: 3px;
+}
+/* The guide panels are nested fixed views, so scope prose beyond direct children. */
+.reveal .w9-linear-slide .w9-lab-plan p {
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 8px 0;
+}
+.reveal .w9-linear-slide .w9-lab-guide-context th:first-child {
+  width: 24%;
+}
+.reveal .w9-linear-slide .w9-lab-guide-context th:nth-child(2) {
+  width: 76%;
+}
+.reveal .w9-linear-slide .w9-lab-guide-context th,
+.reveal .w9-linear-slide .w9-lab-guide-context td {
+  font-size: 21px;
+  line-height: 1.15;
+  padding: 6px 7px;
+}
+@media print {
+  .reveal .w9-linear-slide[id^="training-choices-shape"] table {
+    table-layout: fixed;
+    width: calc(100% - 24px);
+    max-width: calc(100% - 24px);
+  }
+  .reveal .w9-linear-slide[id^="training-choices-shape"] col:first-child { width: 21%; }
+  .reveal .w9-linear-slide[id^="training-choices-shape"] col:nth-child(2) { width: 49%; }
+  .reveal .w9-linear-slide[id^="training-choices-shape"] col:nth-child(3) { width: 30%; }
+  .reveal .w9-linear-slide[id^="training-choices-shape"] th,
+  .reveal .w9-linear-slide[id^="training-choices-shape"] td {
+    font-size: 21px;
+    line-height: 1.15;
+    padding: 6px 7px;
+    overflow-wrap: anywhere;
+  }
+}

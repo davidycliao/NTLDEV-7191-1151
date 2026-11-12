@@ -1,0 +1,389 @@
+/* W8 native Code / Output layout, with staged reading marks on R05 and F03. */
+.reveal .w9-tab-step > p {
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 0 0 12px;
+}
+.reveal .w9-code-output-tabs { position: relative; width: 100%; }
+.reveal .w9-code-output-tablist {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #cad5d3;
+  margin: 0 0 10px;
+}
+.reveal .w9-code-output-tab {
+  font-family: inherit;
+  font-size: 24px;
+  line-height: 1.15;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--course-slate);
+  padding: 7px 16px;
+  cursor: pointer;
+}
+.reveal .w9-code-output-tab:focus-visible {
+  outline: 2px solid var(--course-blue);
+  outline-offset: 2px;
+}
+.reveal .w9-code-output-tabs [data-w9-tab][aria-selected="true"] {
+  color: var(--course-green);
+  border-bottom-color: var(--course-green);
+  font-weight: 600;
+}
+.reveal .w9-code-output-trigger {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.reveal .w9-code-output-tabs .w9-tab-panel {
+  height: 390px;
+  box-sizing: border-box;
+  overflow: visible;
+}
+.reveal .w9-code-output-tabs .w9-tab-panel > p {
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 8px 0;
+}
+.reveal .w9-code-output-tabs pre {
+  font-size: 20px;
+  line-height: 1.18;
+  margin: 8px 0;
+}
+.reveal .w9-code-output-tabs pre code {
+  font-size: inherit;
+  line-height: inherit;
+  white-space: pre-wrap;
+  padding: 10px 12px;
+}
+.reveal .w9-code-output-tabs .w9-tab-panel[aria-hidden="true"] { display: none; }
+.reveal .w9-code-output-tabs .w9-tab-panel[aria-hidden="false"] { display: block; }
+.reveal .w9-lab-plan > p {
+  font-size: 24px;
+  line-height: 1.2;
+}
+.reveal .w9-lab-plan table {
+  width: 100%;
+  table-layout: fixed;
+  margin: 14px 0;
+}
+.reveal .w9-lab-plan th,
+.reveal .w9-lab-plan td {
+  font-size: 22px;
+  line-height: 1.2;
+  padding: 8px 7px;
+  vertical-align: top;
+}
+.reveal .w9-lab-plan th:first-child { width: 13%; }
+.reveal .w9-lab-plan th:nth-child(2) { width: 47%; }
+.reveal .w9-lab-plan th:nth-child(3) { width: 40%; }
+.reveal .w9-code-output-tabs .w9-tab-output td,
+.reveal .w9-code-output-tabs .w9-tab-output th {
+  font-size: 24px;
+  line-height: 1.2;
+  padding: 7px 8px;
+}
+.reveal .w9-code-output-tabs .w9-tab-output .case-quote-grid p {
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 8px 0;
+}
+.reveal .w9-lab-focus-target {
+  position: relative;
+  margin: 8px 0 8px 24px;
+  padding: 5px 8px;
+}
+.reveal .w9-lab-focus-target > p {
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 0;
+}
+.reveal .w9-lab-focus-target:has(.w9-row-focus.current-fragment) {
+  outline: 3px solid var(--course-red);
+  outline-offset: -3px;
+}
+.reveal .w9-lab-focus-target table { margin: 0; width: 100%; }
+.reveal .w9-lab-focus-target > table + p { margin-top: 6px; }
+/* This complete retrieval step uses the full code width. */
+.reveal .w9-three-tabs .w9-tab-compare pre.numberSource {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0 !important;
+  padding: 8px !important;
+}
+.reveal .w9-three-tabs .w9-tab-compare pre.numberSource code {
+  padding: 0 !important;
+}
+.reveal .w9-three-tabs .w9-tab-compare pre.numberSource code > span {
+  left: 0 !important;
+}
+.reveal .w9-three-tabs .w9-tab-compare pre.numberSource code > span > a:first-child::before {
+  display: none !important;
+}
+@media screen {
+  .reveal .w9-three-tabs .w9-tab-compare pre,
+  .reveal .w9-three-tabs .w9-tab-compare pre code,
+  .reveal .w9-three-tabs .w9-tab-compare pre code > span {
+    font-size: 20px;
+    line-height: 1.12;
+    min-height: 1.12em;
+  }
+  .reveal .w9-three-tabs .w9-tab-code pre,
+  .reveal .w9-three-tabs .w9-tab-code pre code,
+  .reveal .w9-three-tabs .w9-tab-code pre code > span {
+    line-height: 1.12;
+    min-height: 1.12em;
+  }
+}
+@media print {
+  .reveal .w9-code-output-tabs.w9-overview-tabs .w9-tab-overview {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    margin-bottom: 0;
+  }
+  .reveal .w9-code-output-tabs.w9-overview-tabs .w9-tab-code,
+  .reveal .w9-code-output-tabs.w9-overview-tabs .w9-tab-output {
+    grid-row: 2;
+  }
+  .reveal .w9-code-output-tabs.w9-overview-tabs .w9-lab-plan > p {
+    font-size: 18px;
+    line-height: 1.1;
+    margin: 0;
+  }
+  .reveal .w9-code-output-tabs.w9-overview-tabs .w9-lab-plan table {
+    margin: 2px 0;
+  }
+  .reveal .w9-code-output-tabs.w9-overview-tabs .w9-lab-plan th,
+  .reveal .w9-code-output-tabs.w9-overview-tabs .w9-lab-plan td {
+    font-size: 17px;
+    line-height: 1.1;
+    padding: 3px 5px;
+  }
+  .reveal .w9-lab-focus-target {
+    margin: 4px 0;
+    padding: 0;
+    outline: none !important;
+  }
+  .reveal .w9-lab-focus-target > p {
+    font-size: 19px;
+    line-height: 1.15;
+  }
+  .reveal .w9-code-output-tabs {
+    display: grid !important;
+    grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+    column-gap: 18px;
+    align-items: start;
+  }
+  .reveal .w9-code-output-tablist,
+  .reveal .w9-code-output-trigger { display: none !important; }
+  .reveal .w9-code-output-tabs .w9-tab-panel {
+    display: block !important;
+    height: auto !important;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    grid-row: 1;
+  }
+  .reveal .w9-code-output-tabs .w9-tab-code { grid-column: 1; }
+  .reveal .w9-code-output-tabs .w9-tab-output { grid-column: 2; }
+  .reveal .w9-three-tabs .w9-tab-compare { grid-column: 2; }
+  .reveal .w9-three-tabs .w9-tab-output { grid-row: 2; grid-column: 1 / -1; }
+  .reveal .w9-code-output-tabs .w9-tab-panel::before {
+    display: block;
+    color: var(--course-green);
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 7px;
+  }
+  .reveal .w9-code-output-tabs .w9-tab-code::before { content: "Code"; }
+  .reveal .w9-code-output-tabs .w9-tab-output::before { content: "Output"; }
+  .reveal .w9-three-tabs .w9-tab-code::before { content: "R02 · Prepare"; }
+  .reveal .w9-three-tabs .w9-tab-compare::before { content: "R03 · Compare"; }
+  .reveal .w9-code-output-tabs pre,
+  .reveal .w9-code-output-tabs pre code {
+    font-size: 17px;
+    line-height: 1.12;
+    margin: 4px 0;
+  }
+  .reveal .w9-code-output-tabs .w9-tab-panel > p,
+  .reveal .w9-code-output-tabs .w9-tab-output .case-quote-grid p {
+    font-size: 19px;
+    line-height: 1.15;
+    margin: 5px 0;
+  }
+  .reveal .w9-code-output-tabs .w9-tab-output td,
+  .reveal .w9-code-output-tabs .w9-tab-output th {
+    font-size: 18px;
+    line-height: 1.15;
+    padding: 4px 6px;
+  }
+  .reveal .w9-code-output-tabs .w9-tab-output .case-quote-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+  /* The three-stage slide prints both code panes above its shared output. */
+  .reveal .w9-three-tabs pre,
+  .reveal .w9-three-tabs pre code {
+    font-size: 15px;
+    line-height: 1.03;
+  }
+  .reveal .w9-three-tabs pre.numberSource {
+    margin-left: 0 !important;
+    padding: 8px !important;
+  }
+  .reveal .w9-three-tabs pre.numberSource code {
+    padding: 0 !important;
+  }
+  .reveal .w9-three-tabs pre.numberSource code > span {
+    left: 0 !important;
+    line-height: 1.03 !important;
+    min-height: 1.03em !important;
+  }
+  .reveal .w9-three-tabs pre.numberSource code > span > a:first-child::before {
+    display: none !important;
+  }
+  .reveal .w9-three-tabs .w9-tab-panel::before {
+    font-size: 18px;
+    margin-bottom: 3px;
+  }
+  .reveal .w9-three-tabs .w9-tab-output > p {
+    font-size: 17px;
+    line-height: 1.1;
+    margin: 4px 0;
+  }
+  .reveal .w9-three-tabs .w9-tab-output td,
+  .reveal .w9-three-tabs .w9-tab-output th {
+    font-size: 16px;
+    line-height: 1.1;
+    padding: 3px 6px;
+  }
+  .reveal .w9-three-tabs .w9-tab-compare pre,
+  .reveal .w9-three-tabs .w9-tab-compare pre code,
+  .reveal .w9-three-tabs .w9-tab-compare pre code > span {
+    font-size: 14px;
+    line-height: 1.03 !important;
+    min-height: 1.03em !important;
+  }
+}
+
+/* Give the PCA figure and coordinate table enough width in the printed pair. */
+@media print {
+  .reveal .w9-code-output-tabs[data-lab-step="PCA"] {
+    grid-template-columns: minmax(0, 32fr) minmax(0, 68fr);
+  }
+  .reveal .w9-code-output-tabs[data-lab-step="PCA"] .case-split {
+    grid-template-columns: minmax(0, 56fr) minmax(0, 44fr);
+    gap: 12px;
+  }
+  .reveal .w9-code-output-tabs[data-lab-step="PCA"] .case-reading {
+    min-width: 0;
+  }
+}
+
+/* W9 Lab: one physical slide, with a Code view and staged Output views. */
+.reveal .w9-tabbed-lab-slide .w9-tab-view-trigger {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.reveal .w9-tabbed-lab-slide .w9-tab-panel {
+  height: auto;
+  min-width: 0;
+  max-width: 100%;
+}
+.reveal .w9-tabbed-lab-slide .w9-tab-view {
+  display: none;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.reveal .w9-tabbed-lab-slide .w9-tab-view[data-w9-state="code"],
+.reveal .w9-tabbed-lab-slide .w9-tab-view[aria-hidden="false"] {
+  display: block;
+}
+.reveal .w9-tabbed-lab-slide .w9-tab-view[aria-hidden="true"] {
+  display: none;
+}
+.reveal .w9-tabbed-lab-slide .w9-tab-view p {
+  font-size: 24px;
+  line-height: 1.2;
+  margin: 8px 0;
+}
+.reveal .w9-tabbed-lab-slide .w9-tab-view .w9-lab-focus-target > p {
+  margin: 0;
+}
+.reveal .w9-tabbed-lab-slide .w9-tab-view .w9-row-focus.current-fragment,
+.reveal .w9-tabbed-lab-slide .w9-tab-view .w9-row-focus.w9-linear-current {
+  opacity: 1;
+  visibility: visible;
+}
+.reveal .w9-tabbed-lab-slide .w9-lab-focus-target:has(.w9-row-focus.w9-linear-current) {
+  outline: 3px solid var(--course-red);
+  outline-offset: -3px;
+}
+
+@media print {
+  .reveal .w9-tabbed-lab-slide .w9-code-output-tabs {
+    grid-template-columns: minmax(0, 50fr) minmax(0, 50fr);
+    column-gap: 16px;
+  }
+  .reveal .w9-tabbed-lab-slide .w9-tab-view-trigger {
+    display: none !important;
+  }
+  .reveal .w9-tabbed-lab-slide .w9-tab-view,
+  .reveal .w9-tabbed-lab-slide .w9-tab-view[aria-hidden="true"] {
+    display: block !important;
+    height: auto !important;
+  }
+  .reveal .w9-tabbed-lab-slide .w9-tab-output .w9-tab-view + .w9-tab-view {
+    border-top: 1px solid #cad5d3;
+    margin-top: 7px;
+    padding-top: 6px;
+  }
+  .reveal .w9-tabbed-lab-slide .w9-tab-view p,
+  .reveal .w9-tabbed-lab-slide .w9-tab-view .case-reading p,
+  .reveal .w9-tabbed-lab-slide .w9-tab-view .case-quote-grid p {
+    font-size: 18px;
+    line-height: 1.12;
+    margin: 4px 0;
+  }
+  .reveal .w9-tabbed-lab-slide .w9-tab-view td,
+  .reveal .w9-tabbed-lab-slide .w9-tab-view th {
+    font-size: 17px;
+    line-height: 1.1;
+    padding: 3px 5px;
+  }
+  .reveal .w9-tabbed-lab-slide .w9-tab-view .w9-linear-stage-label {
+    font-size: 17px;
+    line-height: 1.1;
+    margin: 0 0 4px;
+  }
+  .reveal .w9-tabbed-lab-slide .w9-lab-focus-target {
+    margin: 4px 0 4px 18px;
+    padding: 3px 5px;
+  }
+  .reveal .w9-tabbed-lab-slide .w9-row-focus.current-fragment,
+  .reveal .w9-tabbed-lab-slide .w9-row-focus.w9-linear-current {
+    display: inline !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .reveal .w9-tabbed-lab-slide .w9-lab-focus-target:has(.w9-row-focus.current-fragment),
+  .reveal .w9-tabbed-lab-slide .w9-lab-focus-target:has(.w9-row-focus.w9-linear-current) {
+    outline: 2px solid var(--course-red) !important;
+    outline-offset: -2px;
+  }
+  .reveal .w9-tabbed-lab-slide .w9-row-focus svg {
+    left: -18px;
+    width: 15px;
+    height: 15px;
+    top: calc(50% - 7.5px);
+  }
+  .reveal .w9-tabbed-lab-slide .w9-code-output-tabs[data-lab-step="PCA"] {
+    grid-template-columns: minmax(0, 32fr) minmax(0, 68fr);
+  }
+}

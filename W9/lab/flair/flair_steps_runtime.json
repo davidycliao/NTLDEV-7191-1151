@@ -1,0 +1,57 @@
+{
+  "verified_date": "2026-11-12",
+  "platform": "macOS",
+  "purpose": "Three visible classroom steps: load model, obtain vectors, compare security. Preparation does not load an embedding model. No classroom PCA.",
+  "Python": {
+    "python": "3.10.11",
+    "versions": {
+      "flair": "0.15.0",
+      "torch": "2.2.0",
+      "numpy": "1.26.4",
+      "gensim": "4.3.3"
+    }
+  },
+  "R": {
+    "R": "4.4.1",
+    "reticulate": "1.45.0",
+    "flaiR": "0.1.8"
+  },
+  "environment": "Existing r-reticulate environment; CPU; cached glove.gensim and companion vectors; HF_HUB_OFFLINE=1 and TRANSFORMERS_OFFLINE=1. No installation or download.",
+  "word_matrix": [
+    11,
+    100
+  ],
+  "security_matrix": [
+    3,
+    100
+  ],
+  "tolist_vs_detach_cpu_numpy_max_difference": {
+    "R": 0,
+    "Python": 0.0
+  },
+  "original_word_csv_max_difference": {
+    "R": 2.220446049250313e-16,
+    "Python": 0.0
+  },
+  "original_security_csv_max_difference": {
+    "R": 2.220446049250313e-16,
+    "Python": 0.0
+  },
+  "r_python_serialized_word_vector_max_difference": 4.884981308350689e-15,
+  "r_python_serialized_security_vector_max_difference": 4.6629367034256575e-15,
+  "r_python_vector_tolerance": 1e-06,
+  "serialization_note": "Cross-route CSV differences are floating-point text precision at about 5e-15; each route independently matches the earlier example vectors within tolerance.",
+  "security_max_coordinate_difference": 0,
+  "security_pairwise_cosine_rounded_6dp": [
+    1,
+    1,
+    1
+  ],
+  "original_outputs": "example-output/word-vectors.csv and example-output/security-vectors.csv; earlier Flair 0.15.1 record retained unchanged.",
+  "script_sha256": {
+    "flair_prepare.R": "58f8db71fbd2ddddf208ff8e368c21b0ee03d8d8a5038c5476372cdd40c3c530",
+    "flair_prepare.py": "1188dcc10222f87999939605bea123f250c07c77fb5257b716cf9cfd733d19e1",
+    "flair_steps.R": "d6dbdc06a249c90cb296a49dedf1c0da5f0cced4110f4ec2c23f864e7bad42cb",
+    "flair_steps.py": "7a8fa18e2bb9a67375b1d4dca2add3a5a238219284b5327f6eb1ca7317255aaa"
+  }
+}

@@ -12,7 +12,7 @@
 
 ## Announcements
 
-*Last updated November 9, 2026 at 21:20 PST.*
+*Last updated November 12, 2026 at 05:20 PST.*
 
 1. ~~**Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** **Submission deadline: October 9, 2026.**~~
 
@@ -54,7 +54,7 @@ If the HTML link shows an external-content notice, select **Open the page** to v
 | Week 6 | Oct 16 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W6/slide/week6.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W6/slide/week6.html) · [Source ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W6/downloads/week6-student-source.zip) | [Lab HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W6/lab/Lab_Session_W6.html) · [R script](W6/lab/Lab_Session_W6.R) · [Lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W6/downloads/week6-lab.zip) · [Instructions](W6/lab/README.md) |
 | Week 7 | Oct 23 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W7/slide/week7.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W7/slide/week7.html#/title-slide) · [Source ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W7/downloads/week7-student-source.zip) | [Lab HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W7/lab/Lab_Session_W7.html) · [R script](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W7/lab/Lab_Session_W7.R) · [Lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W7/downloads/week7-lab.zip) · [Instructions](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W7/lab/README.md) |
 | Week 8 | Oct 30 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W8/slide/week8.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W8/slide/week8.html) · [Source ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W8/downloads/week8-student-source.zip) | [Lab HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W8/lab/Lab_Session_W8.html) · [R script](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W8/classroom/W8.R) · [Lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W8/downloads/week8-lab.zip) · [Instructions](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W8/lab/README.md) |
-| Week 9 | Nov 6 |  |  |
+| Week 9 | Nov 6 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W9/slide/week9.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W9/slide/week9.html) · [Source ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W9/downloads/week9-student-source.zip) | [Lab HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W9/lab/Lab_Session_W9.html) · [R script](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W9/classroom/W9-conText.R) · [Lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W9/downloads/week9-lab.zip) · [Instructions](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W9/lab/README.md) |
 | Week 10 | Nov 13 |  |  |
 | Week 11 | Nov 20 | **NTU Sports Day** |  |
 | Week 12 | Nov 27 |  |  |
@@ -99,7 +99,7 @@ Covers LDA, structural topic models, and keyword-assisted topic models, with emp
 
 ### Week 9: Describing and Comparing Texts: Readability, Similarity, and Word Embeddings
 
-Combines readability and complexity measures with count-based similarity, word embeddings, and context-specific meaning. Students compare how different representations support research on political language across actors and groups.
+Uses four political-science cases to study party positions, semantic change, nostalgia and differences in word use. The Lab introduces Flair word vectors and PCA figures, then uses conText to compare the contexts in which parties use a word. Readability and further model comparisons are available as supplementary exercises.
 
 ### Week 10: NLP Pipelines and Transformers: Annotation, Classification, and Interpretability
 

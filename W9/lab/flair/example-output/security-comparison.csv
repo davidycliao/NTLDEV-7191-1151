@@ -1,0 +1,4 @@
+sentence_a,sentence_b,equal_vectors,cosine
+Social security supports households.,The United Nations Security Council met.,True,0.9999999999999999
+Social security supports households.,Energy security matters for jobs.,True,0.9999999999999999
+The United Nations Security Council met.,Energy security matters for jobs.,True,0.9999999999999999

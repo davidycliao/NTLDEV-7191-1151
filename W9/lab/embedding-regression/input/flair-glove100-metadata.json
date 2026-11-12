@@ -1,0 +1,23 @@
+{
+  "python": "3.10.11",
+  "packages": {
+    "flair": "0.13.1",
+    "torch": "2.2.2",
+    "numpy": "1.26.2",
+    "gensim": "4.3.2"
+  },
+  "class": "flair.embeddings.WordEmbeddings",
+  "representation": "static GloVe",
+  "dimension": 100,
+  "requested_words": 500,
+  "exported_words": 500,
+  "oov_words": [],
+  "tokenization": "one exact token per Sentence; use_tokenizer=False",
+  "cache_name": "glove.gensim",
+  "model_sha256": "e21d1bd8eb25e315b64308187a44f813d6b59bbfbe9633ad6cd504753c20d791",
+  "vectors_file_sha256": "58620c9e3f3f70214133cdc5899b9553443198a27d320c34a1b39341e1908c67",
+  "fixed_vocabulary_sha256": "e32c5239c4c2437aa8a859b9a6e13e5182d388ceb471fe6b9c67de1818d50a19",
+  "export_sha256": "a80fa17652606d6d1bc6e5d24b2df167179a12217e842a84e98d09e5e8f5a102",
+  "network": "no download; local cache only",
+  "transform": "not exported by Python; R must recompute a matching 100x100 transform"
+}

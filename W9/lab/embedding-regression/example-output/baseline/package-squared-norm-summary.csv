@@ -1,0 +1,3 @@
+"coefficient","normed.estimate.orig","normed.estimate.deflated","normed.estimate.beta.error.null","n","n_obs","covariate_mean"
+"party_R",10.1399398554987,8.66825235860323,1.47168749689544,924,924,0.474025974025974
+"gender_M",6.90876149487661,5.1547134016873,1.75404809318931,924,924,0.670995670995671

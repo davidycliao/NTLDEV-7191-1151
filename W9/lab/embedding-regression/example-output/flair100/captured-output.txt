@@ -1,0 +1,27 @@
+W9 embedding regression — flair100 
+Corpus: 400 documents
+Exact immigration: 924 contexts; immigr*: 1337 contexts
+Embedding vocabulary: 500 x 100 ; DEM: 924 x 100 ; transform: 100 x 100 
+ party gender n_contexts
+     D      F        185
+     R      F        119
+     D      M        301
+     R      M        319
+Adjusted difference-vector lengths (not percentages)
+     term l2_length squared_length dimension
+  party_R  1.723463       2.970326       100
+ gender_M  1.610981       2.595261       100
+Model-predicted neighbours, female gender held fixed
+ group party held_gender rank        feature  cosine
+    DF     D           F    1 administration 0.77398
+    DF     D           F    2    legislation 0.76914
+    DF     D           F    3          legal 0.76852
+    DF     D           F    4            law 0.75180
+    DF     D           F    5         policy 0.74887
+    RF     R           F    1            law 0.80390
+    RF     R           F    2         policy 0.79769
+    RF     R           F    3 administration 0.79433
+    RF     R           F    4          legal 0.79229
+    RF     R           F    5           laws 0.77669
+No CI, jackknife or permutation inference. Do not claim significance.
+Checks: TRUE 

@@ -1,0 +1,82 @@
+%\usepackage{xcolor}
+\usepackage{kvoptions}
+\usepackage{xcolor-material}
+% \usepackage{minted}
+\usepackage{hyperref}
+\usepackage{framed}
+
+
+
+\setbeamercolor{background canvas}{bg=}
+
+\definecolor{myBlueDark}{RGB}{17, 53, 99}
+
+%\definecolor{myBlue}{RGB}{1, 135, 206}
+\definecolor{myBlue}{RGB}{0, 125, 184}
+%\definecolor{myBlue}{RGB}{0, 112, 165}
+%\definecolor{myBlue}{RGB}{0, 88, 138}
+
+\definecolor{myWhite}{RGB}{255, 255, 255}
+\definecolor{myGray}{RGB}{224, 224, 224}
+\definecolor{myGreen}{RGB}{3, 136, 74}
+
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{alerted text}{fg=myBlue}
+\setbeamercolor{frametitle}{fg=myBlueDark, bg=myWhite}
+
+% Reducing black space between R code and output
+% \setlength{\topsep}{0pt}{}
+\setlength{\emergencystretch}{0em}
+\setlength{\parskip}{2pt}
+\setlength{\partopsep}{1pt}
+
+
+\setbeamertemplate{footline}[text line]{%
+  \parbox{0.8\linewidth}{
+    % \vspace*{-20pt}\insertshorttitle~(Stefan Müller)
+    \vspace*{-20pt}\insertshorttitle~(Yen-Chieh Liao and Stefan Müller)
+
+  }
+  \hfill%
+  \parbox{0.15\linewidth}{
+    \vspace*{-20pt}\raggedleft\insertpagenumber
+  }
+}
+
+
+%%% Reducing font size of R code and output
+%%% code below from http://stackoverflow.com/a/38324868
+%%% see also http://stackoverflow.com/a/39961605
+
+% %% change fontsize of R code
+ \let\oldShaded\Shaded
+ \let\endoldShaded\endShaded
+ % \renewenvironment{Shaded}{\footnotesize\oldShaded}{\endoldShaded}
+ % \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+
+%
+% %% change fontsize of output
+ \let\oldverbatim\verbatim
+ \let\endoldverbatim\endverbatim
+ \renewenvironment{verbatim}{\scriptsize\oldverbatim}{\endoldverbatim}
+% %%%
+
+
+%% You can set various Metropolis options via \metroset{} here
+%\metroset{....}
+
+%% when rendered with rmarkdown, somehow the unicode char for the dot
+%% disappears so we redefine it here
+%\renewcommand{\textbullet}{$\cdot$}
+%\renewcommand{\itemBullet}{▸}   % unicode U+25b8 'black right pointing small triangle'
+
+%% The institute macro puts a small line for affiliation at the bottom
+
+%% We can also place a logo
+\titlegraphic{\hfill\includegraphics[height=1.5cm]{ucd_long_large}}
+
+% Bibliography
+\setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection\par} % table of contents without 3D-circles
+\setbeamertemplate{subsection in toc}{\hspace{1.2em}\inserttocsubsectionnumber.~\inserttocsubsection\par}
+
+\usepackage[sfdefault]{atkinson} %% Option 'sfdefault' if the base

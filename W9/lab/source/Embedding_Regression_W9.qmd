@@ -1,0 +1,278 @@
+---
+title: "W9 課後 Lab：Embedding regression"
+subtitle: "從 immigration 的一次用法，到調整後的群體比較"
+author: "Text as Data · National Taiwan University"
+date: "2026-11-11"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-depth: 2
+    code-copy: true
+    theme: [cosmo, ../w9-lab.scss]
+    css: ../w9-lab.css
+execute:
+  eval: false
+  echo: true
+---
+
+控制性別後，兩黨使用 *immigration* 的周邊語境有多大差異，差在哪些用語？沿用 [Case 4](../slide/week9.html#/do-parties-use-immigration-in-the-same-way)的問題完成[課後 Lab A05](After_Class_W9.html#a05-embedding-regression)。依序取出 token window、建立 ALC 表示、估計 `immigration ~ party + gender`、計算差向量長度，再看近鄰與文本。
+
+操作延伸自[flaiR 教學網站的 Extending conText’s Embedding Regression](https://davidycliao.github.io/flaiR/articles/tutorial.html#extending-contexts-embedding-regression)。刪詞時保留 padding，分開定義精確目標詞與詞族，先走不用 Python 的預設路徑。這裡使用套件教學樣本與不同模型，**不是重現論文 Figure 5 的 0.175／0.087**。研究設計見 [Rodriguez、Spirling 與 Stewart（2023）](https://doi.org/10.1017/S0003055422001228)。
+
+## 兩條離線路徑與成功判準 {#er-routes}
+
+| 路徑 | 輸入 | ALC 轉換 | 需要 Python 嗎？ |
+|---|---|---|---|
+| `baseline`，先做 | conText 隨附的 `cr_sample_corpus`、500 詞 × 300 維 `cr_glove_subset` | 使用配套的 `cr_transform`，300 × 300 | 不需要 |
+| `flair100`，延伸 | 同一批文本、同一固定 500 詞表，改用 Flair 快取的靜態 GloVe 100 維 | **重新估計** 100 × 100 轉換 | 隨附 CSV 可直接用 R；只有重新匯出快取向量時需要 Python |
+
+兩條路徑都使用本地模型檔。執行前先確認本機已有 `conText`、`quanteda`、`Matrix`、`jsonlite`。本次實跑版本與檢查結果保存於各路徑的 `metadata.json`。
+
+完成後應能確認：
+
+1. 精確 `immigration` 有 924 筆語境，`immigr*` 則有 1,337 筆，不能混成同一個目標定義。
+2. 基線 DEM 為 924 × 300；延伸為 924 × 100，各有相配的轉換矩陣。
+3. 以 D、F 為參照，找到 `party_R`、`gender_M` 兩個差向量，報告長度並說明單位。
+4. 固定同一性別比較兩黨的模型向量，回讀至少兩段套件保存的語境，寫出支持與限制。
+
+## ER00 先跑通 R-only baseline {#er00-baseline}
+
+在課程根目錄開 R，執行[完整 R 腳本](embedding-regression/embedding_regression_lab.R)。工作目錄若已是 `W9`，將下面路徑開頭的 `W9/` 拿掉。
+
+```{r}
+source("W9/lab/embedding-regression/embedding_regression_lab.R")
+baseline <- run_w9_embedding_regression("baseline")
+baseline$coefficient_norms
+```
+
+也可以從 Terminal 執行，預設就是基線：
+
+```bash
+Rscript --vanilla W9/lab/embedding-regression/embedding_regression_lab.R --baseline
+```
+
+程式依序執行以下五步，將結果寫入 `embedding-regression/example-output/baseline/`。預設關閉 jackknife 與 permutation；沒有信賴區間，也不主張顯著。
+
+```{r}
+#| label: er-recorded-setup
+#| eval: true
+#| echo: false
+#| include: false
+er_candidates <- c("W9/lab/embedding-regression", "../embedding-regression", "embedding-regression")
+er_dir <- er_candidates[dir.exists(er_candidates)][1]
+stopifnot(!is.na(er_dir))
+er_read <- function(route, filename) {
+  read.csv(file.path(er_dir, "example-output", route, filename), check.names = FALSE)
+}
+```
+
+## ER01 保留位置，再取精確目標詞的視窗 {#er01-windows}
+
+`cr_sample_corpus` 是美國第 111–114 屆國會議事錄的套件示例，先篩選移民相關演說，再按黨別與性別抽樣。實際物件有 400 份文件，D/F、D/M、R/F、R/M 各 100 份。**套件文本已經清理**；本頁的回讀片段是套件保存的文字，不是未清理逐字稿。正式研究仍須找回完整議事錄、日期及講者資料。
+
+程式先轉小寫、去標點與停用詞、保留至少三字元且全語料出現至少五次的詞。每次刪除都設 `padding = TRUE`，把刪掉的位置留空，因此原本隔開的詞不會在本次清理時變成相鄰。Padding 只能維持**本次 token 化後**的位置，不能補回套件上游已刪除的文字。
+
+```{r}
+# 節錄完整腳本，input <- w9_er_inputs() 可取得整理後的 toks。
+input <- w9_er_inputs()
+immigration_contexts <- conText::tokens_context(
+  input$toks, pattern = "immigration", valuetype = "fixed",
+  window = 6L, rm_keyword = TRUE
+)
+```
+
+左右各六個 token 位置是估計用視窗，目標詞本身不放入平均。這不是「最近六個仍被保留的內容詞」。閱讀用 KWIC 另取左右十二個位置，保留來源文件、出現位置、黨別與性別，方便核對。
+
+| 定義 | 詞形 | 語境數 |
+|---|---|---:|
+| 精確目標 | `immigration` | 924 |
+| glob 詞族 | `immigrant`、`immigrants`、`immigration` | 125 + 288 + 924 = 1,337 |
+
+`immigr*` 納入多個詞形，會改變樣本範圍。本單元的迴歸全程只估精確 `immigration`。
+
+## ER02 一次用法得到一個 ALC 向量 {#er02-alc}
+
+把每個視窗中有向量的詞平均，再用 ALC 轉換校準。於是每次用法得到一列，所有列在同一個模型空間。`context-coverage.csv` 同時報告每個視窗保留多少詞、有多少詞在 500 詞向量表中，以及涵蓋率。有限詞表會漏掉資訊；涵蓋率高也不代表語義一定有效。
+
+```{r}
+dem <- baseline$context_dem
+dim(dem)
+head(baseline$coverage)
+```
+
+先比較各組的語境數。
+
+```{r}
+#| label: er-recorded-counts
+#| eval: true
+#| echo: false
+knitr::kable(er_read("baseline", "party-gender-counts.csv"),
+             col.names = c("黨別", "性別", "語境數"))
+```
+
+文件數平衡不等於用詞次數平衡。一篇文件可以提供多次 *immigration*；這些語境也可能來自同一位講者，不能假設每筆都彼此獨立。
+
+## ER03 從向量係數讀差異大小 {#er03-regression}
+
+模型用黨別與性別解釋每次用法的向量。D、F 為參照，係數矩陣有三列；每列仍有 300 個座標。
+
+```{r}
+# 完整腳本明確設定 factor 的參照組與關閉預設推論。
+fit <- conText::conText(
+  immigration ~ party + gender, data = input$toks,
+  pre_trained = input$embeddings,
+  transform = TRUE, transform_matrix = input$transform,
+  window = 6L, valuetype = "fixed",
+  jackknife = FALSE, permute = FALSE, verbose = FALSE
+)
+B <- as.matrix(fit)
+rownames(B)             # (Intercept), party_R, gender_M
+sqrt(rowSums(B[c("party_R", "gender_M"), , drop = FALSE]^2))
+```
+
+`party_R` 是固定性別後 R 相對 D 的差向量；`gender_M` 是固定黨別後 M 相對 F 的差向量。長度為 0 時，兩個調整後向量重合；長度越大，表示該空間中的差異越大。長度沒有正負方向，也不是百分比。
+
+::: {.callout-note}
+conText 3.0.0 的 `normed_coefficients$normed.estimate.orig` 列出的是 `sum(beta^2)`，即**平方長度**。本單元另算 `sqrt(sum(beta^2))` 並輸出為 `l2_length`；原摘要另存 `package-squared-norm-summary.csv`，不混用這兩個量。
+:::
+
+```{r}
+#| label: er-recorded-norms
+#| eval: true
+#| echo: false
+knitr::kable(er_read("baseline", "coefficient-norms.csv"), digits = 6)
+```
+
+在這次估計中黨別的長度較大，但沒有估計兩個長度之差的不確定性。不能據此寫「黨別差異顯著較大」，也不能解釋成黨別造成某種用法。若要推論，需依文件、講者及抽樣方式設計合適的重抽樣或置換程序。
+
+## ER04 固定性別後找群體近鄰 {#er04-neighbors}
+
+用係數組合出模型預測的群體向量：
+
+| 群體 | 模型向量 |
+|---|---|
+| DF | 截距 |
+| RF | 截距 + `party_R` |
+| DM | 截距 + `gender_M` |
+| RM | 截距 + `party_R` + `gender_M` |
+
+比較 DF 與 RF 時性別固定為 F，比較 DM 與 RM 時固定為 M。這些是模型預測向量，與直接將所有民主黨／共和黨語境平均的未調整結果不同。本加法模型沒有交互作用，因此兩種性別下的黨別差向量相同，是模型設定的一部分。
+
+```{r}
+baseline$neighbors[
+  baseline$neighbors$group %in% c("DF", "RF") &
+    baseline$neighbors$rank <= 5, ]
+```
+
+下表固定性別為 F，列出每黨前五個詞。候選詞限於本次模型可用的詞表，排除精確目標 `immigration`；`immigrant`／`immigrants` 仍可能出現，應與制度、改革或執法用語一起判讀。
+
+```{r}
+#| label: er-recorded-neighbors
+#| eval: true
+#| echo: false
+er_neighbors <- er_read("baseline", "group-neighbors.csv")
+knitr::kable(subset(er_neighbors, group %in% c("DF", "RF") & rank <= 5), digits = 4)
+```
+
+## ER05 回讀語境，收窄政治解釋 {#er05-contexts}
+
+對每個模型群體向量，程式只在同黨、同性別的語境中，依 cosine 取前三筆，再連回套件保存的文字。選取範圍記錄在 `retrieval_scope`。這些例子由模型選出，不代表改革／執法用法的占比。
+
+```{r}
+baseline$nearest_contexts[, c(
+  "group", "context_id", "source_doc", "party", "gender",
+  "cosine", "pre", "keyword", "post"
+)]
+```
+
+第一筆 DF 與 RF 的片段如下，請把 `pre`、`keyword`、`post` 接起來讀：
+
+```{r}
+#| label: er-recorded-contexts
+#| eval: true
+#| echo: false
+er_contexts <- er_read("baseline", "nearest-contexts.csv")
+er_examples <- subset(er_contexts, group %in% c("DF", "RF") & rank == 1)
+for (i in seq_len(nrow(er_examples))) {
+  cat("\n", er_examples$group[i], " · ", er_examples$context_id[i],
+      " · ", er_examples$source_doc[i], "\n", sep = "")
+  cat(er_examples$pre[i], "[", er_examples$keyword[i], "]", er_examples$post[i], "\n")
+}
+```
+
+**提問。** DF 的第一筆也提到 enforcement。只看近鄰表，能否說民主黨只談改革、共和黨只談執法？
+
+**核對。** 兩黨都可能談執法。在這批抽樣文本及所用模型中，調整性別後的黨別差向量不為零；近鄰與片段提供進一步比較用詞的線索。要解釋這些差異，還須讀完整段落、比較更多文本，並檢查議程與講者組成。
+
+## ER06 Flair GloVe100 延伸 {#er06-flair100}
+
+隨附 `input/flair-glove100-vectors.csv` 已從本機 Flair 的快取靜態 GloVe 匯出，同一固定 500 詞全部有向量。一般操作只需要 R：
+
+```{r}
+flair100 <- run_w9_embedding_regression("flair100")
+dim(flair100$transform)       # 100 × 100
+dim(flair100$context_dem)     # 924 × 100
+flair100$coefficient_norms
+```
+
+程式以同一批文本、六詞位置窗建立 FCM，再用 `compute_transform(..., weighting = "log")` 重新估計 100 × 100 轉換。不能把原本 300 × 300 的 `cr_transform` 截取或沿用。這裡的轉換也用教學樣本估計，不是外部效度檢查。
+
+```{r}
+#| label: er-recorded-route-comparison
+#| eval: true
+#| echo: false
+er_compare <- rbind(
+  data.frame(route = "baseline", er_read("baseline", "coefficient-norms.csv")),
+  data.frame(route = "flair100", er_read("flair100", "coefficient-norms.csv"))
+)
+knitr::kable(er_compare, digits = 6)
+```
+
+兩套管線的維度、預訓練向量與轉換估計不同。**不能因 100 維的長度較小，就判斷它較好或黨別影響較小。** 對照兩套近鄰與回讀片段，指出哪些解讀保留、哪些改變，再提出可用來驗證的獨立證據。
+
+### 選做：從既有 Flair 快取重新匯出
+
+只有要重建 500 詞矩陣時才需這一步。程式要求本機已有 GloVe cache 與 Python 的 Flair、PyTorch、numpy、gensim；缺檔便停止，不下載。讀取的快取預設為 `~/.flair/embeddings/glove.gensim`，也可用 `--model` 指定本機路徑。
+
+```bash
+python3.10 W9/lab/embedding-regression/export_flair_glove.py
+Rscript --vanilla W9/lab/embedding-regression/embedding_regression_lab.R --flair100
+```
+
+[Python 匯出程式](embedding-regression/export_flair_glove.py)使用靜態 `WordEmbeddings`，每個詞各建立一個不重新切詞的單 token `Sentence`，保存文字與向量的一對一關係。若改用 `FlairEmbeddings` 或 transformer，須從**實際出現的語境**抽取 token 表示，並重新設計估計與比較；把全部詞表串成任意句子取得的 contextual LM 向量，不能當成這份靜態詞表。
+
+本次匯出實跑為 Python 3.10.11、Flair 0.13.1、PyTorch 2.2.2，500／500 詞、100 維、零 OOV。版本、模型雜湊與 CSV 雜湊保存在[匯出紀錄](embedding-regression/input/flair-glove100-metadata.json)。
+
+## 交付與檔案核對 {#er-deliverable}
+
+交一段研究判讀及三份檔案 `coefficient-norms.csv`、`group-neighbors.csv`、`nearest-contexts.csv`。文字須交代精確目標、參照組、固定哪個變數與模型維度；引用一段原文支持解讀，再用另一段說明解讀的限制，並註明沒有信賴區間。選做 Flair100 時，另比較一組近鄰變化，不用長度大小替模型排名。
+
+| 檔案 | 一列代表什麼 | 關鍵欄位 |
+|---|---|---|
+| `contexts.csv` | 一次精確用詞 | `context_id`、`source_doc`、`party`、`gender`、`from`／`to`、`pre`／`keyword`／`post`、`used_in_dem` |
+| `context-coverage.csv` | 一個視窗 | `retained_tokens`、`matched_tokens`、`coverage` |
+| `coefficient-norms.csv` | 一個調整後差向量 | `term`、`l2_length`、`squared_length`、`dimension` |
+| `group-neighbors.csv` | 一組模型向量的一個近鄰詞 | `group`、`held_gender`、`rank`、`feature`、`cosine` |
+| `nearest-contexts.csv` | 一組模型向量選出的一個片段 | `group`、`rank`、`retrieval_scope`、語境與來源欄位 |
+| `metadata.json` | 一次執行設定 | 套件版本、視窗、padding、轉換來源、維度、推論設定與檢查結果 |
+
+[基線 captured output](embedding-regression/example-output/baseline/captured-output.txt) · [Flair100 captured output](embedding-regression/example-output/flair100/captured-output.txt) · [基線設定](embedding-regression/example-output/baseline/metadata.json) · [Flair100設定](embedding-regression/example-output/flair100/metadata.json) · [回到課後 Lab](After_Class_W9.html#a05-embedding-regression)
+
+## 真實執行紀錄 {#er-captured-output}
+
+以下顯示隨附的執行紀錄，讀取的是保存結果，不會重新執行模型。
+
+```{r}
+#| label: er-captured-baseline
+#| eval: true
+#| echo: false
+cat(readLines(file.path(er_dir, "example-output", "baseline", "captured-output.txt")), sep = "\n")
+```
+
+```{r}
+#| label: er-captured-flair100
+#| eval: true
+#| echo: false
+cat(readLines(file.path(er_dir, "example-output", "flair100", "captured-output.txt")), sep = "\n")
+```

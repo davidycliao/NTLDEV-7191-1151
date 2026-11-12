@@ -1,0 +1,840 @@
+---
+title: "W9 Lab: Flair and conText"
+subtitle: "Static word vectors, PCA and context-specific comparisons"
+author: "Text as Data · National Taiwan University"
+date: "2026-11-12"
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-depth: 2
+    code-copy: true
+    theme: [cosmo, ../w9-lab.scss]
+    css: ../w9-lab.css
+execute:
+  eval: false
+  echo: true
+---
+
+::: {.callout-note title="Lab guide · three screens before the break"}
+
+We first map out the Lab on **slides 77–79 at 17:31–17:35**: [student view](../slide/week9.html#/work-with-719-parliamentary-speeches){target="_blank" rel="noopener"}. After the **17:35–17:40 break**, we spend fifteen minutes on Flair and fifteen on conText.
+
+:::
+
+## Lab purpose and workflow {#lab-purpose-and-plan}
+
+### Guide 1/3 · Goal and 30-minute plan {#lab-guide-goal}
+
+[Guide 1/3](../slide/week9.html#/work-with-719-parliamentary-speeches) · **17:31–17:32**
+
+**Goal:** We will explain what each vector represents, read the comparison and check our interpretation against the text.
+
+| Classroom block | Representation | Short Check |
+|---|---|---|
+| **17:40–17:55 · Our 2024 Lab** · slides 81–85 | Static word-type vectors, followed by a PCA projection. | **E06:** matrix units and identical security vectors. **PCA Check:** what the map leaves out. |
+| **17:55–18:10 · conText** · slides 86–91 | Occurrence-level context vectors and a conditional party comparison. | **E04:** observation unit → word/context evidence → party coefficient. |
+
+For each step, we read a short core call, examine its output and answer a Check. We can follow the saved results in class and expand **Full runnable step** to repeat an operation. Packages and the GloVe cache need to be ready before class. Flair and conText use separate R sessions.
+
+### Guide 2/3 · Our 2024 Flair/PCA workflow {#lab-guide-flair}
+
+[Guide 2/3](../slide/week9.html#/work-with-719-parliamentary-speeches-step-2) · **17:32–17:33:30**
+
+| Step | Input → recorded output | Classroom screens |
+|---|---|---|
+| **Load GloVe** | Prepared environment + cached trained model → **100 coordinates**. Loading is separate from extracting vectors. | [Code](../slide/week9.html#/flair-r-check/-1) → [Output](../slide/week9.html#/flair-r-check/0) |
+| **Get word vectors** | Eleven listed tokens → **11 × 100** matrix; one row per token. | [Code](../slide/week9.html#/flair-python-route/-1) → [Output](../slide/week9.html#/flair-python-route/0) |
+| **Compare security** | Three sentences → **3 × 100** security matrix; three pairwise cosines of **1**, because static lookup returns the same word-type vector. | [Code](../slide/week9.html#/flair-static-contexts/-1) → [Output](../slide/week9.html#/flair-static-contexts/0) |
+| **Read PCA figures** | The same eleven vectors → coordinate **table, 2D figure and 3D view**; PC1/2 retain **38.24%** of standardized variance. | [Code](../slide/week9.html#/flair-pca-after-class/-1) → [Output](../slide/week9.html#/flair-pca-after-class/0) |
+
+In **E06, 17:50–17:52**, we explain the two matrix sizes and cosine 1. The **PCA Check, 17:52–17:55**, asks whether nearby points on the projection must also be close by full-space cosine. We read the figures together in class; the complete PCA calculation is available afterward.
+
+### Guide 3/3 · conText workflow {#lab-guide-context}
+
+[Guide 3/3](../slide/week9.html#/work-with-719-parliamentary-speeches-step-3) · **17:33:30–17:35**
+
+| Step | Input → recorded output | Classroom screens |
+|---|---|---|
+| **C00 · Inputs** | **400 US congressional texts**, **E: 500 × 300** word vectors and a matched **A: 300 × 300** transformation. | [Code](../slide/week9.html#/context-data-and-models/-1) → [Output](../slide/week9.html#/context-data-and-models/0) |
+| **C01 · Contexts** | Each immigration occurrence and source metadata → **924 context rows**. | [Code](../slide/week9.html#/context-occurrences/-1) → [Output](../slide/week9.html#/context-occurrences/0) |
+| **C02 · ALC** | Surrounding words + matched E/A → **924 × 300** context vectors → **2 × 300** descriptive party means. | [Code](../slide/week9.html#/context-alc-vectors/-1) → [Output](../slide/week9.html#/context-alc-vectors/0) |
+| **C03–C04 · Interpret** | Nearby words → retrieved, processed context words. Check the proposed reading; one nearest passage does not estimate its prevalence. | [C03](../slide/week9.html#/context-neighbours/-1) · [C04](../slide/week9.html#/context-nearest-passages/-1) |
+| **C05 · Regression** | Return to occurrences and compare **R with D, holding gender fixed**. The earlier group means are unadjusted. | [Code](../slide/week9.html#/context-embedding-regression/-1) → [Output](../slide/week9.html#/context-embedding-regression/0) |
+
+For **E04, by 18:10**, we explain one ALC observation, connect a neighbour to its context and interpret the conditional party coefficient. The conText example uses its own 300-dimensional vectors and matching transformation. We keep those coordinates separate from Flair's 100-dimensional GloVe.
+
+The classroom sources are [our 2024 Week 11 Lab with figures](reference/2024_qta_lab_week_11.html) and the [official conText Quick Start](https://github.com/prodriguezsosa/conText/blob/master/vignettes/quickstart.md). The three-security comparison extends the original word-list exercise.
+
+After the **17:35–17:40 break**, we begin with [Flair](#flair-mini-lab), move to [C00](#ct00) at **17:55**, and return to [research design, slide 92](../slide/week9.html#/design-an-embedding-study-in-one-paragraph) at **18:10**.
+
+
+
+## F00–F03 Flair with R or Python {#flair-mini-lab}
+
+After the **17:31–17:35 guide** and **17:35–17:40 break**, we begin the **17:40–17:55** block with our original 2024 Lab. We load GloVe, get vectors for eleven words and read their PCA map. We also place security in three sentences to see whether its vector changes with its use. At 17:55, we turn to conText to represent each occurrence through its surrounding words.
+
+We work through **W9 slides 81–85** after the guide on slides 77–79. For each operation, we read the Code tab, switch to Output on the same slide and discuss the saved result. We can read the saved results below or follow the code in an environment prepared before class. [Open the Flair slides](../slide/week9.html#/flair-setup/-1)
+
+This part adapts [our 2024 Week 11 Lab, including its figures](reference/2024_qta_lab_week_11.html): pretrained GloVe, the eleven-word list and PCA. The three-security comparison is the W9 extension.
+
+| Classroom stage | Slides | Time and checkpoint |
+|---|---|---|
+| Prepared R/Python connection | [81](../slide/week9.html#/flair-setup/-1) | 17:40–17:42: identify the passing import and cached-model checks. |
+| Step 1 · Load the model | [82](../slide/week9.html#/flair-r-check/-1) | 17:42–17:44: read the loading call and 100-dimensional result in the prepared R or Python route. |
+| Step 2 · Get word vectors | [83](../slide/week9.html#/flair-python-route/-1) | 17:44–17:47: 11 tokens × 100 coordinates. |
+| Step 3 · Compare security | [84](../slide/week9.html#/flair-static-contexts/-1) | 17:47–17:52: 3 occurrences × 100 coordinates; E06 at 17:50–17:52. |
+| PCA · Read the figures | [85](../slide/week9.html#/flair-pca-after-class/-1) | 17:52–17:55: read the 2D/3D map and 38.24% retained variance; computation is after class. |
+
+At **17:55**, we move to [conText C00](#ct00), slide 86. There we use a separate 300-dimensional model and its matching transformation. We interpret its coordinates within that model.
+
+The [R preparation](flair/flair_prepare.R), [R three-step script](flair/flair_steps.R), [Python preparation](flair/flair_prepare.py), [Python three-step script](flair/flair_steps.py) and [requirements](flair/requirements.txt) are in `W9/lab/flair/`. We can run one section of a three-step script at a time, or use the matching blocks below.
+
+### F00 Prepare Python and the model
+
+We use **Python 3.10 or 3.11** for this exercise. Flair 0.15.1 supports Python 3.9 and later, and its `word-embeddings` extra supplies gensim for loading GloVe. Our scripts select the CPU. [Flair installation](https://pypi.org/project/flair/) · [Classic embeddings](https://flairnlp.github.io/docs/tutorial-embeddings/classic-word-embeddings)
+
+On macOS or Linux, we start in Terminal at the course repository root:
+
+```bash
+cd W9/lab/flair
+python3.10 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python flair_lab.py --check
+```
+
+If Python 3.11 is installed, we replace `python3.10` with `python3.11` in the environment-creation command.
+
+On Windows, we start in PowerShell at the course repository root:
+
+```powershell
+cd W9/lab/flair
+py -3.10 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe flair_lab.py --check
+```
+
+For Python 3.11, we use `py -3.11`. These commands call the environment's executable directly, so activation is unnecessary.
+
+**Check:** We should see the Python executable and package versions, followed by `Imports OK. Device: CPU.`.
+
+**Before class, we download GloVe once.** In the same Terminal directory:
+
+```bash
+.venv/bin/python flair_lab.py --download-glove
+```
+
+On Windows, we replace `.venv/bin/python` with `.\.venv\Scripts\python.exe`. The first download can take longer than the exercise, so we cache it before class. A supplied cache also works if `glove.gensim` and `glove.gensim.vectors.npy` stay in the same folder.
+
+### F01 Try the R route
+
+For the R route, we install the interface before class:
+
+```r
+install.packages(c("reticulate", "remotes"))
+remotes::install_github(
+  "davidycliao/flaiR@e812c6192714c9252d0feb83408b5459bbcccdfc"
+)
+```
+
+We start Flair in a **clean R session**, with the working directory at the course root or W9. We keep the eleven-word matrix in this session for the PCA. Later, we open a separate session for conText.
+
+The script selects the `.venv` beside it. If we use another environment, we set its executable **before the first Python import** in the new session:
+
+```r
+Sys.setenv(W9_FLAIR_PYTHON = "/absolute/path/to/environment/bin/python")
+```
+
+On Windows, an example value is `C:/path/to/environment/Scripts/python.exe`. We select the environment that passed F00, then check the connection:
+
+```r
+flair_dir <- if (dir.exists("W9/lab/flair")) "W9/lab/flair" else "lab/flair"
+source(file.path(flair_dir, "flair_prepare.R"))
+```
+
+We complete this preparation **before class**. At 17:40–17:42, slide 81 shows a successful check: the Python path, versions, `Import check passed`, the cached model path and `Ready for Step 1: load the model.` We now have `Sentence`, `WordEmbeddings` and `glove_path` available. In [R Step 1](#flair-r-load), we use them to load the model. If the R connection fails, we can use [F02's Python route](#f02-python-fallback) or follow the saved output. [flaiR](https://davidycliao.github.io/flaiR/)
+
+For a supplied cache, we set `W9_FLAIR_GLOVE_PATH` to its `glove.gensim` file before sourcing the preparation script.
+
+### F02 Python fallback
+
+If we use Python directly, we start with the environment that passed F00. From `W9/lab/flair` in Terminal, we open an interactive session:
+
+```bash
+.venv/bin/python -i flair_prepare.py
+```
+
+On Windows PowerShell:
+
+```powershell
+.\.venv\Scripts\python.exe -i flair_prepare.py
+```
+
+If F00 passed with another interpreter, we use that Python path in place of the `.venv` executable above. An environment variable set inside R does not carry over to a separate terminal, so a supplied cache also needs `W9_FLAIR_GLOVE_PATH` set in this Terminal or PowerShell session.
+
+We should see `Imports OK. Device: CPU.`, the cached path, `Ready for Step 1: load the model.` and the `>>>` prompt. Preparation makes `Sentence`, `WordEmbeddings`, numpy as `np` and `glove_path` available. We then run [Python Step 1](#flair-python-load), followed by Steps 2 and 3 in the same session. Both language routes follow the same timetable: Step 1 at 17:42–17:44 and Step 2 at 17:44–17:47. The `>>>` prompt accepts Python code; the saved output remains available if the environment is not ready.
+
+### F03 Three steps: load, get vectors, compare {#f03-read-the-outputs}
+
+We follow three steps in **one language** and keep the same session open: load the model, get word vectors, then compare security. Steps 1 and 2 contain short complete blocks. In Step 3, we first look at the embedding call; the expandable block adds the sentences, vector extraction and cosine calculation.
+
+| Step | Slides | Read the result |
+|---|---|---|
+| 1 · Load the model | [82](../slide/week9.html#/flair-r-check/-1) | GloVe has 100 coordinates per word type |
+| 2 · Get word vectors | [83](../slide/week9.html#/flair-python-route/-1) | 11 word-list tokens × 100 coordinates |
+| 3 · Compare security | [84](../slide/week9.html#/flair-static-contexts/-1) | 3 occurrences × 100 coordinates; all three pairwise cosines are 1 |
+
+#### R · Step 1: Load the model {#flair-r-load}
+
+[Code](../slide/week9.html#/flair-r-check/-1) → [Output](../slide/week9.html#/flair-r-check/0)
+
+After F01, we pass the cached file path to `WordEmbeddings()`. This loads the trained GloVe model into `embedding`.
+
+```r
+embedding <- WordEmbeddings(glove_path)
+print(embedding$embedding_length)
+```
+
+**Checkpoint:** We get an embedding length of **100**. At 17:44, we use the model to obtain the word vectors.
+
+#### R · Step 2: Get word vectors {#flair-r-vectors}
+
+[Code](../slide/week9.html#/flair-python-route/-1) → [Output](../slide/week9.html#/flair-python-route/0)
+
+At **17:44–17:47**, we pass the eleven-word list to `Sentence()` and attach vectors with `embed()`. We collect each token's coordinates with `lapply()` and stack them with `rbind`. The `tolist()` call converts tensor coordinates to ordinary numbers that R can use.
+
+```r
+word_list <- paste("King Queen man woman Paris London",
+  "apple orange Taiwan Dublin Bamberg")
+word_sentence <- Sentence(word_list)
+embedding$embed(word_sentence)
+word_vectors <- do.call(rbind, lapply(word_sentence$tokens,
+  function(token) as.numeric(token$embedding$tolist())))
+print(dim(word_vectors))
+```
+
+**Checkpoint:** `dim(word_vectors)` prints **11 × 100**. We have one row per token, in the listed order, and 100 GloVe coordinates per row. [Flair classic embeddings](https://flairnlp.github.io/docs/tutorial-embeddings/classic-word-embeddings) · [Tensor tolist](https://docs.pytorch.org/docs/stable/generated/torch.Tensor.tolist.html)
+
+#### R · Step 3: Compare security {#flair-r-security}
+
+[Code](../slide/week9.html#/flair-static-contexts/-1) → [Output](../slide/week9.html#/flair-static-contexts/0)
+
+At **17:47–17:50**, we apply the loaded model to three `Sentence` objects. This call attaches GloVe vectors to their tokens. In the full step below, we create the sentences, extract the three security vectors and compare them with cosine.
+
+**Core call · prepared sentences:**
+
+```r
+embedding$embed(sentences)
+```
+
+**Result after extraction and comparison:** We get 3 security occurrences × 100 coordinates, with all three pairwise cosines equal to 1.
+
+<details>
+<summary>Full runnable step</summary>
+
+```r
+security_texts <- c("Social security supports households.",
+  "The United Nations Security Council met.",
+  "Energy security matters for jobs.")
+sentences <- lapply(security_texts, Sentence)
+embedding$embed(sentences)
+security_vectors <- do.call(rbind, lapply(sentences, function(sentence) {
+  token <- Filter(function(t) tolower(t$text) == "security",
+    sentence$tokens)[[1]]
+  as.numeric(token$embedding$tolist())
+}))
+print(dim(security_vectors))
+unit <- security_vectors / sqrt(rowSums(security_vectors ^ 2))
+security_cosine <- tcrossprod(unit)
+print(round(security_cosine, 6))
+```
+
+</details>
+
+**Checkpoint:** `dim(security_vectors)` is **3 × 100**. The **3 × 3** cosine matrix gives 1 for every pair after rounding. We now [read the sentences and explain this result in E06](#flair-results).
+
+#### Python · Step 1: Load the model {#flair-python-load}
+
+[Code](../slide/week9.html#/flair-r-check/-1) → [Output](../slide/week9.html#/flair-r-check/0)
+
+After F02, we use `glove_path` to load the cached model at the same `>>>` prompt.
+
+```python
+embedding = WordEmbeddings(str(glove_path), force_cpu=True)
+print(embedding.embedding_length)
+```
+
+**Checkpoint:** We get an embedding length of **100**.
+
+#### Python · Step 2: Get word vectors {#flair-python-vectors}
+
+[Code](../slide/week9.html#/flair-python-route/-1) → [Output](../slide/week9.html#/flair-python-route/0)
+
+At **17:44–17:47**, we tokenize the same list, attach vectors with `embed()` and collect the token coordinates in a numpy array.
+
+```python
+word_list = ("King Queen man woman Paris London "
+             "apple orange Taiwan Dublin Bamberg")
+word_sentence = Sentence(word_list)
+embedding.embed(word_sentence)
+word_vectors = np.array([token.embedding.tolist() for token in word_sentence])
+print(word_vectors.shape)
+```
+
+**Checkpoint:** `word_vectors.shape` is **(11, 100)**. We have one row per listed token and 100 coordinates per row.
+
+#### Python · Step 3: Compare security {#flair-python-security}
+
+[Code](../slide/week9.html#/flair-static-contexts/-1) → [Output](../slide/week9.html#/flair-static-contexts/0)
+
+At **17:47–17:50**, we apply the same model to the three sentences in Python. The full step below creates the `Sentence` objects, extracts each security vector and calculates the cosine matrix.
+
+**Core call · prepared sentences:**
+
+```python
+embedding.embed(sentences)
+```
+
+**Result after extraction and comparison:** We get 3 security occurrences × 100 coordinates, with all three pairwise cosines equal to 1.
+
+<details>
+<summary>Full runnable step</summary>
+
+```python
+security_texts = ["Social security supports households.",
+                 "The United Nations Security Council met.",
+                 "Energy security matters for jobs."]
+sentences = [Sentence(text) for text in security_texts]
+embedding.embed(sentences)
+security_vectors = np.array([
+    next(token for token in sentence if token.text.lower() == "security")
+    .embedding.tolist() for sentence in sentences])
+print(security_vectors.shape)
+unit = security_vectors / np.linalg.norm(
+    security_vectors, axis=1, keepdims=True)
+security_cosine = unit @ unit.T
+print(np.round(security_cosine, 6))
+```
+
+</details>
+
+**Checkpoint:** `security_vectors.shape` is **(3, 100)**, and the **3 × 3** cosine matrix contains ones. We now read the sentences and explain the result in E06.
+
+#### Read the results and explain them {#flair-results}
+
+We have loaded the model on slide 82 and obtained the eleven-word matrix on slide 83. On slide 84, we compare the security vectors and use E06 to explain what happened. We then read the PCA figures on slide 85 at 17:52 and begin conText on slide 86 at 17:55.
+
+We placed security in these three sentences:
+
+```text
+Social security supports households.
+The United Nations Security Council met.
+Energy security matters for jobs.
+```
+
+| Object or comparison | Result |
+|---|---|
+| Loaded model | Cached pretrained GloVe, 100 coordinates |
+| Word-list matrix | 11 × 100 |
+| Security matrix | 3 × 100 |
+| Maximum coordinate difference among the three security vectors | 0 |
+| Three pairwise security cosines | 1.000000 each |
+
+Both language routes use the same [saved word vectors](flair/example-output/word-vectors.csv) and [security comparisons](flair/example-output/security-comparison.csv). We can check the package versions and route checks in the [runtime record](flair/flair_steps_runtime.json), and use F00 to check our own environment.
+
+The welfare, Security Council and energy sentences use security in different ways. GloVe nevertheless returns the same coordinates because it looks up the word type. To compare political usage as we did in Case 4, we need to keep each occurrence's surrounding text and group metadata. After the PCA example, we will use conText to build that kind of representation.
+
+::: {.callout-note title="E06 · Vector sizes and interpretation"}
+
+At **17:50–17:52**, we use E06 to explain the result:
+
+1. Which static GloVe model did we use? For a local run, include the **R or Python** route and package versions; otherwise, note that the answer uses the saved example.
+2. What do the rows and columns represent in the **11 × 100** word matrix and **3 × 100** security matrix?
+3. Why are all three pairwise security cosines **1**? In 1–2 sentences, connect the result to static lookup. Which surrounding texts, document IDs, party labels and dates would we need to compare political groups' uses?
+
+At **17:52**, we turn to the PCA figures below and on slide 85. At **17:55**, we continue to conText on slide 86.
+
+:::
+
+### If a check fails
+
+This table helps us check the setup before class or fix it afterward. During class, we can use the saved results for E06 at 17:50–17:52 and return to the setup later.
+
+| Where it stops | Next action |
+|---|---|
+| Python command not found | Install/select Python 3.10 or 3.11, then create the exercise environment. |
+| F00 import failure | Run pip with that `.venv` executable and the provided requirements, then repeat `--check`. |
+| F00 works, F01 fails | Use F02. For R, restart and verify the executable selected before any import. |
+| Cached model not found | Preload with `--download-glove`, or provide the gensim file and its companion vectors file. |
+
+We use Flair's **classic static word embeddings**, as in [our original 2024 Lab](reference/2024_qta_lab_week_11.html). Putting words in a `Sentence` container lets us process them together; their GloVe vectors still come from a fixed lookup.
+
+
+### PCA: read the original word-vector figures {#flair-after-class-pca}
+
+[Code](../slide/week9.html#/flair-pca-after-class/-1) → [Output](../slide/week9.html#/flair-pca-after-class/0)
+
+At **17:52–17:55**, we return to the eleven-word list and the **Dimension Reduction (PCA)** exercise in [our 2024 Week 11 Lab](reference/2024_qta_lab_week_11.html). We project the **same 11 × 100 GloVe matrix** from Step 2 into fewer dimensions. Each plotted point is one listed word; the table, 2D figure and 3D view all use the same centered, standardized PCA run.
+
+**Core call · prepared word matrix:**
+
+```r
+pca_result <- prcomp(word_vectors,
+  center = TRUE, scale. = TRUE)
+```
+
+**Recorded output · first three words:**
+
+| Word | PC1 | PC2 |
+|---|---:|---:|
+| King | −2.912091 | 1.285200 |
+| Queen | −2.241380 | 2.266714 |
+| man | −5.638190 | 2.984461 |
+
+PC1 and PC2 retain **38.2444%** of the standardized variance in this run.
+
+![PCA of the original eleven word vectors. Each label is one word; the first two components retain 38.24% of the standardized variance.](flair/example-output/word-pca-2024-2d.png)
+
+Before we move to conText, the map lets us see what a projection keeps and leaves out. We locate King/Queen and apple/orange, then rotate the 3D view to see the third component. Distances on this selected word map can differ from cosine similarities in the original 100-dimensional space.
+
+<iframe src="flair/example-output/word-pca-2024-3d.html" title="Interactive 3D PCA of the original eleven word vectors" width="100%" height="520" loading="lazy" style="border:1px solid #dce4e5;border-radius:8px;"></iframe>
+
+[Open the same-run 3D figure](flair/example-output/word-pca-2024-3d.html){target="_blank" rel="noopener"} if the embedded view is unavailable.
+
+**Check:** If two words are close on this map, must they also be nearest neighbours by full-space cosine? We can use the omitted dimensions to explain why that need not follow. The retained variance tells us about the projection; we still need separate evidence for a political interpretation.
+
+At **17:55**, we move to [conText C00](#ct00). We have seen what a fixed word vector and its projection can show. To compare how parties use the same word, we now return to each occurrence's surrounding text.
+
+<details>
+<summary>After class · full PCA computation in R or Python</summary>
+
+For the calculation, we reuse the eleven-word matrix from Step 2. If the Flair session has closed, we can rerun F01 or F02 and the first two steps. We center and standardize each coordinate as in the original `prcomp(..., center = TRUE, scale. = TRUE)` exercise. Component signs may flip across software while preserving the geometry.
+
+#### R: project the same eleven-word matrix
+
+```r
+word_names <- vapply(word_sentence$tokens,
+  function(token) token$text, character(1))
+pca_result <- prcomp(word_vectors, center = TRUE, scale. = TRUE)
+pca_table <- data.frame(word = word_names, pca_result$x[, 1:3])
+print(pca_table, row.names = FALSE)
+variance <- pca_result$sdev ^ 2 / sum(pca_result$sdev ^ 2)
+print(sum(variance[1:2]))
+plot(pca_table$PC1, pca_table$PC2, type = "n",
+  xlab = "PC1", ylab = "PC2")
+text(pca_table$PC1, pca_table$PC2, labels = pca_table$word)
+```
+
+Each point comes from one of our eleven 100-dimensional vectors. We add the first two entries in `variance` to get the retained proportion. The original solution also uses colour for PC3 and includes a 3D view.
+
+#### Python: the equivalent centered, standardized projection
+
+We reuse `word_vectors` and `word_sentence` from Python Step 2. The sample standard deviation, `ddof=1`, matches R's scaling convention.
+
+```python
+import matplotlib.pyplot as plt
+
+word_names = [token.text for token in word_sentence]
+z = (word_vectors - word_vectors.mean(axis=0)) / word_vectors.std(
+    axis=0, ddof=1)
+u, singular_values, vt = np.linalg.svd(z, full_matrices=False)
+scores = u[:, :3] * singular_values[:3]
+variance = singular_values ** 2 / np.sum(singular_values ** 2)
+print(np.column_stack([word_names, scores]))
+print(variance[:2].sum())
+plt.scatter(scores[:, 0], scores[:, 1])
+for name, xy in zip(word_names, scores[:, :2]):
+    plt.annotate(name, xy)
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.show()
+```
+
+</details>
+
+## conText Quick Start {#context-quick-start}
+
+At **17:55–18:10**, we move from a fixed vector for security to a vector for each occurrence's context. We use the official Quick Start's small US congressional sample to compare party uses of immigration. This is a package example, not a reproduction of the article's full Congressional Record analysis or Figure 5.
+
+We work through the inputs and saved results together, then use them to answer E04. To run along, we need the packages and C00 objects ready before class. We open [W9-conText.R](../classroom/W9-conText.R) in a separate R session, set the working directory to the course repository root or W9, and keep that session through C05.
+
+
+## C00 · Prepare the three guide objects {#ct00}
+
+
+**17:55–17:58 · slides 86.**
+
+[Code](../slide/week9.html#/context-data-and-models/-1) → [Output](../slide/week9.html#/context-data-and-models/0)
+
+We begin with three inputs from the package: US congressional speeches, 300-dimensional word vectors and their matching ALC transformation, A. We check the document count and whether the two matrices have compatible dimensions. The full preparation is below.
+
+
+**Core call · prepared objects:**
+
+```{r}
+print(c(documents = ndoc(cr_sample_corpus)))
+print(rbind(E = dim(cr_glove_subset),
+  A = dim(cr_transform)))
+```
+
+
+### Output {#ct00-output}
+
+```text
+conText v3.0.0 successfully loaded. Note this version of the package comes with significant changes to the conText() function.
+                        See Quick Start Guide for help getting started and instructions for accessing older versions of the package:
+ https://github.com/prodriguezsosa/conText/blob/master/vignettes/quickstart.md
+Package version: 4.3.1
+Unicode version: 14.0
+ICU version: 71.1
+Parallel computing: disabled
+See https://quanteda.io for tutorials and examples.
+documents 
+      400 
+  [,1] [,2]
+E  500  300
+A  300  300
+```
+
+
+**Check:** Which objects contain text, word vectors and the ALC transformation? Why must the vectors and transformation be a matched pair?
+
+
+<details>
+<summary>Full runnable step</summary>
+
+```{r}
+library(conText)
+library(quanteda)
+quanteda_options(threads = 1)
+data(list = c("cr_sample_corpus", "cr_glove_subset",
+  "cr_transform"))
+docvars(cr_sample_corpus, "party") <- factor(
+  docvars(cr_sample_corpus, "party"), levels = c("D", "R"))
+docvars(cr_sample_corpus, "gender") <- factor(
+  docvars(cr_sample_corpus, "gender"), levels = c("F", "M"))
+toks <- tokens(cr_sample_corpus, remove_punct = TRUE,
+  remove_symbols = TRUE, remove_numbers = TRUE,
+  remove_separators = TRUE, padding = TRUE)
+toks <- tokens_tolower(toks)
+toks_nostop <- tokens_select(toks, pattern = stopwords("en"),
+  selection = "remove", min_nchar = 3, padding = TRUE)
+feats <- featnames(dfm_trim(dfm(toks_nostop),
+  min_termfreq = 5))
+toks_nostop_feats <- tokens_select(toks_nostop, feats,
+  padding = TRUE)
+print(c(documents = ndoc(cr_sample_corpus)))
+print(rbind(E = dim(cr_glove_subset), A = dim(cr_transform)))
+# Empty pads retain the positions of removed tokens.
+```
+
+</details>
+
+
+## C01 · Keep each immigration context and its metadata {#ct01}
+
+
+**17:58–18:00 · slides 87.**
+
+[Code](../slide/week9.html#/context-occurrences/-1) → [Output](../slide/week9.html#/context-occurrences/0)
+
+We extract a window around each exact match to immigration while preserving token positions during preprocessing. Each row is now one use of the word, with the party and gender labels from its source speech. We remove the focal occurrence from its window; another immigration occurrence can remain among the surrounding words.
+
+
+**Core call · prepared objects:**
+
+```{r}
+immig_toks <- tokens_context(toks_nostop_feats,
+  pattern = "immigration", window = 6L, valuetype = "fixed",
+  rm_keyword = TRUE)
+```
+
+
+### Output {#ct01-output}
+
+```text
+924 instances of "immigration" found.
+contexts 
+     924 
+
+  D   R 
+486 438 
+      pattern party gender nominate_dim1
+1 immigration     D      F        -0.402
+2 immigration     D      F        -0.402
+3 immigration     D      F        -0.402
+```
+
+
+**Check:** What is one context row? Which party and speaker-gender labels does it inherit from the source speech?
+
+
+<details>
+<summary>Full runnable step</summary>
+
+```{r}
+immig_toks <- tokens_context(toks_nostop_feats,
+  pattern = "immigration", window = 6L, valuetype = "fixed",
+  rm_keyword = TRUE)
+print(c(contexts = ndoc(immig_toks)))
+print(table(docvars(immig_toks, "party")))
+print(head(docvars(immig_toks), 3))
+# One row is one use of immigration, not one speech.
+```
+
+</details>
+
+
+## C02 · Build ALC vectors and average within party {#ct02}
+
+
+**18:00–18:03 · slides 88.**
+
+[Code](../slide/week9.html#/context-alc-vectors/-1) → [Output](../slide/week9.html#/context-alc-vectors/0)
+
+We average the surrounding word vectors and apply A to obtain one ALC vector per retained context. We then average those context vectors by party. This gives us a first, descriptive comparison of the two parties' usage before we adjust for gender.
+
+
+**Core call · prepared objects:**
+
+```{r}
+immig_dfm <- dfm(immig_toks)
+immig_dem <- dem(immig_dfm, pre_trained = cr_glove_subset,
+  transform = TRUE, transform_matrix = cr_transform,
+  verbose = FALSE)
+immig_wv_party <- dem_group(immig_dem,
+  groups = immig_dem@docvars$party)
+```
+
+
+### Output {#ct02-output}
+
+```text
+              [,1] [,2]
+DFM            924 2014
+DEM            924  300
+party_vectors    2  300
+```
+
+
+**Check:** How does a context embedding differ from a party average? What does each row represent in the two matrices?
+
+
+<details>
+<summary>Full runnable step</summary>
+
+```{r}
+immig_dfm <- dfm(immig_toks)
+immig_dem <- dem(immig_dfm, pre_trained = cr_glove_subset,
+  transform = TRUE, transform_matrix = cr_transform,
+  verbose = FALSE)
+immig_wv_party <- dem_group(immig_dem,
+  groups = immig_dem@docvars$party)
+print(rbind(DFM = dim(immig_dfm), DEM = dim(immig_dem),
+  party_vectors = dim(immig_wv_party)))
+# DEM: one context per row. Party vectors: one party per row.
+```
+
+</details>
+
+
+## C03 · Read neighbours and compare reform with enforce {#ct03}
+
+
+**18:03–18:05 · slides 89.**
+
+[Code](../slide/week9.html#/context-neighbours/-1) → [Output](../slide/week9.html#/context-neighbours/0)
+
+We look for word vectors close to each party's average ALC vector. The neighbour lists suggest how the parties' uses might differ. Because we are comparing context vectors with word vectors, immigration itself can appear in the list.
+
+
+**Core call · prepared objects:**
+
+```{r}
+immig_nns <- nns(immig_wv_party,
+  pre_trained = cr_glove_subset, N = 3,
+  candidates = immig_wv_party@features, as_list = FALSE)
+```
+
+
+### Output {#ct03-output}
+
+```text
+# A tibble: 6 × 4
+  target feature        rank value
+  <fct>  <chr>         <int> <dbl>
+1 R      immigration       1 0.875
+2 D      immigration       1 0.848
+3 R      illegal           2 0.708
+4 D      broken            2 0.680
+5 D      comprehensive     3 0.661
+6 R      enforcement       3 0.645
+  target feature     value
+1      D  reform 0.6580804
+2      R  reform 0.4899631
+3      D enforce 0.4939719
+4      R enforce 0.6365299
+```
+
+
+**Check:** Choose one neighbour from each party and propose a difference in emphasis. Which original passages would help you check it?
+
+
+<details>
+<summary>Full runnable step</summary>
+
+```{r}
+immig_nns <- nns(immig_wv_party,
+  pre_trained = cr_glove_subset, N = 3,
+  candidates = immig_wv_party@features, as_list = FALSE)
+immig_cosines <- cos_sim(immig_wv_party,
+  pre_trained = cr_glove_subset,
+  features = c("reform", "enforce"), as_list = FALSE)
+print(immig_nns)
+print(immig_cosines)
+# These party averages are exploratory, before regression adjustment.
+```
+
+</details>
+
+
+## C04 · Read the nearest context to each party vector {#ct04}
+
+
+**18:05–18:07 · slides 90.**
+
+[Code](../slide/week9.html#/context-nearest-passages/-1) → [Output](../slide/week9.html#/context-nearest-passages/0)
+
+We now retrieve contexts close to each party vector and read their processed words to check our interpretation of the neighbour list. The search includes all candidate contexts. A target label such as D identifies the query vector; it does not restrict the results to Democratic speakers.
+
+
+**Core call · prepared objects:**
+
+```{r}
+immig_ncs <- ncs(immig_wv_party, contexts_dem = immig_dem,
+  contexts = immig_toks, N = 1, as_list = FALSE)
+```
+
+
+### Output {#ct04-output}
+
+```text
+# A tibble: 2 × 3
+  target  rank value
+  <chr>  <int> <dbl>
+1 D          1 0.802
+2 R          1 0.798
+D: end conversation passed immigration bill comprehensive bill clean broken immigration system year
+R: america suggest immigration can good thing illegal immigration legal immigration mean means
+```
+
+
+**Check:** Does the nearest passage support your interpretation of the neighbour list? A nearest passage illustrates a use; it does not estimate how common that use is.
+
+
+<details>
+<summary>Full runnable step</summary>
+
+```{r}
+immig_ncs <- ncs(immig_wv_party, contexts_dem = immig_dem,
+  contexts = immig_toks, N = 1, as_list = FALSE)
+print(immig_ncs[, c("target", "rank", "value")])
+cat(paste(immig_ncs$target, immig_ncs$context, sep = ": "),
+  sep = "\n")
+# D/R label the queried party vector, not the source speaker.
+# These are processed context words, not complete original speeches.
+```
+
+</details>
+
+
+## C05 · Compare party while adjusting for gender {#ct05}
+
+
+**18:07–18:10 · slides 91.**
+
+[Code](../slide/week9.html#/context-embedding-regression/-1) → [Output](../slide/week9.html#/context-embedding-regression/0)
+
+The party means gave us an unadjusted comparison. We now return to the 924 occurrences and use embedding regression to compare parties while holding gender fixed. We pass the original tokens and metadata to conText(), so the model works with individual uses rather than the two party means. We read each coefficient relative to its reference group.
+
+
+**Core call · prepared objects:**
+
+```{r}
+set.seed(2021L)
+fit <- conText(immigration ~ party + gender,
+  data = toks_nostop_feats, pre_trained = cr_glove_subset,
+  transform = TRUE, transform_matrix = cr_transform,
+  jackknife = FALSE, permute = TRUE,
+  num_permutations = 100, window = 6L,
+  valuetype = "fixed", verbose = FALSE)
+```
+
+
+### Output {#ct05-output}
+
+```text
+[1]   3 300
+[1] "(Intercept)" "party_R"     "gender_M"   
+  coefficient normed.estimate.orig normed.estimate.deflated
+1     party_R            10.139940                 8.668252
+2    gender_M             6.908761                 5.154713
+  normed.estimate.beta.error.null   n n_obs covariate_mean p.value
+1                        1.471687 924   924      0.4740260       0
+2                        1.754048 924   924      0.6709957       0
+```
+
+
+**Check:** Which comparison holds gender fixed? How does it differ from the descriptive party averages we inspected earlier?
+
+
+<details>
+<summary>Full runnable step</summary>
+
+```{r}
+set.seed(2021L)
+fit <- conText(immigration ~ party + gender,
+  data = toks_nostop_feats, pre_trained = cr_glove_subset,
+  transform = TRUE, transform_matrix = cr_transform,
+  jackknife = FALSE, permute = TRUE,
+  num_permutations = 100, window = 6L,
+  valuetype = "fixed", verbose = FALSE)
+print(dim(fit))
+print(rownames(fit))
+print(fit@normed_coefficients)
+# Input is the original processed tokens with metadata, not the DEM.
+# Current conText reports squared norms and a bias correction.
+# A displayed p.value of 0 means 0 exceedances in 100 permutations.
+# These numbers are not the 2023 article's L2 coefficient lengths.
+```
+
+</details>
+
+
+Here we read the raw and debiased squared-norm estimates in the labelled columns. Their scale differs from the 2023 paper's L2 lengths. We use 100 permutations for this short example and do not request jackknife confidence intervals. A printed p-value of 0 means that none of those 100 permutations exceeded the observed statistic. The party coefficient describes a conditional association, so we cannot read it as a causal effect or percentage change.
+
+::: {.callout-note title="E04 · Context, evidence and conditional comparison"}
+
+By **18:10**, we discuss three questions:
+
+1. What does one ALC embedding represent, and what role does the matched transformation play?
+2. Which nearby word and retrieved context support our reading? What does the passage show? The target label alone identifies neither the context author's party nor the frequency of that use.
+3. What is the reference party, and what does the party coefficient compare while holding gender fixed? How do we read the labelled squared-distance summary?
+
+:::
+
+
+::: {.callout-tip title="Return to research design · 18:10"}
+
+We began with fixed word vectors, then used surrounding words to compare individual occurrences. In the regression, we compared parties while holding gender fixed. At 18:10, we return to [slide 92](../slide/week9.html#/design-an-embedding-study-in-one-paragraph) and choose the unit, groups and evidence for our own research question.
+
+:::
+
+
+## Sources and recorded run
+
+- [Our 2024 QTA Week 11 Lab](reference/2024_qta_lab_week_11.html): Flair's pretrained GloVe, the eleven-word list and PCA figures. The three-security comparison is the W9 extension.
+- [Official conText Quick Start](https://github.com/prodriguezsosa/conText/blob/master/vignettes/quickstart.md): contexts, ALC embeddings, nearest words, nearest contexts and embedding regression. The results shown here come from our saved run.
+- [Classroom conText script](../classroom/W9-conText.R).
+
+After class, we can use the official Quick Start to explore bootstrap inference, multiword targets and stemming. The complete code above lets us repeat the example before changing those choices.

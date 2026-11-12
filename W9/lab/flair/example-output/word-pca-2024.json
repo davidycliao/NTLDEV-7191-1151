@@ -1,0 +1,111 @@
+{
+  "description": "The course's 2024 Week 11 PCA method, rebuilt from W9's recorded GloVe vectors; table, 2D and 3D share this one prcomp fit.",
+  "input": {
+    "file": "word-vectors.csv",
+    "dimensions": [11, 100],
+    "sha256": "9243a72c1470360dfe2da92688aa389a26a1d9d662bd816f9432412bee0a62aa"
+  },
+  "method": {
+    "call": "prcomp(word_vectors, center = TRUE, scale. = TRUE)",
+    "center": true,
+    "scale": true,
+    "seed": 123,
+    "plot_2d": "PC1 on x; PC2 on y; PC3 mapped blue to red",
+    "plot_3d": "PC1, PC2 and PC3; marker hover shows the token"
+  },
+  "coordinates": [
+    {
+      "word": "King",
+      "PC1": -2.91209095370956,
+      "PC2": 1.28519965772318,
+      "PC3": -1.95053853652448
+    },
+    {
+      "word": "Queen",
+      "PC1": -2.24138037864317,
+      "PC2": 2.26671437303269,
+      "PC3": -1.09020972447392
+    },
+    {
+      "word": "man",
+      "PC1": -5.63819021264463,
+      "PC2": 2.98446097885193,
+      "PC3": 3.55462009516482
+    },
+    {
+      "word": "woman",
+      "PC1": -6.48910026308001,
+      "PC2": 2.45860658112837,
+      "PC3": 3.5669365986109
+    },
+    {
+      "word": "Paris",
+      "PC1": 3.07022121689541,
+      "PC2": 5.03906097082836,
+      "PC3": -2.65962019761374
+    },
+    {
+      "word": "London",
+      "PC1": 5.31962163025489,
+      "PC2": 4.36843295272778,
+      "PC3": -2.60726627352138
+    },
+    {
+      "word": "apple",
+      "PC1": 0.336253527338606,
+      "PC2": -8.67935846843955,
+      "PC3": -0.447527216059268
+    },
+    {
+      "word": "orange",
+      "PC1": -0.0485467000644186,
+      "PC2": -4.40410092237439,
+      "PC3": 0.771514800401622
+    },
+    {
+      "word": "Taiwan",
+      "PC1": -2.79938293148662,
+      "PC2": -4.14928700471901,
+      "PC3": -6.33296039091954
+    },
+    {
+      "word": "Dublin",
+      "PC1": 5.89940962519562,
+      "PC2": 1.0632913485136,
+      "PC3": -0.0927192478333612
+    },
+    {
+      "word": "Bamberg",
+      "PC1": 5.50318543994388,
+      "PC2": -2.23302046727296,
+      "PC3": 7.28777009276835
+    }
+  ],
+  "variance": {
+    "PC1": 0.198166355358555,
+    "PC2": 0.184277747699132,
+    "PC3": 0.138245028355137,
+    "first_two_share": 0.382444103057687,
+    "first_three_share": 0.520689131412824
+  },
+  "verification": {
+    "original_2024_html": "2024_qta_lab_week_11.html",
+    "original_html_sha256": "7345221bf609fd9e9ef35bfab663844274959c138b88477005b16695d4db08b0",
+    "original_3d_all_coordinates_max_error": 2.95097279945367e-13,
+    "prior_w9_checkpoint": "W9/analysis/context-quickstart/flair-pca.json",
+    "table_and_both_figures_same_fit": true
+  },
+  "files": {
+    "table_csv": "word-pca-2024.csv",
+    "table_text": "word-pca-2024-table.txt",
+    "plot_2d": "word-pca-2024-2d.png",
+    "plot_3d": "word-pca-2024-3d.html"
+  },
+  "runtime": {
+    "R": "4.4.1",
+    "ggplot2": "4.0.2",
+    "plotly": "4.12.0",
+    "htmlwidgets": "1.6.4",
+    "jsonlite": "2.0.0"
+  }
+}
