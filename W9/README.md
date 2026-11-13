@@ -4,8 +4,8 @@
 
 ## Student materials
 
-- [Slides HTML](slide/week9.html) · [Slides PDF](slide/week9.pdf) · [Student source ZIP](downloads/week9-student-source.zip)
-- [Lab HTML](lab/Lab_Session_W9.html) · [Lab ZIP](downloads/week9-lab.zip) · [Lab instructions](lab/README.md)
+- [Slides HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W9/slide/week9.html) · [Slides PDF](slide/week9.pdf) · [Student source ZIP](downloads/week9-student-source.zip)
+- [Lab HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W9/lab/Lab_Session_W9.html) · [Lab ZIP](downloads/week9-lab.zip) · [Lab instructions](lab/README.md)
 - [conText classroom R script](classroom/W9-conText.R) · [Flair R steps](lab/flair/flair_steps.R) · [Flair Python steps](lab/flair/flair_steps.py)
 - [Readings and DOI links](reading/README.md)
 - [Supplement](handout/Word_Embeddings_Supplement.html) · [After-class A01–A04](lab/After_Class_W9.html) · [Advanced embedding regression A05](lab/Embedding_Regression_W9.html)

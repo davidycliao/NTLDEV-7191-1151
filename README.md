@@ -12,7 +12,7 @@
 
 ## Announcements
 
-*Last updated November 12, 2026 at 05:20 PST.*
+*Last updated November 12, 2026 at 17:39 PST.*
 
 1. ~~**Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** **Submission deadline: October 9, 2026.**~~
 
