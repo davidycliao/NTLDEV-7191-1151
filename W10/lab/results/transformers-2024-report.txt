@@ -1,0 +1,4 @@
+Accuracy: 0.929825
+Macro-F1: 0.481818
+Macro-precision: 0.464912
+Macro-recall: 0.500000

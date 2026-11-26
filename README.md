@@ -12,7 +12,7 @@
 
 ## Announcements
 
-*Last updated November 12, 2026 at 17:39 PST.*
+*Last updated November 27, 2026 (Taipei).*
 
 1. ~~**Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** **Submission deadline: October 9, 2026.**~~
 
@@ -29,6 +29,8 @@
 7. **Call for Papers: [6th European PolMeth Meeting (Berlin)](https://polmeth.eu/).** **Abstract submission deadline: December 15, 2026.** The meeting takes place May 24–25, 2027, at the Hertie School. [Submission form (300 words max.)](https://forms.cloud.microsoft/e/7WmRcpi3ky).
 
 8. **Call for Papers: [9th International COMPTEXT Conference (Prague)](https://www.comptextconference.org/9th-annual-conference-2027/).** **Submission deadline: December 15, 2026.** The conference takes place May 27–29, 2027, at the Faculty of Social Sciences, Charles University. Acceptance notifications will be sent by January 20, 2027.
+
+9. **Poster preparation guide: [How to Make a Poster](https://yhoriuchi.github.io/academic-poster-guide/)** by **Yusaku Horiuchi**. Please read this guide when preparing your poster draft for the **Week 14 workshop** and **Week 15 presentations**. It covers the main message, layout, readable figures and tables, final PDF checks, and a short spoken explanation. You can also use its advice on presenting a pre-analysis plan if your results are not yet available.
 
 Use **HTML** to view slides in your browser, **PDF** for a downloadable copy, and **Source ZIP** for editable slide files.
 
@@ -55,13 +57,15 @@ If the HTML link shows an external-content notice, select **Open the page** to v
 | Week 7 | Oct 23 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W7/slide/week7.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W7/slide/week7.html#/title-slide) · [Source ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W7/downloads/week7-student-source.zip) | [Lab HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W7/lab/Lab_Session_W7.html) · [R script](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W7/lab/Lab_Session_W7.R) · [Lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W7/downloads/week7-lab.zip) · [Instructions](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W7/lab/README.md) |
 | Week 8 | Oct 30 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W8/slide/week8.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W8/slide/week8.html) · [Source ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W8/downloads/week8-student-source.zip) | [Lab HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W8/lab/Lab_Session_W8.html) · [R script](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W8/classroom/W8.R) · [Lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W8/downloads/week8-lab.zip) · [Instructions](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W8/lab/README.md) |
 | Week 9 | Nov 6 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W9/slide/week9.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W9/slide/week9.html) · [Source ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W9/downloads/week9-student-source.zip) | [Lab HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W9/lab/Lab_Session_W9.html) · [R script](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W9/classroom/W9-conText.R) · [Lab ZIP](https://github.com/davidycliao/NTLDEV-7191-1151/raw/refs/heads/main/W9/downloads/week9-lab.zip) · [Instructions](https://github.com/davidycliao/NTLDEV-7191-1151/blob/main/W9/lab/README.md) |
-| Week 10 | Nov 13 |  |  |
+| Week 10 | Nov 13 | [![PDF](https://img.shields.io/badge/PDF-E53935?style=flat-square)](W10/slide/week10.pdf) · [![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W10/slide/week10.html) · [Week guide](W10/README.md) | [Lab HTML](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/W10/lab/Lab_Session_W10.html) · [Flair notebook](W10/lab/notebooks/2024_qta_lab_week_12_flair.ipynb) · [Transformers notebook](W10/lab/notebooks/2024_qta_lab_week_12_transformer.ipynb) · [Lab ZIP](W10/downloads/week10-lab.zip) · [Instructions](W10/lab/README.md) |
 | Week 11 | Nov 20 | **NTU Sports Day** |  |
 | Week 12 | Nov 27 |  |  |
 | Week 13 | Dec 4 |  |  |
 | Week 14 | Dec 11 |  |  |
 | Week 15 | Dec 18 |  |  |
 | Week 16 | Dec 25 | **Constitution Day Holiday** |  |
+
+**Week 10 materials updated: November 27, 2026.** The integrated Lab guide covers both notebook approaches, starting with packages, the shared dataset and label definitions. Printed outputs distinguish current environment/data checks from saved 2024 notebook training results.
 
 ## Course Schedule
 
@@ -101,9 +105,11 @@ Covers LDA, structural topic models, and keyword-assisted topic models, with emp
 
 Uses four political-science cases to study party positions, semantic change, nostalgia and differences in word use. The Lab introduces Flair word vectors and PCA figures, then uses conText to compare the contexts in which parties use a word. Readability and further model comparisons are available as supplementary exercises.
 
-### Week 10: NLP Pipelines and Transformers: Annotation, Classification, and Interpretability
+### Week 10: Transformers: Concepts, Classification and NLI
 
-Connects POS tagging, named entity recognition, and dependency parsing to contextual representations and transformer-based classification. Fine-tuning and interpretability are introduced through applications and demonstrations, with detailed implementation reserved for supplementary materials.
+Introduces Transformer architecture, from tokens and self-attention to pretraining and fine-tuning. Three classification cases show how text labels become research evidence, including *Sentiment is Not Stance*. A separate section introduces natural language inference (NLI) and stance-detection applications in *Political Analysis* and *Political Science Research and Methods*.
+
+The Lab follows the lecture and integrates the supplied Flair and Hugging Face Transformers notebooks in one English guide. Both approaches classify the same Irish policy excerpts using the existing train, validation and test splits. Students follow code on the left and brief explanations on the right, inspect printed outputs, and interpret class-specific performance alongside accuracy. Saved model scores are identified as original 2024 notebook records; new preparation checks are dated separately.
 
 ### Week 11: NTU Sports Day (No Class)
 

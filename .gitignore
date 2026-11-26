@@ -44,6 +44,45 @@ W2/scripts/
 .Rproj.user
 
 # Materials held back from publication.
-W10/
+# Week 10: publish only reviewed student materials.
+W10/**
+!W10/README.md
+!W10/slide/
+!W10/slide/week10.html
+!W10/slide/week10.pdf
+!W10/reading/
+!W10/reading/README.md
+!W10/reading/applications.html
+!W10/downloads/
+!W10/downloads/week10-lab.zip
+!W10/lab/
+!W10/lab/README.md
+!W10/lab/Lab_Session_W10.html
+!W10/lab/notebooks/
+!W10/lab/notebooks/DATA.md
+!W10/lab/notebooks/2024_qta_lab_week_12_flair.ipynb
+!W10/lab/notebooks/2024_qta_lab_week_12_transformer.ipynb
+!W10/lab/notebooks/irish_environmental_policies/
+!W10/lab/notebooks/irish_environmental_policies/dataset_dict.json
+!W10/lab/notebooks/irish_environmental_policies/train/
+!W10/lab/notebooks/irish_environmental_policies/train/state.json
+!W10/lab/notebooks/irish_environmental_policies/train/dataset_info.json
+!W10/lab/notebooks/irish_environmental_policies/train/data-00000-of-00001.arrow
+!W10/lab/notebooks/irish_environmental_policies/validation/
+!W10/lab/notebooks/irish_environmental_policies/validation/state.json
+!W10/lab/notebooks/irish_environmental_policies/validation/dataset_info.json
+!W10/lab/notebooks/irish_environmental_policies/validation/data-00000-of-00001.arrow
+!W10/lab/notebooks/irish_environmental_policies/test/
+!W10/lab/notebooks/irish_environmental_policies/test/state.json
+!W10/lab/notebooks/irish_environmental_policies/test/dataset_info.json
+!W10/lab/notebooks/irish_environmental_policies/test/data-00000-of-00001.arrow
+!W10/lab/results/
+!W10/lab/results/README.md
+!W10/lab/results/environment.txt
+!W10/lab/results/shared-data.txt
+!W10/lab/results/training-example.txt
+!W10/lab/results/flair-preparation.txt
+!W10/lab/results/flair-2024-report.txt
+!W10/lab/results/transformers-2024-report.txt
 W4/classroom/udpipe_models/
 W6/instructor/

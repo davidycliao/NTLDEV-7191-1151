@@ -1,0 +1,5 @@
+     split  rows  other_policy  environmental_policy
+     train  1880          1772                   108
+validation   627           582                    45
+      test   627           583                    44
+{0: 'None Environment Policy', 1: 'Environment Policy'}
