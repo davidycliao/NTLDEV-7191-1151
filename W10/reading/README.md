@@ -8,9 +8,9 @@ Read the [brief application guide](applications.html) alongside the slides. Each
 |---|---|---|
 | **1 · Liao & Tang (2026)** | Geographically targeted oversight | [Case 1](../slide/week10.html#/liao-tang-paper-intro) · [Article](https://doi.org/10.1016/j.electstud.2025.103026) |
 | **2 · Schöll, Gallego & Le Mens (2024)** | Feedback and attention to gender issues | [Case 2](../slide/week10.html#/scholl-paper-intro) · [Article](https://doi.org/10.1111/ajps.12772) |
-| **3 · Bestvater & Monroe (2023)** | Sentiment versus target-specific stance | [Case 3](../slide/week10.html#/bestvater-paper-intro) · [Article](https://doi.org/10.1017/pan.2022.10) |
+| **3 · Bestvater & Monroe (2023)** | Women's March: VADER, fine-tuned BERT and human stance | [Case 3](../slide/week10.html#/bestvater-paper-intro) · [Article](https://doi.org/10.1017/pan.2022.10) |
 
-For each case, identify the text unit, the human label, the classifier's output and the research measure built from the labels. Bestvater and Monroe compare supervised SVM and BERT; their article is not an NLI implementation.
+For each case, identify the text unit, the human label, the classifier's output and the research measure built from the labels. Case 3 compares VADER dictionary sentiment, BERT fine-tuned on human stance labels, and the human reference for the Women's March. The NLI applications follow separately.
 
 ## NLI: two separate applications
 

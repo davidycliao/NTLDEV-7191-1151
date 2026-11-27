@@ -2238,9 +2238,9 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="classification-case-3-sentiment-is-not-stance">Classification · Case 3: Sentiment is Not Stance</h2>
 <p><strong>Bestvater, Samuel E., and Burt L. Monroe (2023). “Sentiment is Not Stance: Target-Aware Opinion Classification for Political Text Analysis.” <em>Political Analysis</em> 31(2):235–256.</strong> <a href="https://doi.org/10.1017/pan.2022.10">Article</a> · <a href="../slide/week10.html#/bestvater-paper-intro">Slide</a>.</p>
 <ul>
-<li><strong>Background:</strong> Positive or negative tone differs from support for a specified target.</li>
-<li><strong>Classification:</strong> Compare SVM and BERT trained with sentiment or stance labels while evaluating the same stance task.</li>
-<li><strong>Research use:</strong> Check whether measured Kavanaugh approval reproduces the association with political ideology found using human stance labels. This is an observational association, not a causal effect.</li>
+<li><strong>Background:</strong> Does a tweet support the Women’s March, or does it only sound positive or negative?</li>
+<li><strong>Classification:</strong> Compare VADER dictionary sentiment used as an approval proxy, BERT fine-tuned on human Women’s March stance labels, and the human reference labels.</li>
+<li><strong>Research use:</strong> Figure 3 (p. 242) shows approval declining with conservatism. The human relationship is steepest; BERT is flatter, and VADER flatter still. Table 2 (p. 241) uses 928 observations for VADER and 1,501 each for BERT and the human reference. The methods and samples differ, so this comparison does not isolate an architecture effect or establish causality.</li>
 </ul>
 </section>
 <section id="nli-laurer-et-al.-category-statements" class="level2">
