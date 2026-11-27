@@ -20,7 +20,7 @@ Each article has one continuous three-page sequence: a short introduction with t
 
 ## Notebook Lab
 
-The [Lab handout](lab/Lab_Session_W10.html) integrates `2024_qta_lab_week_12_flair.ipynb` and `2024_qta_lab_week_12_transformer.ipynb` by Yen-Chieh Liao and Stefan Müller (22 April 2024). Start with necessary packages and shared data, then work through Flair, Transformers and the same-text comparison. In the slides, the detailed code walkthrough follows **Read class-specific performance**: code on the left, short explanations on the right.
+The [Lab handout](lab/Lab_Session_W10.html) integrates `2024_qta_lab_week_12_flair.ipynb` and `2024_qta_lab_week_12_transformer.ipynb` by Yen-Chieh Liao and Stefan Müller (22 April 2024). Start with necessary packages and shared data. An optional warmup uses “My dog is cute. He likes playing.” to connect tokens, positions and pretraining to the lecture. Then work through Flair, Transformers and the same-text comparison. In the slides, the detailed code walkthrough follows **Read class-specific performance**: code on the left, short explanations on the right.
 
 The environmental-policy task demonstrates supervised classification. A separate NLI exercise adapts Burnham's official Trump-stance tutorial: pair three constructed texts with complete hypotheses, reuse an existing NLI model, and inspect the ranked candidate scores. Both methods use Transformers; their inputs and target-task training differ. Neither exercise uses the paper corpora.
 

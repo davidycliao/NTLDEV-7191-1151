@@ -5,6 +5,7 @@ Classify Irish policy excerpts as environmental policy or other policy with Flai
 Then compare this supervised workflow with a separate zero-shot NLI exercise: classify three constructed texts for stance toward Trump, using the model and hypothesis template from Burnham's official tutorial.
 
 - [Integrated Lab guide](Lab_Session_W10.html)
+- [Optional lecture warmup](Lab_Session_W10.html#lecture-warmup): read tokens, positions and vocabulary IDs before training.
 - [Original Flair notebook](notebooks/2024_qta_lab_week_12_flair.ipynb)
 - [Original Transformers notebook](notebooks/2024_qta_lab_week_12_transformer.ipynb)
 - [NLI demonstration notebook](notebooks/Burnham_NLI_demo.ipynb)

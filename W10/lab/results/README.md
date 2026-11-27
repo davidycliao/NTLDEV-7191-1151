@@ -13,6 +13,8 @@ These checks did not load a pretrained encoder, fit a classifier or generate pre
 - [training-example.txt](training-example.txt): the full first training excerpt and its supplied reference label.
 - [flair-preparation.txt](flair-preparation.txt): the excerpt as a labeled Flair Sentence and the training-only label dictionary.
 
+The [optional lecture warmup](../Lab_Session_W10.html#lecture-warmup) also records checked tokenizer output for “My dog is cute. He likes playing.” It shows all 11 tokens, their positions and vocabulary IDs, using Transformers 4.54.0 and the `bert-base-uncased` tokenizer. It loads tokenizer files only.
+
 Save the version output from your own active notebook kernel with your run.
 
 ## Stored model records · 2024

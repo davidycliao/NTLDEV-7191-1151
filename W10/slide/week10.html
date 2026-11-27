@@ -2311,18 +2311,30 @@ Each position uses earlier positions and itself.<br>Often used for next-token ge
 ← / → Compare the attention masks
 </div>
 </section>
-<section id="pretraining" class="slide level2 english-notes">
+<section id="pretraining" class="slide level2 case-guided english-notes">
 <h2>Pretraining learns reusable representations</h2>
 <div class="slide-body">
-<div class="example-lines">
+<div id="pretraining-example" class="example-lines">
 <p>The government announced a [MASK] policy.</p>
 </div>
+<div id="pretraining-prediction" class="case-focus-block">
 <p><strong>Masked language modeling:</strong> predict selected hidden tokens from context.</p>
+</div>
+<div id="pretraining-answer" class="case-focus-block">
 <p>The original text supplies the answers.</p>
+</div>
+<div id="pretraining-research" class="case-focus-block">
 <p>The model still needs a connection to <strong>our research labels</strong>.</p>
+</div>
+</div>
 <div class="source">
 <p>Grimmer, Roberts &amp; Stewart (2022), <em>Text as Data</em>, §8.5, p. 88 · <a href="https://aclanthology.org/N19-1423/">BERT, §3.1</a>. Masked-policy sentence: teaching example.</p>
 </div>
+<div class="case-cues" aria-hidden="true">
+<p><span class="fragment case-cue" data-fragment-index="0" data-focus-targets="[&quot;#pretraining-example&quot;, &quot;#pretraining-prediction&quot;]" data-note-indices="0" data-step-label="Pretraining · Predict the hidden token"></span> <span class="fragment case-cue" data-fragment-index="1" data-focus-targets="[&quot;#pretraining-answer&quot;]" data-note-indices="1" data-step-label="Pretraining · Check the original text"></span> <span class="fragment case-cue" data-fragment-index="2" data-focus-targets="[&quot;#pretraining-research&quot;]" data-note-indices="2" data-step-label="Pretraining · Connect to research labels"></span></p>
+</div>
+<div class="case-step-status" aria-live="polite">
+← / → Follow the pretraining example
 </div>
 </section>
 <section id="fine-tuning" class="slide level2 english-notes">
