@@ -977,6 +977,11 @@ font-size: 24px; white-space: nowrap; padding: .2em .25em; text-align: center;
 .reveal #self-attention .case-focus-block { margin: 0 0 18px; }
 .reveal #self-attention .case-focus-block:last-child { margin-bottom: 0; }
 .reveal #self-attention .case-focus-block p { font-size: 27px; line-height: 1.22; }
+.reveal #attention-connections .case-focus-block { margin: 0 0 16px; }
+.reveal #attention-connections .case-focus-block p { font-size: 28px; line-height: 1.2; }
+.reveal #attention-connections table { width: 100%; font-size: 26px; line-height: 1.15; margin: 0; }
+.reveal #attention-connections th,
+.reveal #attention-connections td { padding: .28em .35em; }
 
 .reveal #burnham-covid-validation > .slide-body {
 align-self: start;
@@ -2015,6 +2020,85 @@ Weighted values → <strong>contextual representation</strong>.
 </div>
 <div class="case-step-status" aria-live="polite">
 ← / → Follow the attention links
+</div>
+</section>
+<section id="attention-connections" class="slide level2 case-guided english-notes">
+<h2>Read the connections at dog</h2>
+<div class="slide-body">
+<div id="attention-connection-rule" class="case-focus-block">
+<p>
+<strong>BERT can use every input position.</strong><br>Learned matching scores set the mixing weights.
+</p>
+</div>
+<div id="attention-connection-weights" class="case-focus-block">
+<table>
+<thead>
+<tr>
+<th>
+Position
+</th>
+<th>
+Approx. weight
+</th>
+<th>
+What is being mixed
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<strong>he</strong>
+</td>
+<td>
+0.69
+</td>
+<td>
+Information from the position at he
+</td>
+</tr>
+<tr>
+<td>
+<strong>[SEP]</strong>
+</td>
+<td>
+0.26
+</td>
+<td>
+Information from this input’s final marker
+</td>
+</tr>
+<tr>
+<td>
+Other 9 positions
+</td>
+<td>
+0.05 total
+</td>
+<td>
+Information from the remaining positions
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="attention-connection-reading" class="case-focus-block">
+<p>
+<strong>Darker line → larger mixing weight.</strong>
+</p>
+<p>
+These weights alone do not prove that <strong>he</strong> refers to <strong>dog</strong>.
+</p>
+</div>
+</div>
+<div class="source">
+<p><a href="https://github.com/jessevig/bertviz">BertViz</a> · bert-base-uncased, layer 5 / head 5 (zero-based), updating dog · rounded weights from the same model run · <a href="https://papers.neurips.cc/paper/7181-attention-is-all-you-need">Vaswani et al. (2017), §3.2</a>.</p>
+</div>
+<div class="case-cues" aria-hidden="true">
+<p><span class="fragment case-cue" data-fragment-index="0" data-focus-targets="[&quot;#attention-connection-rule&quot;]" data-note-indices="0" data-step-label="Attention connections · Explain why positions can connect"></span> <span class="fragment case-cue" data-fragment-index="1" data-focus-targets="[&quot;#attention-connection-weights&quot;]" data-note-indices="1" data-step-label="Attention connections · Read he and the end marker"></span> <span class="fragment case-cue" data-fragment-index="2" data-focus-targets="[&quot;#attention-connection-reading&quot;]" data-note-indices="2" data-step-label="Attention connections · Interpret the darker lines"></span></p>
+</div>
+<div class="case-step-status" aria-live="polite">
+← / → Read the attention connections
 </div>
 </section>
 <section id="attention-qkv" class="slide level2 case-guided qkv-visual english-notes">

@@ -2503,6 +2503,12 @@ Reference: None Environment Policy</code></pre>
       10  [SEP]          102</code></pre>
 <p><strong>Read:</strong> the tokenizer lowercases the text and adds <code>[CLS]</code> and <code>[SEP]</code> markers, giving 11 input tokens. Positions <code>0</code>–<code>10</code> show their order in this input. Vocabulary IDs point to entries in BERT’s dictionary. The two periods have different positions but the same ID, <code>1012</code>. These IDs identify tokens; the policy labels <code>0</code> and <code>1</code> identify categories for whole excerpts.</p>
 <p>The model next looks up a list of numbers for each token ID and adds position information to keep track of order. Attention lets each position use information from other positions. Those calculations happen inside the Transformer models loaded below.</p>
+<section id="read-the-lectures-attention-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="read-the-lectures-attention-diagram">Read the lecture’s attention diagram</h3>
+<p><strong>Read · lecture model run:</strong> We are updating <code>dog</code> at position <code>2</code>. BERT can use all positions in this input. It compares dog’s query (<code>Q</code>) with the key (<code>K</code>) at each position, using settings learned during training. These comparisons become attention weights.</p>
+<p>In the lecture’s <code>bert-base-uncased</code> run (layer 5, head 5; zero-based), <code>he</code> receives about <strong>0.69</strong> and <code>[SEP]</code> about <strong>0.26</strong>. A darker line means a larger weight for that position’s value list (<code>V</code>) in the mixture for <code>dog</code>. <code>[SEP]</code> marks the end of this input; it is not a person or a word category.</p>
+<p>These weights come from the lecture’s model run. The tokenizer-only warmup above does not calculate attention. A high weight does not prove who a pronoun refers to or a word’s general importance. This diagram does not show exactly why the model gave that weight.</p>
+<p><strong>Check:</strong> What does <code>[SEP]</code> mark? Can this diagram alone prove that <code>he</code> refers to <code>dog</code>?</p>
 <p><strong>Pretraining and fine-tuning:</strong> in the lecture, <code>The government announced a [MASK] policy.</code> hides a word. If the original word is <code>new</code>, the original text supplies the answer. That word practice differs from this Lab’s policy task: fine-tuning uses the supplied human labels, <strong>environmental policy</strong> or <strong>other policy</strong>, to adjust the model’s learned settings.</p>
 <table class="caption-top table">
 <colgroup>
@@ -2528,6 +2534,7 @@ Reference: None Environment Policy</code></pre>
 </table>
 <p>Use each approach’s matching tokenizer and model when you reach it.</p>
 <p><strong>Check:</strong> why does <code>.</code> appear at two positions but keep the same vocabulary ID? Which calls below will learn from the policy labels?</p>
+</section>
 </section>
 <section id="flair-route" class="level2">
 <h2 class="anchored" data-anchor-id="flair-route">3. Approach A: Flair</h2>

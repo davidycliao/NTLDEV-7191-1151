@@ -18,6 +18,8 @@ Text as Data · National Taiwan University · Fall 2026 (115-1)
 
 Each article has one continuous three-page sequence: a short introduction with the original first page, followed by two pages on measurement, published evidence and substantive interpretation. Use **→ / ←** to follow the focus boxes. Slides and Lab instructions are in English.
 
+For the dog example, [read the attention connections](slide/week10.html#/attention-connections) alongside the [Lab warmup](lab/Lab_Session_W10.html#lecture-warmup).
+
 ## Notebook Lab
 
 The [Lab handout](lab/Lab_Session_W10.html) integrates `2024_qta_lab_week_12_flair.ipynb` and `2024_qta_lab_week_12_transformer.ipynb` by Yen-Chieh Liao and Stefan Müller (22 April 2024). Start with necessary packages and shared data. An optional warmup uses “My dog is cute. He likes playing.” to connect tokens, positions and pretraining to the lecture. Then work through Flair, Transformers and the same-text comparison. In the slides, the detailed code walkthrough follows **Read class-specific performance**: code on the left, short explanations on the right.
