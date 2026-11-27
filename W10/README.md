@@ -11,7 +11,7 @@ Text as Data · National Taiwan University · Fall 2026 (115-1)
 
 ## Teaching sequence
 
-1. **Transformer basics:** tokens, positions, self-attention, Q/K/V, encoder layers, attention masks, pretraining and task fine-tuning.
+1. **Transformer basics:** tokens, positions, self-attention, Q/K/V, encoder layers, pretraining and task fine-tuning.
 2. **Classification applications:** [Case 1 · Liao & Tang](slide/week10.html#/liao-tang-paper-intro), [Case 2 · Schöll et al.](slide/week10.html#/scholl-paper-intro), and [Case 3 · Bestvater & Monroe, *Sentiment is Not Stance*](slide/week10.html#/bestvater-paper-intro).
 3. **NLI applications:** paired text and hypotheses, the three NLI relations, and the separate [Laurer (PA)](slide/week10.html#/laurer-paper-intro) and [Burnham (PSRM)](slide/week10.html#/burnham-paper-intro) applications.
 4. **Lab:** after the [Lab divider](slide/week10.html#/lab-transition), use the two supplied 2024 notebooks with the shared Irish environmental-policy dataset. Then compare that supervised workflow with the [NLI stance demonstration](lab/Lab_Session_W10.html#nli-demo).
