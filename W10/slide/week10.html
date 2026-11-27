@@ -1865,7 +1865,7 @@ Attention(Q, K, V) = softmax(QKᵀ / √d<sub>k</sub>) V
 <p>Multiple heads work in parallel; their outputs are combined.</p>
 </div>
 <div class="source">
-<p>Teaching schematic of one self-attention head. <a href="https://papers.neurips.cc/paper/7181-attention-is-all-you-need">Vaswani et al. (2017), §§3.2.1–3.2.3</a>.</p>
+<p><a href="https://papers.neurips.cc/paper/7181-attention-is-all-you-need">Vaswani et al. (2017), §§3.2.1–3.2.3</a>.</p>
 </div>
 <div class="case-cues" aria-hidden="true">
 <p><span class="fragment case-cue" data-fragment-index="0" data-focus-targets="[&quot;#qkv-projections&quot;]" data-note-indices="0" data-step-label="Self-attention · Create Q, K and V"></span> <span class="fragment case-cue" data-fragment-index="1" data-focus-targets="[&quot;#qkv-weights&quot;]" data-note-indices="1" data-step-label="Self-attention · Compute the weights"></span> <span class="fragment case-cue" data-fragment-index="2" data-focus-targets="[&quot;#qkv-values&quot;]" data-note-indices="2" data-step-label="Self-attention · Mix the values"></span></p>
@@ -1901,7 +1901,7 @@ The residual path adds the sublayer’s input back to its output.
 </div>
 </div>
 <div class="source">
-<p>Original post-norm encoder schematic; dropout omitted. <a href="https://papers.neurips.cc/paper/7181-attention-is-all-you-need">Vaswani et al. (2017), §3.1, Figure 1 and §3.3</a>. Normalization order varies across Transformer architectures.</p>
+<p><a href="https://papers.neurips.cc/paper/7181-attention-is-all-you-need">Vaswani et al. (2017), §3.1, Figure 1 and §3.3</a>. Normalization order varies across Transformer architectures.</p>
 </div>
 <div class="case-cues" aria-hidden="true">
 <p><span class="fragment case-cue" data-fragment-index="0" data-focus-targets="[&quot;#encoder-attention&quot;]" data-note-indices="0" data-step-label="Encoder layer · Mix positions"></span> <span class="fragment case-cue" data-fragment-index="1" data-focus-targets="[&quot;#encoder-feedforward&quot;]" data-note-indices="1" data-step-label="Encoder layer · Transform each position"></span> <span class="fragment case-cue" data-fragment-index="2" data-focus-targets="[&quot;#encoder-repeat&quot;, &quot;#encoder-residual&quot;]" data-note-indices="2" data-step-label="Encoder layer · Add, normalize and repeat"></span></p>
@@ -2122,7 +2122,7 @@ Each position uses earlier positions and itself.<br>Often used for next-token ge
 </div>
 </div>
 <div class="source">
-<p>Self-attention masks for four token positions, ignoring padding. <a href="https://aclanthology.org/N19-1423/">BERT, §§2–3</a>; <a href="https://papers.neurips.cc/paper/7181-attention-is-all-you-need">Vaswani et al. (2017), §§3.1–3.2</a>.</p>
+<p><a href="https://aclanthology.org/N19-1423/">BERT, §§2–3</a>; <a href="https://papers.neurips.cc/paper/7181-attention-is-all-you-need">Vaswani et al. (2017), §§3.1–3.2</a>.</p>
 </div>
 <div class="case-cues" aria-hidden="true">
 <p><span class="fragment case-cue" data-fragment-index="0" data-focus-targets="[&quot;#encoder-mask&quot;]" data-note-indices="0" data-step-label="Attention mask · Read both directions"></span> <span class="fragment case-cue" data-fragment-index="1" data-focus-targets="[&quot;#decoder-mask&quot;]" data-note-indices="1" data-step-label="Attention mask · Hide later positions"></span> <span class="fragment case-cue" data-fragment-index="2" data-focus-targets="[&quot;#mask-lab&quot;]" data-note-indices="2" data-step-label="Attention mask · Masked positions receive zero weight"></span></p>
