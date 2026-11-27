@@ -1,0 +1,10 @@
+/* Match the readable code wrapping in the W8/W9 lab handouts. */
+pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+pre code { white-space: pre-wrap; overflow-wrap: anywhere; }
+pre.sourceCode,
+pre > code.sourceCode,
+pre > code.sourceCode > span {
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+}
+div.sourceCode { overflow-x: visible; }

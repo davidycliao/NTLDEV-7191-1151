@@ -5,6 +5,7 @@ Classify Irish policy excerpts as environmental policy or other policy with Flai
 Then compare this supervised workflow with a separate zero-shot NLI exercise: classify three constructed texts for stance toward Trump, using the model and hypothesis template from Burnham's official tutorial.
 
 - [Integrated Lab guide](Lab_Session_W10.html)
+- [Editable Lab source (QMD)](Lab_Session_W10.qmd) · [Stylesheet](lab.css)
 - [Optional lecture warmup](Lab_Session_W10.html#lecture-warmup): read tokens, positions and vocabulary IDs before training.
 - [Original Flair notebook](notebooks/2024_qta_lab_week_12_flair.ipynb)
 - [Original Transformers notebook](notebooks/2024_qta_lab_week_12_transformer.ipynb)
@@ -22,6 +23,16 @@ Then compare this supervised workflow with a separate zero-shot NLI exercise: cl
 6. Open `Burnham_NLI_demo.ipynb` for Section 6. It runs independently without training either policy classifier. Read the full hypotheses, inspect all candidate scores and explain each predicted stance using its text.
 
 The guide contains the installation command and corrected training code. The two original notebooks retain their 2024 cells and saved outputs unchanged; adapt a working copy rather than overwriting them. Both use the supplied train, validation and test splits.
+
+## Edit and render the guide
+
+Keep `Lab_Session_W10.qmd` and `lab.css` in this folder, alongside `notebooks/` and `results/`. Install Quarto, then run from this folder:
+
+```bash
+quarto render Lab_Session_W10.qmd
+```
+
+The source displays Python code and recorded outputs with `execute: eval: false`. Follow the guide in a working notebook to execute the Python workflow.
 
 ## Read the outputs
 

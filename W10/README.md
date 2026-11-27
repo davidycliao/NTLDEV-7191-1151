@@ -6,7 +6,7 @@ Text as Data · National Taiwan University · Fall 2026 (115-1)
 
 - [Slides](slide/week10.html) · [Slide PDF](slide/week10.pdf)
 - [Reading guide](reading/README.md) · [Brief article applications](reading/applications.html)
-- [Lab handout](lab/Lab_Session_W10.html) · [Student Lab package](downloads/week10-lab.zip)
+- [Lab handout](lab/Lab_Session_W10.html) · [Editable Lab QMD](lab/Lab_Session_W10.qmd) · [Student Lab package](downloads/week10-lab.zip)
 - Original Lab notebooks: [Flair](lab/notebooks/2024_qta_lab_week_12_flair.ipynb) · [Hugging Face Transformers](lab/notebooks/2024_qta_lab_week_12_transformer.ipynb)
 
 ## Teaching sequence

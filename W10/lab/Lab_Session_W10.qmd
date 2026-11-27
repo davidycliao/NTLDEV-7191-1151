@@ -1,0 +1,887 @@
+---
+title: "W10 Lab: Transformer classification and NLI"
+subtitle: "Supervised policy classification and zero-shot stance detection"
+author: "Text as Data · National Taiwan University"
+lang: en
+format:
+  html:
+    embed-resources: true
+    toc: true
+    toc-depth: 2
+    code-copy: true
+    code-fold: show
+    theme: cosmo
+    css: lab.css
+execute:
+  eval: false
+  echo: true
+---
+
+First, classify Irish policy excerpts as **environmental policy** or **other policy**. Prepare the packages and shared data, follow **Approach A: Flair** and **Approach B: Transformers**, then compare their predictions. Section 6 changes the task: use an existing natural language inference (NLI) model to classify stance toward Trump without training a new stance classifier.
+
+The policy-classification blocks form a continuous Python workflow. Run the shared setup first, then either approach; run both to complete their comparison. The [NLI demonstration](notebooks/Burnham_NLI_demo.ipynb) also runs independently, so it does not require training either policy model. The two original notebooks remain unchanged and are linked at the end of the guide.
+
+**Outputs in this guide:** package/device, saved-data and Flair label-preparation printouts were checked on 27 November 2026. Supervised policy-model performance excerpts are stored records from the original 2024 notebooks; neither policy model was retrained to prepare them. Section 6 separately reports NLI inference executed on 27 November 2026 without target-task training. [Output sources and stored metrics](results/README.md).
+
+## 1. Packages and environment {#before-running}
+
+### Install the packages once
+
+Use the instructor-prepared Python environment. If you are preparing a fresh environment, install these packages from its terminal:
+
+```bash
+python -m pip install \
+  torch datasets numpy pandas scikit-learn \
+  flair transformers accelerate sentencepiece
+```
+
+In a notebook, use `%pip` in the active kernel instead of running the terminal command in a Python cell. Restart the kernel after installation.
+
+| Package | Role in this Lab | Used by |
+|---|---|---|
+| `torch` | Work with arrays of numbers, learned model settings and available devices | Both policy approaches and NLI |
+| `datasets` | Load the supplied saved train/validation/test data | Both approaches |
+| `flair` | Store texts and labels, build a classifier and run training | Approach A |
+| `transformers` | Tokenizers, pretrained models, training tools and the NLI pipeline | Approach B and NLI; also used by Flair's Transformer embeddings |
+| `accelerate` | Device and training support for `Trainer` | Approach B |
+| `sentencepiece` | Tokenizer support for the DeBERTa-v3 NLI checkpoint | Section 6 |
+| `numpy`, `pandas`, `scikit-learn` | Numerical support, readable tables and evaluation metrics | Shared inspection and evaluation |
+
+### Record versions and inspect the device
+
+```python
+from importlib.metadata import version
+from collections import Counter
+
+import pandas as pd
+import torch
+from datasets import DatasetDict
+from sklearn.metrics import classification_report
+
+packages = [
+    "torch", "datasets", "numpy", "pandas",
+    "scikit-learn", "flair",
+    "transformers", "accelerate",
+]
+for package in packages:
+    print(f"{package}: {version(package)}")
+
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    device = torch.device("mps")
+else:
+    device = torch.device("cpu")
+print("Available device:", device)
+```
+
+**Printed result · preparation environment snapshot (27 November 2026)**
+
+```text
+torch: 2.2.2
+datasets: 2.19.0
+numpy: 1.26.2
+pandas: 2.2.1
+scikit-learn: 1.3.2
+flair: 0.13.1
+transformers: 4.54.0
+accelerate: 1.9.0
+Available device: cpu
+```
+
+[Download the environment printout](results/environment.txt). These are the versions and available device checked while preparing the materials, not a pinned training environment or a newly executed model run.
+
+**Read the output:** retain the version record with your results. The device message reports availability; the training log shows the device actually used. CPU training is possible but slower. The first model-loading call may download pretrained weights, so prepare the model cache before class.
+
+**Check:** Which package loads the data? Which package supplies the training interface in each approach?
+
+## 2. Shared data and labels {#data-and-labels}
+
+### Open the correct working directory
+
+Open the `notebooks/` folder in your Python notebook environment and create a working notebook there for the code below. Keep the saved data beside the two supplied files:
+
+```text
+notebooks/
+  2024_qta_lab_week_12_flair.ipynb
+  2024_qta_lab_week_12_transformer.ipynb
+  irish_environmental_policies/
+    dataset_dict.json
+    train/
+    validation/
+    test/
+```
+
+### Load the existing split
+
+```python
+dataset = DatasetDict.load_from_disk(
+    "irish_environmental_policies"
+)
+train = dataset["train"]
+validation = dataset["validation"]
+test = dataset["test"]
+
+labels = train.features["label"].names
+id2label = {
+    i: name for i, name in enumerate(labels)
+}
+label2id = {
+    name: i for i, name in id2label.items()
+}
+
+rows = []
+for split_name, split in dataset.items():
+    counts = Counter(split["label"])
+    rows.append({
+        "split": split_name,
+        "rows": len(split),
+        "other_policy": counts[0],
+        "environmental_policy": counts[1],
+    })
+print(pd.DataFrame(rows).to_string(index=False))
+print(id2label)
+```
+
+**Printed result · saved-data check (27 November 2026)**
+
+```text
+     split  rows  other_policy  environmental_policy
+     train  1880          1772                   108
+validation   627           582                    45
+      test   627           583                    44
+{0: 'None Environment Policy', 1: 'Environment Policy'}
+```
+
+[Download the data printout](results/shared-data.txt). **Read:** the environmental-policy class is the smaller class in every split. The test set contains 44 environmental texts and 583 other-policy texts.
+
+| ID | Stored label name | Meaning |
+|---|---|---|
+| `0` | `None Environment Policy` | Other policy |
+| `1` | `Environment Policy` | Environmental policy |
+
+Each row contains **`text`**, the excerpt to classify, and **`label`**, its supplied reference category. Preserve the stored names and ID order in both approaches.
+
+### Read a training example before fitting
+
+```python
+example = train[0]
+print(example["text"])
+print("Reference:", id2label[example["label"]])
+```
+
+**Printed result · full training example (27 November 2026)**
+
+```text
+  More Community Policing  Garda community outreach activities should be enhanced and we  want to see, in particular, a significant increase in the number of  Gardai assigned to Community Policing and a heightened  awareness of this service within the Gardai and communities  throughout the country
+Reference: None Environment Policy
+```
+
+[Download the full example](results/training-example.txt). This prints a supplied reference label, not a model prediction.
+
+**Read:** the excerpt discusses community policing; its reference is other policy (`0`). **Check:** which wording supports that category, and why should you read the text before a model prediction?
+
+| Split | Its role |
+|---|---|
+| Train | Learn from the supplied training labels |
+| Validation (`dev` in Flair) | Compare settings and choose a saved version of the model (a checkpoint) |
+| Test | Check performance after the training choices are fixed |
+
+Keep this supplied split. A few texts repeat across splits, so this teaching exercise does not establish an independent research benchmark. [Dataset details and source limitations](notebooks/DATA.md).
+
+**Check:** Why might a classifier achieve high accuracy while missing most environmental-policy texts?
+
+## Optional warmup: connect the lecture to the Lab {#lecture-warmup}
+
+Read the same sentence from the lecture: **My dog is cute. He likes playing.** Run this cell after the shared setup and data checks. It loads the BERT tokenizer and prints its input numbers.
+
+```python
+from transformers import AutoTokenizer
+
+demo_text = "My dog is cute. He likes playing."
+demo_tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+demo_ids = demo_tokenizer(demo_text)["input_ids"]
+demo_tokens = demo_tokenizer.convert_ids_to_tokens(demo_ids)
+
+print(f"{'position':>8}  {'token':<8}  {'vocab_id':>8}")
+for position, (token, token_id) in enumerate(zip(demo_tokens, demo_ids)):
+    print(f"{position:>8}  {token:<8}  {token_id:>8}")
+```
+
+**Printed result · tokenizer-only warmup (27 November 2026)**
+
+Checked with Transformers 4.54.0 using the tokenizer only.
+
+```text
+position  token     vocab_id
+       0  [CLS]          101
+       1  my            2026
+       2  dog           3899
+       3  is            2003
+       4  cute         10140
+       5  .             1012
+       6  he            2002
+       7  likes         7777
+       8  playing       2652
+       9  .             1012
+      10  [SEP]          102
+```
+
+**Read:** the tokenizer lowercases the text and adds `[CLS]` and `[SEP]` markers, giving 11 input tokens. Positions `0`–`10` show their order in this input. Vocabulary IDs point to entries in BERT's dictionary. The two periods have different positions but the same ID, `1012`. These IDs identify tokens; the policy labels `0` and `1` identify categories for whole excerpts.
+
+The model next looks up a list of numbers for each token ID and adds position information to keep track of order. Attention lets each position use information from other positions. Those calculations happen inside the Transformer models loaded below.
+
+### Read the lecture's attention diagram
+
+**Read · lecture model run:** We are updating `dog` at position `2`. BERT can use all positions in this input. It compares dog's query (`Q`) with the key (`K`) at each position, using settings learned during training. These comparisons become attention weights.
+
+In the lecture’s `bert-base-uncased` run (layer 5, head 5; zero-based), `he` receives about **0.69** and `[SEP]` about **0.26**. A darker line means a larger weight for that position's value list (`V`) in the mixture for `dog`. `[SEP]` marks the end of this input; it is not a person or a word category.
+
+These weights come from the lecture's model run. The tokenizer-only warmup above does not calculate attention. A high weight does not prove who a pronoun refers to or a word's general importance. This diagram does not show exactly why the model gave that weight.
+
+**Check:** What does `[SEP]` mark? Can this diagram alone prove that `he` refers to `dog`?
+
+**Pretraining and fine-tuning:** in the lecture, `The government announced a [MASK] policy.` hides a word. If the original word is `new`, the original text supplies the answer. That word practice differs from this Lab's policy task: fine-tuning uses the supplied human labels, **environmental policy** or **other policy**, to adjust the model's learned settings.
+
+| Approach | Connection to the lecture |
+|---|---|
+| Flair | `TransformerDocumentEmbeddings(...)` handles the model and its matching tokenizer. `flair_trainer.train(...)` learns from the policy labels. |
+| Transformers | `AutoTokenizer.from_pretrained(...)` prepares token IDs. `hf_trainer.train()` learns from the policy labels. |
+
+Use each approach's matching tokenizer and model when you reach it.
+
+**Check:** why does `.` appear at two positions but keep the same vocabulary ID? Which calls below will learn from the policy labels?
+
+## 3. Approach A: Flair {#flair-route}
+
+Flair expresses the workflow as **`Sentence` → `Corpus` → embeddings + `TextClassifier` → `ModelTrainer`**. This route follows the supplied Flair notebook, with a training-only label dictionary and explicit result-reading cells.
+
+### A1. Import the training objects
+
+```python
+import flair
+from flair.data import Sentence, Corpus
+from flair.embeddings import (
+    TransformerDocumentEmbeddings,
+)
+from flair.models import TextClassifier
+from flair.trainers import ModelTrainer
+
+flair.set_seed(42)
+flair.device = device
+```
+
+`Sentence` holds one text and its labels. `Corpus` keeps training, validation and test texts separate. `TextClassifier` scores the categories; `ModelTrainer` runs training. Assigning `flair.device` configures Flair, rather than only creating a local device variable.
+
+### A2. Attach the supplied labels
+
+```python
+def as_sentences(split):
+    sentences = []
+    for row in split:
+        sentence = Sentence(row["text"])
+        sentence.add_label(
+            "label", str(row["label"])
+        )
+        sentences.append(sentence)
+    return sentences
+
+flair_train = as_sentences(train)
+flair_dev = as_sentences(validation)
+flair_test = as_sentences(test)
+
+print(flair_train[0].to_plain_string())
+print(flair_train[0].get_label("label").value)
+```
+
+**Printed result · Flair label-preparation check (27 November 2026)**
+
+```text
+More Community Policing  Garda community outreach activities should be enhanced and we  want to see, in particular, a significant increase in the number of  Gardai assigned to Community Policing and a heightened  awareness of this service within the Gardai and communities  throughout the country
+0
+```
+
+[Download the Flair preparation printout](results/flair-preparation.txt). The text and reference label were printed without loading a pretrained encoder.
+
+**Read the code:** `Sentence(...)` stores the text. `add_label(...)` attaches the supplied category to the layer named `label`. The value is the string `"0"` or `"1"`; this is data preparation, not a prediction or new annotation.
+
+**Check:** which line stores the text, and which line attaches the reference label `0`?
+
+### A3. Build the corpus and class dictionary
+
+```python
+corpus = Corpus(
+    train=flair_train,
+    dev=flair_dev,
+    test=flair_test,
+)
+label_dict = corpus.make_label_dictionary(
+    label_type="label",
+    add_dev_test=False,
+    min_count=-1,
+    add_unk=False,
+)
+print(label_dict.get_items())
+```
+
+**Printed result · training-label dictionary check (27 November 2026)**
+
+```text
+['0', '1']
+```
+
+The dictionary was built from the supplied training labels only, without loading an encoder or fitting a classifier. [Preparation printout](results/flair-preparation.txt).
+
+**Read:** the printed dictionary contains `"0"` and `"1"`. Its internal order is not a new definition of the label IDs. `add_dev_test=False` builds the dictionary from training labels only; the original data already define the two intended categories.
+
+### A4. Connect the encoder and classifier
+
+```python
+flair_checkpoint = (
+    "sentence-transformers/"
+    "distiluse-base-multilingual-cased-v2"
+)
+flair_embeddings = TransformerDocumentEmbeddings(
+    flair_checkpoint,
+    fine_tune=True,
+)
+flair_classifier = TextClassifier(
+    flair_embeddings,
+    label_dictionary=label_dict,
+    label_type="label",
+    multi_label=False,
+)
+```
+
+The encoder turns the excerpt into a list of numbers that uses information from its context. The classification head uses that list to score the two policy categories. **`fine_tune=True` allows the encoder's learned settings, or weights, to change during training**; creating these objects does not train them.
+
+### A5. Train and read the validation log
+
+```python
+flair_trainer = ModelTrainer(
+    flair_classifier, corpus
+)
+flair_trainer.train(
+    "qta_flair_python_model",
+    shuffle=True,
+    patience=3,
+    learning_rate=0.02,
+    mini_batch_size=16,
+    max_epochs=3,
+    write_weights=True,
+    train_with_dev=False,
+    train_with_test=False,
+    monitor_test=False,
+    use_final_model_for_eval=False,
+)
+```
+
+**Printed result · 2024 notebook record · not output of the revised code**
+
+| Epoch | Training loss | Dev loss | Dev micro-F1 |
+|---|---:|---:|---:|
+| 1 | .2199 | .157556 | .9522 |
+| 2 | .1360 | .158620 | .9522 |
+| 3 | .0888 | .161609 | .9522 |
+
+Source: supplied Flair notebook, zero-based cell 19, execution `[11]`; log dated 19 April 2024. Dev losses are rounded to six decimals. The original log reports training on **CPU**.
+
+**Read:** training loss falls, but dev micro-F1 remains `.9522`. The log saves a best model after epoch 1. **Check:** does the lower training loss establish improved validation performance?
+
+**This call updates the weights.** Read the epoch, training loss and validation score. Validation remains separate from fitting; test monitoring is disabled during epochs. Flair's trainer evaluates the selected model on test at the end, so fix your training procedure before this call.
+
+This preserves the supplied notebook's `train()` recipe with its SGD learning rate of `0.02`. The current Flair tutorial uses the separate `fine_tune()` method with AdamW and a much smaller rate. Do not move a rate between these recipes unchanged. [Flair training API](https://flairnlp.github.io/flair/master/api/generated/flair.trainers.ModelTrainer.html).
+
+The supplied Flair recipe selects its checkpoint by validation micro-F1, the trainer's default. Approach B below explicitly selects by validation macro-F1; record this difference when comparing the runs.
+
+### A6. Read class-specific results and predict one text
+
+```python
+flair_model = TextClassifier.load(
+    "qta_flair_python_model/best-model.pt"
+)
+flair_model.predict(
+    flair_test,
+    mini_batch_size=16,
+    label_name="predicted",
+)
+flair_predictions = [
+    int(sentence.get_label("predicted").value)
+    for sentence in flair_test
+]
+print(classification_report(
+    test["label"],
+    flair_predictions,
+    labels=[0, 1],
+    target_names=labels,
+    zero_division=0,
+))
+
+policy_text = (
+    "Reducing our carbon footprint through "
+    "renewable energy sources and enhanced "
+    "energy efficiency is crucial."
+)
+new_sentence = Sentence(policy_text)
+flair_model.predict(
+    new_sentence, label_name="predicted"
+)
+flair_label = new_sentence.get_label("predicted")
+print(
+    id2label[int(flair_label.value)],
+    flair_label.score,
+)
+```
+
+**Printed result · 2024 notebook record · not output of the revised code**
+
+```text
+Results:
+- F-score (micro) 0.9442
+- F-score (macro) 0.7075
+- Accuracy 0.9442
+
+By class:
+              precision    recall  f1-score   support
+
+           0     0.9507    0.9914    0.9706       583
+           1     0.7368    0.3182    0.4444        44
+
+    accuracy                         0.9442       627
+   macro avg     0.8438    0.6548    0.7075       627
+weighted avg     0.9357    0.9442    0.9337       627
+```
+
+Source: supplied Flair notebook, zero-based cell 19, execution `[11]`, output 14. [Download the original test report](results/flair-2024-report.txt). **Read:** class `1` is environmental policy. Its recall is `.3182` and F1 is `.4444`, despite overall accuracy `.9442`. **Check:** which missed texts can the accuracy summary conceal? The original notebook stores no prediction for the new policy sentence above; that prediction will print in your own run.
+
+The added `predicted` layer preserves the supplied `label` layer. Convert the predicted string back to the common category ID before comparing it with the reference. The final line classifies a new policy sentence; its score is model output, not proof that the category is correct.
+
+**Check:** Identify the line that attaches the reference label, the object that holds the split, and the call that updates model weights. Which environmental-policy errors does the test report reveal?
+
+## 4. Approach B: Transformers {#transformers-route}
+
+Transformers expresses the same task as **tokenizer → DistilBERT classification model → `TrainingArguments` + `Trainer`**. Run the shared setup and data cells first. This route keeps the raw `dataset` intact and stores encoded inputs in `hf_data`.
+
+### B1. Import the training tools
+
+```python
+from transformers import (
+    AutoTokenizer,
+    AutoModelForSequenceClassification,
+    TrainingArguments,
+    Trainer,
+    pipeline,
+    set_seed,
+)
+from sklearn.metrics import (
+    accuracy_score,
+    f1_score,
+)
+
+set_seed(42)
+```
+
+`AutoTokenizer` turns text into the model's input numbers. `AutoModelForSequenceClassification` loads a text model and a small part that scores our categories, called the classification head. `TrainingArguments` sets the training options; `Trainer` runs training and checks performance.
+
+### B2. Tokenize with the matching checkpoint
+
+```python
+hf_checkpoint = "distilbert-base-uncased"
+hf_tokenizer = AutoTokenizer.from_pretrained(
+    hf_checkpoint
+)
+
+def tokenize_batch(batch):
+    return hf_tokenizer(
+        batch["text"],
+        padding="max_length",
+        truncation=True,
+    )
+
+hf_data = dataset.map(tokenize_batch, batched=True)
+print(hf_data["train"].column_names)
+print(len(hf_data["train"][0]["input_ids"]))
+```
+
+**Output to inspect in your own run:** the original `text` and `label` columns plus `input_ids` and `attention_mask`. The tokenizer adds padding so each input has 512 positions. `input_ids` identify the tokens; `attention_mask` uses `1` for input tokens and `0` for padding. Text beyond the input limit is cut off. The tokenizer and text model must use the same checkpoint.
+
+### B3. Add the two-class task head
+
+```python
+hf_model = (
+    AutoModelForSequenceClassification
+    .from_pretrained(
+        hf_checkpoint,
+        num_labels=len(labels),
+        id2label=id2label,
+        label2id=label2id,
+    )
+)
+```
+
+This keeps the label IDs from the shared data. The text model already has settings learned before this Lab. Its new policy-scoring part still needs to learn our categories from the training labels. A warning that this classification head is newly initialized is expected.
+
+### B4. Define metrics and training settings
+
+```python
+def compute_metrics(prediction):
+    reference = prediction.label_ids
+    predicted = prediction.predictions.argmax(-1)
+    return {
+        "accuracy": accuracy_score(
+            reference, predicted
+        ),
+        "macro_f1": f1_score(
+            reference,
+            predicted,
+            average="macro",
+            zero_division=0,
+        ),
+    }
+
+hf_args = TrainingArguments(
+    output_dir="./qta_hf_python_model",
+    num_train_epochs=3,
+    learning_rate=5e-5,
+    per_device_train_batch_size=8,
+    per_device_eval_batch_size=8,
+    eval_strategy="epoch",
+    save_strategy="epoch",
+    load_best_model_at_end=True,
+    metric_for_best_model="macro_f1",
+    greater_is_better=True,
+    save_total_limit=1,
+    report_to="none",
+    seed=42,
+)
+```
+
+Macro-F1 gives each class equal weight in the average. These settings select a checkpoint by **validation macro-F1**, evaluating and saving after each epoch. The batch size and `5e-5` rate are teaching starting points, not validated optimal settings. This replaces the historical notebook's `0.3` learning rate and uses the current `eval_strategy` argument.
+
+### B5. Create the trainer, then train
+
+```python
+hf_trainer = Trainer(
+    model=hf_model,
+    args=hf_args,
+    train_dataset=hf_data["train"],
+    eval_dataset=hf_data["validation"],
+    processing_class=hf_tokenizer,
+    compute_metrics=compute_metrics,
+)
+hf_trainer.train()
+```
+
+The training set updates the weights; validation selects the checkpoint. `processing_class` supplies the tokenizer to the current training interface. Test is absent from this training configuration. [Current Trainer API](https://huggingface.co/docs/transformers/main/en/main_classes/trainer).
+
+### B6. Evaluate, save and reuse the model
+
+Fix the procedure before running this test cell. Changing settings after inspecting test results requires a fresh final evaluation.
+
+```python
+hf_result = hf_trainer.predict(hf_data["test"])
+hf_predictions = hf_result.predictions.argmax(-1)
+print(classification_report(
+    hf_result.label_ids,
+    hf_predictions,
+    labels=[0, 1],
+    target_names=labels,
+    zero_division=0,
+))
+
+model_save_path = "qta_hf_python_model"
+hf_trainer.save_model(model_save_path)
+hf_tokenizer.save_pretrained(model_save_path)
+
+policy_classifier = pipeline(
+    "text-classification",
+    model=model_save_path,
+    tokenizer=model_save_path,
+    device=-1,
+)
+policy_text = (
+    "Reducing our carbon footprint through "
+    "renewable energy sources and enhanced "
+    "energy efficiency is crucial."
+)
+print(
+    policy_classifier(policy_text, truncation=True)
+)
+```
+
+**Printed result · 2024 notebook record · not output of the revised code**
+
+```text
+Accuracy: 0.929825
+Macro-F1: 0.481818
+Macro-precision: 0.464912
+Macro-recall: 0.500000
+```
+
+Source: supplied Transformers notebook, zero-based cell 25, execution `[31]`, output 1. The original helper reports **macro** F1, precision and recall; values here are formatted to six decimals. [Download these historical metrics](results/transformers-2024-report.txt). The original argument cell specifies learning rate **`.3`**; this revised guide uses **`5e-5`**, so these are not its expected results.
+
+**Read:** accuracy is `.929825`, while macro-F1 is `.481818`. The stored evaluation also warns that some labels have no predicted samples. It does not identify the affected class or supply a per-class report. **Check:** what additional evidence will `classification_report(...)` above print in your own run?
+
+The original file stores no per-class HF report or test prediction array. No fresh policy prediction is supplied here: the original later demonstration loads `qta_toy_model` with inconsistent save-path records, so it cannot be attached to the corrected save/reload code above.
+
+Your `classification_report(...)` output uses the same category order as Flair. Save the model **and** tokenizer, then reload both from that same directory. The final demonstration runs on CPU (`device=-1`) and returns a predicted policy category and model score; the exact output depends on your trained checkpoint.
+
+**Check:** Why does this route need a tokenizer? Where is validation supplied? Which argument selects the checkpoint, and why must the reload path match the save path?
+
+## 5. Compare the two approaches {#read-the-results}
+
+### Compare the workflow first
+
+| Stage | Flair | Transformers |
+|---|---|---|
+| Labelled example | `Sentence` + `add_label()` | Dataset row with `label` |
+| Data split | `Corpus(train, dev, test)` | Separate datasets passed to `Trainer` |
+| Text representation | `TransformerDocumentEmbeddings` | Matched tokenizer + DistilBERT |
+| Task head | `TextClassifier` | `AutoModelForSequenceClassification` |
+| Training controller | `ModelTrainer` | `Trainer` + `TrainingArguments` |
+| Final evidence | Per-class test report and text reading | Per-class test report and text reading |
+
+Both use a pretrained Transformer for supervised classification. The original notebooks use **different encoders and training recipes**. Their scores do not isolate a library effect. Record the encoder, versions, optimizer recipe, rate, batch size, epochs and checkpoint rule beside each result.
+
+### Read the same test text in both approaches
+
+After running both routes, collect the predictions without changing the original data:
+
+```python
+comparison = pd.DataFrame({
+    "text": test["text"],
+    "reference_id": test["label"],
+    "flair_id": flair_predictions,
+    "transformers_id": hf_predictions,
+})
+for column in [
+    "reference_id",
+    "flair_id",
+    "transformers_id",
+]:
+    comparison[column.replace("_id", "")] = (
+        comparison[column].map(id2label)
+    )
+
+needs_reading = (
+    (
+        comparison["flair_id"]
+        != comparison["reference_id"]
+    )
+    | (
+        comparison["transformers_id"]
+        != comparison["reference_id"]
+    )
+)
+candidates = comparison.loc[needs_reading]
+row = (
+    candidates if len(candidates) else comparison
+).iloc[0]
+print(row["text"])
+for name in ["reference", "flair", "transformers"]:
+    print(f"{name}: {row[name]}")
+```
+
+**Output in your own run:** the original notebooks do not store a paired, row-level Flair/Transformers prediction table. Run both approaches to print the full text and both predictions here; no comparison row has been filled in from aggregate scores.
+
+**Read the output in order:** full excerpt → supplied reference → Flair prediction → Transformers prediction. If neither model makes a test error, the cell displays the first test text instead. Explain the policy content and any ambiguity before discussing model confidence.
+
+**Submit:** the two per-class reports, the settings used, and one excerpt with its reference and both predictions. Explain environmental-policy recall and one error or uncertain case. The test set has only 44 environmental texts, so overall accuracy alone is insufficient.
+
+**Exit questions**
+
+1. Where does each approach attach or read the supplied label?
+2. Which weights can change during fine-tuning?
+3. What can train, validation and test each influence?
+4. What does environmental-policy recall add to overall accuracy?
+5. What evidence in the full text supports your reading of a prediction?
+
+## 6. NLI: labels become hypotheses {#nli-demo}
+
+**New task:** classify stance toward Trump. The Irish policy classifiers above learned two policy categories; they cannot supply Trump stance labels simply by renaming their outputs. Here, we reuse a model already trained on NLI and make the stance categories part of its input.
+
+Open [Burnham_NLI_demo.ipynb](notebooks/Burnham_NLI_demo.ipynb) for this independent exercise, or run the following cells in a fresh working notebook. The model, template and candidate labels follow [Burnham's official zero-shot tutorial](https://github.com/MLBurnham/stance_detection_tutorials/blob/main/Zero-shot_stance_detection.ipynb). The three short texts below are constructed classroom examples. This is the tutorial's **Trump stance task**, not a reproduction of the paper's COVID-19 analysis.
+
+### N1. Reuse an existing NLI model {#nli-load-model}
+
+```python
+import pandas as pd
+import torch
+from transformers import pipeline
+
+nli_model_id = (
+    "MoritzLaurer/"
+    "DeBERTa-v3-large-mnli-fever-anli-ling-wanli"
+)
+nli_revision = "b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7"
+nli_classifier = pipeline(
+    "zero-shot-classification",
+    model=nli_model_id,
+    revision=nli_revision,
+    device=-1,
+    torch_dtype=torch.float32,
+    batch_size=1,
+)
+```
+
+| Read beside the code | Meaning |
+|---|---|
+| `model=nli_model_id` | Load an existing Transformer trained to recognize NLI relations. |
+| `"zero-shot-classification"` | Use those relations to compare candidate category statements. |
+| `device=-1` | Run this small demonstration on CPU. The first call may download the checkpoint. |
+| `revision=nli_revision` | Reuse the checkpoint revision recorded for the displayed inference. |
+| `torch_dtype=torch.float32` | Use the CPU precision of the executed demonstration. |
+
+**Read:** there is no `Trainer`, `.train()` or target-task fitting here. The model has already learned from NLI data; zero-shot does not mean an untrained model. The large checkpoint can run slowly on CPU. The [author's Colab](https://colab.research.google.com/drive/1YLmI2WMkIVpgeUobgMDVXkjf8JfbRxvW?usp=sharing) provides another way to follow the example with a prepared notebook.
+
+**Check:** which earlier call updated the policy classifier's weights? Which call here only loads an existing model?
+
+### N2. Write the categories as full hypotheses {#nli-hypotheses}
+
+```python
+nli_labels = [
+    "supports",
+    "opposes",
+    "does not express an opinion about",
+]
+nli_template = "The author of this tweet {} Trump."
+
+nli_hypotheses = pd.DataFrame({
+    "candidate": nli_labels,
+    "hypothesis": [
+        nli_template.format(label)
+        for label in nli_labels
+    ],
+})
+print(nli_hypotheses.to_string(index=False))
+```
+
+**Printed text · hypothesis construction, before model prediction**
+
+| Candidate | Complete hypothesis |
+|---|---|
+| `supports` | The author of this tweet supports Trump. |
+| `opposes` | The author of this tweet opposes Trump. |
+| `does not express an opinion about` | The author of this tweet does not express an opinion about Trump. |
+
+**Read:** the template inserts the target, Trump. Each candidate completes a statement. The model will pair the **same text with each complete hypothesis**. These strings are inputs we chose, not results the model generated.
+
+**Check:** what would you change to study stance toward a bill? Why would changing only a displayed label after classification be insufficient?
+
+### N3. Classify three texts and print the comparisons {#nli-predictions}
+
+```python
+nli_texts = [
+    "I support Trump's policies.",
+    "I oppose Trump's policies.",
+    "The committee meets on Tuesday.",
+]
+nli_examples = pd.DataFrame({
+    "example": ["A", "B", "C"],
+    "text": nli_texts,
+    "reading_key": [
+        "supports",
+        "opposes",
+        "does not express an opinion about",
+    ],
+})
+nli_results = nli_classifier(
+    nli_texts,
+    candidate_labels=nli_labels,
+    hypothesis_template=nli_template,
+    multi_label=False,
+)
+
+nli_rows = []
+for example, result in zip(
+    nli_examples.to_dict("records"), nli_results
+):
+    scores = dict(zip(result["labels"], result["scores"]))
+    nli_rows.append({
+        **example,
+        "predicted_stance": result["labels"][0],
+        **{label: scores[label] for label in nli_labels},
+    })
+nli_table = pd.DataFrame(nli_rows)
+print(nli_table.to_string(
+    index=False,
+    float_format=lambda value: f"{value:.6f}",
+))
+```
+
+| Read beside the code | Meaning |
+|---|---|
+| `reading_key` | Our intended reading of a constructed example; it is not an annotation from a research corpus. |
+| `multi_label=False` | Rank the three mutually exclusive candidate stances for each text. |
+| `result["labels"][0]` | The highest-ranked candidate for that text. |
+| `scores[label]` | Keep each candidate's score attached to its name, even when the ranking changes. |
+
+**Printed result · executed NLI demonstration · 27 November 2026**
+
+| Text | Supports | Opposes | No expressed opinion | Highest-ranked stance |
+|---|---:|---:|---:|---|
+| A: I support Trump's policies. | **0.991822** | 0.004377 | 0.003801 | supports |
+| B: I oppose Trump's policies. | 0.008588 | **0.984321** | 0.007091 | opposes |
+| C: The committee meets on Tuesday. | 0.206294 | 0.196707 | **0.597000** | does not express an opinion about |
+
+[Download the complete executed printout](results/burnham-nli-demo.txt). This inference used the exact checkpoint revision above on CPU with float32, PyTorch 2.2.2 and Transformers 4.54.0. It did not update model parameters. The table's shorter “No expressed opinion” heading refers to the full candidate statement printed in N2. Your scores may vary slightly with the environment.
+
+**Read A, then B, then C:** the first two explicitly support or oppose Trump's policies. Text C states a meeting time without expressing a stance toward Trump. Its highest-ranked candidate agrees with that reading, but its score is only about `.597`; the other candidates still receive about `.206` and `.197`. Read all three scores instead of treating the winning label as certainty. Three constructed examples do not establish research accuracy.
+
+**Read the scores carefully:** with `multi_label=False`, this pipeline normalizes the candidates' entailment logits across the candidate set. The three displayed scores are therefore **stance-candidate scores**, not the model's complete entailment/neutral/contradiction distribution and not classification accuracy. Changing the candidates can change these scores. The explicit “does not express an opinion” stance is also different from NLI `neutral`, which means that a particular hypothesis is unresolved by its paired text.
+
+**Check:** can you explain the top label using the text? If the highest score looks confident but the text does not support that stance, what should you inspect next?
+
+### N4. Compare how the research labels enter the model {#nli-interpretation}
+
+| Question | Earlier supervised classification | This zero-shot NLI demonstration |
+|---|---|---|
+| What is the input? | A policy excerpt. | A text paired with each complete stance hypothesis. |
+| Where do research categories enter? | Human policy labels train a task-specific classifier. | Category meanings are written into candidate hypotheses. |
+| What can the model return? | The policy categories its task head learned. | NLI relation evidence, which the pipeline uses to rank our stance candidates. |
+| Does this exercise update weights? | Yes, when the training call runs. | No; it reuses the existing NLI checkpoint. |
+| What still needs validation? | Predictions on held-out labeled texts. | The hypotheses and decision rule on target-task human labels. |
+
+Both approaches use **Transformers**. The difference here is the input and how the research labels enter the workflow. NLI models can also be fine-tuned; this particular exercise uses one without target-task parameter updates.
+
+**Submit:** the three-text comparison table and a short explanation of one prediction. Then propose one alternative hypothesis wording and describe how you would test its effect on separately human-coded target texts. These three classroom examples do not establish an accuracy estimate.
+
+**Exit questions**
+
+1. Why is the hypothesis part of the NLI model's input?
+2. Why cannot the environmental-policy classifier's labels simply be renamed as Trump stances?
+3. How does the explicit “does not express an opinion” candidate differ from NLI `neutral`?
+4. What evidence would you need before applying this stance measure to a research corpus?
+
+## Original notebooks and sources {#notebook-lab}
+
+| Original file | How it connects to this guide |
+|---|---|
+| [2024 Flair notebook](notebooks/2024_qta_lab_week_12_flair.ipynb) | Approach A follows its `Sentence`/`Corpus`, document-embedding classifier and `train()` recipe. |
+| [2024 Transformers notebook](notebooks/2024_qta_lab_week_12_transformer.ipynb) | Approach B follows its DistilBERT classification task, with current training arguments and consistent save/reload paths. |
+
+Both originals are *Quantitative Text Analysis Lab Session: Week 12*, by **Yen-Chieh Liao and Stefan Müller**, dated **22 April 2024**. They retain their original cells and saved outputs byte for byte. Use a working copy for the guide's corrected code. See the [source attribution and output records](results/README.md).
+
+::: {.callout-note collapse="true"}
+## When reading the unchanged 2024 files
+
+- Flair's old `prepare_dataset` docstring mentions `premise`/`stance`; the actual data and executable code use `text`/`label`. The guide's `as_sentences()` uses those fields explicitly.
+- Build Flair's dictionary from train only. The guide adds `add_dev_test=False` and excludes an unknown category.
+- The Transformers guide replaces `learning_rate=0.3`, uses current evaluation arguments, and chooses a checkpoint by validation macro-F1.
+- The original save path is `qta_hf_python_model`, but a later reload cell says `qta_toy_model`. The guide consistently reuses `model_save_path`.
+- A movie-review example in the original file is replaced here by a policy sentence; this classifier predicts policy categories.
+
+The supervised training code in this guide was not used to regenerate those policy-model results. Original stored outputs remain historical records, not expected scores for a fresh run. The separate NLI exercise loads an existing checkpoint and produces inference outputs without retraining either policy classifier.
+:::
+
+- [Printed-output sources](results/README.md): preparation checks and original model records.
+- [Dataset details](notebooks/DATA.md).
+- [Flair: train a text classifier](https://flairnlp.github.io/docs/tutorial-training/how-to-train-text-classifier).
+- [Flair: Corpus API](https://flairnlp.github.io/flair/master/api/generated/flair.data.Corpus.html).
+- [Flair: ModelTrainer API](https://flairnlp.github.io/flair/master/api/generated/flair.trainers.ModelTrainer.html).
+- [Transformers: text classification](https://huggingface.co/docs/transformers/main/en/tasks/sequence_classification).
+- [Transformers: Trainer and TrainingArguments](https://huggingface.co/docs/transformers/main/en/main_classes/trainer).
+- [Datasets: save and load datasets](https://huggingface.co/docs/datasets/en/package_reference/main_classes#datasets.load_from_disk).
+- [Burnham: official zero-shot stance notebook](https://github.com/MLBurnham/stance_detection_tutorials/blob/main/Zero-shot_stance_detection.ipynb).
+- [Hugging Face: DeBERTa-v3-large NLI model card](https://huggingface.co/MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli).
+- [Transformers: ZeroShotClassificationPipeline](https://huggingface.co/docs/transformers/en/main_classes/pipelines#transformers.ZeroShotClassificationPipeline).

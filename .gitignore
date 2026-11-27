@@ -59,6 +59,8 @@ W10/**
 !W10/lab/
 !W10/lab/README.md
 !W10/lab/Lab_Session_W10.html
+!W10/lab/Lab_Session_W10.qmd
+!W10/lab/lab.css
 !W10/lab/notebooks/
 !W10/lab/notebooks/DATA.md
 !W10/lab/notebooks/2024_qta_lab_week_12_flair.ipynb
