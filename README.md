@@ -65,7 +65,7 @@ If the HTML link shows an external-content notice, select **Open the page** to v
 | Week 15 | Dec 18 |  |  |
 | Week 16 | Dec 25 | **Constitution Day Holiday** |  |
 
-**Week 10 materials updated: November 27, 2026.** The integrated Lab guide covers both notebook approaches, starting with packages, the shared dataset and label definitions. Printed outputs distinguish current environment/data checks from saved 2024 notebook training results.
+**Week 10 materials updated: November 27, 2026.** The Lab starts with packages, shared data and the two supervised notebook approaches, then adds an NLI stance demonstration. Printed outputs distinguish preparation checks, saved 2024 training records and the new NLI inference.
 
 ## Course Schedule
 
@@ -109,7 +109,7 @@ Uses four political-science cases to study party positions, semantic change, nos
 
 Introduces Transformer architecture, from tokens and self-attention to pretraining and fine-tuning. Three classification cases show how text labels become research evidence, including *Sentiment is Not Stance*. A separate section introduces natural language inference (NLI) and stance-detection applications in *Political Analysis* and *Political Science Research and Methods*.
 
-The Lab follows the lecture and integrates the supplied Flair and Hugging Face Transformers notebooks in one English guide. Both approaches classify the same Irish policy excerpts using the existing train, validation and test splits. Students follow code on the left and brief explanations on the right, inspect printed outputs, and interpret class-specific performance alongside accuracy. Saved model scores are identified as original 2024 notebook records; new preparation checks are dated separately.
+The English Lab first integrates the supplied Flair and Hugging Face Transformers notebooks on the same Irish policy excerpts and existing data splits. A separate NLI exercise adapts Burnham's official stance tutorial, pairing short texts with complete hypotheses without target-task fine-tuning. Students follow code and explanations, read outputs, and compare the inputs and training required by the two setups. Historical 2024 supervised-model scores, preparation checks and new NLI predictions are clearly separated.
 
 ### Week 11: NTU Sports Day (No Class)
 

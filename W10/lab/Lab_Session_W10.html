@@ -8,7 +8,7 @@
 
 <meta name="author" content="Text as Data · National Taiwan University">
 
-<title>W10 Lab: Transformer classification</title>
+<title>W10 Lab: Transformer classification and NLI</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -2224,6 +2224,7 @@ div.sourceCode { overflow-x: visible; }
   <li><a href="#flair-route" id="toc-flair-route" class="nav-link" data-scroll-target="#flair-route">3. Approach A: Flair</a></li>
   <li><a href="#transformers-route" id="toc-transformers-route" class="nav-link" data-scroll-target="#transformers-route">4. Approach B: Transformers</a></li>
   <li><a href="#read-the-results" id="toc-read-the-results" class="nav-link" data-scroll-target="#read-the-results">5. Compare the two approaches</a></li>
+  <li><a href="#nli-demo" id="toc-nli-demo" class="nav-link" data-scroll-target="#nli-demo">6. NLI: labels become hypotheses</a></li>
   <li><a href="#notebook-lab" id="toc-notebook-lab" class="nav-link" data-scroll-target="#notebook-lab">Original notebooks and sources</a></li>
   </ul>
 </nav>
@@ -2232,8 +2233,8 @@ div.sourceCode { overflow-x: visible; }
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">W10 Lab: Transformer classification</h1>
-<p class="subtitle lead">One dataset, two approaches: Flair and Transformers</p>
+<h1 class="title">W10 Lab: Transformer classification and NLI</h1>
+<p class="subtitle lead">Supervised policy classification and zero-shot stance detection</p>
 </div>
 
 
@@ -2256,9 +2257,9 @@ div.sourceCode { overflow-x: visible; }
 </header>
 
 
-<p>Classify an Irish policy excerpt as <strong>environmental policy</strong> or <strong>other policy</strong>. This single guide brings together the two supplied notebooks: first prepare the packages and shared data, then follow <strong>Approach A: Flair</strong> and <strong>Approach B: Transformers</strong>, and finally compare their predictions.</p>
-<p>The code blocks form a continuous Python workflow. Run the shared setup first, then either approach; run both to complete the comparison. The original notebooks remain available at the end of the guide.</p>
-<p><strong>Outputs in this guide:</strong> package/device, saved-data and Flair label-preparation printouts were checked on 27 November 2026. Model-performance excerpts are stored records from the original 2024 notebooks. No new model fitting or predictions were performed for these printouts. <a href="results/README.md">Output sources and stored metrics</a>.</p>
+<p>First, classify Irish policy excerpts as <strong>environmental policy</strong> or <strong>other policy</strong>. Prepare the packages and shared data, follow <strong>Approach A: Flair</strong> and <strong>Approach B: Transformers</strong>, then compare their predictions. Section 6 changes the task: use an existing NLI model to classify stance toward Trump without fitting a new stance classifier.</p>
+<p>The policy-classification blocks form a continuous Python workflow. Run the shared setup first, then either approach; run both to complete their comparison. The <a href="notebooks/Burnham_NLI_demo.ipynb">NLI demonstration</a> also runs independently, so it does not require training either policy model. The two original notebooks remain unchanged and are linked at the end of the guide.</p>
+<p><strong>Outputs in this guide:</strong> package/device, saved-data and Flair label-preparation printouts were checked on 27 November 2026. Supervised policy-model performance excerpts are stored records from the original 2024 notebooks; neither policy model was retrained to prepare them. Section 6 separately reports NLI inference executed on 27 November 2026 without target-task training. <a href="results/README.md">Output sources and stored metrics</a>.</p>
 <section id="before-running" class="level2">
 <h2 class="anchored" data-anchor-id="before-running">1. Packages and environment</h2>
 <section id="install-the-packages-once" class="level3">
@@ -2266,7 +2267,7 @@ div.sourceCode { overflow-x: visible; }
 <p>Use the instructor-prepared Python environment. If you are preparing a fresh environment, install these packages from its terminal:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-m</span> pip install <span class="dt">\</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  torch datasets numpy pandas scikit-learn <span class="dt">\</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  flair transformers accelerate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  flair transformers accelerate sentencepiece</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In a notebook, use <code>%pip</code> in the active kernel instead of running the terminal command in a Python cell. Restart the kernel after installation.</p>
 <table class="caption-top table">
 <colgroup>
@@ -2285,7 +2286,7 @@ div.sourceCode { overflow-x: visible; }
 <tr class="odd">
 <td><code>torch</code></td>
 <td>Tensor operations, model weights and available devices</td>
-<td>Both approaches</td>
+<td>Both policy approaches and NLI</td>
 </tr>
 <tr class="even">
 <td><code>datasets</code></td>
@@ -2299,8 +2300,8 @@ div.sourceCode { overflow-x: visible; }
 </tr>
 <tr class="even">
 <td><code>transformers</code></td>
-<td>DistilBERT tokenizer, classification model and trainer</td>
-<td>Approach B; also a dependency of Flair’s Transformer embeddings</td>
+<td>Tokenizers, pretrained models, training tools and the NLI pipeline</td>
+<td>Approach B and NLI; also used by Flair’s Transformer embeddings</td>
 </tr>
 <tr class="odd">
 <td><code>accelerate</code></td>
@@ -2308,6 +2309,11 @@ div.sourceCode { overflow-x: visible; }
 <td>Approach B</td>
 </tr>
 <tr class="even">
+<td><code>sentencepiece</code></td>
+<td>Tokenizer support for the DeBERTa-v3 NLI checkpoint</td>
+<td>Section 6</td>
+</tr>
+<tr class="odd">
 <td><code>numpy</code>, <code>pandas</code>, <code>scikit-learn</code></td>
 <td>Numerical support, readable tables and evaluation metrics</td>
 <td>Shared inspection and evaluation</td>
@@ -2900,6 +2906,282 @@ Macro-recall: 0.500000</code></pre>
 </ol>
 </section>
 </section>
+<section id="nli-demo" class="level2">
+<h2 class="anchored" data-anchor-id="nli-demo">6. NLI: labels become hypotheses</h2>
+<p><strong>New task:</strong> classify stance toward Trump. The Irish policy classifiers above learned two policy categories; they cannot supply Trump stance labels simply by renaming their outputs. Here, we reuse a model already trained on NLI and make the stance categories part of its input.</p>
+<p>Open <a href="notebooks/Burnham_NLI_demo.ipynb">Burnham_NLI_demo.ipynb</a> for this independent exercise, or run the following cells in a fresh working notebook. The model, template and candidate labels follow <a href="https://github.com/MLBurnham/stance_detection_tutorials/blob/main/Zero-shot_stance_detection.ipynb">Burnham’s official zero-shot tutorial</a>. The three short texts below are constructed classroom examples. This is the tutorial’s <strong>Trump stance task</strong>, not a reproduction of the paper’s COVID-19 analysis.</p>
+<section id="nli-load-model" class="level3">
+<h3 class="anchored" data-anchor-id="nli-load-model">N1. Reuse an existing NLI model</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> pipeline</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>nli_model_id <span class="op">=</span> (</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;MoritzLaurer/&quot;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;DeBERTa-v3-large-mnli-fever-anli-ling-wanli&quot;</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>nli_revision <span class="op">=</span> <span class="st">&quot;b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7&quot;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>nli_classifier <span class="op">=</span> pipeline(</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;zero-shot-classification&quot;</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span>nli_model_id,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    revision<span class="op">=</span>nli_revision,</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    device<span class="op">=-</span><span class="dv">1</span>,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    torch_dtype<span class="op">=</span>torch.float32,</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">1</span>,</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Read beside the code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>model=nli_model_id</code></td>
+<td>Load an existing Transformer trained to recognize NLI relations.</td>
+</tr>
+<tr class="even">
+<td><code>&quot;zero-shot-classification&quot;</code></td>
+<td>Use those relations to compare candidate category statements.</td>
+</tr>
+<tr class="odd">
+<td><code>device=-1</code></td>
+<td>Run this small demonstration on CPU. The first call may download the checkpoint.</td>
+</tr>
+<tr class="even">
+<td><code>revision=nli_revision</code></td>
+<td>Reuse the checkpoint revision recorded for the displayed inference.</td>
+</tr>
+<tr class="odd">
+<td><code>torch_dtype=torch.float32</code></td>
+<td>Use the CPU precision of the executed demonstration.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Read:</strong> there is no <code>Trainer</code>, <code>.train()</code> or target-task fitting here. The model has already learned from NLI data; zero-shot does not mean an untrained model. The large checkpoint can run slowly on CPU. The <a href="https://colab.research.google.com/drive/1YLmI2WMkIVpgeUobgMDVXkjf8JfbRxvW?usp=sharing">author’s Colab</a> provides another way to follow the example with a prepared notebook.</p>
+<p><strong>Check:</strong> which earlier call updated the policy classifier’s weights? Which call here only loads an existing model?</p>
+</section>
+<section id="nli-hypotheses" class="level3">
+<h3 class="anchored" data-anchor-id="nli-hypotheses">N2. Write the categories as full hypotheses</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>nli_labels <span class="op">=</span> [</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;supports&quot;</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;opposes&quot;</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;does not express an opinion about&quot;</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>nli_template <span class="op">=</span> <span class="st">&quot;The author of this tweet </span><span class="sc">{}</span><span class="st"> Trump.&quot;</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>nli_hypotheses <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;candidate&quot;</span>: nli_labels,</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;hypothesis&quot;</span>: [</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        nli_template.<span class="bu">format</span>(label)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> label <span class="kw">in</span> nli_labels</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nli_hypotheses.to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Printed text · hypothesis construction, before model prediction</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Candidate</th>
+<th>Complete hypothesis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>supports</code></td>
+<td>The author of this tweet supports Trump.</td>
+</tr>
+<tr class="even">
+<td><code>opposes</code></td>
+<td>The author of this tweet opposes Trump.</td>
+</tr>
+<tr class="odd">
+<td><code>does not express an opinion about</code></td>
+<td>The author of this tweet does not express an opinion about Trump.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Read:</strong> the template inserts the target, Trump. Each candidate completes a statement. The model will pair the <strong>same text with each complete hypothesis</strong>. These strings are inputs we chose, not results the model generated.</p>
+<p><strong>Check:</strong> what would you change to study stance toward a bill? Why would changing only a displayed label after classification be insufficient?</p>
+</section>
+<section id="nli-predictions" class="level3">
+<h3 class="anchored" data-anchor-id="nli-predictions">N3. Classify three texts and print the comparisons</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>nli_texts <span class="op">=</span> [</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;I support Trump&#39;s policies.&quot;</span>,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;I oppose Trump&#39;s policies.&quot;</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;The committee meets on Tuesday.&quot;</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>nli_examples <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;example&quot;</span>: [<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>],</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;text&quot;</span>: nli_texts,</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;reading_key&quot;</span>: [</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;supports&quot;</span>,</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;opposes&quot;</span>,</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;does not express an opinion about&quot;</span>,</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>nli_results <span class="op">=</span> nli_classifier(</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>    nli_texts,</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    candidate_labels<span class="op">=</span>nli_labels,</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>    hypothesis_template<span class="op">=</span>nli_template,</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    multi_label<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>nli_rows <span class="op">=</span> []</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> example, result <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>    nli_examples.to_dict(<span class="st">&quot;records&quot;</span>), nli_results</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>    scores <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(result[<span class="st">&quot;labels&quot;</span>], result[<span class="st">&quot;scores&quot;</span>]))</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>    nli_rows.append({</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">**</span>example,</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;predicted_stance&quot;</span>: result[<span class="st">&quot;labels&quot;</span>][<span class="dv">0</span>],</span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">**</span>{label: scores[label] <span class="cf">for</span> label <span class="kw">in</span> nli_labels},</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>nli_table <span class="op">=</span> pd.DataFrame(nli_rows)</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(nli_table.to_string(</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>    index<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a>    float_format<span class="op">=</span><span class="kw">lambda</span> value: <span class="ss">f&quot;</span><span class="sc">{</span>value<span class="sc">:.6f}</span><span class="ss">&quot;</span>,</span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Read beside the code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>reading_key</code></td>
+<td>Our intended reading of a constructed example; it is not an annotation from a research corpus.</td>
+</tr>
+<tr class="even">
+<td><code>multi_label=False</code></td>
+<td>Rank the three mutually exclusive candidate stances for each text.</td>
+</tr>
+<tr class="odd">
+<td><code>result[&quot;labels&quot;][0]</code></td>
+<td>The highest-ranked candidate for that text.</td>
+</tr>
+<tr class="even">
+<td><code>scores[label]</code></td>
+<td>Keep each candidate’s score attached to its name, even when the ranking changes.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Printed result · executed NLI demonstration · 27 November 2026</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 22%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Text</th>
+<th style="text-align: right;">Supports</th>
+<th style="text-align: right;">Opposes</th>
+<th style="text-align: right;">No expressed opinion</th>
+<th>Highest-ranked stance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A: I support Trump’s policies.</td>
+<td style="text-align: right;"><strong>0.991822</strong></td>
+<td style="text-align: right;">0.004377</td>
+<td style="text-align: right;">0.003801</td>
+<td>supports</td>
+</tr>
+<tr class="even">
+<td>B: I oppose Trump’s policies.</td>
+<td style="text-align: right;">0.008588</td>
+<td style="text-align: right;"><strong>0.984321</strong></td>
+<td style="text-align: right;">0.007091</td>
+<td>opposes</td>
+</tr>
+<tr class="odd">
+<td>C: The committee meets on Tuesday.</td>
+<td style="text-align: right;">0.206294</td>
+<td style="text-align: right;">0.196707</td>
+<td style="text-align: right;"><strong>0.597000</strong></td>
+<td>does not express an opinion about</td>
+</tr>
+</tbody>
+</table>
+<p><a href="results/burnham-nli-demo.txt">Download the complete executed printout</a>. This inference used the exact checkpoint revision above on CPU with float32, PyTorch 2.2.2 and Transformers 4.54.0. It did not update model parameters. The table’s shorter “No expressed opinion” heading refers to the full candidate statement printed in N2. Your scores may vary slightly with the environment.</p>
+<p><strong>Read A, then B, then C:</strong> the first two explicitly support or oppose Trump’s policies. Text C states a meeting time without expressing a stance toward Trump. Its highest-ranked candidate agrees with that reading, but its score is only about <code>.597</code>; the other candidates still receive about <code>.206</code> and <code>.197</code>. Read all three scores instead of treating the winning label as certainty. Three constructed examples do not establish research accuracy.</p>
+<p><strong>Read the scores carefully:</strong> with <code>multi_label=False</code>, this pipeline normalizes the candidates’ entailment logits across the candidate set. The three displayed scores are therefore <strong>stance-candidate scores</strong>, not the model’s complete entailment/neutral/contradiction distribution and not classification accuracy. Changing the candidates can change these scores. The explicit “does not express an opinion” stance is also different from NLI <code>neutral</code>, which means that a particular hypothesis is unresolved by its paired text.</p>
+<p><strong>Check:</strong> can you explain the top label using the text? If the highest score looks confident but the text does not support that stance, what should you inspect next?</p>
+</section>
+<section id="nli-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="nli-interpretation">N4. Compare how the research labels enter the model</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Question</th>
+<th>Earlier supervised classification</th>
+<th>This zero-shot NLI demonstration</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>What is the input?</td>
+<td>A policy excerpt.</td>
+<td>A text paired with each complete stance hypothesis.</td>
+</tr>
+<tr class="even">
+<td>Where do research categories enter?</td>
+<td>Human policy labels train a task-specific classifier.</td>
+<td>Category meanings are written into candidate hypotheses.</td>
+</tr>
+<tr class="odd">
+<td>What can the model return?</td>
+<td>The policy categories its task head learned.</td>
+<td>NLI relation evidence, which the pipeline uses to rank our stance candidates.</td>
+</tr>
+<tr class="even">
+<td>Does this exercise update weights?</td>
+<td>Yes, when the training call runs.</td>
+<td>No; it reuses the existing NLI checkpoint.</td>
+</tr>
+<tr class="odd">
+<td>What still needs validation?</td>
+<td>Predictions on held-out labeled texts.</td>
+<td>The hypotheses and decision rule on target-task human labels.</td>
+</tr>
+</tbody>
+</table>
+<p>Both approaches use <strong>Transformers</strong>. The difference here is the input and how the research labels enter the workflow. NLI models can also be fine-tuned; this particular exercise uses one without target-task parameter updates.</p>
+<p><strong>Submit:</strong> the three-text comparison table and a short explanation of one prediction. Then propose one alternative hypothesis wording and describe how you would test its effect on separately human-coded target texts. These three classroom examples do not establish an accuracy estimate.</p>
+<p><strong>Exit questions</strong></p>
+<ol type="1">
+<li>Why is the hypothesis part of the NLI model’s input?</li>
+<li>Why cannot the environmental-policy classifier’s labels simply be renamed as Trump stances?</li>
+<li>How does the explicit “does not express an opinion” candidate differ from NLI <code>neutral</code>?</li>
+<li>What evidence would you need before applying this stance measure to a research corpus?</li>
+</ol>
+</section>
+</section>
 <section id="notebook-lab" class="level2">
 <h2 class="anchored" data-anchor-id="notebook-lab">Original notebooks and sources</h2>
 <table class="caption-top table">
@@ -2940,7 +3222,7 @@ Macro-recall: 0.500000</code></pre>
 <li>The original save path is <code>qta_hf_python_model</code>, but a later reload cell says <code>qta_toy_model</code>. The guide consistently reuses <code>model_save_path</code>.</li>
 <li>A movie-review example in the original file is replaced here by a policy sentence; this classifier predicts policy categories.</li>
 </ul>
-<p>The guide’s code has not been used to generate new model results during material preparation. Original stored outputs are historical records, not expected scores for a fresh run.</p>
+<p>The supervised training code in this guide was not used to regenerate those policy-model results. Original stored outputs remain historical records, not expected scores for a fresh run. The separate NLI exercise loads an existing checkpoint and produces inference outputs without retraining either policy classifier.</p>
 </div>
 </div>
 </div>
@@ -2953,6 +3235,9 @@ Macro-recall: 0.500000</code></pre>
 <li><a href="https://huggingface.co/docs/transformers/main/en/tasks/sequence_classification">Transformers: text classification</a>.</li>
 <li><a href="https://huggingface.co/docs/transformers/main/en/main_classes/trainer">Transformers: Trainer and TrainingArguments</a>.</li>
 <li><a href="https://huggingface.co/docs/datasets/en/package_reference/main_classes#datasets.load_from_disk">Datasets: save and load datasets</a>.</li>
+<li><a href="https://github.com/MLBurnham/stance_detection_tutorials/blob/main/Zero-shot_stance_detection.ipynb">Burnham: official zero-shot stance notebook</a>.</li>
+<li><a href="https://huggingface.co/MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli">Hugging Face: DeBERTa-v3-large NLI model card</a>.</li>
+<li><a href="https://huggingface.co/docs/transformers/en/main_classes/pipelines#transformers.ZeroShotClassificationPipeline">Transformers: ZeroShotClassificationPipeline</a>.</li>
 </ul>
 </section>
 

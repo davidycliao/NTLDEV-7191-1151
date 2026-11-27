@@ -25,3 +25,11 @@ These reports were extracted from the original notebooks without retraining:
 The model reports describe the original runs, rather than the revised guide's code. The original Transformers file stores no per-class report or row-level test predictions; generate these in your own run. Its later prediction uses `qta_toy_model` with inconsistent saved-path records, so it is not attached to the earlier test report.
 
 The two approaches use different encoders and training settings. Their scores do not isolate a software-library effect. A zero-based cell position is different from its saved execution counter.
+
+## Executed NLI demonstration · 27 November 2026
+
+[burnham-nli-demo.txt](burnham-nli-demo.txt) records new inference on three constructed teaching texts, using the existing `MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli` checkpoint at revision `b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7`. The run used CPU float32, PyTorch 2.2.2, Transformers 4.54.0 and SentencePiece 0.1.99. No weights were updated.
+
+The model, template and candidates follow [Burnham's official Trump-stance tutorial](https://github.com/MLBurnham/stance_detection_tutorials/blob/main/Zero-shot_stance_detection.ipynb); the three short inputs were written for this class. The [NLI notebook](../notebooks/Burnham_NLI_demo.ipynb) and [guide](../Lab_Session_W10.html#nli-demo) show the matching code. This is separate from the policy-classifier records above and the paper's COVID-19 replication.
+
+With `multi_label=False`, the pipeline normalizes entailment logits across the candidate hypotheses. These are stance-candidate scores, not accuracy or the full three-relation NLI distribution. Text C's top score is only .5970; inspect the alternatives and validate any review rule on human-labeled target texts. Three constructed examples do not establish research performance.

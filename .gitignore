@@ -63,6 +63,7 @@ W10/**
 !W10/lab/notebooks/DATA.md
 !W10/lab/notebooks/2024_qta_lab_week_12_flair.ipynb
 !W10/lab/notebooks/2024_qta_lab_week_12_transformer.ipynb
+!W10/lab/notebooks/Burnham_NLI_demo.ipynb
 !W10/lab/notebooks/irish_environmental_policies/
 !W10/lab/notebooks/irish_environmental_policies/dataset_dict.json
 !W10/lab/notebooks/irish_environmental_policies/train/
@@ -85,5 +86,6 @@ W10/**
 !W10/lab/results/flair-preparation.txt
 !W10/lab/results/flair-2024-report.txt
 !W10/lab/results/transformers-2024-report.txt
+!W10/lab/results/burnham-nli-demo.txt
 W4/classroom/udpipe_models/
 W6/instructor/

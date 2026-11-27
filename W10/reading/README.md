@@ -26,4 +26,4 @@ After the [Lab divider](../slide/week10.html#/lab-transition), use the [English 
 - [2024_qta_lab_week_12_flair.ipynb](../lab/notebooks/2024_qta_lab_week_12_flair.ipynb)
 - [2024_qta_lab_week_12_transformer.ipynb](../lab/notebooks/2024_qta_lab_week_12_transformer.ipynb)
 
-The single English handout starts with packages and shared data, then integrates both Irish environmental-policy classification approaches. Detailed Lab slides follow **Read class-specific performance**, with code on the left and explanations on the right. These data are separate from the article corpora.
+The single English handout starts with packages and shared data, then integrates both Irish environmental-policy classification approaches. Detailed Lab slides follow **Read class-specific performance**, with code on the left and explanations on the right. A final [NLI exercise](../lab/Lab_Session_W10.html#nli-demo) adapts Burnham's official Trump-stance tutorial using three constructed texts. It reuses an existing model without target-task fitting. These teaching data are separate from the article corpora and the paper's COVID-19 replication.

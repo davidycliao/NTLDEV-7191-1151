@@ -1,0 +1,28 @@
+Executed teaching demonstration · 27 November 2026
+Constructed texts, not the paper's COVID-19 replication or a research benchmark.
+Model: MoritzLaurer/DeBERTa-v3-large-mnli-fever-anli-ling-wanli
+Revision: b3546ea6b0346eb6f8d5d68b13c7dc6d0376b3d7
+Device: cpu; no target-task fine-tuning
+Template: The author of this tweet {} Trump.
+multi_label=False; candidate stance scores, not the three NLI relation scores.
+
+Text A: I support Trump's policies.
+Teaching reading: supports
+Predicted: supports
+  supports: 0.991822
+  opposes: 0.004377
+  does not express an opinion about: 0.003801
+
+Text B: I oppose Trump's policies.
+Teaching reading: opposes
+Predicted: opposes
+  supports: 0.008588
+  opposes: 0.984321
+  does not express an opinion about: 0.007091
+
+Text C: The committee meets on Tuesday.
+Teaching reading: does not express an opinion about
+Predicted: does not express an opinion about
+  supports: 0.206294
+  opposes: 0.196707
+  does not express an opinion about: 0.597000
