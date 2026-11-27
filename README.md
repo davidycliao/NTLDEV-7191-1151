@@ -30,7 +30,7 @@
 
 8. **Call for Papers: [9th International COMPTEXT Conference (Prague)](https://www.comptextconference.org/9th-annual-conference-2027/).** **Submission deadline: December 15, 2026.** The conference takes place May 27–29, 2027, at the Faculty of Social Sciences, Charles University. Acceptance notifications will be sent by January 20, 2027.
 
-9. **Poster preparation guide: [How to Make a Poster](https://yhoriuchi.github.io/academic-poster-guide/)** by **Yusaku Horiuchi**. Please read this guide when preparing your poster draft for the **Week 14 workshop** and **Week 15 presentations**. It covers the main message, layout, readable figures and tables, final PDF checks, and a short spoken explanation. You can also use its advice on presenting a pre-analysis plan if your results are not yet available.
+9. **Poster format guidelines: [How to Make a Poster](https://yhoriuchi.github.io/academic-poster-guide/)** by **Yusaku Horiuchi**. Please read this guide when preparing your poster draft for the **Week 14 workshop** and **Week 15 presentations**. It covers the main message, layout, readable figures and tables, final PDF checks, and a short spoken explanation. You can also use its advice on presenting a pre-analysis plan if your results are not yet available.
 
 Use **HTML** to view slides in your browser, **PDF** for a downloadable copy, and **Source ZIP** for editable slide files.
 
