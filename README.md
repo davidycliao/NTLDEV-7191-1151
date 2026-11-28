@@ -12,7 +12,7 @@
 
 ## Announcements
 
-*Last updated November 27, 2026 (Taipei).*
+*Last updated November 28, 2026 (Taipei).*
 
 1. ~~**Call for Proposals: 14th Annual Meeting of Asian Political Methodology.** **Submission deadline: October 9, 2026.**~~
 
@@ -22,7 +22,7 @@
 
 4. ~~**Call for Abstracts: IPSA World Congress of Political Science 2027 (Rome), panel “[Special Interest Influence and the Quality of Democratic Representation](https://wc2027.ipsa.org/wc/panel/special-interest-influence-and-quality-democratic-representation).”** **The abstract deadline has been extended to November 11, 2026.** The panel welcomes theoretical, empirical, and comparative research from different approaches and areas. [IPSA submission instructions](https://wc2027.ipsa.org/wc/submit-paper).~~
 
-5. **Call for Papers: [EPSS 2027 Conference (Copenhagen)](https://epssnet.org/2027-copenhagen/call-for-papers-2/).** **Submission deadline: November 13, 2026, 23:59 CET** (November 14, 2026, 06:59 Taipei time).
+5. ~~**Call for Papers: [EPSS 2027 Conference (Copenhagen)](https://epssnet.org/2027-copenhagen/call-for-papers-2/).** **Submission deadline: November 13, 2026, 23:59 CET** (November 14, 2026, 06:59 Taipei time).~~
 
 6. **Call for Papers: [22nd TASPAA Annual Conference (2027)](https://www.taspaa.org/news_info.aspx?ID=258).** **Abstract and panel proposal deadline: December 1, 2026.** Conference: May 14–15, 2027, at National Taipei University, Sanxia Campus.
 
@@ -30,14 +30,13 @@
 
 8. **Call for Papers: [9th International COMPTEXT Conference (Prague)](https://www.comptextconference.org/9th-annual-conference-2027/).** **Submission deadline: December 15, 2026.** The conference takes place May 27–29, 2027, at the Faculty of Social Sciences, Charles University. Acceptance notifications will be sent by January 20, 2027.
 
-9. **Poster format guidelines: [How to Make a Poster](https://yhoriuchi.github.io/academic-poster-guide/)** by **Yusaku Horiuchi**. Please read this guide when preparing your poster draft for the **Week 14 workshop** and **Week 15 presentations**. It covers the main message, layout, readable figures and tables, final PDF checks, and a short spoken explanation. You can also use its advice on presenting a pre-analysis plan if your results are not yet available.
-
 Use **HTML** to view slides in your browser, **PDF** for a downloadable copy, and **Source ZIP** for editable slide files.
 
 If the HTML link shows an external-content notice, select **Open the page** to view the slides.
 
 ## Resources
 
+- **Poster format guide:** [How to Make a Poster](https://yhoriuchi.github.io/academic-poster-guide/) by Yusaku Horiuchi. For the Week 14 workshop and Week 15 presentations.
 - [Course syllabus (PDF)](https://raw.githack.com/davidycliao/NTLDEV-7191-1151/main/NTLDEV_7191_1151.pdf)
 - **Git & GitHub guide for Mac users:** [Git 與 GitHub 新手實戰完全手冊 / Git & GitHub Practical Guide (PDF)](Ｗ1/resource/git-github-mac-guide.pdf). 感謝 **貴評（國發3）** 提供！
 - [同學自製互動自學講義 / Student-created interactive study notes](https://fdexpert.github.io/NTLDEV-7191/) · [English](https://fdexpert.github.io/NTLDEV-7191/index.en.html) · [GitHub](https://github.com/fdexpert/NTLDEV-7191/tree/gh-pages). 感謝 **台大商學博士生 鄭志偉 Jerry** 分享！
@@ -64,8 +63,6 @@ If the HTML link shows an external-content notice, select **Open the page** to v
 | Week 14 | Dec 11 |  |  |
 | Week 15 | Dec 18 |  |  |
 | Week 16 | Dec 25 | **Constitution Day Holiday** |  |
-
-**Week 10 materials updated: November 27, 2026.** The Lab starts with packages, shared data and the two supervised notebook approaches, then adds an NLI stance demonstration. Printed outputs distinguish preparation checks, saved 2024 training records and the new NLI inference.
 
 ## Course Schedule
 
