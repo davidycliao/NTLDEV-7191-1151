@@ -104,9 +104,7 @@ Uses four political-science cases to study party positions, semantic change, nos
 
 ### Week 10: Transformers: Concepts, Classification and NLI
 
-Introduces Transformer architecture, from tokens and self-attention to pretraining and fine-tuning. Three classification cases show how text labels become research evidence, including *Sentiment is Not Stance*. A separate section introduces natural language inference (NLI) and stance-detection applications in *Political Analysis* and *Political Science Research and Methods*.
-
-The English Lab first integrates the supplied Flair and Hugging Face Transformers notebooks on the same Irish policy excerpts and existing data splits. A separate NLI exercise adapts Burnham's official stance tutorial, pairing short texts with complete hypotheses without target-task fine-tuning. Students follow code and explanations, read outputs, and compare the inputs and training required by the two setups. Historical 2024 supervised-model scores, preparation checks and new NLI predictions are clearly separated.
+Introduces Transformer architecture, classification, and NLI through political science applications. The lab uses Flair and Hugging Face Transformers to compare supervised fine-tuning, zero-shot stance detection, printed outputs, and model evaluation.
 
 ### Week 11: NTU Sports Day (No Class)
 
